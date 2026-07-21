@@ -20,9 +20,7 @@ export const metadata: Metadata = {
     title: site.name,
     description:
       "מגיע לכם לדעת מה מגיע לכם. בדיקת זכאות חינם — שכר טרחה רק בהצלחה.",
-    images: [{ url: "/images/og/og-home.png", width: 1200, height: 630 }],
   },
-  icons: { icon: "/favicon.ico" },
 };
 
 export const viewport: Viewport = {

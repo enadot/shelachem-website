@@ -33,6 +33,8 @@ export interface LeadFormProps {
   sourcePage: string;
   /** Show the two consent checkboxes (hero form). Default true for data consent only. */
   withMarketingConsent?: boolean;
+  /** "hero" lays the fields out in the hero-card grid (name+phone row, email+submit row). */
+  layout?: "stacked" | "hero";
   className?: string;
 }
 
@@ -44,6 +46,7 @@ export function LeadForm({
   topicLabel = "בחרו נושא",
   sourcePage,
   withMarketingConsent = true,
+  layout = "stacked",
   className,
 }: LeadFormProps) {
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
@@ -116,55 +119,82 @@ export function LeadForm({
     );
   }
 
+  const errorClass = cn("m-0 mt-1 text-[13px]", dark ? "text-red-200" : "text-accent-text");
+
+  const nameField = (
+    <div>
+      <input
+        {...register("full_name")}
+        aria-label="שם מלא (שדה חובה)"
+        placeholder="*שם מלא"
+        autoComplete="name"
+        className={inputClass}
+        aria-invalid={Boolean(errors.full_name)}
+      />
+      {errors.full_name && <p className={errorClass}>{errors.full_name.message}</p>}
+    </div>
+  );
+  const phoneField = (
+    <div>
+      <input
+        {...register("phone")}
+        aria-label="טלפון (שדה חובה)"
+        placeholder="*טלפון"
+        type="tel"
+        autoComplete="tel"
+        className={cn(inputClass, "tnum")}
+        aria-invalid={Boolean(errors.phone)}
+      />
+      {errors.phone && <p className={errorClass}>{errors.phone.message}</p>}
+    </div>
+  );
+  const emailField = (
+    <div>
+      <input
+        {...register("email")}
+        aria-label="דוא״ל (אופציונלי)"
+        placeholder="דואר אלקטרוני"
+        type="email"
+        autoComplete="email"
+        className={inputClass}
+        aria-invalid={Boolean(errors.email)}
+      />
+      {errors.email && <p className={errorClass}>{errors.email.message}</p>}
+    </div>
+  );
+  const submitButton = (
+    <button
+      type="submit"
+      disabled={status === "sending"}
+      className={cn(
+        "pill focus-brand min-h-[50px] cursor-pointer border-none bg-accent px-7 py-3 text-[17px] font-bold text-white transition-colors hover:bg-accent-hover disabled:opacity-60",
+        layout === "hero" ? "w-full sm:w-auto" : "w-full",
+      )}
+    >
+      {status === "sending" ? "שולחים…" : submitLabel}
+    </button>
+  );
+
   return (
     <form onSubmit={onSubmit} noValidate className={cn("flex flex-col gap-3", className)}>
-      <div>
-        <input
-          {...register("full_name")}
-          aria-label="שם מלא (שדה חובה)"
-          placeholder="*שם מלא"
-          autoComplete="name"
-          className={inputClass}
-          aria-invalid={Boolean(errors.full_name)}
-        />
-        {errors.full_name && (
-          <p className={cn("m-0 mt-1 text-[13px]", dark ? "text-red-200" : "text-accent-text")}>
-            {errors.full_name.message}
-          </p>
-        )}
-      </div>
-      <div>
-        <input
-          {...register("phone")}
-          aria-label="טלפון (שדה חובה)"
-          placeholder="*טלפון"
-          type="tel"
-          autoComplete="tel"
-          className={cn(inputClass, "tnum")}
-          aria-invalid={Boolean(errors.phone)}
-        />
-        {errors.phone && (
-          <p className={cn("m-0 mt-1 text-[13px]", dark ? "text-red-200" : "text-accent-text")}>
-            {errors.phone.message}
-          </p>
-        )}
-      </div>
-      <div>
-        <input
-          {...register("email")}
-          aria-label="דוא״ל (אופציונלי)"
-          placeholder="דואר אלקטרוני"
-          type="email"
-          autoComplete="email"
-          className={inputClass}
-          aria-invalid={Boolean(errors.email)}
-        />
-        {errors.email && (
-          <p className={cn("m-0 mt-1 text-[13px]", dark ? "text-red-200" : "text-accent-text")}>
-            {errors.email.message}
-          </p>
-        )}
-      </div>
+      {layout === "hero" ? (
+        <>
+          <div className="grid gap-3 sm:grid-cols-2">
+            {nameField}
+            {phoneField}
+          </div>
+          <div className="grid gap-3 sm:grid-cols-[1fr_auto]">
+            {emailField}
+            {submitButton}
+          </div>
+        </>
+      ) : (
+        <>
+          {nameField}
+          {phoneField}
+          {emailField}
+        </>
+      )}
       {topicOptions && topicOptions.length > 0 && (
         <select
           {...register("topic")}
@@ -226,13 +256,7 @@ export function LeadForm({
         </label>
       )}
 
-      <button
-        type="submit"
-        disabled={status === "sending"}
-        className="pill focus-brand min-h-[50px] w-full cursor-pointer border-none bg-accent px-7 py-3 text-[17px] font-bold text-white transition-colors hover:bg-accent-hover disabled:opacity-60"
-      >
-        {status === "sending" ? "שולחים…" : submitLabel}
-      </button>
+      {layout !== "hero" && submitButton}
       {status === "error" && (
         <p className={cn("m-0 text-center text-[13px]", dark ? "text-red-200" : "text-accent-text")} role="alert">
           משהו השתבש בשליחה. נסו שוב או התקשרו אלינו.
