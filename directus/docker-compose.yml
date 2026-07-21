@@ -1,0 +1,26 @@
+# Directus self-hosted (Hostinger VPS) — CMS לאתר שלכם.
+# הפעלה: צרו .env לפי .env.example ואז `docker compose up -d`.
+services:
+  directus:
+    image: directus/directus:11
+    restart: unless-stopped
+    ports:
+      - "8055:8055"
+    volumes:
+      - directus_uploads:/directus/uploads
+      - directus_database:/directus/database
+    environment:
+      SECRET: ${DIRECTUS_SECRET:?set DIRECTUS_SECRET in .env}
+      ADMIN_EMAIL: ${DIRECTUS_ADMIN_EMAIL:?set DIRECTUS_ADMIN_EMAIL in .env}
+      ADMIN_PASSWORD: ${DIRECTUS_ADMIN_PASSWORD:?set DIRECTUS_ADMIN_PASSWORD in .env}
+      # SQLite מספיק להיקף התוכן של האתר; ניתן להחליף ל-Postgres בהמשך.
+      DB_CLIENT: sqlite3
+      DB_FILENAME: /directus/database/data.db
+      PUBLIC_URL: ${DIRECTUS_PUBLIC_URL:-http://localhost:8055}
+      CORS_ENABLED: "true"
+      CORS_ORIGIN: ${SITE_ORIGIN:-https://www.shelachem.co.il}
+      WEBSOCKETS_ENABLED: "false"
+
+volumes:
+  directus_uploads:
+  directus_database:
