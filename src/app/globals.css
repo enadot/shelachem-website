@@ -1,26 +1,200 @@
 @import "tailwindcss";
 
+@theme {
+  /* Brand palette (from the design system) */
+  --color-brand: #0000ff;
+  --color-brand-hover: #0000c9;
+  --color-brand-deep: #122680;
+  --color-ink: #0d253d;
+  --color-ink-secondary: #273951;
+  --color-ink-muted: #4a5b74;
+  --color-ink-faint: #64748d;
+  --color-surface: #f6f9fc;
+  --color-surface-blue: #eef0ff;
+  --color-hairline: #e3e8ee;
+  --color-hairline-soft: #eef1f6;
+  --color-accent: #f0514f;
+  --color-accent-hover: #d94341;
+  --color-accent-tint: #fdf2f2;
+  --color-accent-tint-strong: #fde3e2;
+  --color-accent-text: #c93330;
+
+  --font-display: "RaananPro", "SimplerPro", system-ui, sans-serif;
+  --font-body: "SimplerPro", system-ui, sans-serif;
+
+  --radius-card: 18px;
+
+  --animate-ping-slow: ping-slow 2.2s cubic-bezier(0, 0, 0.2, 1) infinite;
+  --animate-glow-pulse: glow-pulse 7s ease-in-out infinite alternate;
+
+  @keyframes ping-slow {
+    75%,
+    100% {
+      transform: scale(2.2);
+      opacity: 0;
+    }
+  }
+  @keyframes glow-pulse {
+    from {
+      transform: scale(1);
+      opacity: 0.45;
+    }
+    to {
+      transform: scale(1.15);
+      opacity: 0.7;
+    }
+  }
+}
+
+/* RaananPro — display/headings */
+@font-face {
+  font-family: "RaananPro";
+  src: url("/fonts/RaananPro-Light.woff2") format("woff2");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "RaananPro";
+  src: url("/fonts/RaananPro-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "RaananPro";
+  src: url("/fonts/RaananPro-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "RaananPro";
+  src: url("/fonts/RaananPro-Black.woff2") format("woff2");
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* SimplerPro — body/UI */
+@font-face {
+  font-family: "SimplerPro";
+  src: url("/fonts/SimplerPro-Light.woff2") format("woff2");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "SimplerPro";
+  src: url("/fonts/SimplerPro-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "SimplerPro";
+  src: url("/fonts/SimplerPro-Semibold.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "SimplerPro";
+  src: url("/fonts/SimplerPro-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "SimplerPro";
+  src: url("/fonts/SimplerPro-Black.woff2") format("woff2");
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --foreground: var(--color-ink);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  font-weight: 300;
+  color: var(--color-ink);
+}
+
+/* Signature heading treatment: bold keyword with a thick coral underline */
+.keyword-underline {
+  font-weight: 900;
+  border-bottom: 6px solid var(--color-accent);
+  line-height: 1;
+}
+@media (max-width: 767px) {
+  .keyword-underline {
+    border-bottom-width: 4px;
+  }
+}
+
+.tnum {
+  font-feature-settings: "tnum";
+}
+
+/* Focus ring — blue, per brand */
+:focus-visible {
+  outline: 2px solid var(--color-brand);
+  outline-offset: 2px;
+}
+
+/* Hide scrollbars on swipe carousels */
+.no-scrollbar {
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* FAQ accordion: rotate the plus icon when open */
+details[open] .faq-plus {
+  transform: rotate(45deg);
+}
+details summary::-webkit-details-marker {
+  display: none;
+}
+details[open] .faq-answer {
+  animation: faq-fade 0.35s ease;
+}
+@keyframes faq-fade {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+input[type="range"] {
+  accent-color: var(--color-brand);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
