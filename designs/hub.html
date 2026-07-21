@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<title>שלכם — מוסדות ובירוקרטיה</title>
+<style>
+@font-face { font-family: 'SimplerPro'; src: url('fonts/SimplerPro-Light.woff2') format('woff2'); font-weight: 300; font-display: swap; }
+@font-face { font-family: 'SimplerPro'; src: url('fonts/SimplerPro-Regular.woff2') format('woff2'); font-weight: 400; font-display: swap; }
+@font-face { font-family: 'SimplerPro'; src: url('fonts/SimplerPro-Semibold.woff2') format('woff2'); font-weight: 600; font-display: swap; }
+@font-face { font-family: 'SimplerPro'; src: url('fonts/SimplerPro-Bold.woff2') format('woff2'); font-weight: 700; font-display: swap; }
+@font-face { font-family: 'SimplerPro'; src: url('fonts/SimplerPro-Black.woff2') format('woff2'); font-weight: 900; font-display: swap; }
+@font-face { font-family: 'RaananPro'; src: url('fonts/RaananPro-Light.woff2') format('woff2'); font-weight: 300; font-display: swap; }
+@font-face { font-family: 'RaananPro'; src: url('fonts/RaananPro-Regular.woff2') format('woff2'); font-weight: 400; font-display: swap; }
+@font-face { font-family: 'RaananPro'; src: url('fonts/RaananPro-Bold.woff2') format('woff2'); font-weight: 700; font-display: swap; }
+@font-face { font-family: 'RaananPro'; src: url('fonts/RaananPro-Black.woff2') format('woff2'); font-weight: 900; font-display: swap; }
+body { margin: 0; background: #e7eaf2; }
+a { color: #0000FF; }
+a:hover { color: #0000c9; }
+</style>
+</helmet>
+
+<section style="font-family:'SimplerPro',system-ui,sans-serif; color:#0d253d; padding:48px 56px 96px; display:flex; flex-direction:column; gap:28px;">
+  <div style="display:flex; flex-direction:column; gap:6px;">
+    <div style="font-size:26px; font-weight:700;">עמוד אינדקס — מוסדות ובירוקרטיה</div>
+    <div style="font-size:16px; color:#4a5b74;">רשת כרטיסיות מוסדות · קישורים ישירים לעמודי שירות · טופס יצירת קשר מרכזי</div>
+  </div>
+
+  <div id="1a" style="display:flex; gap:32px; align-items:flex-start; flex-wrap:wrap;">
+
+    <!-- ============ DESKTOP ============ -->
+    <div data-screen-label="מוסדות דסקטופ" dir="rtl" style="width:1440px; flex-shrink:0; background:#ffffff; border-radius:8px; overflow:hidden; box-shadow:rgba(13,37,61,0.16) 0 24px 64px;">
+
+      <!-- nav -->
+      <nav style="display:flex; align-items:center; gap:28px; padding:14px 48px; background:#ffffff; border-bottom:1px solid #e3e8ee;">
+        <img src="assets/logo.svg" alt="שלכם" style="height:46px; width:auto;">
+        <div style="display:flex; align-items:center; gap:28px; font-size:16px; color:#273951;">
+          <a href="#1a" style="color:#273951; text-decoration:none;">בית</a>
+          <a href="#1a" style="color:#273951; text-decoration:none;">הסיפור שלנו</a>
+          <a href="#1a" style="color:#0d253d; text-decoration:none; font-weight:700; border-bottom:3px solid #F0514F; padding-bottom:3px;">תחומי פעילות</a>
+          <a href="#1a" style="color:#273951; text-decoration:none;">איך זה עובד</a>
+          <a href="#1a" style="color:#273951; text-decoration:none;">מגזין</a>
+        </div>
+        <div style="margin-inline-start:auto; display:flex; align-items:center; gap:14px;">
+          <div style="display:flex; align-items:center; gap:8px; background:#f2f5f9; border:1px solid #e3e8ee; border-radius:9999px; padding:9px 16px; width:220px;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" stroke="#64748d" stroke-width="2"></circle><line x1="15.5" y1="15.5" x2="20.5" y2="20.5" stroke="#64748d" stroke-width="2" stroke-linecap="round"></line></svg>
+            <input aria-label="חיפוש זכות או מוסד" placeholder="חפשו זכות, מחלה, קצבה…" style="font-family:inherit; font-size:15px; color:#0d253d; background:none; border:none; outline:none; width:100%;">
+          </div>
+          <a href="tel:076-8017778" style="display:flex; align-items:center; gap:9px; color:#0d253d; text-decoration:none; font-size:16px; font-weight:700; font-feature-settings:'tnum';">
+            <span style="width:38px; height:38px; border-radius:9999px; background:#F0514F; color:#fff; display:flex; align-items:center; justify-content:center;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6.5 3.5h3l1.5 4.5-2 1.5a13 13 0 0 0 5.5 5.5l1.5-2 4.5 1.5v3a2 2 0 0 1-2.2 2A17.5 17.5 0 0 1 4.5 5.7 2 2 0 0 1 6.5 3.5Z" fill="currentColor"></path></svg></span>
+            076-8017778
+          </a>
+          <button onClick="{{ noop }}" style="font-family:inherit; color:#fff; border:none; cursor:pointer; font-size:16px; font-weight:700; padding:11px 24px; border-radius:9999px; background-color:#0000FF;" style-hover="background:#0000c9;">דברו איתנו</button>
+        </div>
+      </nav>
+
+      <!-- hub header -->
+      <div style="padding:26px 48px 0;">
+        <div style="font-size:14px; color:#64748d; display:flex; align-items:center; gap:8px;">
+          <a href="#1a" style="color:#64748d; text-decoration:none;">בית</a><span>‹</span>
+          <span style="color:#0d253d; font-weight:700;">מוסדות ובירוקרטיה</span>
+        </div>
+        <div style="padding:24px 0 8px; max-width:820px;">
+          <h1 style="font-family:'RaananPro','SimplerPro',sans-serif; margin:0 0 12px; font-size:52px; line-height:1.1; font-weight:300; letter-spacing:-0.5px;">מוסדות <span style="font-weight:900; border-bottom:7px solid #F0514F;">ובירוקרטיה</span></h1>
+          <p style="margin:0; font-size:19px; line-height:1.6; color:#273951;">כל זכות רפואית עוברת דרך מוסד אחר — ולכל מוסד יש טפסים, ועדות ולוחות זמנים משלו. בחרו את המוסד הרלוונטי, ואנחנו נלווה אתכם בכל הדרך הבירוקרטית — עד הכסף בחשבון.</p>
+        </div>
+      </div>
+
+      <!-- institutions grid -->
+      <div data-comment-anchor="hub-grid" style="display:grid; grid-template-columns:1fr 1fr; gap:22px; padding:26px 48px 10px;">
+        <sc-for list="{{ institutions }}" as="inst" hint-placeholder-count="4">
+          <a href="{{ inst.href }}" style="display:flex; flex-direction:column; gap:16px; background:#ffffff; border:1px solid #e3e8ee; border-radius:18px; padding:30px 32px; text-decoration:none; color:#0d253d;" style-hover="box-shadow:rgba(13,37,61,0.14) 0 16px 44px; border-color:#cbd5e1;">
+            <div style="display:flex; align-items:center; gap:18px;">
+              <span style="width:70px; height:70px; flex-shrink:0; border-radius:20px; background:{{ inst.iconBg }}; display:flex; align-items:center; justify-content:center;">{{ inst.icon }}</span>
+              <div>
+                <div style="font-family:'RaananPro','SimplerPro',sans-serif; font-size:28px; font-weight:700; line-height:1.15;">{{ inst.name }}</div>
+                <div style="font-size:15px; color:#64748d; margin-top:4px;">{{ inst.tagline }}</div>
+              </div>
+            </div>
+            <p style="margin:0; font-size:16px; line-height:1.6; color:#273951;">{{ inst.desc }}</p>
+            <div style="display:flex; flex-wrap:wrap; gap:8px;">
+              <sc-for list="{{ inst.services }}" as="srv" hint-placeholder-count="3">
+                <span style="font-size:14px; color:#273951; background:#f2f5f9; border:1px solid #e3e8ee; padding:6px 14px; border-radius:9999px;">{{ srv }}</span>
+              </sc-for>
+            </div>
+            <span style="display:flex; align-items:center; gap:8px; color:#0000FF; font-size:16px; font-weight:700; margin-top:auto;">לעמוד המוסד ←</span>
+          </a>
+        </sc-for>
+      </div>
+
+      <!-- reassurance strip -->
+      <div style="display:flex; align-items:center; justify-content:center; gap:44px; padding:26px 48px; font-size:16px; color:#273951;">
+        <div style="display:flex; align-items:center; gap:10px;"><b style="font-size:24px; color:#0000FF; font-feature-settings:'tnum';">13</b>שנות ניסיון מול המוסדות</div>
+        <span style="width:1px; height:26px; background:#e3e8ee;"></span>
+        <div style="display:flex; align-items:center; gap:10px;"><b style="font-size:24px; color:#0000FF; font-feature-settings:'tnum';">10,059</b>לקוחות שליווינו</div>
+        <span style="width:1px; height:26px; background:#e3e8ee;"></span>
+        <div style="display:flex; align-items:center; gap:10px;"><b style="font-size:24px; color:#F0514F;">0 ₪</b>מראש — שכר טרחה רק בהצלחה</div>
+      </div>
+
+      <!-- central contact form -->
+      <div data-comment-anchor="hub-contact" style="margin:10px 48px 56px; position:relative; overflow:hidden; background:#122680; border-radius:18px; padding:44px 48px; color:#ffffff;">
+        <div style="position:absolute; top:-140px; left:-100px; width:520px; height:440px; border-radius:50%; background:radial-gradient(circle, rgba(0,0,255,0.5) 0%, rgba(0,0,255,0) 70%);"></div>
+        <div style="position:relative; display:grid; grid-template-columns:1fr 1fr; gap:44px; align-items:center;">
+          <div style="display:flex; flex-direction:column; gap:12px;">
+            <h2 style="font-family:'RaananPro','SimplerPro',sans-serif; margin:0; font-size:34px; font-weight:300; color:#fff;">לא בטוחים לאיזה מוסד לפנות? <span style="font-weight:700;">זה בדיוק התפקיד שלנו.</span></h2>
+            <p style="margin:0; font-size:17px; line-height:1.65; color:rgba(255,255,255,0.85);">השאירו פרטים ונבדוק יחד — בחינם — אילו זכויות מגיעות לכם ומול אילו מוסדות. אתם מתמקדים בבריאות, אנחנו בבירוקרטיה.</p>
+            <div style="display:flex; align-items:center; gap:10px; font-size:15.5px; color:rgba(255,255,255,0.8);">
+              <span style="color:#ffd7d6; font-weight:900;">✓</span>ללא עלות וללא התחייבות
+              <span style="color:#ffd7d6; font-weight:900;">✓</span>מענה תוך יום עסקים
+            </div>
+          </div>
+          <div style="display:flex; flex-direction:column; gap:12px; background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.2); border-radius:16px; padding:26px;">
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+              <input aria-label="שם מלא (שדה חובה)" placeholder="*שם מלא" style="font-family:inherit; font-size:16px; color:#0d253d; padding:12px 16px; border-radius:10px; border:none; outline:none; min-height:48px; box-sizing:border-box; width:100%;">
+              <input aria-label="טלפון (שדה חובה)" placeholder="*טלפון" style="font-family:inherit; font-size:16px; color:#0d253d; padding:12px 16px; border-radius:10px; border:none; outline:none; min-height:48px; box-sizing:border-box; width:100%;">
+            </div>
+            <select aria-label="באיזה מוסד מדובר" style="font-family:inherit; font-size:16px; color:#0d253d; padding:12px 14px; border-radius:10px; border:none; min-height:48px; cursor:pointer; width:100%;">
+              <option>באיזה מוסד מדובר? (לא חובה)</option>
+              <option>ביטוח לאומי</option>
+              <option>מס הכנסה</option>
+              <option>קרנות פנסיה</option>
+              <option>חברות ביטוח</option>
+              <option>לא יודע/ת — תבדקו בשבילי</option>
+            </select>
+            <button onClick="{{ noop }}" style="font-family:inherit; background:#F0514F; color:#fff; font-size:17px; font-weight:700; padding:13px 28px; min-height:50px; border:none; border-radius:9999px; cursor:pointer;" style-hover="background:#d94341;">חזרו אליי ›</button>
+            <div style="font-size:13.5px; color:rgba(255,255,255,0.7); text-align:center;">המידע יישמר במאגרי החברה בהתאם למדיניות הפרטיות</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- footer -->
+      <footer style="border-top:1px solid #e3e8ee; padding:36px 48px 28px; display:flex; justify-content:space-between; align-items:center; gap:24px; flex-wrap:wrap;">
+        <img src="assets/logo.svg" alt="שלכם" style="height:44px; width:auto;">
+        <div style="display:flex; gap:22px; font-size:14.5px; color:#4a5b74;">
+          <a href="#1a" style="color:#4a5b74; text-decoration:none;">מדיניות פרטיות</a>
+          <a href="#1a" style="color:#4a5b74; text-decoration:none;">הצהרת נגישות</a>
+          <a href="#1a" style="color:#4a5b74; text-decoration:none;">יצירת קשר</a>
+          <span style="font-feature-settings:'tnum';">076-8017778</span>
+        </div>
+        <span style="font-size:13.5px; color:#4a5b74;">© שלכם — מימוש זכויות רפואיות</span>
+      </footer>
+    </div>
+
+    <!-- ============ MOBILE ============ -->
+    <div data-screen-label="מוסדות מובייל" dir="rtl" style="width:390px; flex-shrink:0; background:#ffffff; border-radius:8px; overflow:hidden; box-shadow:rgba(13,37,61,0.16) 0 24px 64px;">
+      <nav style="display:flex; align-items:center; justify-content:space-between; gap:12px; padding:12px 18px; border-bottom:1px solid #eef1f6;">
+        <button aria-label="תפריט" onClick="{{ noop }}" style="display:flex; flex-direction:column; justify-content:center; gap:5px; width:44px; height:44px; background:none; border:none; cursor:pointer; padding:10px;">
+          <span style="display:block; height:2.5px; width:22px; background:#0d253d; border-radius:2px;"></span>
+          <span style="display:block; height:2.5px; width:22px; background:#0d253d; border-radius:2px;"></span>
+          <span style="display:block; height:2.5px; width:14px; background:#0d253d; border-radius:2px;"></span>
+        </button>
+        <img src="assets/logo.svg" alt="שלכם" style="height:36px; width:auto;">
+        <a href="tel:076-8017778" aria-label="חייגו עכשיו" style="display:flex; align-items:center; justify-content:center; width:44px; height:44px; border-radius:9999px; background:#F0514F; color:#fff; text-decoration:none;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6.5 3.5h3l1.5 4.5-2 1.5a13 13 0 0 0 5.5 5.5l1.5-2 4.5 1.5v3a2 2 0 0 1-2.2 2A17.5 17.5 0 0 1 4.5 5.7 2 2 0 0 1 6.5 3.5Z" fill="currentColor"></path></svg>
+        </a>
+      </nav>
+      <div style="padding:18px 20px 40px;">
+        <div style="font-size:13px; color:#64748d; display:flex; align-items:center; gap:6px; margin-bottom:14px;">
+          <a href="#1a" style="color:#64748d; text-decoration:none;">בית</a><span>‹</span>
+          <span style="color:#0d253d; font-weight:700;">מוסדות ובירוקרטיה</span>
+        </div>
+        <h1 style="font-family:'RaananPro','SimplerPro',sans-serif; margin:0 0 10px; font-size:34px; line-height:1.12; font-weight:300;">מוסדות <span style="font-weight:900; border-bottom:5px solid #F0514F;">ובירוקרטיה</span></h1>
+        <p style="margin:0 0 20px; font-size:16px; line-height:1.6; color:#273951;">בחרו את המוסד הרלוונטי — ואנחנו נלווה אתכם בכל הדרך הבירוקרטית.</p>
+
+        <div style="display:flex; flex-direction:column; gap:12px; margin-bottom:26px;">
+          <sc-for list="{{ institutions }}" as="inst" hint-placeholder-count="4">
+            <a href="{{ inst.href }}" style="display:flex; align-items:center; gap:14px; background:#ffffff; border:1px solid #e3e8ee; border-radius:14px; padding:16px 18px; text-decoration:none; color:#0d253d;">
+              <span style="width:54px; height:54px; flex-shrink:0; border-radius:16px; background:{{ inst.iconBg }}; display:flex; align-items:center; justify-content:center;">{{ inst.iconSm }}</span>
+              <span style="flex:1; min-width:0;">
+                <span style="display:block; font-size:18px; font-weight:700;">{{ inst.name }}</span>
+                <span style="display:block; font-size:13.5px; color:#64748d; margin-top:2px;">{{ inst.tagline }}</span>
+              </span>
+              <span style="color:#94a3b8; font-size:20px;">‹</span>
+            </a>
+          </sc-for>
+        </div>
+
+        <!-- contact form mobile -->
+        <div style="position:relative; overflow:hidden; background:#122680; border-radius:14px; padding:26px 20px; color:#ffffff;">
+          <div style="position:absolute; top:-90px; left:-60px; width:320px; height:280px; border-radius:50%; background:radial-gradient(circle, rgba(0,0,255,0.5) 0%, rgba(0,0,255,0) 70%);"></div>
+          <div style="position:relative; display:flex; flex-direction:column; gap:12px;">
+            <h2 style="font-family:'RaananPro','SimplerPro',sans-serif; margin:0; font-size:23px; font-weight:300; color:#fff;">לא בטוחים לאן לפנות? <span style="font-weight:700;">נבדוק בשבילכם.</span></h2>
+            <input aria-label="שם מלא (שדה חובה)" placeholder="*שם מלא" style="font-family:inherit; font-size:16px; color:#0d253d; padding:12px 16px; border-radius:10px; border:none; outline:none; min-height:48px; box-sizing:border-box; width:100%;">
+            <input aria-label="טלפון (שדה חובה)" placeholder="*טלפון" style="font-family:inherit; font-size:16px; color:#0d253d; padding:12px 16px; border-radius:10px; border:none; outline:none; min-height:48px; box-sizing:border-box; width:100%;">
+            <button onClick="{{ noop }}" style="font-family:inherit; background:#F0514F; color:#fff; font-size:16px; font-weight:700; padding:13px 28px; min-height:50px; border:none; border-radius:9999px; cursor:pointer;" style-hover="background:#d94341;">חזרו אליי ›</button>
+            <div style="font-size:13px; color:rgba(255,255,255,0.7); text-align:center;">בחינם וללא התחייבות</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  renderVals() {
+    const icon = (paths, size) => React.createElement('svg', { width: size, height: size, viewBox: '0 0 24 24', fill: 'none', 'aria-hidden': true }, ...paths);
+    const el = React.createElement;
+
+    // National Insurance — building with columns
+    const btlPaths = () => [
+      el('path', { key: 1, d: 'M3 9.5 12 4l9 5.5', stroke: '#0000FF', strokeWidth: 2, strokeLinecap: 'round', strokeLinejoin: 'round' }),
+      el('rect', { key: 2, x: 5, y: 11, width: 2.4, height: 7, rx: 1, fill: '#0000FF' }),
+      el('rect', { key: 3, x: 10.8, y: 11, width: 2.4, height: 7, rx: 1, fill: '#0000FF' }),
+      el('rect', { key: 4, x: 16.6, y: 11, width: 2.4, height: 7, rx: 1, fill: '#0000FF' }),
+      el('rect', { key: 5, x: 3.5, y: 19.5, width: 17, height: 2.2, rx: 1.1, fill: '#F0514F' })
+    ];
+    // Tax Authority — calculator
+    const taxPaths = () => [
+      el('rect', { key: 1, x: 3, y: 5, width: 18, height: 16, rx: 2, fill: '#0000FF' }),
+      el('rect', { key: 2, x: 3, y: 9.5, width: 18, height: 1.8, fill: '#ffffff' }),
+      el('rect', { key: 3, x: 6.5, y: 2, width: 2.2, height: 5, rx: 1, fill: '#F0514F' }),
+      el('rect', { key: 4, x: 11, y: 2, width: 2.2, height: 5, rx: 1, fill: '#F0514F' }),
+      el('rect', { key: 5, x: 15.5, y: 2, width: 2.2, height: 5, rx: 1, fill: '#F0514F' })
+    ];
+    // Pension funds — hourglass/clock coin
+    const pensionPaths = () => [
+      el('circle', { key: 1, cx: 12, cy: 12, r: 8.5, stroke: '#0000FF', strokeWidth: 2 }),
+      el('path', { key: 2, d: 'M12 7.5V12l3.2 2.4', stroke: '#0000FF', strokeWidth: 2.2, strokeLinecap: 'round', strokeLinejoin: 'round' }),
+      el('circle', { key: 3, cx: 18.6, cy: 18.6, r: 4.2, fill: '#F0514F' }),
+      el('path', { key: 4, d: 'M18.6 16.8v3.6M16.8 18.6h3.6', stroke: '#ffffff', strokeWidth: 1.6, strokeLinecap: 'round' })
+    ];
+    // Insurance companies — shield
+    const insurPaths = () => [
+      el('path', { key: 1, d: 'M12 3 5 5.8v5.4c0 4.4 3 8.1 7 9.3 4-1.2 7-4.9 7-9.3V5.8L12 3Z', fill: '#0000FF' }),
+      el('path', { key: 2, d: 'm8.8 12 2.2 2.2 4.2-4.4', stroke: '#ffffff', strokeWidth: 2.2, strokeLinecap: 'round', strokeLinejoin: 'round' })
+    ];
+
+    const institutions = [
+      {
+        name: 'ביטוח לאומי',
+        tagline: 'קצבאות, ועדות רפואיות ועררים',
+        desc: 'המוסד שדרכו עוברות רוב הזכויות הרפואיות בישראל — מקצבת נכות כללית ועד ניידות ושירותים מיוחדים. אנחנו מכינים אתכם לוועדות ומגישים הכל בשבילכם.',
+        services: ['נכות כללית', 'ניידות', 'שירותים מיוחדים', 'נכות מעבודה'],
+        href: 'Institute Page - ביטוח לאומי.dc.html',
+        iconBg: '#eef0ff',
+        icon: icon(btlPaths(), 34),
+        iconSm: icon(btlPaths(), 26)
+      },
+      {
+        name: 'מס הכנסה',
+        tagline: 'פטורים, החזרים ונקודות זיכוי',
+        desc: 'נכות רפואית גבוהה יכולה להיות שווה פטור מלא ממס והחזרים של עד 6 שנים אחורה. אנחנו בודקים זכאות, מגישים ומלווים עד ההחזר.',
+        services: ['פטור ממס הכנסה', 'החזרי מס', 'נקודות זיכוי'],
+        href: 'Service Page - פטור ממס.dc.html',
+        iconBg: '#eef0ff',
+        icon: icon(taxPaths(), 34),
+        iconSm: icon(taxPaths(), 26)
+      },
+      {
+        name: 'קרנות פנסיה',
+        tagline: 'אובדן כושר עבודה ופנסיית נכות',
+        desc: 'מי שאינו יכול להמשיך לעבוד בגלל מצב רפואי עשוי להיות זכאי לפנסיית נכות מהקרן — במקביל לקצבאות אחרות. נבדוק את הפוליסה ונגיש את התביעה.',
+        services: ['פנסיית נכות', 'אובדן כושר עבודה', 'שחרור מהפקדות'],
+        href: '#1a',
+        iconBg: '#eef0ff',
+        icon: icon(pensionPaths(), 34),
+        iconSm: icon(pensionPaths(), 26)
+      },
+      {
+        name: 'חברות ביטוח',
+        tagline: 'ביטוחים פרטיים ותביעות מול מבטחים',
+        desc: 'פוליסות פרטיות — מחלות קשות, אובדן כושר, סיעוד ותאונות אישיות — מזכות פעמים רבות בסכומים משמעותיים שאנשים לא יודעים לדרוש. אנחנו כן.',
+        services: ['מחלות קשות', 'תאונות אישיות', 'סיעוד', 'אובדן כושר פרטי'],
+        href: '#1a',
+        iconBg: '#eef0ff',
+        icon: icon(insurPaths(), 34),
+        iconSm: icon(insurPaths(), 26)
+      }
+    ];
+
+    return { institutions, noop: () => {} };
+  }
+}
+</script>
+</body>
+</html>

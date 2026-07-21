@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<template id="__bundler_thumbnail">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="#1D3557"/><text x="50" y="62" font-family="sans-serif" font-size="34" font-weight="700" fill="#F4A261" text-anchor="middle">של</text></svg>
+</template>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<title>שלכם — עמוד הבית</title>
+<style>
+@font-face { font-family: 'SimplerPro'; src: url('fonts/SimplerPro-Light.woff2') format('woff2'); font-weight: 300; font-display: swap; }
+@font-face { font-family: 'SimplerPro'; src: url('fonts/SimplerPro-Regular.woff2') format('woff2'); font-weight: 400; font-display: swap; }
+@font-face { font-family: 'SimplerPro'; src: url('fonts/SimplerPro-Semibold.woff2') format('woff2'); font-weight: 600; font-display: swap; }
+@font-face { font-family: 'SimplerPro'; src: url('fonts/SimplerPro-Bold.woff2') format('woff2'); font-weight: 700; font-display: swap; }
+@font-face { font-family: 'SimplerPro'; src: url('fonts/SimplerPro-Black.woff2') format('woff2'); font-weight: 900; font-display: swap; }
+@font-face { font-family: 'RaananPro'; src: url('fonts/RaananPro-Light.woff2') format('woff2'); font-weight: 300; font-display: swap; }
+@font-face { font-family: 'RaananPro'; src: url('fonts/RaananPro-Regular.woff2') format('woff2'); font-weight: 400; font-display: swap; }
+@font-face { font-family: 'RaananPro'; src: url('fonts/RaananPro-Bold.woff2') format('woff2'); font-weight: 700; font-display: swap; }
+@font-face { font-family: 'RaananPro'; src: url('fonts/RaananPro-Black.woff2') format('woff2'); font-weight: 900; font-display: swap; }
+@font-face { font-family: 'SimplerProMono'; src: url('fonts/SimplerPro-Mono-Medium.woff2') format('woff2'); font-weight: 500; font-display: swap; }
+body { margin: 0; background: #eceef4; }
+.car::-webkit-scrollbar { display: none; }
+summary::-webkit-details-marker { display: none; }
+details[open] .faq-plus { transform: rotate(45deg); }
+@keyframes glowPulse { from { opacity: 0.65; transform: scale(1); } to { opacity: 1; transform: scale(1.12); } }
+@keyframes faqIn { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
+@keyframes menuIn { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+a:focus-visible, button:focus-visible, input:focus-visible { outline: 3px solid #0000FF; outline-offset: 2px; }
+image-slot { display: block; width: 100%; height: 100%; }
+</style>
+</helmet>
+
+<section style="display:flex; gap:120px; align-items:flex-start; padding:72px; font-family:'SimplerPro',system-ui,sans-serif;">
+
+  <!-- ============ 3A — מובייל 390px ============ -->
+  <div id="3a" data-screen-label="3a מובייל" style="position:relative; width:390px; flex-shrink:0;">
+    <div style="position:absolute; top:-52px; right:0; display:flex; align-items:center; gap:10px;">
+      <span style="background:#0000FF; color:#fff; font-weight:700; font-size:14px; padding:4px 12px; border-radius:9999px;">3a</span>
+      <span style="color:#64748d; font-size:14px; white-space:nowrap;">מובייל — 390px</span>
+    </div>
+
+    <div dir="rtl" style="width:390px; background:#ffffff; color:#0d253d; border-radius:24px; overflow:hidden; box-shadow: rgba(0,55,112,0.10) 0 8px 24px;">
+
+      <!-- nav -->
+      <nav style="display:flex; align-items:center; justify-content:space-between; gap:12px; padding:14px 20px; background:#ffffff; position:relative; z-index:2; border-bottom:1px solid #eef1f6;">
+        <button aria-label="תפריט" onClick="{{ toggleMenu }}" style="display:flex; flex-direction:column; justify-content:center; gap:5px; width:44px; height:44px; background:none; border:none; cursor:pointer; padding:10px;">
+          <span style="display:block; height:2.5px; width:22px; background:#0d253d; border-radius:2px;"></span>
+          <span style="display:block; height:2.5px; width:22px; background:#0d253d; border-radius:2px;"></span>
+          <span style="display:block; height:2.5px; width:14px; background:#0d253d; border-radius:2px;"></span>
+        </button>
+        <img src="assets/logo.svg" alt="שלכם" style="height:40px; width:auto;">
+        <a href="tel:076-8017778" aria-label="חייגו אלינו" style="display:flex; align-items:center; justify-content:center; width:44px; height:44px; border-radius:9999px; background:#0000FF; color:#fff; text-decoration:none;">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6.5 3.5h3l1.5 4.5-2 1.5a13 13 0 0 0 5.5 5.5l1.5-2 4.5 1.5v3a2 2 0 0 1-2.2 2A17.5 17.5 0 0 1 4.5 5.7 2 2 0 0 1 6.5 3.5Z" fill="currentColor"></path></svg>
+        </a>
+      </nav>
+
+      <!-- mobile menu overlay -->
+      <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
+        <div style="position:absolute; top:0; left:0; right:0; height:844px; z-index:50; background:linear-gradient(210deg, #1f1fff 0%, #0000d6 55%, #0000a8 100%); border-radius:24px 24px 0 0; overflow:hidden; display:flex; flex-direction:column; animation:menuIn 0.4s cubic-bezier(0.22,1,0.36,1);">
+          <div style="position:absolute; top:-140px; left:-120px; width:480px; height:480px; border-radius:50%; background:radial-gradient(circle, rgba(255,255,255,0.18) 0%, rgba(255,255,255,0) 70%);"></div>
+          <img src="assets/heart.svg" alt="" aria-hidden="true" style="position:absolute; bottom:-90px; left:-70px; width:340px; height:auto; opacity:0.12; filter:brightness(0) invert(1); pointer-events:none;">
+
+          <div style="position:relative; display:flex; align-items:center; justify-content:space-between; gap:12px; padding:14px 20px;">
+            <button aria-label="סגירת תפריט" onClick="{{ closeMenu }}" style="display:flex; align-items:center; justify-content:center; width:44px; height:44px; border-radius:9999px; background:rgba(255,255,255,0.14); border:none; cursor:pointer; color:#ffffff;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><line x1="6" y1="6" x2="18" y2="18" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"></line><line x1="18" y1="6" x2="6" y2="18" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"></line></svg>
+            </button>
+            <span style="background:#ffffff; border-radius:12px; padding:5px 10px; display:inline-flex;"><img src="assets/logo.svg" alt="שלכם" style="height:34px; width:auto;"></span>
+            <a href="tel:076-8017778" aria-label="חייגו אלינו" style="display:flex; align-items:center; justify-content:center; width:44px; height:44px; border-radius:9999px; background:rgba(255,255,255,0.14); color:#fff; text-decoration:none;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6.5 3.5h3l1.5 4.5-2 1.5a13 13 0 0 0 5.5 5.5l1.5-2 4.5 1.5v3a2 2 0 0 1-2.2 2A17.5 17.5 0 0 1 4.5 5.7 2 2 0 0 1 6.5 3.5Z" fill="currentColor"></path></svg>
+            </a>
+          </div>
+
+          <div style="position:relative; flex:1; display:flex; flex-direction:column; justify-content:center; padding:0 28px; gap:2px;">
+            <a href="#3a" onClick="{{ closeMenu }}" style="display:flex; align-items:center; gap:16px; text-decoration:none; color:#ffffff; padding:13px 0; border-bottom:1px solid rgba(255,255,255,0.12);">
+              <span style="width:46px; height:46px; flex-shrink:0; border-radius:14px; background:rgba(255,255,255,0.13); display:flex; align-items:center; justify-content:center;"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4.5 11.5 12 4.5l7.5 7V20h-5v-5h-5v5h-5Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"></path></svg></span>
+              <span style="font-family:'RaananPro','SimplerPro',sans-serif; font-size:24px; font-weight:700; flex:1;">בית</span>
+              <span style="color:rgba(255,255,255,0.55); font-size:20px;">‹</span>
+            </a>
+            <a href="#3a" onClick="{{ closeMenu }}" style="display:flex; align-items:center; gap:16px; text-decoration:none; color:#ffffff; padding:13px 0; border-bottom:1px solid rgba(255,255,255,0.12);">
+              <span style="width:46px; height:46px; flex-shrink:0; border-radius:14px; background:rgba(255,255,255,0.13); display:flex; align-items:center; justify-content:center;"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 20C6 15.5 3.5 12.5 3.5 9.4 3.5 7 5.4 5 7.9 5c1.7 0 3.2.9 4.1 2.3C12.9 5.9 14.4 5 16.1 5c2.5 0 4.4 2 4.4 4.4 0 3.1-2.5 6.1-8.5 10.6Z" fill="currentColor"></path></svg></span>
+              <span style="font-family:'RaananPro','SimplerPro',sans-serif; font-size:24px; font-weight:700; flex:1;">הסיפור שלנו</span>
+              <span style="color:rgba(255,255,255,0.55); font-size:20px;">‹</span>
+            </a>
+            <a href="#3a" onClick="{{ closeMenu }}" style="display:flex; align-items:center; gap:16px; text-decoration:none; color:#ffffff; padding:13px 0; border-bottom:1px solid rgba(255,255,255,0.12);">
+              <span style="width:46px; height:46px; flex-shrink:0; border-radius:14px; background:rgba(255,255,255,0.13); display:flex; align-items:center; justify-content:center;"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3.5" y="8" width="17" height="11.5" rx="2" stroke="currentColor" stroke-width="1.8"></rect><path d="M9 8V6.5A1.5 1.5 0 0 1 10.5 5h3A1.5 1.5 0 0 1 15 6.5V8" stroke="currentColor" stroke-width="1.8"></path></svg></span>
+              <span style="font-family:'RaananPro','SimplerPro',sans-serif; font-size:24px; font-weight:700; flex:1;">תחומי פעילות</span>
+              <span style="color:rgba(255,255,255,0.55); font-size:20px;">‹</span>
+            </a>
+            <a href="#3a" onClick="{{ closeMenu }}" style="display:flex; align-items:center; gap:16px; text-decoration:none; color:#ffffff; padding:13px 0; border-bottom:1px solid rgba(255,255,255,0.12);">
+              <span style="width:46px; height:46px; flex-shrink:0; border-radius:14px; background:rgba(255,255,255,0.13); display:flex; align-items:center; justify-content:center;"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="6" cy="6" r="2.6" stroke="currentColor" stroke-width="1.8"></circle><circle cx="18" cy="12" r="2.6" stroke="currentColor" stroke-width="1.8"></circle><circle cx="8" cy="18.5" r="2.6" stroke="currentColor" stroke-width="1.8"></circle><path d="M8.4 7.4 15.6 10.8M16 14.4 10.2 16.9" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path></svg></span>
+              <span style="font-family:'RaananPro','SimplerPro',sans-serif; font-size:24px; font-weight:700; flex:1;">איך זה עובד</span>
+              <span style="color:rgba(255,255,255,0.55); font-size:20px;">‹</span>
+            </a>
+            <a href="#3a" onClick="{{ closeMenu }}" style="display:flex; align-items:center; gap:16px; text-decoration:none; color:#ffffff; padding:13px 0; border-bottom:1px solid rgba(255,255,255,0.12);">
+              <span style="width:46px; height:46px; flex-shrink:0; border-radius:14px; background:rgba(255,255,255,0.13); display:flex; align-items:center; justify-content:center;"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 6c-1.8-1.6-4.2-2-8-2v15c3.8 0 6.2.4 8 2 1.8-1.6 4.2-2 8-2V4c-3.8 0-6.2.4-8 2Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"></path><line x1="12" y1="6" x2="12" y2="21" stroke="currentColor" stroke-width="1.8"></line></svg></span>
+              <span style="font-family:'RaananPro','SimplerPro',sans-serif; font-size:24px; font-weight:700; flex:1;">מגזין</span>
+              <span style="color:rgba(255,255,255,0.55); font-size:20px;">‹</span>
+            </a>
+            
+          </div>
+
+          <div style="position:relative; padding:0 28px 34px; display:flex; flex-direction:column; gap:14px;">
+            <a href="#3a" onClick="{{ closeMenu }}" style="display:block; text-align:center; background:#F0514F; color:#ffffff; text-decoration:none; font-size:18px; font-weight:700; padding:16px; border-radius:9999px; box-shadow: rgba(0,0,40,0.3) 0 12px 28px;">בדיקת זכאות חינם</a>
+            <a href="tel:076-8017778" style="display:block; text-align:center; color:#ffffff; text-decoration:none; font-size:17px; font-feature-settings:'tnum';">076-8017778 · זמינים עכשיו</a>
+          </div>
+        </div>
+      </sc-if>
+
+      <!-- hero -->
+      <div style="position:relative; background:#ffffff;">
+        <div style="padding:36px 24px 52px;">
+          <h1 data-anim="0" style="font-family:'RaananPro','SimplerPro',sans-serif; margin:0; color:#0d253d; font-size:40px; line-height:1.12; font-weight:300; letter-spacing:-0.4px;">13 שנות מקצוענות<br>במימוש הזכויות<br><span style="border-bottom:6px solid #F0514F; font-weight:900;">שלכם</span></h1>
+        </div>
+        <div style="position:relative; background:linear-gradient(200deg, #1f1fff 0%, #0000e6 55%, #0000bf 100%); height:340px;">
+          <div style="position:absolute; inset:0; overflow:hidden;">
+            <div style="position:absolute; top:-120px; left:-100px; width:420px; height:420px; border-radius:50%; background:radial-gradient(circle, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0) 70%); animation:glowPulse 7s ease-in-out infinite alternate;"></div>
+            <div style="position:absolute; bottom:0; left:0; right:0; height:104px; background:linear-gradient(180deg, #000085 0%, #0000ad 100%);"></div>
+          </div>
+          <img src="assets/hero-team.png" alt="הצוות של שלכם" data-anim-fade="250" style="position:absolute; bottom:0; left:50%; transform:translateX(-50%); height:378px; width:auto; filter:drop-shadow(0 16px 32px rgba(0,0,60,0.35));">
+        </div>
+
+        <!-- form card overlapping hero bottom -->
+        <div data-anim="200" style="position:relative; z-index:2; margin:-48px 16px 0; background:#ffffff; border:1px solid #e6ebf2; border-radius:20px; padding:34px 20px 20px; box-sizing:border-box; box-shadow: rgba(13,37,61,0.14) 0 20px 48px; display:flex; flex-direction:column; gap:12px;">
+          <div style="position:absolute; top:-21px; right:20px; background:#0000FF; color:#ffffff; font-size:16px; font-weight:700; line-height:1; padding:13px 20px; border-radius:9999px; box-shadow: rgba(0,0,120,0.25) 0 10px 24px;">מגיע לכם לדעת מה מגיע לכם</div>
+          <input aria-label="שם מלא (שדה חובה)" placeholder="*שם מלא" style="font-family:inherit; font-size:17px; color:#0d253d; padding:12px 16px; border-radius:10px; border:1.5px solid #cbd5e1; outline:none; min-height:48px; box-sizing:border-box; width:100%;" style-focus="border-color:#0000FF; box-shadow:0 0 0 3px rgba(0,0,255,0.15);">
+          <input aria-label="טלפון (שדה חובה)" placeholder="*טלפון" style="font-family:inherit; font-size:17px; color:#0d253d; padding:12px 16px; border-radius:10px; border:1.5px solid #cbd5e1; outline:none; min-height:48px; box-sizing:border-box; width:100%;" style-focus="border-color:#0000FF; box-shadow:0 0 0 3px rgba(0,0,255,0.15);">
+          <input aria-label="דוא״ל (אופציונלי)" placeholder="דואר אלקטרוני" style="font-family:inherit; font-size:17px; color:#0d253d; padding:12px 16px; border-radius:10px; border:1.5px solid #cbd5e1; outline:none; min-height:48px; box-sizing:border-box; width:100%;" style-focus="border-color:#0000FF; box-shadow:0 0 0 3px rgba(0,0,255,0.15);">
+          <div style="display:flex; flex-direction:column; gap:8px;">
+            <label style="display:flex; align-items:flex-start; gap:10px; font-size:13px; line-height:1.5; color:#4a5b74; cursor:pointer;">
+              <input type="checkbox" style="width:18px; height:18px; margin:1px 0 0; flex-shrink:0; accent-color:#0000FF; cursor:pointer;">
+              <span>ידוע לי כי המידע שאמסור יישמר במאגרי המידע של החברה בהתאם למפורט</span>
+            </label>
+            <label style="display:flex; align-items:flex-start; gap:10px; font-size:13px; line-height:1.5; color:#4a5b74; cursor:pointer;">
+              <input type="checkbox" style="width:18px; height:18px; margin:1px 0 0; flex-shrink:0; accent-color:#0000FF; cursor:pointer;">
+              <span>אני מאשר/ת קבלת חומרים שיווקיים משלכם מימוש זכויות רפואיות בע"מ</span>
+            </label>
+          </div>
+          <button style="font-family:inherit; color:#fff; font-size:17px; font-weight:700; padding:13px 28px; min-height:50px; border:none; border-radius:9999px; cursor:pointer; background-color:#F0514F; width:100%;" style-hover="background:#d94341;">אני רוצה לבדוק &gt;</button>
+          <div style="font-size:14px; color:#64748d; text-align:center;">ללא עלות וללא התחייבות — שכר טרחה רק בהצלחה</div>
+        </div>
+      </div>
+
+      <!-- specialties -->
+      <div data-reveal style="background:#f6f9fc; padding:48px 24px; margin-top:40px;">
+        <h2 style="font-family:'RaananPro','SimplerPro',sans-serif; margin:0 0 12px; font-size:28px; font-weight:300; letter-spacing:-0.2px;">המומחים שלכם במימוש זכויות רפואיות</h2>
+        <p style="margin:0 0 24px; font-size:17px; font-weight:400; line-height:1.6; color:#273951;">פטור ממס, קצבת נכות, אובדן כושר עבודה, סיעוד, מחלת מקצוע, שמירת הריון — מאחורי כל אחד מאלה עומדת זכות שמגיעה לכם.</p>
+        <div style="display:flex; flex-wrap:wrap; gap:10px;">
+          <a href="#3a" style="background:#fff; border:1px solid #e3e8ee; color:#0d253d; text-decoration:none; font-size:15px; padding:11px 18px; border-radius:9999px;">פטור ממס הכנסה</a>
+          <a href="#3a" style="background:#fff; border:1px solid #e3e8ee; color:#0d253d; text-decoration:none; font-size:15px; padding:11px 18px; border-radius:9999px;">קצבת נכות כללית</a>
+          <a href="#3a" style="background:#fff; border:1px solid #e3e8ee; color:#0d253d; text-decoration:none; font-size:15px; padding:11px 18px; border-radius:9999px;">אובדן כושר עבודה</a>
+          <a href="#3a" style="background:#fff; border:1px solid #e3e8ee; color:#0d253d; text-decoration:none; font-size:15px; padding:11px 18px; border-radius:9999px;">פנסיית נכות</a>
+          <a href="#3a" style="background:#fff; border:1px solid #e3e8ee; color:#0d253d; text-decoration:none; font-size:15px; padding:11px 18px; border-radius:9999px;">ביטוח סיעודי</a>
+          <a href="#3a" style="background:#fff; border:1px solid #e3e8ee; color:#0d253d; text-decoration:none; font-size:15px; padding:11px 18px; border-radius:9999px;">מחלת מקצוע</a>
+          <a href="#3a" style="background:#fff; border:1px solid #e3e8ee; color:#0d253d; text-decoration:none; font-size:15px; padding:11px 18px; border-radius:9999px;">תאונת עבודה</a>
+          <a href="#3a" style="background:#fff; border:1px solid #e3e8ee; color:#0d253d; text-decoration:none; font-size:15px; padding:11px 18px; border-radius:9999px;">שמירת הריון</a>
+          <a href="#3a" style="background:#fff; border:1px solid #e3e8ee; color:#0d253d; text-decoration:none; font-size:15px; padding:11px 18px; border-radius:9999px;">ילד נכה</a>
+          <a href="#3a" style="background:#fff; border:1px solid #e3e8ee; color:#0d253d; text-decoration:none; font-size:15px; padding:11px 18px; border-radius:9999px;">שירותים מיוחדים</a>
+          <a href="#3a" style="background:#fff; border:1px solid #e3e8ee; color:#0d253d; text-decoration:none; font-size:15px; padding:11px 18px; border-radius:9999px;">נפגעי פעולות איבה</a>
+          <a href="#3a" style="background:#fff; border:1px solid #e3e8ee; color:#0d253d; text-decoration:none; font-size:15px; padding:11px 18px; border-radius:9999px;">זכויות אלמנים ויתומים</a>
+          <a href="#3a" style="background:#fff; border:1px solid #e3e8ee; color:#0d253d; text-decoration:none; font-size:15px; padding:11px 18px; border-radius:9999px;">תאונות אישיות</a>
+          <a href="#3a" style="background:#fff; border:1px solid #e3e8ee; color:#0d253d; text-decoration:none; font-size:15px; padding:11px 18px; border-radius:9999px;">תג חניה לנכה</a>
+        </div>
+      </div>
+
+      <!-- red band -->
+      <div style="padding:40px 20px 0;">
+        <div data-reveal style="border-radius:16px; padding:36px 28px; text-align:center; background-color:#F0514F;">
+          <h2 style="font-family:'RaananPro','SimplerPro',sans-serif; margin:0 0 14px; font-size:27px; font-weight:300; letter-spacing:-0.2px; color:#FFFFFF;">כנראה שמגיע לכם הרבה יותר ממה שאתם חושבים.</h2>
+          <div style="font-size:17px; font-weight:400; line-height:1.6; color:#FFFFFF;">כמה שאלות קצרות, ואנחנו נגיד לכם בדיוק איפה אתם עומדים.</div>
+          <a href="#3a" style="display:inline-block; margin-top:18px; color:#ffffff; font-size:17px; font-weight:700; text-decoration:underline; text-underline-offset:4px; text-decoration-thickness:2px;">אשמח לדעת ←</a>
+        </div>
+      </div>
+
+      <!-- intro: מימוש זכויות -->
+      <div data-reveal style="padding:48px 24px 0;">
+        <h2 style="font-family:'RaananPro','SimplerPro',sans-serif; margin:0 0 14px; font-size:28px; font-weight:300; line-height:1.25; letter-spacing:-0.2px;">מימוש זכויות רפואיות: <span style="font-weight:700;">הופכים את הזכות שלכם למציאות.</span></h2>
+        <p style="margin:0; font-size:16px; font-weight:400; line-height:1.65; color:#273951;">הדרך לקבלת הקצבאות והפיצויים המגיעים לכם על פי חוק לא חייבת להיות מאבק. למרות שמדובר בזכויות בסיסיות, הבירוקרטיה המורכבת וחוסר הידע גורמים לרבים לוותר מראש על כסף שמגיע להם. בשלכם, אנחנו מאמינים שאף אדם לא צריך להתמודד לבד מול גופים גדולים כמו ביטוח לאומי או חברות הביטוח. אנחנו כאן כדי לגשר על הפער שבין המצב הרפואי לבין המענק הכספי, עם ליווי אישי וניסיון שפותח דלתות.</p>
+      </div>
+
+      <!-- how it works -->
+      <div style="padding:56px 24px;">
+        <h2 style="font-family:'RaananPro','SimplerPro',sans-serif; margin:0 0 28px; font-size:28px; font-weight:300; letter-spacing:-0.2px;">שלושה צעדים שלכם. <span style="font-weight:700;">החלק הקשה שלנו.</span></h2>
+        <div style="display:flex; flex-direction:column; gap:14px;">
+          <div data-reveal style="background:#fff; border:1px solid #e3e8ee; border-radius:14px; padding:22px; display:flex; gap:16px; align-items:flex-start;">
+            <div style="width:40px; height:40px; flex-shrink:0; border-radius:9999px; background:{{ accentTintBg }}; color:{{ accentDark }}; display:flex; align-items:center; justify-content:center; font-size:18px; font-weight:700; font-feature-settings:'tnum';">1</div>
+            <div>
+              <div style="font-size:19px; font-weight:700; margin-bottom:6px;">משאירים פרטים.</div>
+              <div style="font-size:16px; line-height:1.55; color:#273951;">אתם משאירים טלפון, אנחנו חוזרים. בלי טפסים אינסופיים, בלי לרוץ בין משרדים.</div>
+            </div>
+          </div>
+          <div data-reveal style="background:#fff; border:1px solid #e3e8ee; border-radius:14px; padding:22px; display:flex; gap:16px; align-items:flex-start;">
+            <div style="width:40px; height:40px; flex-shrink:0; border-radius:9999px; background:{{ accentTintBg }}; color:{{ accentDark }}; display:flex; align-items:center; justify-content:center; font-size:18px; font-weight:700; font-feature-settings:'tnum';">2</div>
+            <div>
+              <div style="font-size:19px; font-weight:700; margin-bottom:6px;">בודקים לעומק.</div>
+              <div style="font-size:16px; line-height:1.55; color:#273951;">אנחנו מוצאים בדיוק מה מגיע לכם — כולל זכויות שבחיים לא שמעתם עליהן.</div>
+            </div>
+          </div>
+          <div data-reveal style="background:#fff; border:1px solid #e3e8ee; border-radius:14px; padding:22px; display:flex; gap:16px; align-items:flex-start;">
+            <div style="width:40px; height:40px; flex-shrink:0; border-radius:9999px; background:{{ accentTintBg }}; color:{{ accentDark }}; display:flex; align-items:center; justify-content:center; font-size:18px; font-weight:700; font-feature-settings:'tnum';">3</div>
+            <div>
+              <div style="font-size:19px; font-weight:700; margin-bottom:6px;">אנחנו נכנסים בשבילכם.</div>
+              <div style="font-size:16px; line-height:1.55; color:#273951;">מנהלים את כל המאבק מול ביטוח לאומי, מס הכנסה, הקרנות והביטוח. אתם ממשיכים לחיות.</div>
+            </div>
+          </div>
+        </div>
+        <div style="display:flex; justify-content:center; margin-top:24px;">
+          <a href="#3a" style="display:inline-block; background:#0000FF; color:#ffffff; text-decoration:none; font-size:17px; font-weight:700; padding:15px 36px; border-radius:9999px; box-shadow: rgba(0,0,255,0.25) 0 12px 28px;" style-hover="background:#0000c9;">לבדיקה ראשונית חינם</a>
+        </div>
+      </div>
+
+      <!-- story -->
+      <div data-reveal style="padding:0 24px 56px;">
+        <div style="border-radius:14px; height:210px; background:url(&quot;./02f4d18d-89d9-45aa-812e-5ef1eeecee1e-mr867ddq.png&quot;) center / cover no-repeat; border:1px solid #e3e8ee; margin-bottom:24px;"></div>
+        <div style="font-size:17px; font-weight:700; color:#0000FF; margin-bottom:8px;">הסיפור שלנו</div>
+        <h2 style="font-family:'RaananPro','SimplerPro',sans-serif; margin:0 0 16px; font-size:28px; font-weight:300; line-height:1.2; letter-spacing:-0.2px;">מ-2013 אנחנו עושים דבר אחד<br><span style="font-weight:700;">ועושים אותו עד הסוף.</span></h2>
+        <p style="margin:0 0 12px; font-size:16px; line-height:1.6; color:#273951;">״שלכם״ קמה מתוך אמונה פשוטה: לאף אחד אסור שייגמר הכוח מול הבירוקרטיה לפני שהוא מקבל את מה שמגיע לו. במשך שנים ליווינו 10,059 לקוחות במאבק מול ביטוח לאומי, מס הכנסה, קרנות הפנסיה וחברות הביטוח - והבאנו תוצאות.</p>
+        <p style="margin:0 0 20px; font-size:16px; line-height:1.6; color:#273951;"><b>היום אנחנו פותחים את הדלת לכולם. כי הזכות למימוש זכויות לא שייכת לאף מגזר, לאף קבוצה ולאף אחד חוץ מכם. היא שלכם.</b></p>
+        <a href="#3a" style="color:#0000FF; text-decoration:none; font-size:17px;">קצת יותר עלינו ←</a>
+      </div>
+
+      <!-- institutions -->
+      <div style="padding:0 20px 56px;">
+        <div data-reveal style="border-radius:16px; padding:36px 24px; position:relative; overflow:hidden; background-color:#122680;">
+          <div style="position:absolute; top:-100px; left:-60px; width:500px; height:400px; border-radius:50%; background:radial-gradient(circle, rgba(0,0,255,0.5) 0%, rgba(0,0,255,0) 70%);"></div>
+          <h3 style="font-family:'RaananPro','SimplerPro',sans-serif; position:relative; margin:0 0 26px; color:#fff; font-size:24px; font-weight:400; text-align:center;">מוסדות ובירוקרטיה</h3>
+          <div style="position:relative; display:flex; gap:18px 8px; flex-wrap:wrap; justify-content:center;">
+            <a href="#3a" style="display:flex; flex-direction:column; align-items:center; gap:9px; text-decoration:none; width:96px;">
+              <span style="width:64px; height:64px; border-radius:9999px; background:rgba(255,255,255,0.14); display:flex; align-items:center; justify-content:center;"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="2.5" y="4" width="19" height="12.5" rx="1.8" fill="#ffffff"></rect><rect x="10.8" y="16.5" width="2.4" height="2.6" fill="#ffffff"></rect><rect x="7.5" y="19" width="9" height="2.2" rx="1" fill="#F0514F"></rect></svg></span>
+              <span style="color:#ffffff; font-size:14px; font-weight:700;">ביטוח לאומי</span>
+            </a>
+            <a href="#3a" style="display:flex; flex-direction:column; align-items:center; gap:9px; text-decoration:none; width:96px;">
+              <span style="width:64px; height:64px; border-radius:9999px; background:rgba(255,255,255,0.14); display:flex; align-items:center; justify-content:center;"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2" fill="#ffffff"></rect><rect x="3" y="9.5" width="18" height="1.8" fill="#122680"></rect><rect x="6.5" y="2" width="2.2" height="5" rx="1" fill="#F0514F"></rect><rect x="11" y="2" width="2.2" height="5" rx="1" fill="#F0514F"></rect><rect x="15.5" y="2" width="2.2" height="5" rx="1" fill="#F0514F"></rect></svg></span>
+              <span style="color:#ffffff; font-size:14px; font-weight:700;">מס הכנסה</span>
+            </a>
+            <a href="#3a" style="display:flex; flex-direction:column; align-items:center; gap:9px; text-decoration:none; width:96px;">
+              <span style="width:64px; height:64px; border-radius:9999px; background:rgba(255,255,255,0.14); display:flex; align-items:center; justify-content:center;"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 7 L9 21 L12.6 17.6 L14.8 22.2 L17.2 21.1 L15 16.6 L19.8 16 Z" fill="#ffffff"></path><line x1="8" y1="4.5" x2="6.5" y2="3" stroke="#F0514F" stroke-width="1.8" stroke-linecap="round"></line><line x1="11" y1="3.8" x2="11" y2="1.8" stroke="#F0514F" stroke-width="1.8" stroke-linecap="round"></line><line x1="6.8" y1="7.5" x2="4.8" y2="7.5" stroke="#F0514F" stroke-width="1.8" stroke-linecap="round"></line></svg></span>
+              <span style="color:#ffffff; font-size:14px; font-weight:700;">קרנות פנסיה</span>
+            </a>
+            <a href="#3a" style="display:flex; flex-direction:column; align-items:center; gap:9px; text-decoration:none; width:96px;">
+              <span style="width:64px; height:64px; border-radius:9999px; background:rgba(255,255,255,0.14); display:flex; align-items:center; justify-content:center;"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3 L17.5 18 L6.5 18 Z" fill="#ffffff"></path><path d="M10.1 8.2 L13.9 8.2 L14.9 11 L9.1 11 Z" fill="#F0514F"></path><rect x="3.5" y="18" width="17" height="2.4" rx="1.2" fill="#ffffff"></rect></svg></span>
+              <span style="color:#ffffff; font-size:14px; font-weight:700;">חברות ביטוח</span>
+            </a>
+            <a href="#3a" style="display:flex; flex-direction:column; align-items:center; gap:9px; text-decoration:none; width:96px;">
+              <span style="width:64px; height:64px; border-radius:9999px; background:rgba(255,255,255,0.14); display:flex; align-items:center; justify-content:center;"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9" stroke="#ffffff" stroke-width="2.4"></circle><line x1="12" y1="4.5" x2="12" y2="19.5" stroke="#ffffff" stroke-width="1.8"></line><line x1="4.5" y1="12" x2="19.5" y2="12" stroke="#ffffff" stroke-width="1.8"></line><line x1="6.7" y1="6.7" x2="17.3" y2="17.3" stroke="#ffffff" stroke-width="1.8"></line><line x1="17.3" y1="6.7" x2="6.7" y2="17.3" stroke="#ffffff" stroke-width="1.8"></line><circle cx="12" cy="12" r="3" fill="#F0514F" stroke="#ffffff" stroke-width="1.5"></circle></svg></span>
+              <span style="color:#ffffff; font-size:14px; font-weight:700;">משרד הרישוי</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- testimonials: swipe -->
+      <div style="padding:0 0 56px;">
+        <div style="padding:0 24px;">
+          <h2 style="font-family:'RaananPro','SimplerPro',sans-serif; margin:0 0 8px; font-size:28px; font-weight:300; letter-spacing:-0.2px;">הם כבר לא מוותרים <span style="font-weight:700;">על מה ששלהם.</span></h2>
+          <p style="margin:0 0 20px; font-size:16px; color:#273951;">כל אחד מהסיפורים האלה התחיל ב״אין לי כוח לזה״. וכל אחד מהם נגמר בזכות שהגיעה הביתה.</p>
+        </div>
+        <div class="car" data-reveal style="display:flex; gap:14px; overflow-x:auto; scroll-snap-type:x mandatory; scrollbar-width:none; padding:0 24px 8px;">
+          <div style="scroll-snap-align:start; flex-shrink:0; width:280px; background:#ffffff; border:1px solid #e3e8ee; border-radius:14px; overflow:hidden; display:flex; flex-direction:column; gap:14px;">
+            <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="quote-m1" shape="rect" placeholder="תמונת לקוח" fit="cover" style="width:100%; height:130px;" hint-size="100%,130px"></x-import>
+            <div style="font-size:32px; line-height:0.6; color:{{ accent }}; font-weight:900; margin:14px 20px 0;">”</div>
+            <p style="margin:0 20px; font-size:15px; line-height:1.6; color:#273951; flex:1;">"אחרי שנתיים של סירובים החלטתי להפסיק לוותר. תוך ארבעה חודשים קיבלתי פטור ממס — כולל החזר רטרואקטיבי."</p>
+            <div style="display:flex; flex-direction:column; gap:2px; margin:0 20px 18px;">
+              <div style="font-size:15px; font-weight:700;">רחל ב׳</div>
+              <div style="font-size:13px; color:#64748d;">פטור ממס הכנסה</div>
+            </div>
+          </div>
+          <div style="scroll-snap-align:start; flex-shrink:0; width:280px; background:#ffffff; border:1px solid #e3e8ee; border-radius:14px; overflow:hidden; display:flex; flex-direction:column; gap:14px;">
+            <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="quote-m2" shape="rect" placeholder="תמונת לקוח" fit="cover" style="width:100%; height:130px;" hint-size="100%,130px"></x-import>
+            <div style="font-size:32px; line-height:0.6; color:{{ accent }}; font-weight:900; margin:14px 20px 0;">”</div>
+            <p style="margin:0 20px; font-size:15px; line-height:1.6; color:#273951; flex:1;">"הם ניהלו הכול מול ביטוח לאומי — כל טופס, כל ועדה, כל ערר. אני רק חתמתי. הקצבה הגיעה הביתה."</p>
+            <div style="display:flex; flex-direction:column; gap:2px; margin:0 20px 18px;">
+              <div style="font-size:15px; font-weight:700;">יוסי ל׳</div>
+              <div style="font-size:13px; color:#64748d;">קצבת נכות כללית</div>
+            </div>
+          </div>
+          <div style="scroll-snap-align:start; flex-shrink:0; width:280px; background:#ffffff; border:1px solid #e3e8ee; border-radius:14px; overflow:hidden; display:flex; flex-direction:column; gap:14px;">
+            <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="quote-m3" shape="rect" placeholder="תמונת לקוח" fit="cover" style="width:100%; height:130px;" hint-size="100%,130px"></x-import>
+            <div style="font-size:32px; line-height:0.6; color:{{ accent }}; font-weight:900; margin:14px 20px 0;">”</div>
+            <p style="margin:0 20px; font-size:15px; line-height:1.6; color:#273951; flex:1;">"אחרי הניתוח לא יכולתי לחזור לעבודה, וחברת הביטוח משכה זמן. בזכותם קיבלתי את מה שמגיע לי — בלי לשלם שקל מראש."</p>
+            <div style="display:flex; flex-direction:column; gap:2px; margin:0 20px 18px;">
+              <div style="font-size:15px; font-weight:700;">מרים כ׳</div>
+              <div style="font-size:13px; color:#64748d;">אובדן כושר עבודה</div>
+            </div>
+          </div>
+        </div>
+        <div style="padding:16px 24px 0;">
+          <a href="#3a" style="display:inline-block; background:#ffffff; color:{{ accentDark }}; border:1.5px solid {{ accent }}; text-decoration:none; font-size:16px; padding:11px 22px; border-radius:9999px;">עוד סיפורים</a>
+        </div>
+      </div>
+
+      <!-- magazine: swipe -->
+      <div style="padding:0 0 56px;">
+        <div style="padding:0 24px;">
+          <h2 style="font-family:'RaananPro','SimplerPro',sans-serif; margin:0 0 8px; font-size:28px; font-weight:300; letter-spacing:-0.2px;">ידע זה כוח. <span style="font-weight:700;">וכוח זה כסף שמגיע לכם.</span></h2>
+          <p style="margin:0 0 20px; font-size:16px; color:#273951;">מדריכים, עדכוני חוק וכל מה שצריך לדעת כדי לא לפספס אף זכות — בשפה של בני אדם, לא של פקידים.</p>
+        </div>
+        <div class="car" data-reveal style="display:flex; gap:14px; overflow-x:auto; scroll-snap-type:x mandatory; scrollbar-width:none; padding:0 24px 8px;">
+          <sc-for list="{{ articles }}" as="art" hint-placeholder-count="4">
+            <a href="#3a" style="scroll-snap-align:start; flex-shrink:0; width:250px; background:#fff; border:1px solid #e3e8ee; border-radius:14px; overflow:hidden; text-decoration:none; color:#0d253d; display:flex; flex-direction:column;">
+              <div style="height:120px; background:url(&quot;./19b771_b9344cd4a27a43e58b11c8ca0c8ccdc8--mr8667se.avif&quot;) center / cover no-repeat;"></div>
+              <div style="padding:16px 18px 18px; display:flex; flex-direction:column; gap:12px; flex:1;">
+                <div style="font-size:16px; line-height:1.45; flex:1;">{{ art.title }}</div>
+                <div style="color:#0000FF; font-size:15px;">המשך קריאה ←</div>
+              </div>
+            </a>
+          </sc-for>
+        </div>
+        <div style="padding:16px 24px 0;">
+          <a href="#3a" style="color:#0000FF; text-decoration:none; font-size:16px;">לכל הכתבות ←</a>
+        </div>
+      </div>
+
+      <!-- community -->
+      <div data-reveal style="background:#f6f9fc; padding:40px 24px;">
+        <div style="font-size:21px; font-weight:700; margin-bottom:6px;">אל תפספסו שום עדכון רלוונטי</div>
+        <div style="font-size:15px; color:#4a5b74; line-height:1.6; margin-bottom:18px;">עוקבים אחרינו ומקבלים ראשונים כל שינוי בחוק, כל עדכון בקצבאות וכל זכות חדשה שנפתחת.</div>
+        <div style="display:flex; gap:10px; flex-wrap:wrap;">
+          <a href="#3a" aria-label="פייסבוק" style="display:inline-flex; align-items:center; justify-content:center; width:44px; height:44px; border:1px solid #e3e8ee; background:#fff; color:#0d253d; border-radius:9999px; text-decoration:none;"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13.5 21.5v-7.4h2.5l.4-2.9h-2.9V9.3c0-.8.2-1.4 1.4-1.4h1.5V5.3c-.3 0-1.2-.1-2.2-.1-2.2 0-3.7 1.3-3.7 3.8v2.2H8.1v2.9h2.4v7.4z"></path></svg></a>
+          <a href="#3a" aria-label="אינסטגרם" style="display:inline-flex; align-items:center; justify-content:center; width:44px; height:44px; border:1px solid #e3e8ee; background:#fff; color:#0d253d; border-radius:9999px; text-decoration:none;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="4.5" stroke="currentColor" stroke-width="1.8"></rect><circle cx="12" cy="12" r="3.8" stroke="currentColor" stroke-width="1.8"></circle><circle cx="17" cy="7" r="1.3" fill="currentColor"></circle></svg></a>
+          <a href="#3a" aria-label="יוטיוב" style="display:inline-flex; align-items:center; justify-content:center; width:44px; height:44px; border:1px solid #e3e8ee; background:#fff; color:#0d253d; border-radius:9999px; text-decoration:none;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="2.5" y="5.5" width="19" height="13" rx="3.5" stroke="currentColor" stroke-width="1.8"></rect><path d="M10.2 9.2 L15.2 12 L10.2 14.8 Z" fill="currentColor"></path></svg></a>
+          <a href="#3a" aria-label="טיקטוק" style="display:inline-flex; align-items:center; justify-content:center; width:44px; height:44px; border:1px solid #e3e8ee; background:#fff; color:#0d253d; border-radius:9999px; text-decoration:none;"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.6 3c.4 1.9 1.6 3.3 3.6 3.6v2.9c-1.4 0-2.6-.4-3.6-1.1v5.9c0 3-2.3 5.3-5.3 5.3-2.9 0-5.2-2.2-5.2-5 0-2.9 2.6-5.2 5.7-4.9v3c-1.4-.3-2.7.7-2.7 2 0 1.2 1 2.1 2.2 2.1 1.3 0 2.3-1 2.3-2.4V3z"></path></svg></a>
+          <a href="#3a" aria-label="לינקדאין" style="display:inline-flex; align-items:center; justify-content:center; width:44px; height:44px; border:1px solid #e3e8ee; background:#fff; color:#0d253d; border-radius:9999px; text-decoration:none;"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="3" y="9.5" width="3" height="11"></rect><circle cx="4.5" cy="5.5" r="1.8"></circle><path d="M10 9.5h2.9v1.5c.5-.9 1.6-1.7 3.2-1.7 2.4 0 3.9 1.6 3.9 4.5v6.7h-3v-6.2c0-1.5-.6-2.3-1.8-2.3-1.3 0-2.2 1-2.2 2.5v6h-3z"></path></svg></a>
+        </div>
+      </div>
+
+      <!-- final CTA -->
+      <div data-reveal style="position:relative; overflow:hidden; padding:56px 24px; text-align:center;">
+        <img src="assets/heart.svg" alt="" aria-hidden="true" style="position:absolute; bottom:-40px; left:-40px; width:220px; height:auto; opacity:0.07; pointer-events:none;">
+        <h2 style="font-family:'RaananPro','SimplerPro',sans-serif; margin:0 0 10px; font-size:28px; font-weight:300; letter-spacing:-0.2px;"><b>בואו לבדוק מה מגיע לכם</b></h2>
+        <p style="margin:0 0 24px; font-size:16px; color:#4a5b74;">השאירו פרטים ונחזור אליכם היום. בלי עלות, בלי התחייבות, בלי אותיות קטנות.</p>
+        <div style="display:flex; flex-direction:column; gap:12px;">
+          <input aria-label="שם מלא (שדה חובה)" placeholder="*שם מלא" style="font-family:inherit; font-size:17px; color:#0d253d; padding:13px 16px; border-radius:10px; border:1.5px solid #64748d; outline:none; min-height:48px; box-sizing:border-box; width:100%;" style-focus="border-color:#0000FF; box-shadow:0 0 0 3px rgba(0,0,255,0.15);">
+          <input aria-label="טלפון (שדה חובה)" placeholder="*טלפון" style="font-family:inherit; font-size:17px; color:#0d253d; padding:13px 16px; border-radius:10px; border:1.5px solid #64748d; outline:none; min-height:48px; box-sizing:border-box; width:100%;" style-focus="border-color:#0000FF; box-shadow:0 0 0 3px rgba(0,0,255,0.15);">
+          <input aria-label="דוא״ל" placeholder="דוא״ל" style="font-family:inherit; font-size:17px; color:#0d253d; padding:13px 16px; border-radius:10px; border:1.5px solid #64748d; outline:none; min-height:48px; box-sizing:border-box; width:100%;" style-focus="border-color:#0000FF; box-shadow:0 0 0 3px rgba(0,0,255,0.15);">
+          <button style="font-family:inherit; background:#0000FF; color:#fff; font-size:17px; font-weight:400; padding:14px 32px; min-height:50px; border:none; border-radius:9999px; cursor:pointer; width:100%;">צרו איתי קשר</button>
+        </div>
+      </div>
+
+      <!-- FAQ -->
+      <div data-reveal style="background:#f6f9fc; padding:48px 20px;">
+        <h2 style="font-family:'RaananPro','SimplerPro',sans-serif; margin:0 0 8px; font-size:28px; font-weight:300; letter-spacing:-0.2px; text-align:center;">שאלות <span style="font-weight:700;">ותשובות</span></h2>
+        <p style="margin:0 0 24px; font-size:15px; color:#273951; text-align:center;">ריכזנו עבורכם את השאלות הנפוצות ביותר על מימוש הזכויות שלכם.</p>
+        <div style="display:flex; flex-direction:column; gap:10px;">
+          <sc-for list="{{ faqs }}" as="f" hint-placeholder-count="6">
+            <details style="background:#ffffff; border:1px solid #e3e8ee; border-radius:12px; padding:0 18px;">
+              <summary style="cursor:pointer; font-size:16px; font-weight:700; color:#0d253d; padding:16px 0; list-style:none; display:flex; justify-content:space-between; align-items:center; gap:12px;">{{ f.q }}<span class="faq-plus" style="color:#0000FF; font-size:24px; font-weight:300; flex-shrink:0; line-height:1; transition:transform 0.2s;">+</span></summary>
+              <p style="margin:0; padding:0 0 18px; font-size:15px; font-weight:400; line-height:1.65; color:#273951; animation:faqIn 0.35s ease;">{{ f.a }}</p>
+            </details>
+          </sc-for>
+        </div>
+      </div>
+
+      <!-- footer -->
+      <footer style="border-top:1px solid #e3e8ee; padding:40px 24px 28px;">
+        <img src="assets/logo.svg" alt="שלכם" style="height:56px; width:auto; margin-bottom:20px;">
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:24px; font-size:14px; color:#4a5b74; line-height:2;">
+          <div>
+            <div style="color:#0d253d; font-weight:700; margin-bottom:4px;">מוסדות ובירוקרטיה</div>
+            <div>ביטוח לאומי</div><div>מס הכנסה</div><div>קרנות פנסיה</div><div>חברות ביטוח</div><div>משרד הרישוי</div>
+          </div>
+          <div>
+            <div style="color:#0d253d; font-weight:700; margin-bottom:4px;">אודות</div>
+            <div>מדיניות פרטיות</div><div>הצהרת נגישות</div><div>יצירת קשר</div><div>הרופאים שלנו</div>
+          </div>
+          <div>
+            <div style="color:#0d253d; font-weight:700; margin-bottom:4px;">מגזין</div>
+            <div>מחלות וזכויות</div><div>מילון מושגים</div><div>שאלות ותשובות</div><div>תקנון סליקה</div>
+          </div>
+          <div>
+            <div style="color:#0d253d; font-weight:700; margin-bottom:4px;">מחלות וזכויות</div>
+            <div>נכות כללית</div><div>אובדן כושר עבודה</div><div>ילד נכה</div><div>ביטוח סיעודי</div>
+          </div>
+        </div>
+        <div style="border-top:1px solid #e3e8ee; margin-top:24px; padding-top:16px; font-size:13px; color:#4a5b74; line-height:1.7;">
+          <b style="color:#0d253d;">סניפים:</b> ירושלים — בניין שערי העיר, רח׳ יפו פינת שרי ישראל (קומה 9) · בני ברק — רח׳ ז׳בוטינסקי 168 · 076-8017778<br>© שלכם — מימוש זכויות רפואיות
+        </div>
+      </footer>
+    </div>
+  </div>
+
+
+  <!-- ============ 2A — אור: קופי "שלכם" ============ -->
+  <div id="2a" data-screen-label="2a אור — שלכם" style="position:relative; width:1440px; flex-shrink:0;">
+    <div style="position:absolute; top:-52px; right:0; display:flex; align-items:center; gap:10px;">
+      <span style="background:#0000FF; color:#fff; font-weight:700; font-size:14px; padding:4px 12px; border-radius:9999px;">2a</span>
+      <span style="color:#64748d; font-size:14px;">אור — קופי ״שלכם״, קנבס לבן, mesh פסטלי</span>
+    </div>
+
+    <div dir="rtl" style="width:1440px; background:#ffffff; color:#0d253d; border-radius:16px; overflow:hidden; box-shadow: rgba(0,55,112,0.08) 0 8px 24px;">
+
+      <!-- nav -->
+      <nav style="display: flex; align-items: center; gap: 32px; padding: 16px 48px; background: #ffffff; position: relative; z-index: 2; padding-left: 48px; padding-right: 48px">
+        <img src="assets/logo.svg" alt="שלכם" style="height: 52px; width: auto; margin-left: 32px">
+        <div style="display: flex; align-items: center; gap: 38px; font-size: 17px; font-weight: 400; color: #273951; width: 645px; height: 20px">
+          <a href="#2a" style="color:#0d253d; text-decoration:none; font-weight:700;">בית</a>
+          <a href="#2a" style="color:#273951; text-decoration:none;">הסיפור שלנו</a>
+          <a href="#2a" style="color:#273951; text-decoration:none;">תחומי פעילות</a>
+          <a href="#2a" style="color:#273951; text-decoration:none;">איך זה עובד</a>
+          <a href="#2a" style="color:#273951; text-decoration:none;">מגזין</a>
+                  </div>
+        <div style="margin-inline-start:auto; display:flex; align-items:center; gap:16px;">
+          
+          <a href="tel:076-8017778" style="color: #fff; text-decoration: none; font-size: 17px; font-weight: 400; padding: 11px 22px; border-radius: 9999px; font-feature-settings: 'tnum'; background-color: #0000FF">076-8017778</a>
+        </div>
+      </nav>
+
+      <!-- 1. hero -->
+      <div style="position:relative; overflow:hidden; background:#ffffff; display:flex; align-items:stretch; min-height:660px;">
+        
+        <div style="flex:1.08; display:flex; flex-direction:column; justify-content:flex-start; align-items:flex-start; padding:64px 96px 0 130px; box-sizing:border-box;">
+            <h1 data-anim="0" style="font-family:'RaananPro','SimplerPro',sans-serif; margin: 0 0 24px; color: #0d253d; font-size: 64px; line-height: 1.08; font-weight: 300; letter-spacing: -0.5px; max-width: 520px">13 שנות מקצוענות <br>במימוש הזכויות<br><span style="border-width: 8px; border-bottom-style: solid; border-color: rgb(240, 81, 79); font-weight: 900"><span style="color: #000000; font-size: 64px">שלכם</span></span></h1>
+            
+            <div data-anim="200" style="position:relative; margin-top:auto; width:100%; max-width:640px; background:#ffffff; border:1px solid #e6ebf2; border-bottom:none; border-radius:28px 28px 0 0; padding:38px 28px 24px; box-sizing:border-box; box-shadow: rgba(13,37,61,0.12) 0 -20px 48px; display:flex; flex-direction:column; gap:14px;">
+              <div style="position:absolute; top:-25px; right:28px; background:#0000FF; color:#ffffff; font-size:18px; font-weight:700; line-height:1; padding:15px 26px; border-radius:9999px; box-shadow: rgba(0,0,120,0.25) 0 10px 24px;">מגיע לכם לדעת מה מגיע לכם</div>
+              <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+                <input aria-label="שם מלא (שדה חובה)" placeholder="*שם מלא" style="font-family:inherit; font-size:17px; color:#0d253d; padding:12px 16px; border-radius:10px; border:1.5px solid #cbd5e1; outline:none; min-height:48px; box-sizing:border-box; width:100%;" style-focus="border-color:#0000FF; box-shadow:0 0 0 3px rgba(0,0,255,0.15);">
+                <input aria-label="טלפון (שדה חובה)" placeholder="*טלפון" style="font-family:inherit; font-size:17px; color:#0d253d; padding:12px 16px; border-radius:10px; border:1.5px solid #cbd5e1; outline:none; min-height:48px; box-sizing:border-box; width:100%;" style-focus="border-color:#0000FF; box-shadow:0 0 0 3px rgba(0,0,255,0.15);">
+              </div>
+              <div style="display:grid; grid-template-columns:1fr auto; gap:12px;">
+                <input aria-label="דוא״ל (אופציונלי)" placeholder="דואר אלקטרוני" style="font-family:inherit; font-size:17px; color:#0d253d; padding:12px 16px; border-radius:10px; border:1.5px solid #cbd5e1; outline:none; min-height:48px; box-sizing:border-box; width:100%;" style-focus="border-color:#0000FF; box-shadow:0 0 0 3px rgba(0,0,255,0.15);">
+                <button style="font-family:inherit; color:#fff; font-size:17px; font-weight:700; padding:12px 28px; min-height:48px; border:none; border-radius:9999px; cursor:pointer; background-color:#F0514F;" style-hover="background:#d94341;">אני רוצה לבדוק &gt;</button>
+              </div>
+              <div style="display:flex; flex-direction:column; gap:8px;">
+                <label style="display:flex; align-items:flex-start; gap:10px; font-size:14px; line-height:1.5; color:#4a5b74; cursor:pointer;">
+                  <input type="checkbox" style="width:18px; height:18px; margin:1px 0 0; flex-shrink:0; accent-color:#0000FF; cursor:pointer;">
+                  <span>ידוע לי כי המידע שאמסור יישמר במאגרי המידע של החברה בהתאם למפורט</span>
+                </label>
+                <label style="display:flex; align-items:flex-start; gap:10px; font-size:14px; line-height:1.5; color:#4a5b74; cursor:pointer;">
+                  <input type="checkbox" style="width:18px; height:18px; margin:1px 0 0; flex-shrink:0; accent-color:#0000FF; cursor:pointer;">
+                  <span>אני מאשר/ת קבלת חומרים שיווקיים משלכם מימוש זכויות רפואיות בע"מ</span>
+                </label>
+              </div>
+              
+            </div>
+            
+          </div>
+
+          <div style="position:relative; flex:0.92; background:linear-gradient(200deg, #1f1fff 0%, #0000e6 55%, #0000bf 100%);">
+            <div style="position:absolute; top:-160px; left:-120px; width:560px; height:560px; border-radius:50%; background:radial-gradient(circle, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0) 70%); animation:glowPulse 7s ease-in-out infinite alternate;"></div>
+            <div style="position:absolute; bottom:0; left:0; right:0; height:160px; background:linear-gradient(180deg, #000085 0%, #0000ad 100%);"></div>
+            <img src="assets/hero-team.png" alt="הצוות של שלכם" data-anim-fade="350" style="position:absolute; bottom:0; left:60%; transform:translateX(-50%); height:575px; width:auto; z-index:1; filter:drop-shadow(0 20px 44px rgba(0,0,60,0.35));">
+        </div>
+      </div>
+
+      <!-- 2. specialties -->
+      <div style="background:#f6f9fc; padding:72px 96px;">
+        <div data-reveal style="max-width: 1240px; margin: 0 auto; width: 1245px; height: 399px">
+          <h2 style="font-family:'RaananPro','SimplerPro',sans-serif; margin:0 0 16px; font-size:38px; font-weight:300; letter-spacing:-0.3px;">המומחים שלכם במימוש זכויות רפואיות</h2>
+          <p style="margin: 0 0 32px; font-size: 20px; font-weight: 400; line-height: 1.65; color: #273951; max-width: 820px; width: 972px; height: 103px">פטור ממס, קצבת נכות, אובדן כושר עבודה, סיעוד, מחלת מקצוע, שמירת הריון - <br>מאחורי כל אחד מאלה עומדת זכות שמגיעה לכם.</p>
+          <div style="display:flex; flex-wrap:wrap; gap:12px;">
+            <a href="#2a" style="background:#fff; border:1px solid #e3e8ee; color:#0d253d; text-decoration:none; font-size:18px; font-weight:400; padding:13px 26px; border-radius:9999px;" style-hover="border-color:#0000FF; color:#0000FF;"><svg style="vertical-align:-3.5px; margin-inline-end:9px;" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><line x1="6" y1="18" x2="18" y2="6" stroke="currentColor" stroke-width="2" stroke-linecap="round"></line><circle cx="7.5" cy="7.5" r="2.4" stroke="currentColor" stroke-width="1.8"></circle><circle cx="16.5" cy="16.5" r="2.4" stroke="currentColor" stroke-width="1.8"></circle></svg>פטור ממס הכנסה</a>
+            <a href="#2a" style="background:#fff; border:1px solid #e3e8ee; color:#0d253d; text-decoration:none; font-size:18px; font-weight:400; padding:13px 26px; border-radius:9999px;" style-hover="border-color:#0000FF; color:#0000FF;"><svg style="vertical-align:-3.5px; margin-inline-end:9px;" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><ellipse cx="12" cy="6.5" rx="7" ry="3" stroke="currentColor" stroke-width="1.8"></ellipse><path d="M5 6.5V12c0 1.7 3.1 3 7 3s7-1.3 7-3V6.5" stroke="currentColor" stroke-width="1.8"></path><path d="M5 12v5.5c0 1.7 3.1 3 7 3s7-1.3 7-3V12" stroke="currentColor" stroke-width="1.8"></path></svg>קצבת נכות כללית</a>
+            <a href="#2a" style="background:#fff; border:1px solid #e3e8ee; color:#0d253d; text-decoration:none; font-size:18px; font-weight:400; padding:13px 26px; border-radius:9999px;" style-hover="border-color:#0000FF; color:#0000FF;"><svg style="vertical-align:-3.5px; margin-inline-end:9px;" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3.5" y="8" width="17" height="11.5" rx="2" stroke="currentColor" stroke-width="1.8"></rect><path d="M9 8V6.5A1.5 1.5 0 0 1 10.5 5h3A1.5 1.5 0 0 1 15 6.5V8" stroke="currentColor" stroke-width="1.8"></path><line x1="3.5" y1="13" x2="20.5" y2="13" stroke="currentColor" stroke-width="1.8"></line></svg>אובדן כושר עבודה</a>
+            <a href="#2a" style="background:#fff; border:1px solid #e3e8ee; color:#0d253d; text-decoration:none; font-size:18px; font-weight:400; padding:13px 26px; border-radius:9999px;" style-hover="border-color:#0000FF; color:#0000FF;"><svg style="vertical-align:-3.5px; margin-inline-end:9px;" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="8.5" stroke="currentColor" stroke-width="1.8"></circle><path d="M12 7.5V12l3.5 2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path></svg>פנסיית נכות</a>
+            <a href="#2a" style="background:#fff; border:1px solid #e3e8ee; color:#0d253d; text-decoration:none; font-size:18px; font-weight:400; padding:13px 26px; border-radius:9999px;" style-hover="border-color:#0000FF; color:#0000FF;"><svg style="vertical-align:-3.5px; margin-inline-end:9px;" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 20C6 15.5 3.5 12.5 3.5 9.4 3.5 7 5.4 5 7.9 5c1.7 0 3.2.9 4.1 2.3C12.9 5.9 14.4 5 16.1 5c2.5 0 4.4 2 4.4 4.4 0 3.1-2.5 6.1-8.5 10.6Z" fill="currentColor"></path></svg>ביטוח סיעודי (ביטוח לאומי וחברות ביטוח)</a>
+            <a href="#2a" style="background:#fff; border:1px solid #e3e8ee; color:#0d253d; text-decoration:none; font-size:18px; font-weight:400; padding:13px 26px; border-radius:9999px;" style-hover="border-color:#0000FF; color:#0000FF;"><svg style="vertical-align:-3.5px; margin-inline-end:9px;" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M10 3.5h4M11 3.5V9l-5 8.3a2 2 0 0 0 1.7 3.2h8.6a2 2 0 0 0 1.7-3.2L13 9V3.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg>מחלת מקצוע</a>
+            <a href="#2a" style="background:#fff; border:1px solid #e3e8ee; color:#0d253d; text-decoration:none; font-size:18px; font-weight:400; padding:13px 26px; border-radius:9999px;" style-hover="border-color:#0000FF; color:#0000FF;"><svg style="vertical-align:-3.5px; margin-inline-end:9px;" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 4 21 19.5H3Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"></path><line x1="12" y1="10" x2="12" y2="14.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"></line><circle cx="12" cy="17" r="1.2" fill="currentColor"></circle></svg>תאונת עבודה</a>
+            <a href="#2a" style="background:#fff; border:1px solid #e3e8ee; color:#0d253d; text-decoration:none; font-size:18px; font-weight:400; padding:13px 26px; border-radius:9999px;" style-hover="border-color:#0000FF; color:#0000FF;"><svg style="vertical-align:-3.5px; margin-inline-end:9px;" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="11.5" cy="5.2" r="2.2" fill="currentColor"></circle><path d="M9.8 8.8V21h2.4v-3.4h.6a4.3 4.3 0 0 0 0-8.6Z" fill="currentColor"></path></svg>שמירת הריון</a>
+            <a href="#2a" style="background:#fff; border:1px solid #e3e8ee; color:#0d253d; text-decoration:none; font-size:18px; font-weight:400; padding:13px 26px; border-radius:9999px;" style-hover="border-color:#0000FF; color:#0000FF;"><svg style="vertical-align:-3.5px; margin-inline-end:9px;" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="6" r="2.5" fill="currentColor"></circle><rect x="8.8" y="10" width="6.4" height="8.5" rx="3.2" fill="currentColor"></rect></svg>ילד נכה</a>
+            <a href="#2a" style="background:#fff; border:1px solid #e3e8ee; color:#0d253d; text-decoration:none; font-size:18px; font-weight:400; padding:13px 26px; border-radius:9999px;" style-hover="border-color:#0000FF; color:#0000FF;"><svg style="vertical-align:-3.5px; margin-inline-end:9px;" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><polygon points="12 3.5 14.6 9 20.5 9.7 16.2 13.8 17.3 19.7 12 16.8 6.7 19.7 7.8 13.8 3.5 9.7 9.4 9" fill="currentColor"></polygon></svg>שירותים מיוחדים</a>
+            <a href="#2a" style="background:#fff; border:1px solid #e3e8ee; color:#0d253d; text-decoration:none; font-size:18px; font-weight:400; padding:13px 26px; border-radius:9999px;" style-hover="border-color:#0000FF; color:#0000FF;"><svg style="vertical-align:-3.5px; margin-inline-end:9px;" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3 19.5 6v5.2c0 4.8-3.3 8.1-7.5 9.8-4.2-1.7-7.5-5-7.5-9.8V6Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"></path></svg>נפגעי פעולות איבה</a>
+            <a href="#2a" style="background:#fff; border:1px solid #e3e8ee; color:#0d253d; text-decoration:none; font-size:18px; font-weight:400; padding:13px 26px; border-radius:9999px;" style-hover="border-color:#0000FF; color:#0000FF;"><svg style="vertical-align:-3.5px; margin-inline-end:9px;" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4.5 11.5 12 4.5l7.5 7V20h-5v-5h-5v5h-5Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"></path></svg>זכויות אלמנים ויתומים</a>
+            <a href="#2a" style="background:#fff; border:1px solid #e3e8ee; color:#0d253d; text-decoration:none; font-size:18px; font-weight:400; padding:13px 26px; border-radius:9999px;" style-hover="border-color:#0000FF; color:#0000FF;"><svg style="vertical-align:-3.5px; margin-inline-end:9px;" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="2.8" y="9" width="18.4" height="6" rx="3" transform="rotate(-35 12 12)" stroke="currentColor" stroke-width="1.8"></rect><circle cx="11" cy="12.6" r="0.9" fill="currentColor"></circle><circle cx="13" cy="11.4" r="0.9" fill="currentColor"></circle></svg>תאונות אישיות</a>
+            <a href="#2a" style="background:#fff; border:1px solid #e3e8ee; color:#0d253d; text-decoration:none; font-size:18px; font-weight:400; padding:13px 26px; border-radius:9999px;" style-hover="border-color:#0000FF; color:#0000FF;"><svg style="vertical-align:-3.5px; margin-inline-end:9px;" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="4" stroke="currentColor" stroke-width="1.8"></rect><path d="M9.5 17V7.5h3.7a3 3 0 0 1 0 6H9.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path></svg>תג חניה לנכה</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. success fee — cream band -->
+      <div style="padding:88px 96px 0;">
+        <div data-reveal style="max-width: 1240px; margin: 0 auto; border-radius: 12px; padding: 64px 80px; text-align: center; background-color: #F0514F">
+          <h2 style="font-family:'RaananPro','SimplerPro',sans-serif; margin: 0 0 20px; font-size: 40px; font-weight: 300; letter-spacing: -0.4px; color: #FFFFFF"><div>כנראה שמגיע לכם הרבה יותר ממה שאתם חושבים.</div></h2>
+          <div style="margin: 0 auto; max-width: 820px; font-size: 21px; font-weight: 400; line-height: 1.7; color: #FFFFFF"><div>כמה שאלות קצרות, ואנחנו נגיד לכם בדיוק איפה אתם עומדים.</div></div>
+          <a href="#2a" style="display:inline-block; margin-top:24px; color:#ffffff; font-size:20px; font-weight:700; text-decoration:underline; text-underline-offset:4px; text-decoration-thickness:2px;">אשמח לדעת ←</a>
+        </div>
+      </div>
+
+      <!-- intro: מימוש זכויות -->
+      <div style="padding:88px 96px 0;">
+        <div data-reveal style="max-width:880px; margin:0 auto; text-align:center;">
+          <h2 style="font-family:'RaananPro','SimplerPro',sans-serif; margin:0 0 20px; font-size:38px; font-weight:300; line-height:1.2; letter-spacing:-0.3px;">מימוש זכויות רפואיות: <span style="font-weight:700;">הופכים את הזכות שלכם למציאות.</span></h2>
+          <p style="margin:0; font-size:19px; font-weight:400; line-height:1.7; color:#273951;">הדרך לקבלת הקצבאות והפיצויים המגיעים לכם על פי חוק לא חייבת להיות מאבק. למרות שמדובר בזכויות בסיסיות, הבירוקרטיה המורכבת וחוסר הידע גורמים לרבים לוותר מראש על כסף שמגיע להם. בשלכם, אנחנו מאמינים שאף אדם לא צריך להתמודד לבד מול גופים גדולים כמו ביטוח לאומי או חברות הביטוח. אנחנו כאן כדי לגשר על הפער שבין המצב הרפואי לבין המענק הכספי, עם ליווי אישי וניסיון שפותח דלתות.</p>
+        </div>
+      </div>
+
+      <!-- 4. how it works -->
+      <div style="padding:88px 96px;">
+        <div style="max-width:1240px; margin:0 auto;">
+          <h2 style="font-family:'RaananPro','SimplerPro',sans-serif; margin:0 0 40px; font-size:38px; font-weight:300; letter-spacing:-0.3px;">שלושה צעדים שלכם. <span style="font-weight: 700;">החלק הקשה שלנו.</span></h2>
+          <div style="display:grid; grid-template-columns: repeat(3, 1fr); gap:24px;">
+            <div data-reveal style="background:#fff; border:1px solid #e3e8ee; border-radius:12px; padding:32px; transition:transform 0.25s ease, box-shadow 0.25s ease;" style-hover="transform:translateY(-5px); box-shadow: rgba(0,55,112,0.10) 0 14px 32px;">
+              <div style="width:44px; height:44px; border-radius:9999px; background: {{ accentTintBg }}; color: {{ accentDark }}; display:flex; align-items:center; justify-content:center; font-size:20px; font-weight:700; margin-bottom:18px; font-feature-settings:'tnum';">1</div>
+              <div style="font-size:22px; font-weight:700; margin-bottom:10px;">משאירים פרטים.</div>
+              <div style="font-size:19px; font-weight:400; line-height:1.6; color:#273951;">אתם משאירים טלפון, אנחנו חוזרים. בלי טפסים אינסופיים, בלי לרוץ בין משרדים.</div>
+            </div>
+            <div data-reveal style="background:#fff; border:1px solid #e3e8ee; border-radius:12px; padding:32px; transition:transform 0.25s ease, box-shadow 0.25s ease;" style-hover="transform:translateY(-5px); box-shadow: rgba(0,55,112,0.10) 0 14px 32px;">
+              <div style="width:44px; height:44px; border-radius:9999px; background: {{ accentTintBg }}; color: {{ accentDark }}; display:flex; align-items:center; justify-content:center; font-size:20px; font-weight:700; margin-bottom:18px; font-feature-settings:'tnum';">2</div>
+              <div style="font-size:22px; font-weight:700; margin-bottom:10px;">בודקים לעומק.</div>
+              <div style="font-size:19px; font-weight:400; line-height:1.6; color:#273951;">אנחנו מוצאים בדיוק מה מגיע לכם — כולל זכויות שבחיים לא שמעתם עליהן.</div>
+            </div>
+            <div data-reveal style="background:#fff; border:1px solid #e3e8ee; border-radius:12px; padding:32px; transition:transform 0.25s ease, box-shadow 0.25s ease;" style-hover="transform:translateY(-5px); box-shadow: rgba(0,55,112,0.10) 0 14px 32px;">
+              <div style="width:44px; height:44px; border-radius:9999px; background: {{ accentTintBg }}; color: {{ accentDark }}; display:flex; align-items:center; justify-content:center; font-size:20px; font-weight:700; margin-bottom:18px; font-feature-settings:'tnum';">3</div>
+              <div style="font-size:22px; font-weight:700; margin-bottom:10px;">אנחנו נכנסים בשבילכם.</div>
+              <div style="font-size:19px; font-weight:400; line-height:1.6; color:#273951;">מנהלים את כל המאבק מול ביטוח לאומי, מס הכנסה, הקרנות והביטוח. אתם ממשיכים לחיות.</div>
+            </div>
+          </div>
+          <div style="display:flex; justify-content:center; margin-top:36px;">
+            <a href="#2a" style="display:inline-block; background:#0000FF; color:#ffffff; text-decoration:none; font-size:19px; font-weight:700; padding:16px 44px; border-radius:9999px; box-shadow: rgba(0,0,255,0.25) 0 12px 28px;" style-hover="background:#0000c9;">לבדיקה ראשונית חינם</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5. story -->
+      <div style="padding:8px 96px 96px;">
+        <div data-reveal style="max-width:1240px; margin:0 auto; display:grid; grid-template-columns: 1.1fr 0.9fr; gap:72px; align-items:center;">
+          <div>
+            <div style="font-size: 20px; font-weight: 700; color: #0000FF; margin-bottom: 12px">הסיפור שלנו</div>
+            <h2 style="font-family:'RaananPro','SimplerPro',sans-serif; margin:0 0 24px; font-size:40px; font-weight:300; line-height:1.15; letter-spacing:-0.4px;">מ-2013 אנחנו עושים דבר אחד<br><span style="font-weight: 700;">ועושים אותו עד הסוף.</span></h2>
+            <p style="margin:0 0 16px; font-size:19px; font-weight:400; line-height:1.65; color:#273951;">״שלכם״ קמה מתוך אמונה פשוטה: לאף אחד אסור שייגמר הכוח מול הבירוקרטיה לפני שהוא מקבל את מה שמגיע לו. במשך שנים ליווינו 10,059 לקוחות&nbsp;במאבק מול ביטוח לאומי, מס הכנסה, קרנות הפנסיה וחברות הביטוח - והבאנו תוצאות.</p>
+            <p style="margin:0 0 28px; font-size:19px; font-weight:400; line-height:1.65; color:#273951;"><b>היום אנחנו פותחים את הדלת לכולם.כי הזכות למימוש זכויות לא שייכת לאף מגזר, לאף קבוצה ולאף אחד חוץ מכם. היא שלכם.</b></p>
+            <a href="#2a" style="color:#0000FF; text-decoration:none; font-size:18px; font-weight:400;">קצת יותר עלינו ←</a>
+          </div>
+          <div style="border-radius: 12px; height: 420px; background: url(&quot;./02f4d18d-89d9-45aa-812e-5ef1eeecee1e-mr867ddq.png&quot;) center / cover no-repeat; border: 1px solid #e3e8ee; display: flex; align-items: center; justify-content: center">
+            
+          </div>
+        </div>
+      </div>
+
+      <!-- 6. quiz CTA -->
+      <div style="padding:0 96px 96px;">
+        <div data-reveal style="max-width: 1240px; margin: 0 auto; border-radius: 16px; padding: 56px 72px; display: flex; align-items: center; justify-content: space-between; gap: 48px; position: relative; overflow: hidden; background-color: #122680">
+          <div style="position: absolute; top: -140px; left: -80px; width: 1282px; height: 575px; border-radius: 50%; background: radial-gradient(circle, rgba(0,0,255,0.5) 0%, rgba(0,0,255,0) 70%)"></div>
+          <div style="position:relative; flex-shrink:0;">
+            <h3 style="font-family:'RaananPro','SimplerPro',sans-serif; margin:0; color:#fff; font-size:34px; font-weight:400; line-height:1.25;">מוסדות ובירוקרטיה</h3>
+          </div>
+          <div style="position:relative; display:flex; gap:28px; align-items:flex-start; flex-wrap:wrap; justify-content:flex-end;">
+            <a href="#2a" style="display:flex; flex-direction:column; align-items:center; gap:12px; text-decoration:none; width:108px;">
+              <span style="width:84px; height:84px; border-radius:9999px; background:rgba(255,255,255,0.14); display:flex; align-items:center; justify-content:center;" style-hover="background:rgba(255,255,255,0.26);">
+                <svg width="38" height="38" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="2.5" y="4" width="19" height="12.5" rx="1.8" fill="#ffffff"></rect><rect x="10.8" y="16.5" width="2.4" height="2.6" fill="#ffffff"></rect><rect x="7.5" y="19" width="9" height="2.2" rx="1" fill="#F0514F"></rect></svg>
+              </span>
+              <span style="color:#ffffff; font-size:17px; font-weight:700;">ביטוח לאומי</span>
+            </a>
+            <a href="#2a" style="display:flex; flex-direction:column; align-items:center; gap:12px; text-decoration:none; width:108px;">
+              <span style="width:84px; height:84px; border-radius:9999px; background:rgba(255,255,255,0.14); display:flex; align-items:center; justify-content:center;" style-hover="background:rgba(255,255,255,0.26);">
+                <svg width="38" height="38" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2" fill="#ffffff"></rect><rect x="3" y="9.5" width="18" height="1.8" fill="#122680"></rect><rect x="6.5" y="2" width="2.2" height="5" rx="1" fill="#F0514F"></rect><rect x="11" y="2" width="2.2" height="5" rx="1" fill="#F0514F"></rect><rect x="15.5" y="2" width="2.2" height="5" rx="1" fill="#F0514F"></rect></svg>
+              </span>
+              <span style="color:#ffffff; font-size:17px; font-weight:700;">מס הכנסה</span>
+            </a>
+            <a href="#2a" style="display:flex; flex-direction:column; align-items:center; gap:12px; text-decoration:none; width:108px;">
+              <span style="width:84px; height:84px; border-radius:9999px; background:rgba(255,255,255,0.14); display:flex; align-items:center; justify-content:center;" style-hover="background:rgba(255,255,255,0.26);">
+                <svg width="38" height="38" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 7 L9 21 L12.6 17.6 L14.8 22.2 L17.2 21.1 L15 16.6 L19.8 16 Z" fill="#ffffff"></path><line x1="8" y1="4.5" x2="6.5" y2="3" stroke="#F0514F" stroke-width="1.8" stroke-linecap="round"></line><line x1="11" y1="3.8" x2="11" y2="1.8" stroke="#F0514F" stroke-width="1.8" stroke-linecap="round"></line><line x1="6.8" y1="7.5" x2="4.8" y2="7.5" stroke="#F0514F" stroke-width="1.8" stroke-linecap="round"></line></svg>
+              </span>
+              <span style="color:#ffffff; font-size:17px; font-weight:700;">קרנות פנסיה</span>
+            </a>
+            <a href="#2a" style="display:flex; flex-direction:column; align-items:center; gap:12px; text-decoration:none; width:108px;">
+              <span style="width:84px; height:84px; border-radius:9999px; background:rgba(255,255,255,0.14); display:flex; align-items:center; justify-content:center;" style-hover="background:rgba(255,255,255,0.26);">
+                <svg width="38" height="38" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3 L17.5 18 L6.5 18 Z" fill="#ffffff"></path><path d="M10.1 8.2 L13.9 8.2 L14.9 11 L9.1 11 Z" fill="#F0514F"></path><rect x="3.5" y="18" width="17" height="2.4" rx="1.2" fill="#ffffff"></rect></svg>
+              </span>
+              <span style="color:#ffffff; font-size:17px; font-weight:700;">חברות ביטוח</span>
+            </a>
+            <a href="#2a" style="display:flex; flex-direction:column; align-items:center; gap:12px; text-decoration:none; width:108px;">
+              <span style="width:84px; height:84px; border-radius:9999px; background:rgba(255,255,255,0.14); display:flex; align-items:center; justify-content:center;" style-hover="background:rgba(255,255,255,0.26);">
+                <svg width="38" height="38" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9" stroke="#ffffff" stroke-width="2.4"></circle><line x1="12" y1="4.5" x2="12" y2="19.5" stroke="#ffffff" stroke-width="1.8"></line><line x1="4.5" y1="12" x2="19.5" y2="12" stroke="#ffffff" stroke-width="1.8"></line><line x1="6.7" y1="6.7" x2="17.3" y2="17.3" stroke="#ffffff" stroke-width="1.8"></line><line x1="17.3" y1="6.7" x2="6.7" y2="17.3" stroke="#ffffff" stroke-width="1.8"></line><circle cx="12" cy="12" r="3" fill="#F0514F" stroke="#ffffff" stroke-width="1.5"></circle></svg>
+              </span>
+              <span style="color:#ffffff; font-size:17px; font-weight:700;">משרד הרישוי</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- 7. testimonials -->
+      <div style="padding:0 96px 96px;">
+        <div style="max-width:1240px; margin:0 auto;">
+          <h2 style="font-family:'RaananPro','SimplerPro',sans-serif; margin:0 0 12px; font-size:38px; font-weight:300; letter-spacing:-0.3px;">הם כבר לא מוותרים <span style="font-weight:700;">על מה ששלהם.</span></h2>
+          <p style="margin:0 0 32px; font-size:20px; font-weight:400; color:#273951;">כל אחד מהסיפורים האלה התחיל ב״אין לי כוח לזה״. וכל אחד מהם נגמר בזכות שהגיעה הביתה.</p>
+          <div data-reveal style="display:grid; grid-template-columns: repeat(3, 1fr); gap:24px; margin-bottom:28px;">
+            <div style="background:#ffffff; border:1px solid #e3e8ee; border-radius:12px; overflow:hidden; display:flex; flex-direction:column; gap:18px; text-align:right; transition:transform 0.25s ease, box-shadow 0.25s ease;" style-hover="transform:translateY(-5px); box-shadow: rgba(0,55,112,0.10) 0 14px 32px;">
+              <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="quote-a1" shape="rect" placeholder="תמונת לקוח" fit="cover" style="width:100%; height:160px; order:-1;" hint-size="100%,160px"></x-import>
+              <div style="font-size:36px; line-height:0.6; color: {{ accent }}; font-weight:900; margin:24px 28px 0;">”</div>
+              <p style="margin:0 28px; font-size:17px; font-weight:400; line-height:1.65; color:#273951; flex:1;">"אחרי שנתיים של סירובים החלטתי להפסיק לוותר. תוך ארבעה חודשים קיבלתי פטור ממס — כולל החזר רטרואקטיבי."</p>
+              <div style="display:contents;">
+                
+                <div style="display:flex; flex-direction:column; gap:2px; margin:0 28px 24px;">
+                  <div style="font-size:17px; font-weight:700; color:#0d253d;">רחל ב׳</div>
+                  <div style="font-size:15px; color:#64748d;">פטור ממס הכנסה</div>
+                </div>
+              </div>
+            </div>
+            <div style="background:#ffffff; border:1px solid #e3e8ee; border-radius:12px; overflow:hidden; display:flex; flex-direction:column; gap:18px; text-align:right; transition:transform 0.25s ease, box-shadow 0.25s ease;" style-hover="transform:translateY(-5px); box-shadow: rgba(0,55,112,0.10) 0 14px 32px;">
+              <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="quote-a2" shape="rect" placeholder="תמונת לקוח" fit="cover" style="width:100%; height:160px; order:-1;" hint-size="100%,160px"></x-import>
+              <div style="font-size:36px; line-height:0.6; color: {{ accent }}; font-weight:900; margin:24px 28px 0;">”</div>
+              <p style="margin:0 28px; font-size:17px; font-weight:400; line-height:1.65; color:#273951; flex:1;">"הם ניהלו הכול מול ביטוח לאומי — כל טופס, כל ועדה, כל ערר. אני רק חתמתי. הקצבה הגיעה הביתה."</p>
+              <div style="display:contents;">
+                
+                <div style="display:flex; flex-direction:column; gap:2px; margin:0 28px 24px;">
+                  <div style="font-size:17px; font-weight:700; color:#0d253d;">יוסי ל׳</div>
+                  <div style="font-size:15px; color:#64748d;">קצבת נכות כללית</div>
+                </div>
+              </div>
+            </div>
+            <div style="background:#ffffff; border:1px solid #e3e8ee; border-radius:12px; overflow:hidden; display:flex; flex-direction:column; gap:18px; text-align:right; transition:transform 0.25s ease, box-shadow 0.25s ease;" style-hover="transform:translateY(-5px); box-shadow: rgba(0,55,112,0.10) 0 14px 32px;">
+              <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="quote-a3" shape="rect" placeholder="תמונת לקוח" fit="cover" style="width:100%; height:160px; order:-1;" hint-size="100%,160px"></x-import>
+              <div style="font-size:36px; line-height:0.6; color: {{ accent }}; font-weight:900; margin:24px 28px 0;">”</div>
+              <p style="margin:0 28px; font-size:17px; font-weight:400; line-height:1.65; color:#273951; flex:1;">"אחרי הניתוח לא יכולתי לחזור לעבודה, וחברת הביטוח משכה זמן. בזכותם קיבלתי את מה שמגיע לי — בלי לשלם שקל מראש."</p>
+              <div style="display:contents;">
+                
+                <div style="display:flex; flex-direction:column; gap:2px; margin:0 28px 24px;">
+                  <div style="font-size:17px; font-weight:700; color:#0d253d;">מרים כ׳</div>
+                  <div style="font-size:15px; color:#64748d;">אובדן כושר עבודה</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <a href="#2a" style="display:inline-block; background:#ffffff; color: {{ accentDark }}; border:1.5px solid {{ accent }}; text-decoration:none; font-size:18px; font-weight:400; padding:12px 26px; border-radius:9999px;">עוד סיפורים</a>
+        </div>
+      </div>
+
+      <!-- 8. magazine carousel -->
+      <div style="padding:0 96px 96px;">
+        <div style="max-width:1240px; margin:0 auto;">
+          <div style="display:flex; align-items:flex-end; justify-content:space-between; margin-bottom:12px;">
+            <h2 style="font-family:'RaananPro','SimplerPro',sans-serif; margin:0; font-size:38px; font-weight:300; letter-spacing:-0.3px;">ידע זה כוח. <span style="font-weight:700;">וכוח זה כסף שמגיע לכם.</span></h2>
+            <div style="display:flex; align-items:center; gap:12px;">
+              <a href="#2a" style="color:#0000FF; text-decoration:none; font-size:18px;">לכל הכתבות ←</a>
+              <button onClick="{{ carAPrev }}" style="font-family:inherit; width:48px; height:48px; border-radius:9999px; border:1px solid #e3e8ee; background:#fff; color:#0d253d; font-size:18px; cursor:pointer;">‹</button>
+              <button onClick="{{ carANext }}" style="font-family:inherit; width:48px; height:48px; border-radius:9999px; border:1px solid #e3e8ee; background:#fff; color:#0d253d; font-size:18px; cursor:pointer;">›</button>
+            </div>
+          </div>
+          <p style="margin:0 0 28px; font-size:19px; font-weight:400; color:#273951;">מדריכים, עדכוני חוק וכל מה שצריך לדעת כדי לא לפספס אף זכות — בשפה של בני אדם, לא של פקידים.</p>
+          <div class="car" data-car="a" data-reveal style="display:flex; gap:20px; overflow-x:auto; scroll-snap-type:x mandatory; scrollbar-width:none; padding-bottom:8px;">
+            <sc-for list="{{ articles }}" as="art" hint-placeholder-count="4">
+              <a href="#2a" style="scroll-snap-align:start; flex-shrink:0; width:340px; background:#fff; border:1px solid #e3e8ee; border-radius:12px; overflow:hidden; text-decoration:none; color:#0d253d; display:flex; flex-direction:column; transition:transform 0.25s ease, box-shadow 0.25s ease;" style-hover="transform:translateY(-5px); box-shadow: rgba(0,55,112,0.10) 0 14px 32px;">
+                <div style="height: 150px; display: flex; align-items: center; justify-content: center; background: url(&quot;./19b771_b9344cd4a27a43e58b11c8ca0c8ccdc8--mr8667se.avif&quot;) center / cover no-repeat">
+                  
+                </div>
+                <div style="padding:22px 24px 24px; display:flex; flex-direction:column; gap:14px; flex:1;">
+                  <div style="font-size:19px; font-weight:400; line-height:1.45; flex:1;">{{ art.title }}</div>
+                  <div style="color:#0000FF; font-size:16px;">המשך קריאה ←</div>
+                </div>
+              </a>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+
+      <!-- 9. community -->
+      <div style="background:#f6f9fc; padding:56px 96px;">
+        <div data-reveal style="max-width:1240px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; gap:32px; flex-wrap:wrap;">
+          <div style="max-width:640px;">
+            <div style="font-size: 28px; font-weight: 700; margin-bottom: 6px">אל תפספסו שום עדכון רלוונטי</div>
+            <div style="font-size:18px; font-weight:400; color:#4a5b74; line-height:1.6;">עוקבים אחרינו ומקבלים ראשונים כל שינוי בחוק, כל עדכון בקצבאות וכל זכות חדשה שנפתחת. כי מה ששווה כסף כדאי לדעת מוקדם</div>
+          </div>
+          <div style="display:flex; gap:10px; flex-wrap:wrap;">
+            <a href="#2a" style="display:inline-flex; align-items:center; gap:8px; border:1px solid #e3e8ee; background:#fff; color:#0d253d; text-decoration:none; font-size:16px; padding:11px 20px; border-radius:9999px;"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13.5 21.5v-7.4h2.5l.4-2.9h-2.9V9.3c0-.8.2-1.4 1.4-1.4h1.5V5.3c-.3 0-1.2-.1-2.2-.1-2.2 0-3.7 1.3-3.7 3.8v2.2H8.1v2.9h2.4v7.4z"></path></svg>פייסבוק</a>
+            <a href="#2a" style="display:inline-flex; align-items:center; gap:8px; border:1px solid #e3e8ee; background:#fff; color:#0d253d; text-decoration:none; font-size:16px; padding:11px 20px; border-radius:9999px;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="4.5" stroke="currentColor" stroke-width="1.8"></rect><circle cx="12" cy="12" r="3.8" stroke="currentColor" stroke-width="1.8"></circle><circle cx="17" cy="7" r="1.3" fill="currentColor"></circle></svg>אינסטגרם</a>
+            <a href="#2a" style="display:inline-flex; align-items:center; gap:8px; border:1px solid #e3e8ee; background:#fff; color:#0d253d; text-decoration:none; font-size:16px; padding:11px 20px; border-radius:9999px;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="2.5" y="5.5" width="19" height="13" rx="3.5" stroke="currentColor" stroke-width="1.8"></rect><path d="M10.2 9.2 L15.2 12 L10.2 14.8 Z" fill="currentColor"></path></svg>יוטיוב</a>
+            <a href="#2a" style="display:inline-flex; align-items:center; gap:8px; border:1px solid #e3e8ee; background:#fff; color:#0d253d; text-decoration:none; font-size:16px; padding:11px 20px; border-radius:9999px;"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.6 3c.4 1.9 1.6 3.3 3.6 3.6v2.9c-1.4 0-2.6-.4-3.6-1.1v5.9c0 3-2.3 5.3-5.3 5.3-2.9 0-5.2-2.2-5.2-5 0-2.9 2.6-5.2 5.7-4.9v3c-1.4-.3-2.7.7-2.7 2 0 1.2 1 2.1 2.2 2.1 1.3 0 2.3-1 2.3-2.4V3z"></path></svg>טיקטוק</a>
+            <a href="#2a" style="display:inline-flex; align-items:center; gap:8px; border:1px solid #e3e8ee; background:#fff; color:#0d253d; text-decoration:none; font-size:16px; padding:11px 20px; border-radius:9999px;"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="3" y="9.5" width="3" height="11"></rect><circle cx="4.5" cy="5.5" r="1.8"></circle><path d="M10 9.5h2.9v1.5c.5-.9 1.6-1.7 3.2-1.7 2.4 0 3.9 1.6 3.9 4.5v6.7h-3v-6.2c0-1.5-.6-2.3-1.8-2.3-1.3 0-2.2 1-2.2 2.5v6h-3z"></path></svg>לינקדאין</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- 10. final CTA -->
+      <div data-reveal style="position:relative; overflow:hidden; padding:88px 96px; text-align:center;">
+        <img src="assets/heart.svg" alt="" aria-hidden="true" style="position:absolute; bottom:-70px; left:-50px; width:380px; height:auto; opacity:0.07; pointer-events:none;">
+        <img src="assets/heart.svg" alt="" aria-hidden="true" style="position:absolute; top:-60px; right:-70px; width:300px; height:auto; opacity:0.05; pointer-events:none;">
+        <h2 style="font-family:'RaananPro','SimplerPro',sans-serif; margin:0 0 12px; font-size:40px; font-weight:300; letter-spacing:-0.4px;"><b>בואו לבדוק מה מגיע לכם</b><span style="font-weight: 700;"></span></h2>
+        <p style="margin:0 0 32px; font-size:19px; font-weight:400; color:#4a5b74;">השאירו פרטים ונחזור אליכם היום. בלי עלות, בלי התחייבות, בלי אותיות קטנות.</p>
+        <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
+          <input aria-label="שם מלא (שדה חובה)" placeholder="*שם מלא" style="font-family:inherit; font-size:18px; color:#0d253d; padding:13px 16px; border-radius:8px; border:1.5px solid #64748d; outline:none; width:250px; min-height:48px; box-sizing:border-box;" style-focus="border-color:#0000FF; box-shadow:0 0 0 3px rgba(0,0,255,0.15);">
+          <input aria-label="טלפון (שדה חובה)" placeholder="*טלפון" style="font-family:inherit; font-size:18px; color:#0d253d; padding:13px 16px; border-radius:8px; border:1.5px solid #64748d; outline:none; width:250px; min-height:48px; box-sizing:border-box;" style-focus="border-color:#0000FF; box-shadow:0 0 0 3px rgba(0,0,255,0.15);">
+          <input aria-label="דוא״ל" placeholder="דוא״ל" style="font-family:inherit; font-size:18px; color:#0d253d; padding:13px 16px; border-radius:8px; border:1.5px solid #64748d; outline:none; width:250px; min-height:48px; box-sizing:border-box;" style-focus="border-color:#0000FF; box-shadow:0 0 0 3px rgba(0,0,255,0.15);">
+          <button style="font-family:inherit; background:#0000FF; color:#fff; font-size:18px; font-weight:400; padding:14px 32px; min-height:50px; border:none; border-radius:9999px; cursor:pointer;">צרו איתי קשר</button>
+        </div>
+      </div>
+
+      <!-- FAQ -->
+      <div style="background:#f6f9fc; padding:88px 96px;">
+        <div data-reveal style="max-width:880px; margin:0 auto;">
+          <h2 style="font-family:'RaananPro','SimplerPro',sans-serif; margin:0 0 12px; font-size:38px; font-weight:300; letter-spacing:-0.3px; text-align:center;">שאלות <span style="font-weight:700;">ותשובות</span></h2>
+          <p style="margin:0 auto 36px; font-size:19px; color:#273951; text-align:center; max-width:640px;">ריכזנו עבורכם את השאלות הנפוצות ביותר — כדי שתבינו טוב יותר את הזכויות שלכם ואיך אנחנו מסייעים לממש אותן.</p>
+          <div style="display:flex; flex-direction:column; gap:12px;">
+            <sc-for list="{{ faqs }}" as="f" hint-placeholder-count="6">
+              <details style="background:#ffffff; border:1px solid #e3e8ee; border-radius:12px; padding:0 26px;">
+                <summary style="cursor:pointer; font-size:19px; font-weight:700; color:#0d253d; padding:20px 0; list-style:none; display:flex; justify-content:space-between; align-items:center; gap:16px;">{{ f.q }}<span class="faq-plus" style="color:#0000FF; font-size:26px; font-weight:300; flex-shrink:0; line-height:1; transition:transform 0.2s;">+</span></summary>
+                <p style="margin:0; padding:0 0 22px; font-size:17px; font-weight:400; line-height:1.7; color:#273951; animation:faqIn 0.35s ease;">{{ f.a }}</p>
+              </details>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+
+      <!-- footer -->
+      <footer style="border-top:1px solid #e3e8ee; padding:64px 96px 40px;">
+        <div style="max-width:1240px; margin:0 auto;">
+          <div style="display:grid; grid-template-columns: 1.3fr repeat(4, 1fr); gap:40px; font-size:15px; color:#4a5b74; line-height:2.1;">
+            <div>
+              <img src="assets/logo.svg" alt="שלכם" style="height: 84px; width: 202px; margin-bottom: 12px">
+              
+              
+            </div>
+            <div>
+              <div style="color:#0d253d; font-weight:700; margin-bottom:6px;">מוסדות ובירוקרטיה</div>
+              <div>ביטוח לאומי</div><div>מס הכנסה</div><div>קרנות פנסיה</div><div>חברות ביטוח</div><div>משרד הרישוי</div>
+            </div>
+            <div>
+              <div style="color:#0d253d; font-weight:700; margin-bottom:6px;">אודות</div>
+              <div>מדיניות פרטיות</div><div>הצהרת נגישות</div><div>יצירת קשר</div><div>הרופאים שלנו</div>
+            </div>
+            <div>
+              <div style="color:#0d253d; font-weight:700; margin-bottom:6px;">מגזין</div>
+              <div>מחלות וזכויות</div><div>מילון מושגים</div><div>שאלות ותשובות</div><div>ביטוח לאומי</div><div>חברות הביטוח</div><div>מס הכנסה</div><div>תקנון סליקה</div>
+            </div>
+            <div>
+              <div style="color:#0d253d; font-weight:700; margin-bottom:6px;">מחלות וזכויות</div>
+              <div>נכות כללית</div><div>אובדן כושר עבודה</div><div>ילד נכה</div><div>ביטוח סיעודי</div><div>פטור ממס הכנסה</div><div>זכויות אלמנים ויתומים</div>
+            </div>
+          </div>
+          <div style="display:flex; justify-content:space-between; align-items:center; gap:24px; flex-wrap:wrap; border-top:1px solid #e3e8ee; margin-top:40px; padding-top:20px; font-size:15px; color:#4a5b74;">
+            <span style="font-feature-settings:'tnum';"><b style="color:#0d253d;">סניפים:</b> ירושלים — בניין שערי העיר, רח׳ יפו פינת שרי ישראל (קומה 9) · בני ברק — רח׳ ז׳בוטינסקי 168 · 076-8017778</span>
+            <span>© שלכם — מימוש זכויות רפואיות</span>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </div>
+
+
+</section>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;heroBackground&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#0000FF&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;options&quot;:[&quot;#1c58f8&quot;,&quot;#0000FF&quot;,&quot;#040c38&quot;],&quot;section&quot;:&quot;הירו&quot;},&quot;heroImageMultiply&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;הירו&quot;},&quot;coralAccents&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;צבע&quot;}}">
+class Component extends DCLogic {
+  state = { menuOpen: false };
+  componentDidMount() {
+    const ease = 'cubic-bezier(0.22, 1, 0.36, 1)';
+    document.querySelectorAll('[data-anim]').forEach((el) => {
+      const delay = parseInt(el.getAttribute('data-anim'), 10) || 0;
+      el.animate(
+        [{ opacity: 0, transform: 'translateY(26px)' }, { opacity: 1, transform: 'translateY(0)' }],
+        { duration: 900, delay, easing: ease, fill: 'backwards' }
+      );
+    });
+    document.querySelectorAll('[data-anim-fade]').forEach((el) => {
+      const delay = parseInt(el.getAttribute('data-anim-fade'), 10) || 0;
+      el.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 1100, delay, easing: ease, fill: 'backwards' });
+    });
+    this._io = new IntersectionObserver((entries) => {
+      let i = 0;
+      entries.forEach((en) => {
+        if (!en.isIntersecting) return;
+        en.target.animate(
+          [{ opacity: 0, transform: 'translateY(30px)' }, { opacity: 1, transform: 'translateY(0)' }],
+          { duration: 750, delay: i * 90, easing: ease, fill: 'backwards' }
+        );
+        this._io.unobserve(en.target);
+        i++;
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('[data-reveal]').forEach((el) => this._io.observe(el));
+  }
+  componentWillUnmount() {
+    if (this._io) this._io.disconnect();
+  }
+  scrollCar(name, dx) {
+    const el = document.querySelector('[data-car="' + name + '"]');
+    if (el) el.scrollBy({ left: dx });
+  }
+
+  renderVals() {
+    const palettes = ['#dce4ff', '#f5e9d4', '#e3ddff', '#d6e6ff', '#fcdcdb'];
+    const titles = [
+      'איך אנשים עם אותה מחלה מקבלים אחוזי נכות שונים',
+      'איך נקבעים אחוזי נכות בביטוח לאומי ומה באמת משפיע על התוצאה?',
+      'זכויות רפואיות במחלות "שקופות"',
+      'מה חשוב לעשות כדי להיות מוכרים כנפגעי איבה?',
+      '"מי יכול לעזור לי להגיש תביעה לביטוח לאומי?" — המדריך המלא למימוש זכויות רפואיות',
+      'שנתיים של עומס מתמשך: מה זה עושה לגוף ולנפש ולמה כדאי לבדוק מחדש את המצב הרפואי?',
+      'העלאת קצבת הנכות ב-2026: תוספת של עשרות עד מאות שקלים בחודש',
+      'כשמחלה פוגשת עבודה: מתי מחלת מקצוע נחשבת פגיעת עבודה?',
+      'התקף לב נשים: למה הן מאובחנות מאוחר יותר, ומה אפשר לעשות כדי לשנות את זה',
+      'ארבעה דברים שכל אחד צריך לדעת על אי ספיקת לב — כולל הזכויות שמגיעות לכם',
+      'שמירת הריון וחופשת לידה — שתיהן תקופות שבהן את לא עובדת, אבל ההבדל ביניהן... מהותי',
+      'שמירת הריון בהריון תאומים — כל מה שצריך לדעת',
+      'שמירת הריון לעצמאיות — כל מה שצריך לדעת',
+      'הוכרת כנפגע פעולות איבה? זה הזמן להגיש בקשה לקצבה קבועה',
+      'רעידת אדמה בביטוח הסיעודי: למה אסור לך לחכות?',
+      'העלאת קצבת הנכות ב-2025: תוספת משמעותית למקבלי קצבאות הנכות'
+    ];
+    const articles = titles.map((title, i) => ({ title, bg: palettes[i % palettes.length] }));
+
+    const coral = this.props.coralAccents ?? true;
+    const faqs = [
+      { q: 'מה זה בכלל מימוש זכויות רפואיות?', a: 'מימוש זכויות רפואיות הוא תהליך שבו אזרח פועל לקבלת הטבות, קצבאות או פיצויים כספיים המגיעים לו על פי חוק בשל מצב בריאותי לקוי, מחלה או פציעה. בשלכם, אנחנו עוזרים לכם לנווט מול גופים כמו ביטוח לאומי, מס הכנסה וחברות הביטוח כדי לוודא שתקבלו את המקסימום המגיע לכם.' },
+      { q: 'אילו שירותים ״שלכם״ מציעה?', a: 'אנחנו בשלכם מציעים ליווי מקצועי מלא במגוון תחומים: פטור ממס הכנסה מטעמי בריאות, קצבאות נכות כללית, תאונות עבודה, נכות ילדים, תביעות סיעוד, אובדן כושר עבודה והנפקת תו נכה.' },
+      { q: 'איך מתחילים את התהליך אצלכם?', a: 'הצעד הראשון בשלכם הוא פשוט: שיחת ייעוץ ראשונית ללא עלות. בשיחה זו נבחן את המקרה שלכם, נבין את הרקע הרפואי ונבדוק אם יש פוטנציאל למימוש זכויות. אם נראה שיש עילה, נצא לדרך יחד.' },
+      { q: 'איך אדע אם אני זכאי למימוש זכויות?', a: 'אם אתם סובלים ממחלה כרונית, פציעה שעברתם או ירידה בכושר העבודה, רוב הסיכויים שמגיעות לכם זכויות. בשלכם אנחנו מבצעים אבחון מקצועי של התיק הרפואי שלכם כדי לתת לכם תשובה מדויקת לגבי סיכויי ההצלחה.' },
+      { q: 'כמה זמן אורך התהליך?', a: 'משך התהליך משתנה בהתאם לסוג התביעה והגוף מולו עובדים (ביטוח לאומי, מס הכנסה וכו׳). זה יכול לקחת מספר חודשים ועד שנה. בשלכם, אנחנו פועלים בנחישות כדי לקצר את זמני ההמתנה ולדחוף את התיק שלכם קדימה ככל הניתן.' },
+      { q: 'למה כדאי לפנות לחברה כמו ״שלכם״ ולא לעשות זאת לבד?', a: 'הבירוקרטיה בישראל מורכבת ומתישה. בשלכם אנחנו מכירים את השפה המקצועית, את התקנות העדכניות ואת הדרך הנכונה להציג את הנתונים הרפואיים. הליווי שלנו מעלה משמעותית את סיכויי ההצלחה וחוסך לכם זמן, טעויות ועוגמת נפש.' },
+      { q: 'למה צריך לשלם על קבלת זכויות שמגיעות לי על פי חוק?', a: 'התשלום לשלכם הוא על המומחיות, הניסיון והעבודה הסיזיפית שאנחנו עושים עבורכם. אנחנו חוסכים לכם טעויות שעלולות לעלות לכם בדחיית התביעה ובאובדן כספים רבים. חשוב לזכור: המודל שלנו מבוסס הצלחה – אנחנו מרוויחים רק כשאתם מרוויחים.' },
+      { q: 'מה כולל תהליך העבודה ב״שלכם״?', a: 'התהליך כולל איסוף וארגון של כל החומר הרפואי, בניית אסטרטגיה לתביעה, הגשת הטפסים בצורה מדויקת, הכנה מקצועית לוועדות רפואיות ומעקב שוטף עד לקבלת ההחלטה הסופית.' },
+      { q: 'מתי הזמן הנכון להתחיל בתהליך?', a: 'התשובה היא: עכשיו. בזכויות רפואיות, כל יום שעובר עלול להיות יום של אובדן כספים שלא יוחזרו. בשלכם אנחנו ממליצים לפעול ברגע שמתגלה הבעיה הרפואית או הפגיעה בכושר העבודה.' },
+      { q: 'אילו זכויות ניתן לממש?', a: 'הזכויות כוללות קצבאות חודשיות, מענקים חד-פעמיים, פטורים מתשלום מס הכנסה, הנחות בארנונה, תו נכה לרכב, סיוע בשכר דירה ועוד – הכל תלוי באחוזי הנכות ובמצב האישי.' },
+      { q: 'מי זכאי לתו נכה ואיך מגישים את הבקשה?', a: 'תו נכה מיועד לאנשים שמוגבלים בניידותם או שזקוקים לרכב כאמצעי תנועה בשל מצבם הרפואי. בשלכם אנחנו עוזרים לכם לאסוף את המסמכים הרפואיים הנדרשים ולהגיש את הבקשה למשרד התחבורה בצורה שתמקסם את סיכויי האישור.' },
+      { q: 'מה ההבדל בין נכות כללית לשירותים מיוחדים (שר״מ)?', a: 'קצבת נכות מיועדת לאנשים שכושר השתכרותם נפגע, בעוד שקצבת שירותים מיוחדים מיועדת לאלו הזקוקים לעזרה בפעולות היומיום (כמו רחצה, הלבשה וכו׳). בשלכם אנחנו בודקים אם אתם זכאים לאחת מהן או לשתיהן במקביל.' },
+      { q: 'מה לגבי אובדן כושר עבודה או פנסיית נכות?', a: 'אם אינכם יכולים לעבוד עקב מצב רפואי, ייתכן שמגיעה לכם קצבה מקרן הפנסיה או מחברת הביטוח. בשלכם אנחנו מתמחים במיצוי הזכויות האלו, שלעיתים קרובות נדחות על ידי החברות ללא הצדקה.' },
+      { q: 'קיבלנו דחייה בנכות ילדים, האם יש טעם לנסות שוב?', a: 'בהחלט כן. דחיות הן חלק מהמערכת, ולעיתים קרובות הן נובעות מהגשה לא נכונה של המסמכים. בשלכם יש לנו ניסיון רב בערעורים ובהגשה חוזרת של תביעות נכות ילדים שהצליחו לשנות את ההחלטה.' },
+      { q: 'האם פטור ממס רפואי ניתן לקבל גם רטרואקטיבית?', a: 'כן, במקרים רבים ניתן לקבל החזרי מס עד 6 שנים אחורה. בשלכם אנחנו עוזרים לכם לחשב את גובה ההחזר הפוטנציאלי ופועלים מול רשויות המס כדי להחזיר לכם את הכסף שמגיע לכם.' },
+      { q: 'אם יש לי כמה בעיות רפואיות, איך מחשבים את אחוזי הנכות?', a: 'חישוב אחוזי נכות הוא לא חיבור פשוט אלא חישוב משוקלל. בשלכם אנחנו יודעים לבצע את השקלול המדויק ולבדוק אם אתם מגיעים לסף הנדרש (למשל 90% לפטור ממס) כדי למקסם את הזכאות שלכם.' }
+    ];
+    return {
+      menuOpen: this.state.menuOpen,
+      toggleMenu: () => this.setState(s => ({ menuOpen: !s.menuOpen })),
+      closeMenu: () => this.setState({ menuOpen: false }),
+      faqs,
+      heroBg: this.props.heroBackground ?? '#1c58f8',
+      heroBlend: (this.props.heroImageMultiply ?? true) ? 'multiply' : 'normal',
+      accent: coral ? '#F0514F' : '#0000FF',
+      accentDark: coral ? '#c93330' : '#0000FF',
+      accentTintBg: coral ? '#fde3e2' : '#eef0ff',
+      quizBtnBg: coral ? '#F0514F' : '#ffffff',
+      quizBtnColor: coral ? '#ffffff' : '#0000FF',
+      articles,
+      carAPrev: () => this.scrollCar('a', 380),
+      carANext: () => this.scrollCar('a', -380),
+      carBPrev: () => this.scrollCar('b', 380),
+      carBNext: () => this.scrollCar('b', -380)
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<title>שלכם — סניפים</title>
+<style>
+@font-face { font-family: 'SimplerPro'; src: url('fonts/SimplerPro-Light.woff2') format('woff2'); font-weight: 300; font-display: swap; }
+@font-face { font-family: 'SimplerPro'; src: url('fonts/SimplerPro-Regular.woff2') format('woff2'); font-weight: 400; font-display: swap; }
+@font-face { font-family: 'SimplerPro'; src: url('fonts/SimplerPro-Semibold.woff2') format('woff2'); font-weight: 600; font-display: swap; }
+@font-face { font-family: 'SimplerPro'; src: url('fonts/SimplerPro-Bold.woff2') format('woff2'); font-weight: 700; font-display: swap; }
+@font-face { font-family: 'SimplerPro'; src: url('fonts/SimplerPro-Black.woff2') format('woff2'); font-weight: 900; font-display: swap; }
+@font-face { font-family: 'RaananPro'; src: url('fonts/RaananPro-Light.woff2') format('woff2'); font-weight: 300; font-display: swap; }
+@font-face { font-family: 'RaananPro'; src: url('fonts/RaananPro-Regular.woff2') format('woff2'); font-weight: 400; font-display: swap; }
+@font-face { font-family: 'RaananPro'; src: url('fonts/RaananPro-Bold.woff2') format('woff2'); font-weight: 700; font-display: swap; }
+@font-face { font-family: 'RaananPro'; src: url('fonts/RaananPro-Black.woff2') format('woff2'); font-weight: 900; font-display: swap; }
+@keyframes ping { 0% { transform:scale(1); opacity:0.35; } 70%,100% { transform:scale(2.3); opacity:0; } }
+body { margin: 0; background: #e7eaf2; }
+a { color: #0000FF; }
+a:hover { color: #0000c9; }
+</style>
+</helmet>
+
+<section style="font-family:'SimplerPro',system-ui,sans-serif; color:#0d253d; padding:48px 56px 96px; display:flex; flex-direction:column; gap:28px;">
+  <div style="display:flex; flex-direction:column; gap:6px;">
+    <div style="font-size:26px; font-weight:700;">עמוד סניפים — גרסה נקייה</div>
+    <div style="font-size:16px; color:#4a5b74;">מפה אמיתית של הארץ · פלטה שקטה · כפתורי ניווט Google Maps + Waze בכל כרטיס</div>
+  </div>
+
+  <div id="2a" style="display:flex; gap:32px; align-items:flex-start; flex-wrap:wrap;">
+
+    <!-- ============ DESKTOP ============ -->
+    <div data-screen-label="סניפים דסקטופ" dir="rtl" style="width:1440px; flex-shrink:0; background:#ffffff; border-radius:8px; overflow:hidden; box-shadow:rgba(13,37,61,0.16) 0 24px 64px;">
+
+      <!-- nav -->
+      <nav style="display:flex; align-items:center; gap:28px; padding:14px 48px; background:#ffffff; border-bottom:1px solid #e3e8ee;">
+        <img src="assets/logo.svg" alt="שלכם" style="height:46px; width:auto;">
+        <div style="display:flex; align-items:center; gap:28px; font-size:16px; color:#273951;">
+          <a href="Homepage Redesign.dc.html" style="color:#273951; text-decoration:none;">בית</a>
+          <a href="About Page - אודות.dc.html" style="color:#273951; text-decoration:none;">הסיפור שלנו</a>
+          <a href="Hub Page - מוסדות ובירוקרטיה.dc.html" style="color:#273951; text-decoration:none;">תחומי פעילות</a>
+          <a href="#2a" style="color:#0d253d; text-decoration:none; font-weight:700; border-bottom:3px solid #0000FF; padding-bottom:3px;">סניפים</a>
+          <a href="Blog Index - מגזין.dc.html" style="color:#273951; text-decoration:none;">מגזין</a>
+        </div>
+        <div style="margin-inline-start:auto; display:flex; align-items:center; gap:14px;">
+          <a href="tel:03-5430302" style="display:flex; align-items:center; gap:9px; color:#0d253d; text-decoration:none; font-size:16px; font-weight:700; font-feature-settings:'tnum';">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6.5 3.5h3l1.5 4.5-2 1.5a13 13 0 0 0 5.5 5.5l1.5-2 4.5 1.5v3a2 2 0 0 1-2.2 2A17.5 17.5 0 0 1 4.5 5.7 2 2 0 0 1 6.5 3.5Z" fill="#0000FF"></path></svg>
+            03-5430302
+          </a>
+          <button onClick="{{ noop }}" style="font-family:inherit; color:#fff; border:none; cursor:pointer; font-size:16px; font-weight:700; padding:11px 24px; border-radius:9999px; background-color:#0000FF;" style-hover="background:#0000c9;">דברו איתנו</button>
+        </div>
+      </nav>
+
+      <!-- header + map split -->
+      <div style="display:grid; grid-template-columns:1fr 520px; gap:56px; align-items:center; padding:64px 48px 64px; border-bottom:1px solid #eef1f5;">
+
+        <!-- copy + cards column -->
+        <div style="display:flex; flex-direction:column; gap:16px;">
+          <div style="font-size:14px; color:#8494a9; display:flex; align-items:center; gap:8px;">
+            <a href="Homepage Redesign.dc.html" style="color:#8494a9; text-decoration:none;">בית</a><span>‹</span>
+            <span style="color:#0d253d; font-weight:700;">סניפים</span>
+          </div>
+          <h1 style="font-family:'RaananPro','SimplerPro',sans-serif; margin:0; font-size:56px; line-height:1.08; font-weight:300; letter-spacing:-0.5px; color:#0d253d;">קרובים אליכם,<br><span style="font-weight:900;">איפה שנוח לכם.</span></h1>
+          <p style="margin:0; font-size:19px; line-height:1.65; color:#4a5b74; max-width:560px;">שני סניפים נגישים — בירושלים ובבני ברק. בחרו סניף במפה ונווטו אליו בלחיצה, או קבעו פגישה דיגיטלית בלי לצאת מהבית.</p>
+
+          <div style="display:flex; flex-direction:column; gap:14px; margin-top:14px;">
+            <sc-for list="{{ heroBranches }}" as="hb" hint-placeholder-count="2">
+              <button onClick="{{ hb.onClick }}" style="font-family:inherit; text-align:start; display:flex; align-items:center; gap:16px; background:{{ hb.bg }}; border:1px solid {{ hb.border }}; border-radius:14px; padding:16px 20px; cursor:pointer; transition:border-color 0.2s, background 0.2s;" style-hover="border-color:#0000FF;">
+                <span style="width:42px; height:42px; border-radius:12px; background:#f2f5f9; display:flex; align-items:center; justify-content:center; flex-shrink:0;">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 21c5-5.5 7-8.4 7-11a7 7 0 1 0-14 0c0 2.6 2 5.5 7 11Z" stroke="#0d253d" stroke-width="1.8" stroke-linejoin="round"></path><circle cx="12" cy="10" r="2.5" stroke="#0d253d" stroke-width="1.8"></circle></svg>
+                </span>
+                <span style="display:flex; flex-direction:column; gap:2px;">
+                  <span style="font-size:18px; font-weight:700; color:#0d253d;">{{ hb.city }}</span>
+                  <span style="font-size:15px; color:#4a5b74;">{{ hb.address }}</span>
+                </span>
+                <span style="margin-inline-start:auto; color:#8494a9; font-size:20px;">‹</span>
+              </button>
+            </sc-for>
+          </div>
+        </div>
+
+        <!-- real map -->
+        <div role="group" aria-label="מפת סניפים" style="position:relative; height:560px; background:#f6f9fc; border-radius:20px; border:1px solid #e3e8ee; overflow:hidden;">
+          <img src="assets/israel-map.svg" alt="" aria-hidden="true" style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); height:118%; width:auto;">
+          <sc-for list="{{ mapMarkers }}" as="mk" hint-placeholder-count="2">
+            <button onClick="{{ mk.onClick }}" aria-label="{{ mk.aria }}" style="position:absolute; top:{{ mk.top }}; left:{{ mk.left }}; transform:translate(-50%,-100%); display:flex; flex-direction:column; align-items:center; gap:6px; background:transparent; border:none; cursor:pointer; font-family:inherit; padding:0;">
+            <span style="font-size:14px; font-weight:700; color:{{ mk.labelColor }}; background:{{ mk.labelBg }}; border:1px solid {{ mk.labelBorder }}; padding:5px 13px; border-radius:9999px; white-space:nowrap; box-shadow:rgba(13,37,61,0.10) 0 4px 12px;">{{ mk.name }}</span>
+              <span style="position:relative; width:22px; height:22px; display:flex; align-items:center; justify-content:center;">
+                <span style="position:absolute; inset:0; border-radius:9999px; background:#0000FF; opacity:0.3; animation:ping 2.6s ease-out infinite;"></span>
+                <span style="position:relative; width:13px; height:13px; border-radius:9999px; background:{{ mk.dotColor }}; border:3px solid #fff; box-shadow:rgba(13,37,61,0.3) 0 2px 6px;"></span>
+              </span>
+            </button>
+          </sc-for>
+          <div style="position:absolute; bottom:14px; right:16px; left:16px; font-size:13px; color:#8494a9; text-align:center;">לחצו על סימון כדי לעבור לפרטי הסניף</div>
+        </div>
+      </div>
+
+      <!-- branch cards -->
+      <div style="padding:64px 48px 24px;">
+        <h2 style="font-family:'RaananPro','SimplerPro',sans-serif; margin:0 0 6px; font-size:36px; font-weight:300;">הסניפים <span style="font-weight:900;">שלנו</span></h2>
+        <p style="margin:0 0 30px; font-size:17px; line-height:1.6; color:#4a5b74;">שני הסניפים נגישים במלואם. מומלץ לתאם פגישה מראש בטלפון <a href="tel:03-5430302" style="font-weight:700; text-decoration:none;">03-5430302</a>.</p>
+        <div style="display:grid; grid-template-columns:repeat(2, 1fr); gap:24px;">
+          <sc-for list="{{ branches }}" as="b" hint-placeholder-count="2">
+            <div id="{{ b.anchor }}" style="display:flex; flex-direction:column; background:#ffffff; border:1px solid {{ b.borderColor }}; border-radius:18px; overflow:hidden; transition:border-color 0.25s, box-shadow 0.25s; box-shadow:{{ b.shadow }};">
+              <!-- card head -->
+              <div style="display:flex; align-items:center; gap:16px; padding:24px 28px 20px; border-bottom:1px solid #eef1f5;">
+                <span style="width:50px; height:50px; border-radius:14px; background:#f2f5f9; display:flex; align-items:center; justify-content:center; flex-shrink:0;">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 21V9l8-6 8 6v12" stroke="#0d253d" stroke-width="1.7" stroke-linejoin="round"></path><path d="M9 21v-6h6v6" stroke="#0d253d" stroke-width="1.7" stroke-linejoin="round"></path></svg>
+                </span>
+                <div style="display:flex; flex-direction:column; gap:2px;">
+                  <div style="font-size:22px; font-weight:900; color:#0d253d;">{{ b.city }}</div>
+                  <div style="font-size:15px; color:#4a5b74;">{{ b.address }}</div>
+                </div>
+              </div>
+
+              <!-- card body -->
+              <div style="display:flex; flex-direction:column; gap:16px; padding:20px 28px 24px;">
+                <!-- arrival -->
+                <div style="display:flex; gap:12px;">
+                  <span style="flex-shrink:0; color:#8494a9; margin-top:1px;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="5" y="3" width="14" height="14" rx="3" stroke="currentColor" stroke-width="1.7"></rect><path d="M5 12h14M8.5 21l1.5-4M15.5 21 14 17" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"></path></svg></span>
+                  <div style="font-size:15px; line-height:1.6; color:#273951;"><b style="color:#0d253d;">איך מגיעים:</b> {{ b.arrival }}</div>
+                </div>
+                <!-- accessibility -->
+                <div style="display:flex; gap:12px;">
+                  <span style="flex-shrink:0; color:#8494a9; margin-top:1px;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="4.5" r="1.8" stroke="currentColor" stroke-width="1.7"></circle><path d="M7 9h6l1 5m0 0h3.5m-3.5 0 1.5 6M9 9v3h3" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>
+                  <div style="font-size:15px; line-height:1.6; color:#273951;"><b style="color:#0d253d;">נגישות:</b> {{ b.access }}</div>
+                </div>
+                <!-- nav buttons -->
+                <div style="display:flex; gap:12px; margin-top:6px;">
+                  <a href="{{ b.mapsUrl }}" target="_blank" rel="noopener" style="flex:1; display:flex; align-items:center; justify-content:center; gap:10px; min-height:48px; background:#ffffff; color:#0d253d; font-size:15px; font-weight:700; border:1.5px solid #d5dde8; border-radius:12px; text-decoration:none;" style-hover="border-color:#0d253d; color:#0d253d;">
+                    <img src="assets/google-maps-icon.svg" alt="" aria-hidden="true" style="width:19px; height:19px;">
+                    Google Maps
+                  </a>
+                  <a href="{{ b.wazeUrl }}" target="_blank" rel="noopener" style="flex:1; display:flex; align-items:center; justify-content:center; gap:10px; min-height:48px; background:#ffffff; color:#0d253d; font-size:15px; font-weight:700; border:1.5px solid #d5dde8; border-radius:12px; text-decoration:none;" style-hover="border-color:#0d253d; color:#0d253d;">
+                    <img src="assets/waze-icon-colored.svg" alt="" aria-hidden="true" style="width:21px; height:21px;">
+                    ניווט ב-Waze
+                  </a>
+                </div>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+
+      <!-- digital option -->
+      <div style="padding:40px 48px 72px;">
+        <div style="background:#f6f9fc; border:1px solid #e3e8ee; border-radius:20px; padding:44px 48px; display:grid; grid-template-columns:1.4fr 1fr; gap:40px; align-items:center;">
+          <div style="display:flex; flex-direction:column; gap:12px;">
+            <h2 style="font-family:'RaananPro','SimplerPro',sans-serif; margin:0; font-size:34px; line-height:1.18; font-weight:300; color:#0d253d;">לא מצליחים להגיע לסניף? <span style="font-weight:900;">ניפגש בזום או בטלפון.</span></h2>
+            <p style="margin:0; font-size:17px; line-height:1.65; color:#4a5b74; max-width:520px;">כל תהליך מימוש הזכויות אפשרי מרחוק — שיחת וידאו, שיחת טלפון או שליחת מסמכים בוואטסאפ. אתם בוחרים איך נוח לכם.</p>
+            <div style="font-size:14px; color:#8494a9;">זמינים א׳–ה׳ 9:00–18:00 · מענה גם בוואטסאפ</div>
+          </div>
+          <div style="display:flex; flex-direction:column; gap:12px;">
+            <button onClick="{{ noop }}" style="font-family:inherit; display:flex; align-items:center; justify-content:center; gap:10px; background:#0000FF; color:#fff; font-size:17px; font-weight:700; padding:15px 28px; min-height:54px; border:none; border-radius:12px; cursor:pointer;" style-hover="background:#0000c9;">
+              <svg width="21" height="21" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="6" width="12" height="12" rx="3" stroke="#fff" stroke-width="1.8"></rect><path d="M15 10l6-3v10l-6-3z" stroke="#fff" stroke-width="1.8" stroke-linejoin="round"></path></svg>
+              קבעו פגישת זום
+            </button>
+            <a href="tel:03-5430302" style="font-family:inherit; display:flex; align-items:center; justify-content:center; gap:10px; background:#ffffff; color:#0d253d; font-size:17px; font-weight:700; padding:15px 28px; min-height:54px; border:1.5px solid #d5dde8; border-radius:12px; text-decoration:none; font-feature-settings:'tnum';" style-hover="border-color:#0d253d; color:#0d253d;">
+              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6.5 3.5h3l1.5 4.5-2 1.5a13 13 0 0 0 5.5 5.5l1.5-2 4.5 1.5v3a2 2 0 0 1-2.2 2A17.5 17.5 0 0 1 4.5 5.7 2 2 0 0 1 6.5 3.5Z" fill="#0d253d"></path></svg>
+              חייגו 03-5430302
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- footer -->
+      <footer style="border-top:1px solid #e3e8ee; padding:36px 48px 28px; display:flex; justify-content:space-between; align-items:center; gap:24px; flex-wrap:wrap;">
+        <img src="assets/logo.svg" alt="שלכם" style="height:44px; width:auto;">
+        <div style="display:flex; gap:22px; font-size:14.5px; color:#4a5b74;">
+          <a href="#2a" style="color:#4a5b74; text-decoration:none;">מדיניות פרטיות</a>
+          <a href="#2a" style="color:#4a5b74; text-decoration:none;">הצהרת נגישות</a>
+          <a href="#2a" style="color:#4a5b74; text-decoration:none;">יצירת קשר</a>
+          <span style="font-feature-settings:'tnum';">076-8017778</span>
+        </div>
+        <span style="font-size:13.5px; color:#4a5b74;">© שלכם — מימוש זכויות רפואיות</span>
+      </footer>
+    </div>
+  </div>
+</section>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { active: null };
+  renderVals() {
+    const setActive = (id) => this.setState({ active: id });
+
+    const data = [
+      { id: 'jlm', city: 'ירושלים', top: '53%', left: '46%',
+        address: 'בניין שערי העיר, רח׳ יפו פינת שרי ישראל, קומה 9',
+        mapsUrl: 'https://maps.google.com/?q=שערי+העיר+יפו+216+ירושלים',
+        wazeUrl: 'https://waze.com/ul?q=שערי+העיר+ירושלים&navigate=yes',
+        arrival: 'תחנת רכבת קלה "שרי ישראל" צמודה לבניין · קווי אוטובוס רבים ברחוב יפו · חניון בתשלום בבניין.',
+        access: 'כניסה נגישה בגובה המדרכה · מעליות מרווחות לקומה 9 · שירותי נכים בקומה · חניות נכים בחניון.' },
+      { id: 'bb', city: 'בני ברק', top: '44%', left: '37.5%',
+        address: 'רח׳ ז׳בוטינסקי 168, בני ברק',
+        mapsUrl: 'https://maps.google.com/?q=ז׳בוטינסקי+168+בני+ברק',
+        wazeUrl: 'https://waze.com/ul?q=ז׳בוטינסקי+168+בני+ברק&navigate=yes',
+        arrival: 'קווי אוטובוס רבים בציר ז׳בוטינסקי · תחנת רכבת בני ברק במרחק 10 דק׳ הליכה · חניון בתשלום בבניין.',
+        access: 'כניסה נגישה ללא מדרגות · מעלית · שירותי נכים · חניית נכים בחניון הבניין.' },
+    ];
+
+    const active = this.state.active;
+
+    return {
+      noop: () => {},
+      heroBranches: data.map((d) => ({
+        city: d.city, address: d.address,
+        bg: active === d.id ? '#f6f9fc' : '#ffffff',
+        border: active === d.id ? '#0000FF' : '#e3e8ee',
+        onClick: () => setActive(d.id),
+      })),
+      mapMarkers: data.map((d) => ({
+        name: d.city, aria: 'עברו לפרטי סניף ' + d.city,
+        top: d.top, left: d.left,
+        dotColor: active === d.id ? '#0000FF' : '#0d253d',
+        labelColor: active === d.id ? '#ffffff' : '#0d253d',
+        labelBg: active === d.id ? '#0000FF' : '#ffffff',
+        labelBorder: active === d.id ? '#0000FF' : '#e3e8ee',
+        onClick: () => setActive(d.id),
+      })),
+      branches: data.map((d) => {
+        const on = active === d.id;
+        return {
+          anchor: 'branch-' + d.id,
+          city: d.city, address: d.address,
+          mapsUrl: d.mapsUrl, wazeUrl: d.wazeUrl,
+          arrival: d.arrival, access: d.access,
+          borderColor: on ? '#0000FF' : '#e3e8ee',
+          shadow: on ? 'rgba(13,37,61,0.14) 0 16px 40px' : 'rgba(13,37,61,0.05) 0 4px 14px',
+        };
+      }),
+    };
+  }
+}
+</script>
+</body>
+</html>

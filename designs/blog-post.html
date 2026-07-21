@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<title>שלכם — מאמר: אחוזי נכות שונים לאותה מחלה</title>
+<style>
+@font-face { font-family: 'SimplerPro'; src: url('fonts/SimplerPro-Light.woff2') format('woff2'); font-weight: 300; font-display: swap; }
+@font-face { font-family: 'SimplerPro'; src: url('fonts/SimplerPro-Regular.woff2') format('woff2'); font-weight: 400; font-display: swap; }
+@font-face { font-family: 'SimplerPro'; src: url('fonts/SimplerPro-Semibold.woff2') format('woff2'); font-weight: 600; font-display: swap; }
+@font-face { font-family: 'SimplerPro'; src: url('fonts/SimplerPro-Bold.woff2') format('woff2'); font-weight: 700; font-display: swap; }
+@font-face { font-family: 'SimplerPro'; src: url('fonts/SimplerPro-Black.woff2') format('woff2'); font-weight: 900; font-display: swap; }
+@font-face { font-family: 'RaananPro'; src: url('fonts/RaananPro-Light.woff2') format('woff2'); font-weight: 300; font-display: swap; }
+@font-face { font-family: 'RaananPro'; src: url('fonts/RaananPro-Regular.woff2') format('woff2'); font-weight: 400; font-display: swap; }
+@font-face { font-family: 'RaananPro'; src: url('fonts/RaananPro-Bold.woff2') format('woff2'); font-weight: 700; font-display: swap; }
+@font-face { font-family: 'RaananPro'; src: url('fonts/RaananPro-Black.woff2') format('woff2'); font-weight: 900; font-display: swap; }
+body { margin: 0; background: #e7eaf2; }
+a { color: #0000FF; }
+a:hover { color: #0000c9; }
+</style>
+</helmet>
+
+<section style="font-family:'SimplerPro',system-ui,sans-serif; color:#0d253d; padding:48px 56px 96px; display:flex; flex-direction:column; gap:28px;">
+  <div style="display:flex; flex-direction:column; gap:6px;">
+    <div style="font-size:26px; font-weight:700;">עמוד מאמר — ״איך אנשים עם אותה מחלה מקבלים אחוזי נכות שונים״</div>
+    <div style="font-size:16px; color:#4a5b74;">כותרת + תמונה ראשית · היררכיית H2/H3 · קישורים פנימיים · באנר CTA באמצע · ביו מומחה</div>
+  </div>
+
+  <div id="1a" style="display:flex; gap:32px; align-items:flex-start; flex-wrap:wrap;">
+
+    <!-- ============ DESKTOP ============ -->
+    <div data-screen-label="מאמר דסקטופ" dir="rtl" style="width:1440px; flex-shrink:0; background:#ffffff; border-radius:8px; overflow:hidden; box-shadow:rgba(13,37,61,0.16) 0 24px 64px;">
+
+      <!-- nav -->
+      <nav style="display:flex; align-items:center; gap:28px; padding:14px 48px; background:#ffffff; border-bottom:1px solid #e3e8ee;">
+        <img src="assets/logo.svg" alt="שלכם" style="height:46px; width:auto;">
+        <div style="display:flex; align-items:center; gap:28px; font-size:16px; color:#273951;">
+          <a href="#1a" style="color:#273951; text-decoration:none;">בית</a>
+          <a href="#1a" style="color:#273951; text-decoration:none;">הסיפור שלנו</a>
+          <a href="#1a" style="color:#273951; text-decoration:none;">תחומי פעילות</a>
+          <a href="#1a" style="color:#273951; text-decoration:none;">איך זה עובד</a>
+          <a href="#1a" style="color:#0d253d; text-decoration:none; font-weight:700; border-bottom:3px solid #F0514F; padding-bottom:3px;">מגזין</a>
+        </div>
+        <div style="margin-inline-start:auto; display:flex; align-items:center; gap:14px;">
+          <a href="tel:076-8017778" style="display:flex; align-items:center; gap:9px; color:#0d253d; text-decoration:none; font-size:16px; font-weight:700; font-feature-settings:'tnum';">
+            <span style="width:38px; height:38px; border-radius:9999px; background:#F0514F; color:#fff; display:flex; align-items:center; justify-content:center;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6.5 3.5h3l1.5 4.5-2 1.5a13 13 0 0 0 5.5 5.5l1.5-2 4.5 1.5v3a2 2 0 0 1-2.2 2A17.5 17.5 0 0 1 4.5 5.7 2 2 0 0 1 6.5 3.5Z" fill="currentColor"></path></svg></span>
+            076-8017778
+          </a>
+          <button onClick="{{ noop }}" style="font-family:inherit; color:#fff; border:none; cursor:pointer; font-size:16px; font-weight:700; padding:11px 24px; border-radius:9999px; background-color:#0000FF;" style-hover="background:#0000c9;">דברו איתנו</button>
+        </div>
+      </nav>
+
+      <!-- article header -->
+      <div style="max-width:1040px; margin:0 auto; padding:26px 48px 0;">
+        <div style="font-size:14px; color:#64748d; display:flex; align-items:center; gap:8px;">
+          <a href="#1a" style="color:#64748d; text-decoration:none;">בית</a><span>‹</span>
+          <a href="#1a" style="color:#64748d; text-decoration:none;">המגזין</a><span>‹</span>
+          <a href="#1a" style="color:#64748d; text-decoration:none;">מדריכים</a><span>‹</span>
+          <span style="color:#0d253d; font-weight:700;">אחוזי נכות שונים לאותה מחלה</span>
+        </div>
+        <div style="padding:26px 0 0; display:flex; flex-direction:column; gap:16px;">
+          <div style="display:flex; align-items:center; gap:12px;">
+            <span style="background:#eef0ff; color:#0000FF; font-size:14px; font-weight:700; padding:7px 16px; border-radius:9999px;">מדריכים</span>
+            <span style="font-size:15px; color:#64748d;">עודכן ביוני 2026 · 9 דק׳ קריאה</span>
+          </div>
+          <h1 style="font-family:'RaananPro','SimplerPro',sans-serif; margin:0; font-size:54px; line-height:1.12; font-weight:300; letter-spacing:-0.5px; max-width:900px;">איך אנשים עם אותה מחלה מקבלים <span style="font-weight:900; border-bottom:7px solid #F0514F;">אחוזי נכות שונים?</span></h1>
+          <p style="margin:0; font-size:20px; line-height:1.6; color:#273951; max-width:820px;">שני אנשים עם אותה אבחנה בדיוק יכולים לצאת מהוועדה הרפואית עם פער של עשרות אחוזים — ואלפי שקלים בחודש. ההבדל כמעט אף פעם לא במחלה עצמה. הנה מה שקובע באמת.</p>
+          <div style="display:flex; align-items:center; gap:14px; padding:6px 0 22px;">
+            <span style="width:48px; height:48px; border-radius:9999px; background:#eef0ff; display:flex; align-items:center; justify-content:center; font-weight:700; color:#0000FF; font-size:17px;">ד״ר</span>
+            <div>
+              <div style="font-size:16px; font-weight:700;">ד״ר מיכל ברק</div>
+              <div style="font-size:14px; color:#64748d;">מומחית לרפואה תעסוקתית, מלוות ועדות רפואיות בשלכם</div>
+            </div>
+          </div>
+        </div>
+        <div data-comment-anchor="post-hero-image" style="height:420px; border-radius:18px; background:url('assets/hero.jpg') center / cover no-repeat;"></div>
+      </div>
+
+      <!-- article body -->
+      <div style="max-width:1040px; margin:0 auto; padding:44px 48px 56px; display:grid; grid-template-columns:1fr 260px; gap:56px; align-items:start;">
+
+        <!-- content -->
+        <article style="min-width:0; display:flex; flex-direction:column; gap:28px; font-size:18px; line-height:1.75; color:#273951;">
+
+          <p style="margin:0;">בכל שנה עוברים מאות אלפי ישראלים ועדות רפואיות בביטוח לאומי. רבים מהם מגלים, בשיחה עם חבר או בקבוצת פייסבוק, שמישהו אחר — עם אותה אבחנה בדיוק — קיבל אחוזי נכות גבוהים בהרבה. התחושה היא של שרירותיות, אבל האמת מורכבת יותר: <b style="color:#0d253d;">אחוזי נכות לא נקבעים לפי שם המחלה, אלא לפי התיעוד וההשפעה התפקודית שהוצגו לוועדה.</b></p>
+
+          <div>
+            <h2 id="h2-1" style="font-family:'RaananPro','SimplerPro',sans-serif; margin:0 0 14px; font-size:34px; font-weight:300; letter-spacing:-0.3px; color:#0d253d;">הוועדה לא מדרגת מחלה — <span style="font-weight:700;">היא מדרגת תפקוד</span></h2>
+            <p style="margin:0 0 14px;">ספר הליקויים של ביטוח לאומי לא שואל "במה חלית?" אלא "כמה זה פוגע בך?". לכל ליקוי יש טווח סעיפים, וכל סעיף מוגדר לפי חומרה: ממצאים קליניים, בדיקות עזר, ומגבלות בתפקוד היומיומי. סוכרת, למשל, יכולה לזכות ב-5% — או ב-65%, אם קיימים סיבוכים מתועדים.</p>
+            <p style="margin:0;">לכן שני חולים "זהים" הם אף פעם לא זהים בעיני הוועדה. השאלה היא איזה חלק מהמציאות הרפואית שלהם <b style="color:#0d253d;">הצליח להיכנס לפרוטוקול</b>.</p>
+          </div>
+
+          <div>
+            <h2 id="h2-2" style="font-family:'RaananPro','SimplerPro',sans-serif; margin:0 0 14px; font-size:34px; font-weight:300; letter-spacing:-0.3px; color:#0d253d;">4 גורמים שמייצרים <span style="font-weight:700;">את הפער</span></h2>
+
+            <h3 style="margin:0 0 8px; font-size:22px; font-weight:700; color:#0d253d;">1. איכות התיעוד הרפואי</h3>
+            <p style="margin:0 0 18px;">הוועדה מכירה אתכם דרך הנייר. סיכום ביקור שכתוב "מרגיש בסדר, ממשיך טיפול" — גם אם נאמר מתוך נימוס לרופא — יכול לעלות באחוזים. תיעוד עקבי של תסמינים, מגבלות ותופעות לוואי הוא הבסיס לכל קביעה.</p>
+
+            <h3 style="margin:0 0 8px; font-size:22px; font-weight:700; color:#0d253d;">2. הסעיף שלפיו נבחנתם</h3>
+            <p style="margin:0 0 18px;">מחלות רבות ניתנות לשיוך ליותר מסעיף ליקוי אחד — והבחירה משנה את הטווח כולו. מי שמגיע עם חוות דעת שמכוונת לסעיף הנכון, מתחיל את הדיון ממקום אחר. זה בדיוק המקום שבו מומחה מנוסה שווה כסף. אגב, אותו היגיון חל גם על <a href="#h2-4">נכות משוקללת ממספר ליקויים</a>.</p>
+
+            <h3 style="margin:0 0 8px; font-size:22px; font-weight:700; color:#0d253d;">3. ההתנהלות בוועדה עצמה</h3>
+            <p style="margin:0 0 18px;">הוועדה מתרשמת גם ממה שהיא רואה: איך נכנסתם, איך התיישבתם, איך תיארתם את היום שלכם. אנשים רבים ממעיטים בתיאור הקושי — הרגל ישראלי של "יהיה בסדר" — ומשלמים על כך באחוזים. הכנה לוועדה היא לא "הדרכה למשחק", אלא לימוד איך לתאר את המציאות במדויק ובשפה שהוועדה מבינה.</p>
+
+            <h3 style="margin:0 0 8px; font-size:22px; font-weight:700; color:#0d253d;">4. ערר — הזכות שרוב האנשים לא מנצלים</h3>
+            <p style="margin:0;">כ-40% מהעררים המנומקים מסתיימים בשיפור הקביעה. מי שמקבל תוצאה נמוכה ומרים ידיים, נשאר עם הפער. מי שמגיש ערר מקצועי בתוך 60 יום — פותח את הדיון מחדש.</p>
+          </div>
+
+          <!-- mid-article CTA -->
+          <div data-comment-anchor="mid-cta" style="position:relative; overflow:hidden; background:#122680; border-radius:16px; padding:30px 34px; color:#ffffff;">
+            <div style="position:absolute; top:-110px; left:-70px; width:420px; height:360px; border-radius:50%; background:radial-gradient(circle, rgba(0,0,255,0.5) 0%, rgba(0,0,255,0) 70%);"></div>
+            <div style="position:relative; display:flex; align-items:center; justify-content:space-between; gap:24px; flex-wrap:wrap;">
+              <div style="flex:1; min-width:280px;">
+                <div style="font-family:'RaananPro','SimplerPro',sans-serif; font-size:26px; font-weight:700; margin-bottom:6px;">קיבלתם פחות ממה שמגיע לכם?</div>
+                <div style="font-size:16px; line-height:1.6; color:rgba(255,255,255,0.85);">בדיקת זכאות ראשונה חינם — נבחן את הקביעה שלכם ונגיד ביושר אם יש בסיס לערר.</div>
+              </div>
+              <button onClick="{{ noop }}" style="font-family:inherit; flex-shrink:0; background:#F0514F; color:#fff; font-size:17px; font-weight:700; padding:14px 32px; min-height:50px; border:none; border-radius:9999px; cursor:pointer;" style-hover="background:#d94341;">בדקו את הזכאות שלי ›</button>
+            </div>
+          </div>
+
+          <div>
+            <h2 id="h2-3" style="font-family:'RaananPro','SimplerPro',sans-serif; margin:0 0 14px; font-size:34px; font-weight:300; letter-spacing:-0.3px; color:#0d253d;">מה עושים <span style="font-weight:700;">נכון מהיום?</span></h2>
+            <ul style="margin:0; padding:0 22px 0 0; display:flex; flex-direction:column; gap:12px;">
+              <li><b style="color:#0d253d;">תעדו הכל, בזמן אמת.</b> כל ביקור רופא, כל תסמין, כל מגבלה — בקשו שיירשם בסיכום.</li>
+              <li><b style="color:#0d253d;">אספו את התיק לפני הוועדה, לא אחריה.</b> חוות דעת עדכנית של מומחה שווה יותר מעשרה מסמכים ישנים.</li>
+              <li><b style="color:#0d253d;">תארו את היום הקשה, לא את היום הטוב.</b> הוועדה צריכה להבין את המגבלה — לא את הגבורה.</li>
+              <li><b style="color:#0d253d;">אל תעצרו בקביעה הראשונה.</b> בדקו אפשרות לערר, וגם זכויות נלוות: <a href="#1a">פטור ממס הכנסה</a>, <a href="#1a">אובדן כושר עבודה</a> ו<a href="#1a">קצבאות נוספות</a>.</li>
+            </ul>
+          </div>
+
+          <div>
+            <h2 id="h2-4" style="font-family:'RaananPro','SimplerPro',sans-serif; margin:0 0 14px; font-size:34px; font-weight:300; letter-spacing:-0.3px; color:#0d253d;">ומה עם <span style="font-weight:700;">כמה מחלות יחד?</span></h2>
+            <p style="margin:0;">כשיש יותר מליקוי אחד, האחוזים לא מתחברים — הם משוקללים בנוסחה יורדת (60% + 40% הם 76%, לא 100%). דווקא כאן נפתח מרחב תמרון: סדר הסעיפים, אילו ליקויים נטענים ואילו נשמרים לערר — כל אלה משנים את התוצאה הסופית. זה נושא למאמר נפרד: <a href="#1a">איך מחושבת נכות משוקללת — המדריך המלא</a>.</p>
+          </div>
+
+          <!-- author bio -->
+          <div data-comment-anchor="author-bio" style="display:flex; gap:20px; align-items:flex-start; background:#f6f9fc; border:1px solid #e3e8ee; border-radius:16px; padding:26px 28px;">
+            <span style="width:64px; height:64px; flex-shrink:0; border-radius:9999px; background:#eef0ff; display:flex; align-items:center; justify-content:center; font-weight:700; color:#0000FF; font-size:21px;">ד״ר</span>
+            <div>
+              <div style="font-size:14px; font-weight:700; color:#F0514F; margin-bottom:4px;">הכירו את המומחית</div>
+              <div style="font-size:19px; font-weight:700; margin-bottom:6px;">ד״ר מיכל ברק</div>
+              <p style="margin:0 0 10px; font-size:16px; line-height:1.65; color:#273951;">מומחית לרפואה תעסוקתית עם 14 שנות ניסיון בהערכת נכויות. ליוותה למעלה מ-2,000 מבוטחים לוועדות רפואיות כחלק מצוות הרופאים של שלכם.</p>
+              <a href="#1a" style="font-size:15px; font-weight:700; text-decoration:none;">לכל המאמרים של ד״ר ברק ←</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- side rail -->
+        <aside style="position:sticky; top:20px; display:flex; flex-direction:column; gap:18px;">
+          <div style="background:#f6f9fc; border:1px solid #e3e8ee; border-radius:14px; padding:20px 22px;">
+            <div style="font-size:15px; font-weight:700; margin-bottom:12px; color:#0d253d;">בעמוד הזה</div>
+            <div style="display:flex; flex-direction:column; gap:9px; font-size:14.5px; line-height:1.45;">
+              <a href="#h2-1" style="color:#273951; text-decoration:none;" style-hover="color:#0000FF;">הוועדה מדרגת תפקוד</a>
+              <a href="#h2-2" style="color:#273951; text-decoration:none;" style-hover="color:#0000FF;">4 גורמים שמייצרים את הפער</a>
+              <a href="#h2-3" style="color:#273951; text-decoration:none;" style-hover="color:#0000FF;">מה עושים נכון מהיום</a>
+              <a href="#h2-4" style="color:#273951; text-decoration:none;" style-hover="color:#0000FF;">כמה מחלות יחד</a>
+            </div>
+          </div>
+          <div style="background:#ffffff; border:1px solid #e6ebf2; border-radius:14px; padding:20px 22px; box-shadow:rgba(13,37,61,0.1) 0 14px 36px; display:flex; flex-direction:column; gap:10px;">
+            <div style="font-size:16px; font-weight:700; line-height:1.4;">רוצים שנבדוק את התיק שלכם?</div>
+            <p style="margin:0; font-size:14px; line-height:1.55; color:#4a5b74;">חינם, ללא התחייבות. שכר טרחה רק בהצלחה.</p>
+            <button onClick="{{ noop }}" style="font-family:inherit; color:#fff; font-size:15px; font-weight:700; padding:12px 20px; min-height:46px; border:none; border-radius:9999px; cursor:pointer; background-color:#0000FF; width:100%;" style-hover="background:#0000c9;">חזרו אליי ›</button>
+          </div>
+          <div style="border:1px solid #e3e8ee; border-radius:14px; padding:20px 22px;">
+            <div style="font-size:15px; font-weight:700; margin-bottom:12px;">שירותים קשורים</div>
+            <div style="display:flex; flex-direction:column;">
+              <a href="#1a" style="display:flex; justify-content:space-between; gap:10px; padding:9px 0; border-bottom:1px solid #eef1f6; color:#273951; text-decoration:none; font-size:14.5px;" style-hover="color:#0000FF;">קצבת נכות כללית<span style="color:#94a3b8;">‹</span></a>
+              <a href="#1a" style="display:flex; justify-content:space-between; gap:10px; padding:9px 0; border-bottom:1px solid #eef1f6; color:#273951; text-decoration:none; font-size:14.5px;" style-hover="color:#0000FF;">הכנה לוועדה רפואית<span style="color:#94a3b8;">‹</span></a>
+              <a href="#1a" style="display:flex; justify-content:space-between; gap:10px; padding:9px 0; color:#273951; text-decoration:none; font-size:14.5px;" style-hover="color:#0000FF;">הגשת ערר<span style="color:#94a3b8;">‹</span></a>
+            </div>
+          </div>
+        </aside>
+      </div>
+
+      <!-- read next -->
+      <div style="border-top:1px solid #e3e8ee; background:#f6f9fc;">
+        <div style="max-width:1040px; margin:0 auto; padding:36px 48px 48px;">
+          <h2 style="font-family:'RaananPro','SimplerPro',sans-serif; margin:0 0 18px; font-size:30px; font-weight:300;">המשיכו <span style="font-weight:700;">לקרוא</span></h2>
+          <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:18px;">
+            <a href="#1a" style="display:flex; flex-direction:column; background:#fff; border:1px solid #e3e8ee; border-radius:14px; overflow:hidden; text-decoration:none; color:#0d253d;" style-hover="box-shadow:rgba(13,37,61,0.12) 0 12px 32px;">
+              <div style="height:130px; background:url('19b771_b9344cd4a27a43e58b11c8ca0c8ccdc8--mr8667se.avif') center / cover no-repeat;"></div>
+              <div style="padding:16px 18px; display:flex; flex-direction:column; gap:8px;">
+                <div style="font-size:16px; font-weight:700; line-height:1.4;">נדחיתם בוועדה? כך מגישים ערר שמתקבל</div>
+                <span style="color:#0000FF; font-size:14px;">לקריאה ←</span>
+              </div>
+            </a>
+            <a href="#1a" style="display:flex; flex-direction:column; background:#fff; border:1px solid #e3e8ee; border-radius:14px; overflow:hidden; text-decoration:none; color:#0d253d;" style-hover="box-shadow:rgba(13,37,61,0.12) 0 12px 32px;">
+              <div style="height:130px; background:url('assets/hero-team.png') center / cover no-repeat;"></div>
+              <div style="padding:16px 18px; display:flex; flex-direction:column; gap:8px;">
+                <div style="font-size:16px; font-weight:700; line-height:1.4;">הוועדה הרפואית: 7 דברים שחייבים להכין מראש</div>
+                <span style="color:#0000FF; font-size:14px;">לקריאה ←</span>
+              </div>
+            </a>
+            <a href="#1a" style="display:flex; flex-direction:column; background:#fff; border:1px solid #e3e8ee; border-radius:14px; overflow:hidden; text-decoration:none; color:#0d253d;" style-hover="box-shadow:rgba(13,37,61,0.12) 0 12px 32px;">
+              <div style="height:130px; background:url('assets/hero.jpg') center / cover no-repeat;"></div>
+              <div style="padding:16px 18px; display:flex; flex-direction:column; gap:8px;">
+                <div style="font-size:16px; font-weight:700; line-height:1.4;">כמה כסף שווה כל אחוז נכות? טבלת הקצבאות</div>
+                <span style="color:#0000FF; font-size:14px;">לקריאה ←</span>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- footer -->
+      <footer style="border-top:1px solid #e3e8ee; padding:36px 48px 28px; display:flex; justify-content:space-between; align-items:center; gap:24px; flex-wrap:wrap;">
+        <img src="assets/logo.svg" alt="שלכם" style="height:44px; width:auto;">
+        <div style="display:flex; gap:22px; font-size:14.5px; color:#4a5b74;">
+          <a href="#1a" style="color:#4a5b74; text-decoration:none;">מדיניות פרטיות</a>
+          <a href="#1a" style="color:#4a5b74; text-decoration:none;">הצהרת נגישות</a>
+          <a href="#1a" style="color:#4a5b74; text-decoration:none;">יצירת קשר</a>
+          <span style="font-feature-settings:'tnum';">076-8017778</span>
+        </div>
+        <span style="font-size:13.5px; color:#4a5b74;">© שלכם — מימוש זכויות רפואיות</span>
+      </footer>
+    </div>
+
+    <!-- ============ MOBILE ============ -->
+    <div data-screen-label="מאמר מובייל" dir="rtl" style="width:390px; flex-shrink:0; background:#ffffff; border-radius:8px; overflow:hidden; box-shadow:rgba(13,37,61,0.16) 0 24px 64px;">
+      <nav style="display:flex; align-items:center; justify-content:space-between; gap:12px; padding:12px 18px; border-bottom:1px solid #eef1f6;">
+        <button aria-label="תפריט" onClick="{{ noop }}" style="display:flex; flex-direction:column; justify-content:center; gap:5px; width:44px; height:44px; background:none; border:none; cursor:pointer; padding:10px;">
+          <span style="display:block; height:2.5px; width:22px; background:#0d253d; border-radius:2px;"></span>
+          <span style="display:block; height:2.5px; width:22px; background:#0d253d; border-radius:2px;"></span>
+          <span style="display:block; height:2.5px; width:14px; background:#0d253d; border-radius:2px;"></span>
+        </button>
+        <img src="assets/logo.svg" alt="שלכם" style="height:36px; width:auto;">
+        <a href="tel:076-8017778" aria-label="חייגו עכשיו" style="display:flex; align-items:center; justify-content:center; width:44px; height:44px; border-radius:9999px; background:#F0514F; color:#fff; text-decoration:none;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6.5 3.5h3l1.5 4.5-2 1.5a13 13 0 0 0 5.5 5.5l1.5-2 4.5 1.5v3a2 2 0 0 1-2.2 2A17.5 17.5 0 0 1 4.5 5.7 2 2 0 0 1 6.5 3.5Z" fill="currentColor"></path></svg>
+        </a>
+      </nav>
+      <div style="height:190px; background:url('assets/hero.jpg') center / cover no-repeat;"></div>
+      <div style="padding:18px 20px 40px;">
+        <div style="display:flex; align-items:center; gap:10px; margin-bottom:12px;">
+          <span style="background:#eef0ff; color:#0000FF; font-size:12.5px; font-weight:700; padding:5px 12px; border-radius:9999px;">מדריכים</span>
+          <span style="font-size:13px; color:#64748d;">9 דק׳ קריאה</span>
+        </div>
+        <h1 style="font-family:'RaananPro','SimplerPro',sans-serif; margin:0 0 12px; font-size:31px; line-height:1.18; font-weight:300;">איך אנשים עם אותה מחלה מקבלים <span style="font-weight:900; border-bottom:5px solid #F0514F;">אחוזי נכות שונים?</span></h1>
+        <div style="display:flex; align-items:center; gap:10px; margin-bottom:18px;">
+          <span style="width:38px; height:38px; border-radius:9999px; background:#eef0ff; display:flex; align-items:center; justify-content:center; font-weight:700; color:#0000FF; font-size:14px;">ד״ר</span>
+          <div style="font-size:13.5px; color:#64748d;"><b style="color:#0d253d;">ד״ר מיכל ברק</b> · רפואה תעסוקתית</div>
+        </div>
+
+        <div style="font-size:16.5px; line-height:1.7; color:#273951; display:flex; flex-direction:column; gap:18px;">
+          <p style="margin:0;">שני אנשים עם אותה אבחנה יכולים לצאת מהוועדה עם פער של עשרות אחוזים. ההבדל כמעט אף פעם לא במחלה — אלא <b style="color:#0d253d;">בתיעוד ובאופן שבו הוצגה המגבלה</b>.</p>
+          <h2 style="font-family:'RaananPro','SimplerPro',sans-serif; margin:6px 0 -6px; font-size:25px; font-weight:300; color:#0d253d;">הוועדה מדרגת <span style="font-weight:700;">תפקוד, לא מחלה</span></h2>
+          <p style="margin:0;">ספר הליקויים לא שואל "במה חלית?" אלא "כמה זה פוגע בך?". סוכרת יכולה לזכות ב-5% — או ב-65% עם סיבוכים מתועדים.</p>
+          <h2 style="font-family:'RaananPro','SimplerPro',sans-serif; margin:6px 0 -6px; font-size:25px; font-weight:300; color:#0d253d;">4 גורמים <span style="font-weight:700;">שמייצרים את הפער</span></h2>
+          <ul style="margin:0; padding:0 20px 0 0; display:flex; flex-direction:column; gap:10px;">
+            <li><b style="color:#0d253d;">איכות התיעוד</b> — הוועדה מכירה אתכם דרך הנייר.</li>
+            <li><b style="color:#0d253d;">הסעיף שנבחר</b> — אותה מחלה, טווחי אחוזים שונים.</li>
+            <li><b style="color:#0d253d;">ההתנהלות בוועדה</b> — לתאר את היום הקשה, לא את הטוב.</li>
+            <li><b style="color:#0d253d;">ערר</b> — כ-40% מהעררים המנומקים משפרים את הקביעה.</li>
+          </ul>
+
+          <!-- CTA mobile -->
+          <div style="position:relative; overflow:hidden; background:#122680; border-radius:14px; padding:22px 20px; color:#ffffff;">
+            <div style="position:absolute; top:-80px; left:-50px; width:280px; height:240px; border-radius:50%; background:radial-gradient(circle, rgba(0,0,255,0.5) 0%, rgba(0,0,255,0) 70%);"></div>
+            <div style="position:relative; display:flex; flex-direction:column; gap:12px;">
+              <div style="font-family:'RaananPro','SimplerPro',sans-serif; font-size:21px; font-weight:700; line-height:1.3;">קיבלתם פחות ממה שמגיע לכם?</div>
+              <div style="font-size:14.5px; line-height:1.6; color:rgba(255,255,255,0.85);">בדיקת זכאות ראשונה חינם — נגיד ביושר אם יש בסיס לערר.</div>
+              <button onClick="{{ noop }}" style="font-family:inherit; background:#F0514F; color:#fff; font-size:16px; font-weight:700; padding:13px 24px; min-height:48px; border:none; border-radius:9999px; cursor:pointer;" style-hover="background:#d94341;">בדקו את הזכאות שלי ›</button>
+            </div>
+          </div>
+
+          <!-- author bio mobile -->
+          <div style="display:flex; gap:14px; align-items:flex-start; background:#f6f9fc; border:1px solid #e3e8ee; border-radius:14px; padding:18px;">
+            <span style="width:48px; height:48px; flex-shrink:0; border-radius:9999px; background:#eef0ff; display:flex; align-items:center; justify-content:center; font-weight:700; color:#0000FF; font-size:16px;">ד״ר</span>
+            <div>
+              <div style="font-size:16px; font-weight:700; margin-bottom:4px;">ד״ר מיכל ברק</div>
+              <p style="margin:0; font-size:14px; line-height:1.6; color:#273951;">מומחית לרפואה תעסוקתית, 14 שנות ניסיון. ליוותה 2,000+ מבוטחים לוועדות רפואיות.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer style="border-top:1px solid #e3e8ee; padding:24px 20px; display:flex; flex-direction:column; align-items:center; gap:12px;">
+        <img src="assets/logo.svg" alt="שלכם" style="height:38px; width:auto;">
+        <span style="font-size:12.5px; color:#64748d;">© שלכם — מימוש זכויות רפואיות</span>
+      </footer>
+    </div>
+  </div>
+</section>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  renderVals() {
+    return { noop: () => {} };
+  }
+}
+</script>
+</body>
+</html>

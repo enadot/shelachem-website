@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<title>שלכם — המגזין</title>
+<style>
+@font-face { font-family: 'SimplerPro'; src: url('fonts/SimplerPro-Light.woff2') format('woff2'); font-weight: 300; font-display: swap; }
+@font-face { font-family: 'SimplerPro'; src: url('fonts/SimplerPro-Regular.woff2') format('woff2'); font-weight: 400; font-display: swap; }
+@font-face { font-family: 'SimplerPro'; src: url('fonts/SimplerPro-Semibold.woff2') format('woff2'); font-weight: 600; font-display: swap; }
+@font-face { font-family: 'SimplerPro'; src: url('fonts/SimplerPro-Bold.woff2') format('woff2'); font-weight: 700; font-display: swap; }
+@font-face { font-family: 'SimplerPro'; src: url('fonts/SimplerPro-Black.woff2') format('woff2'); font-weight: 900; font-display: swap; }
+@font-face { font-family: 'RaananPro'; src: url('fonts/RaananPro-Light.woff2') format('woff2'); font-weight: 300; font-display: swap; }
+@font-face { font-family: 'RaananPro'; src: url('fonts/RaananPro-Regular.woff2') format('woff2'); font-weight: 400; font-display: swap; }
+@font-face { font-family: 'RaananPro'; src: url('fonts/RaananPro-Bold.woff2') format('woff2'); font-weight: 700; font-display: swap; }
+@font-face { font-family: 'RaananPro'; src: url('fonts/RaananPro-Black.woff2') format('woff2'); font-weight: 900; font-display: swap; }
+body { margin: 0; background: #e7eaf2; }
+a { color: #0000FF; }
+a:hover { color: #0000c9; }
+</style>
+</helmet>
+
+<section style="font-family:'SimplerPro',system-ui,sans-serif; color:#0d253d; padding:48px 56px 96px; display:flex; flex-direction:column; gap:28px;">
+  <div style="display:flex; flex-direction:column; gap:6px;">
+    <div style="font-size:26px; font-weight:700;">המגזין שלנו — עמוד אינדקס</div>
+    <div style="font-size:16px; color:#4a5b74;">פוסט ראשי · רשת מאמרים · סינון קטגוריות (עובד) · הרשמה לעדכונים</div>
+  </div>
+
+  <div id="1a" style="display:flex; gap:32px; align-items:flex-start; flex-wrap:wrap;">
+
+    <!-- ============ DESKTOP ============ -->
+    <div data-screen-label="מגזין דסקטופ" dir="rtl" style="width:1440px; flex-shrink:0; background:#ffffff; border-radius:8px; overflow:hidden; box-shadow:rgba(13,37,61,0.16) 0 24px 64px;">
+
+      <!-- nav -->
+      <nav style="display:flex; align-items:center; gap:28px; padding:14px 48px; background:#ffffff; border-bottom:1px solid #e3e8ee;">
+        <img src="assets/logo.svg" alt="שלכם" style="height:46px; width:auto;">
+        <div style="display:flex; align-items:center; gap:28px; font-size:16px; color:#273951;">
+          <a href="#1a" style="color:#273951; text-decoration:none;">בית</a>
+          <a href="#1a" style="color:#273951; text-decoration:none;">הסיפור שלנו</a>
+          <a href="#1a" style="color:#273951; text-decoration:none;">תחומי פעילות</a>
+          <a href="#1a" style="color:#273951; text-decoration:none;">איך זה עובד</a>
+          <a href="#1a" style="color:#0d253d; text-decoration:none; font-weight:700; border-bottom:3px solid #F0514F; padding-bottom:3px;">מגזין</a>
+        </div>
+        <div style="margin-inline-start:auto; display:flex; align-items:center; gap:14px;">
+          <div style="display:flex; align-items:center; gap:8px; background:#f2f5f9; border:1px solid #e3e8ee; border-radius:9999px; padding:9px 16px; width:220px;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" stroke="#64748d" stroke-width="2"></circle><line x1="15.5" y1="15.5" x2="20.5" y2="20.5" stroke="#64748d" stroke-width="2" stroke-linecap="round"></line></svg>
+            <input aria-label="חיפוש במגזין" placeholder="חפשו מאמר, זכות, מחלה…" style="font-family:inherit; font-size:15px; color:#0d253d; background:none; border:none; outline:none; width:100%;">
+          </div>
+          <a href="tel:076-8017778" style="display:flex; align-items:center; gap:9px; color:#0d253d; text-decoration:none; font-size:16px; font-weight:700; font-feature-settings:'tnum';">
+            <span style="width:38px; height:38px; border-radius:9999px; background:#F0514F; color:#fff; display:flex; align-items:center; justify-content:center;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6.5 3.5h3l1.5 4.5-2 1.5a13 13 0 0 0 5.5 5.5l1.5-2 4.5 1.5v3a2 2 0 0 1-2.2 2A17.5 17.5 0 0 1 4.5 5.7 2 2 0 0 1 6.5 3.5Z" fill="currentColor"></path></svg></span>
+            076-8017778
+          </a>
+          <button onClick="{{ noop }}" style="font-family:inherit; color:#fff; border:none; cursor:pointer; font-size:16px; font-weight:700; padding:11px 24px; border-radius:9999px; background-color:#0000FF;" style-hover="background:#0000c9;">דברו איתנו</button>
+        </div>
+      </nav>
+
+      <!-- page header -->
+      <div style="padding:26px 48px 0;">
+        <div style="font-size:14px; color:#64748d; display:flex; align-items:center; gap:8px;">
+          <a href="#1a" style="color:#64748d; text-decoration:none;">בית</a><span>‹</span>
+          <span style="color:#0d253d; font-weight:700;">המגזין</span>
+        </div>
+        <div style="display:flex; align-items:flex-end; justify-content:space-between; gap:24px; padding:22px 0 6px;">
+          <div>
+            <h1 style="font-family:'RaananPro','SimplerPro',sans-serif; margin:0 0 10px; font-size:52px; line-height:1.1; font-weight:300; letter-spacing:-0.5px;">המגזין <span style="font-weight:900; border-bottom:7px solid #F0514F;">שלכם</span></h1>
+            <p style="margin:0; font-size:19px; line-height:1.6; color:#273951; max-width:680px;">מדריכים, עדכוני חקיקה וסיפורים אמיתיים — כל מה שצריך לדעת כדי לממש את הזכויות הרפואיות שלכם, בגובה העיניים.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- featured post -->
+      <div style="padding:24px 48px 0;">
+        <a href="#1a" data-comment-anchor="featured-post" style="display:grid; grid-template-columns:1.15fr 1fr; background:#0d253d; border-radius:18px; overflow:hidden; text-decoration:none; color:#ffffff; min-height:380px;">
+          <div style="background:url('assets/hero-team.png') center / cover no-repeat; min-height:380px;"></div>
+          <div style="padding:44px 46px; display:flex; flex-direction:column; justify-content:center; gap:16px;">
+            <div style="display:flex; align-items:center; gap:12px;">
+              <span style="background:#F0514F; color:#fff; font-size:13.5px; font-weight:700; padding:6px 14px; border-radius:9999px;">הכתבה המרכזית</span>
+              <span style="font-size:14px; color:rgba(255,255,255,0.65);">מדריכים · 9 דק׳ קריאה</span>
+            </div>
+            <div style="font-family:'RaananPro','SimplerPro',sans-serif; font-size:38px; line-height:1.18; font-weight:700;">איך אנשים עם אותה מחלה מקבלים אחוזי נכות שונים?</div>
+            <p style="margin:0; font-size:17px; line-height:1.65; color:rgba(255,255,255,0.8);">שני אנשים, אותה אבחנה — ופער של עשרות אחוזי נכות ביניהם. ההבדל כמעט תמיד לא במחלה, אלא באופן שבו הגיעו מוכנים לוועדה. כך זה עובד באמת.</p>
+            <span style="display:inline-flex; align-items:center; gap:8px; color:#ffd7d6; font-size:16px; font-weight:700;">לקריאת הכתבה המלאה ←</span>
+          </div>
+        </a>
+      </div>
+
+      <!-- main grid: articles + sidebar -->
+      <div style="display:grid; grid-template-columns:1fr 320px; gap:40px; padding:34px 48px 56px; align-items:start;">
+
+        <!-- articles column -->
+        <div style="display:flex; flex-direction:column; gap:22px; min-width:0;">
+          <!-- category chips -->
+          <div data-comment-anchor="category-filter" style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
+            <sc-for list="{{ categories }}" as="c" hint-placeholder-count="5">
+              <button onClick="{{ c.select }}" style="font-family:inherit; font-size:15.5px; font-weight:{{ c.weight }}; color:{{ c.color }}; background:{{ c.bg }}; border:1px solid {{ c.border }}; padding:9px 20px; border-radius:9999px; cursor:pointer; min-height:44px;">{{ c.label }}</button>
+            </sc-for>
+            <span style="margin-inline-start:auto; font-size:14.5px; color:#64748d;">{{ countLabel }}</span>
+          </div>
+
+          <!-- posts grid -->
+          <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:18px;">
+            <sc-for list="{{ posts }}" as="p" hint-placeholder-count="6">
+              <a href="#1a" style="display:flex; flex-direction:column; background:#ffffff; border:1px solid #e3e8ee; border-radius:14px; overflow:hidden; text-decoration:none; color:#0d253d;" style-hover="box-shadow:rgba(13,37,61,0.12) 0 12px 32px; border-color:#cbd5e1;">
+                <div style="height:150px; background:url('{{ p.img }}') center / cover no-repeat; position:relative;">
+                  <span style="position:absolute; top:12px; right:12px; background:rgba(255,255,255,0.94); color:#0d253d; font-size:12.5px; font-weight:700; padding:5px 12px; border-radius:9999px;">{{ p.cat }}</span>
+                </div>
+                <div style="padding:16px 18px 18px; display:flex; flex-direction:column; gap:9px; flex:1;">
+                  <div style="font-size:17px; font-weight:700; line-height:1.4;">{{ p.title }}</div>
+                  <p style="margin:0; font-size:14.5px; line-height:1.55; color:#4a5b74; flex:1;">{{ p.excerpt }}</p>
+                  <div style="display:flex; justify-content:space-between; align-items:center; border-top:1px solid #eef1f6; padding-top:11px;">
+                    <span style="font-size:13px; color:#64748d;">{{ p.meta }}</span>
+                    <span style="color:#0000FF; font-size:14px; font-weight:700;">לקריאה ←</span>
+                  </div>
+                </div>
+              </a>
+            </sc-for>
+          </div>
+
+          <button onClick="{{ noop }}" style="font-family:inherit; align-self:center; margin-top:8px; font-size:16px; font-weight:700; color:#0d253d; background:#ffffff; border:1.5px solid #cbd5e1; padding:13px 36px; border-radius:9999px; cursor:pointer; min-height:48px;" style-hover="border-color:#0000FF; color:#0000FF;">טענו עוד מאמרים</button>
+        </div>
+
+        <!-- sidebar -->
+        <div style="display:flex; flex-direction:column; gap:20px; position:sticky; top:20px;">
+          <!-- newsletter -->
+          <div data-comment-anchor="newsletter" style="position:relative; overflow:hidden; background:#122680; border-radius:16px; padding:26px 24px; color:#ffffff; display:flex; flex-direction:column; gap:12px;">
+            <div style="position:absolute; top:-100px; left:-70px; width:340px; height:300px; border-radius:50%; background:radial-gradient(circle, rgba(0,0,255,0.5) 0%, rgba(0,0,255,0) 70%);"></div>
+            <div style="position:relative; display:flex; flex-direction:column; gap:12px;">
+              <div style="font-family:'RaananPro','SimplerPro',sans-serif; font-size:24px; font-weight:700; line-height:1.25;">עדכון חדש בזכויות? תדעו ראשונים</div>
+              <p style="margin:0; font-size:15px; line-height:1.6; color:rgba(255,255,255,0.85);">פעם בחודש, מייל אחד עם עדכוני חקיקה ומדריכים חדשים. בלי ספאם.</p>
+              <input aria-label="דואר אלקטרוני להרשמה לעדכונים" placeholder="הדוא״ל שלכם" style="font-family:inherit; font-size:16px; color:#0d253d; padding:12px 16px; border-radius:10px; border:none; outline:none; min-height:48px; box-sizing:border-box; width:100%;">
+              <button onClick="{{ noop }}" style="font-family:inherit; background:#F0514F; color:#fff; font-size:16px; font-weight:700; padding:13px 24px; min-height:48px; border:none; border-radius:9999px; cursor:pointer;" style-hover="background:#d94341;">הרשמה לעדכונים</button>
+            </div>
+          </div>
+
+          <!-- popular -->
+          <div style="background:#f6f9fc; border:1px solid #e3e8ee; border-radius:16px; padding:24px;">
+            <div style="font-size:18px; font-weight:700; margin-bottom:14px;">הנקראים ביותר</div>
+            <div style="display:flex; flex-direction:column;">
+              <a href="#1a" style="display:flex; gap:12px; align-items:baseline; padding:10px 0; border-bottom:1px solid #e8edf3; color:#273951; text-decoration:none; font-size:15.5px; line-height:1.5;" style-hover="color:#0000FF;"><b style="color:#F0514F; font-size:18px; font-feature-settings:'tnum';">1</b>כמה כסף שווה כל אחוז נכות? טבלת הקצבאות המלאה</a>
+              <a href="#1a" style="display:flex; gap:12px; align-items:baseline; padding:10px 0; border-bottom:1px solid #e8edf3; color:#273951; text-decoration:none; font-size:15.5px; line-height:1.5;" style-hover="color:#0000FF;"><b style="color:#F0514F; font-size:18px; font-feature-settings:'tnum';">2</b>נדחיתם בוועדה? כך מגישים ערר שמתקבל</a>
+              <a href="#1a" style="display:flex; gap:12px; align-items:baseline; padding:10px 0; border-bottom:1px solid #e8edf3; color:#273951; text-decoration:none; font-size:15.5px; line-height:1.5;" style-hover="color:#0000FF;"><b style="color:#F0514F; font-size:18px; font-feature-settings:'tnum';">3</b>פטור ממס הכנסה רטרואקטיבי — המדריך המלא</a>
+              <a href="#1a" style="display:flex; gap:12px; align-items:baseline; padding:10px 0; color:#273951; text-decoration:none; font-size:15.5px; line-height:1.5;" style-hover="color:#0000FF;"><b style="color:#F0514F; font-size:18px; font-feature-settings:'tnum';">4</b>5 טעויות שהורסות תביעות נכות — ואיך להימנע מהן</a>
+            </div>
+          </div>
+
+          <!-- CTA -->
+          <div style="background:#ffffff; border:1px solid #e6ebf2; border-radius:16px; padding:24px; box-shadow:rgba(13,37,61,0.1) 0 14px 36px; display:flex; flex-direction:column; gap:12px;">
+            <div style="font-size:18px; font-weight:700; line-height:1.35;">לא בטוחים מה מגיע לכם?</div>
+            <p style="margin:0; font-size:15px; line-height:1.6; color:#4a5b74;">שיחת בדיקה ראשונה — חינם וללא התחייבות. שכר טרחה רק בהצלחה.</p>
+            <button onClick="{{ noop }}" style="font-family:inherit; color:#fff; font-size:16px; font-weight:700; padding:13px 24px; min-height:48px; border:none; border-radius:9999px; cursor:pointer; background-color:#0000FF; width:100%;" style-hover="background:#0000c9;">בדקו זכאות עכשיו ›</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- footer -->
+      <footer style="border-top:1px solid #e3e8ee; padding:36px 48px 28px; display:flex; justify-content:space-between; align-items:center; gap:24px; flex-wrap:wrap;">
+        <img src="assets/logo.svg" alt="שלכם" style="height:44px; width:auto;">
+        <div style="display:flex; gap:22px; font-size:14.5px; color:#4a5b74;">
+          <a href="#1a" style="color:#4a5b74; text-decoration:none;">מדיניות פרטיות</a>
+          <a href="#1a" style="color:#4a5b74; text-decoration:none;">הצהרת נגישות</a>
+          <a href="#1a" style="color:#4a5b74; text-decoration:none;">יצירת קשר</a>
+          <span style="font-feature-settings:'tnum';">076-8017778</span>
+        </div>
+        <span style="font-size:13.5px; color:#4a5b74;">© שלכם — מימוש זכויות רפואיות</span>
+      </footer>
+    </div>
+
+    <!-- ============ MOBILE ============ -->
+    <div data-screen-label="מגזין מובייל" dir="rtl" style="width:390px; flex-shrink:0; background:#ffffff; border-radius:8px; overflow:hidden; box-shadow:rgba(13,37,61,0.16) 0 24px 64px;">
+      <nav style="display:flex; align-items:center; justify-content:space-between; gap:12px; padding:12px 18px; border-bottom:1px solid #eef1f6;">
+        <button aria-label="תפריט" onClick="{{ noop }}" style="display:flex; flex-direction:column; justify-content:center; gap:5px; width:44px; height:44px; background:none; border:none; cursor:pointer; padding:10px;">
+          <span style="display:block; height:2.5px; width:22px; background:#0d253d; border-radius:2px;"></span>
+          <span style="display:block; height:2.5px; width:22px; background:#0d253d; border-radius:2px;"></span>
+          <span style="display:block; height:2.5px; width:14px; background:#0d253d; border-radius:2px;"></span>
+        </button>
+        <img src="assets/logo.svg" alt="שלכם" style="height:36px; width:auto;">
+        <a href="tel:076-8017778" aria-label="חייגו עכשיו" style="display:flex; align-items:center; justify-content:center; width:44px; height:44px; border-radius:9999px; background:#F0514F; color:#fff; text-decoration:none;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6.5 3.5h3l1.5 4.5-2 1.5a13 13 0 0 0 5.5 5.5l1.5-2 4.5 1.5v3a2 2 0 0 1-2.2 2A17.5 17.5 0 0 1 4.5 5.7 2 2 0 0 1 6.5 3.5Z" fill="currentColor"></path></svg>
+        </a>
+      </nav>
+      <div style="padding:18px 20px 40px;">
+        <h1 style="font-family:'RaananPro','SimplerPro',sans-serif; margin:0 0 8px; font-size:34px; line-height:1.12; font-weight:300;">המגזין <span style="font-weight:900; border-bottom:5px solid #F0514F;">שלכם</span></h1>
+        <p style="margin:0 0 18px; font-size:16px; line-height:1.6; color:#273951;">מדריכים, עדכוני חקיקה וסיפורים אמיתיים על מימוש זכויות.</p>
+
+        <!-- featured mobile -->
+        <a href="#1a" style="display:flex; flex-direction:column; background:#0d253d; border-radius:16px; overflow:hidden; text-decoration:none; color:#ffffff; margin-bottom:18px;">
+          <div style="height:170px; background:url('assets/hero-team.png') center / cover no-repeat;"></div>
+          <div style="padding:20px 22px 24px; display:flex; flex-direction:column; gap:10px;">
+            <div style="display:flex; align-items:center; gap:10px;">
+              <span style="background:#F0514F; color:#fff; font-size:12.5px; font-weight:700; padding:5px 12px; border-radius:9999px;">הכתבה המרכזית</span>
+              <span style="font-size:13px; color:rgba(255,255,255,0.65);">9 דק׳ קריאה</span>
+            </div>
+            <div style="font-family:'RaananPro','SimplerPro',sans-serif; font-size:24px; line-height:1.22; font-weight:700;">איך אנשים עם אותה מחלה מקבלים אחוזי נכות שונים?</div>
+            <span style="color:#ffd7d6; font-size:15px; font-weight:700;">לקריאת הכתבה ←</span>
+          </div>
+        </a>
+
+        <!-- chips scroll -->
+        <div style="display:flex; gap:8px; overflow-x:auto; padding-bottom:8px; margin-bottom:14px; scrollbar-width:none;">
+          <sc-for list="{{ categories }}" as="c" hint-placeholder-count="5">
+            <button onClick="{{ c.select }}" style="font-family:inherit; flex-shrink:0; font-size:14.5px; font-weight:{{ c.weight }}; color:{{ c.color }}; background:{{ c.bg }}; border:1px solid {{ c.border }}; padding:8px 16px; border-radius:9999px; cursor:pointer; min-height:44px;">{{ c.label }}</button>
+          </sc-for>
+        </div>
+
+        <!-- posts list -->
+        <div style="display:flex; flex-direction:column; gap:14px; margin-bottom:24px;">
+          <sc-for list="{{ postsMobile }}" as="p" hint-placeholder-count="4">
+            <a href="#1a" style="display:grid; grid-template-columns:110px 1fr; gap:14px; background:#ffffff; border:1px solid #e3e8ee; border-radius:14px; overflow:hidden; text-decoration:none; color:#0d253d; align-items:stretch;">
+              <div style="background:url('{{ p.img }}') center / cover no-repeat; min-height:110px;"></div>
+              <div style="padding:12px 0 12px 14px; display:flex; flex-direction:column; gap:6px;">
+                <span style="font-size:12px; font-weight:700; color:#0000FF;">{{ p.cat }}</span>
+                <div style="font-size:15.5px; font-weight:700; line-height:1.35; flex:1;">{{ p.title }}</div>
+                <span style="font-size:12.5px; color:#64748d;">{{ p.meta }}</span>
+              </div>
+            </a>
+          </sc-for>
+        </div>
+
+        <!-- newsletter mobile -->
+        <div style="position:relative; overflow:hidden; background:#122680; border-radius:14px; padding:22px 20px; color:#ffffff; display:flex; flex-direction:column; gap:10px;">
+          <div style="position:absolute; top:-80px; left:-50px; width:280px; height:240px; border-radius:50%; background:radial-gradient(circle, rgba(0,0,255,0.5) 0%, rgba(0,0,255,0) 70%);"></div>
+          <div style="position:relative; display:flex; flex-direction:column; gap:10px;">
+            <div style="font-family:'RaananPro','SimplerPro',sans-serif; font-size:21px; font-weight:700; line-height:1.25;">עדכון חדש בזכויות? תדעו ראשונים</div>
+            <input aria-label="דואר אלקטרוני להרשמה לעדכונים" placeholder="הדוא״ל שלכם" style="font-family:inherit; font-size:16px; color:#0d253d; padding:12px 16px; border-radius:10px; border:none; outline:none; min-height:48px; box-sizing:border-box; width:100%;">
+            <button onClick="{{ noop }}" style="font-family:inherit; background:#F0514F; color:#fff; font-size:16px; font-weight:700; padding:13px 24px; min-height:48px; border:none; border-radius:9999px; cursor:pointer;" style-hover="background:#d94341;">הרשמה לעדכונים</button>
+          </div>
+        </div>
+      </div>
+      <footer style="border-top:1px solid #e3e8ee; padding:24px 20px; display:flex; flex-direction:column; align-items:center; gap:12px;">
+        <img src="assets/logo.svg" alt="שלכם" style="height:38px; width:auto;">
+        <div style="display:flex; gap:16px; font-size:13.5px; color:#4a5b74; flex-wrap:wrap; justify-content:center;">
+          <a href="#1a" style="color:#4a5b74; text-decoration:none;">מדיניות פרטיות</a>
+          <a href="#1a" style="color:#4a5b74; text-decoration:none;">הצהרת נגישות</a>
+          <a href="#1a" style="color:#4a5b74; text-decoration:none;">יצירת קשר</a>
+        </div>
+        <span style="font-size:12.5px; color:#64748d;">© שלכם — מימוש זכויות רפואיות</span>
+      </footer>
+    </div>
+  </div>
+</section>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { cat: 'הכל' };
+
+  allPosts() {
+    return [
+      { cat: 'מדריכים', img: '19b771_b9344cd4a27a43e58b11c8ca0c8ccdc8--mr8667se.avif', title: 'פטור ממס הכנסה רטרואקטיבי — כך מקבלים החזר עד 6 שנים אחורה', excerpt: 'נקבעה לכם נכות של 90% ומעלה? ייתכן שרשות המסים חייבת לכם עשרות אלפי שקלים. המדריך המלא, שלב אחר שלב.', meta: '12 דק׳ · יוני 2026' },
+      { cat: 'חדשות', img: 'assets/hero.jpg', title: 'עדכוני קצבאות 2026: הסכומים החדשים של ביטוח לאומי', excerpt: 'קצבת נכות כללית, שירותים מיוחדים וניידות — כל הסכומים המעודכנים לאחר ההצמדה, במקום אחד.', meta: '5 דק׳ · יולי 2026' },
+      { cat: 'מדריכים', img: 'assets/hero-team.png', title: 'הוועדה הרפואית: 7 דברים שחייבים להכין לפני שנכנסים לחדר', excerpt: 'רוב הנקודות נקבעות עוד לפני שאמרתם מילה. מה להביא, מה להגיד — וממה להיזהר.', meta: '10 דק׳ · יוני 2026' },
+      { cat: 'סיפורי הצלחה', img: 'assets/hero.jpg', title: 'מ-19% ל-74% נכות: הסיפור של יעקב, חולה סוכרת עם סיבוכים', excerpt: 'איך ערר מנומק ותיעוד רפואי נכון הפכו דחייה מקוממת לקצבה חודשית מלאה ורטרו של 87 אלף ₪.', meta: '7 דק׳ · מאי 2026' },
+      { cat: 'מדריכים', img: '19b771_b9344cd4a27a43e58b11c8ca0c8ccdc8--mr8667se.avif', title: 'אובדן כושר עבודה: ההבדל בין ביטוח לאומי לביטוח הפרטי שלכם', excerpt: 'שתי מערכות נפרדות, שני מסלולי תביעה — ולמה כדאי לתבוע בשתיהן במקביל.', meta: '8 דק׳ · מאי 2026' },
+      { cat: 'חדשות', img: 'assets/hero-team.png', title: 'פסיקה חדשה: פיברומיאלגיה תוכר ביתר קלות בוועדות', excerpt: 'בית הדין הארצי לעבודה קבע כללים חדשים להערכת תסמונות כאב. מה זה אומר עבור תביעות בהמתנה?', meta: '4 דק׳ · אפריל 2026' },
+      { cat: 'סיפורי הצלחה', img: 'assets/hero.jpg', title: '"אחרי שנתיים של סירובים — קיבלנו הכל רטרואקטיבית"', excerpt: 'משפחת לוי כמעט ויתרה על קצבת ילד נכה. בדיקת זכאות אחת שינתה את התמונה.', meta: '6 דק׳ · אפריל 2026' },
+      { cat: 'מדריכים', img: 'assets/hero-team.png', title: 'נקודות זיכוי, תג נכה והנחה בארנונה: הזכויות שכולם שוכחים', excerpt: 'מעבר לקצבה יש שורה של הטבות קטנות שמצטברות לאלפי שקלים בשנה. הרשימה המלאה.', meta: '9 דק׳ · מרץ 2026' },
+      { cat: 'חדשות', img: '19b771_b9344cd4a27a43e58b11c8ca0c8ccdc8--mr8667se.avif', title: 'ביטוח לאומי עובר לוועדות מקוונות: מה חשוב לדעת', excerpt: 'ועדה בזום זה נוח — אבל יש לזה מחיר. כך מתכוננים נכון לוועדה רפואית מרחוק.', meta: '5 דק׳ · מרץ 2026' },
+    ];
+  }
+
+  renderVals() {
+    const cat = this.state.cat;
+    const cats = ['הכל', 'מדריכים', 'חדשות', 'סיפורי הצלחה'];
+    const posts = this.allPosts().filter(p => cat === 'הכל' || p.cat === cat);
+    return {
+      noop: () => {},
+      categories: cats.map(label => {
+        const active = label === cat;
+        return {
+          label,
+          weight: active ? 700 : 400,
+          color: active ? '#ffffff' : '#273951',
+          bg: active ? '#0000FF' : '#ffffff',
+          border: active ? '#0000FF' : '#cbd5e1',
+          select: () => this.setState({ cat: label }),
+        };
+      }),
+      countLabel: posts.length + ' מאמרים',
+      posts,
+      postsMobile: posts.slice(0, 5),
+    };
+  }
+}
+</script>
+</body>
+</html>

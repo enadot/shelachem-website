@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<title>שלכם — אודות</title>
+<style>
+@font-face { font-family: 'SimplerPro'; src: url('fonts/SimplerPro-Light.woff2') format('woff2'); font-weight: 300; font-display: swap; }
+@font-face { font-family: 'SimplerPro'; src: url('fonts/SimplerPro-Regular.woff2') format('woff2'); font-weight: 400; font-display: swap; }
+@font-face { font-family: 'SimplerPro'; src: url('fonts/SimplerPro-Semibold.woff2') format('woff2'); font-weight: 600; font-display: swap; }
+@font-face { font-family: 'SimplerPro'; src: url('fonts/SimplerPro-Bold.woff2') format('woff2'); font-weight: 700; font-display: swap; }
+@font-face { font-family: 'SimplerPro'; src: url('fonts/SimplerPro-Black.woff2') format('woff2'); font-weight: 900; font-display: swap; }
+@font-face { font-family: 'RaananPro'; src: url('fonts/RaananPro-Light.woff2') format('woff2'); font-weight: 300; font-display: swap; }
+@font-face { font-family: 'RaananPro'; src: url('fonts/RaananPro-Regular.woff2') format('woff2'); font-weight: 400; font-display: swap; }
+@font-face { font-family: 'RaananPro'; src: url('fonts/RaananPro-Bold.woff2') format('woff2'); font-weight: 700; font-display: swap; }
+@font-face { font-family: 'RaananPro'; src: url('fonts/RaananPro-Black.woff2') format('woff2'); font-weight: 900; font-display: swap; }
+body { margin: 0; background: #e7eaf2; }
+a { color: #0000FF; }
+a:hover { color: #0000c9; }
+</style>
+</helmet>
+
+<section style="font-family:'SimplerPro',system-ui,sans-serif; color:#0d253d; padding:48px 56px 96px; display:flex; flex-direction:column; gap:28px;">
+  <div style="display:flex; flex-direction:column; gap:6px;">
+    <div style="font-size:26px; font-weight:700;">עמוד אודות — הסיפור שלנו</div>
+    <div style="font-size:16px; color:#4a5b74;">הירו עם הצהרת שליחות · סיפור החברה · ערכים · מספרים · תהליך עבודה ב-5 שלבים · אחריות חברתית</div>
+  </div>
+
+  <div id="1a" style="display:flex; gap:32px; align-items:flex-start; flex-wrap:wrap;">
+
+    <!-- ============ DESKTOP ============ -->
+    <div data-screen-label="אודות דסקטופ" dir="rtl" style="width:1440px; flex-shrink:0; background:#ffffff; border-radius:8px; overflow:hidden; box-shadow:rgba(13,37,61,0.16) 0 24px 64px;">
+
+      <!-- nav -->
+      <nav style="display:flex; align-items:center; gap:28px; padding:14px 48px; background:#ffffff; border-bottom:1px solid #e3e8ee;">
+        <img src="assets/logo.svg" alt="שלכם" style="height:46px; width:auto;">
+        <div style="display:flex; align-items:center; gap:28px; font-size:16px; color:#273951;">
+          <a href="#1a" style="color:#273951; text-decoration:none;">בית</a>
+          <a href="#1a" style="color:#0d253d; text-decoration:none; font-weight:700; border-bottom:3px solid #F0514F; padding-bottom:3px;">הסיפור שלנו</a>
+          <a href="Hub Page - מוסדות ובירוקרטיה.dc.html" style="color:#273951; text-decoration:none;">תחומי פעילות</a>
+          <a href="#1a" style="color:#273951; text-decoration:none;">איך זה עובד</a>
+          <a href="Blog Index - מגזין.dc.html" style="color:#273951; text-decoration:none;">מגזין</a>
+        </div>
+        <div style="margin-inline-start:auto; display:flex; align-items:center; gap:14px;">
+          <a href="tel:076-8017778" style="display:flex; align-items:center; gap:9px; color:#0d253d; text-decoration:none; font-size:16px; font-weight:700; font-feature-settings:'tnum';">
+            <span style="width:38px; height:38px; border-radius:9999px; background:#F0514F; color:#fff; display:flex; align-items:center; justify-content:center;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6.5 3.5h3l1.5 4.5-2 1.5a13 13 0 0 0 5.5 5.5l1.5-2 4.5 1.5v3a2 2 0 0 1-2.2 2A17.5 17.5 0 0 1 4.5 5.7 2 2 0 0 1 6.5 3.5Z" fill="currentColor"></path></svg></span>
+            076-8017778
+          </a>
+          <button onClick="{{ noop }}" style="font-family:inherit; color:#fff; border:none; cursor:pointer; font-size:16px; font-weight:700; padding:11px 24px; border-radius:9999px; background-color:#0000FF;" style-hover="background:#0000c9;">דברו איתנו</button>
+        </div>
+      </nav>
+
+      <!-- hero -->
+      <div data-comment-anchor="about-hero" style="position:relative; display:grid; grid-template-columns:1.05fr 1fr; align-items:stretch; background:#122680; color:#ffffff; overflow:hidden;">
+        <div style="position:absolute; top:-160px; right:-120px; width:560px; height:480px; border-radius:50%; background:radial-gradient(circle, rgba(0,0,255,0.5) 0%, rgba(0,0,255,0) 70%);"></div>
+        <div style="position:relative; padding:72px 48px 72px 24px; display:flex; flex-direction:column; justify-content:center; gap:18px;">
+          <div style="font-size:14px; color:rgba(255,255,255,0.75); display:flex; align-items:center; gap:8px;">
+            <a href="#1a" style="color:rgba(255,255,255,0.75); text-decoration:none;">בית</a><span>‹</span>
+            <span style="color:#ffffff; font-weight:700;">הסיפור שלנו</span>
+          </div>
+          <h1 style="font-family:'RaananPro','SimplerPro',sans-serif; margin:0; font-size:60px; line-height:1.08; font-weight:300; letter-spacing:-0.5px; color:#fff;">המשימה שלנו:<br><span style="font-weight:900; border-bottom:8px solid #F0514F;">הזכויות שלכם.</span></h1>
+          <p style="margin:0; font-size:20px; line-height:1.6; color:rgba(255,255,255,0.88); max-width:560px;">מאחורי כל תיק יש אדם שמתמודד עם מצב רפואי — ומולו מערכת בירוקרטית מסובכת. אנחנו כאן כדי שהוא לא יעמוד בה לבד.</p>
+          <div style="display:flex; gap:14px; margin-top:8px;">
+            <button onClick="{{ noop }}" style="font-family:inherit; background:#F0514F; color:#fff; font-size:17px; font-weight:700; padding:13px 30px; border:none; border-radius:9999px; cursor:pointer;" style-hover="background:#d94341;">לבדיקת זכאות חינם ›</button>
+            <a href="#1a" style="display:flex; align-items:center; font-size:17px; font-weight:700; color:#fff; text-decoration:none; padding:13px 10px;">איך אנחנו עובדים ↓</a>
+          </div>
+        </div>
+        <div style="position:relative; min-height:440px;">
+          <img src="assets/hero-team.png" alt="צוות שלכם" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;">
+          <div style="position:absolute; inset:0; background:linear-gradient(to left, rgba(18,38,128,0.55) 0%, rgba(18,38,128,0) 45%);"></div>
+        </div>
+      </div>
+
+      <!-- story -->
+      <div data-comment-anchor="about-story" style="display:grid; grid-template-columns:0.9fr 1.4fr; gap:56px; padding:72px 48px 56px; align-items:start;">
+        <div style="display:flex; flex-direction:column; gap:14px;">
+          <div style="font-size:15px; font-weight:700; color:#F0514F; letter-spacing:0.5px;">הסיפור שלנו</div>
+          <h2 style="font-family:'RaananPro','SimplerPro',sans-serif; margin:0; font-size:42px; line-height:1.15; font-weight:300;">מ-2013 ועד היום: <span style="font-weight:900;">שליחות אחת.</span></h2>
+          <div style="display:flex; flex-direction:column; gap:0; margin-top:10px;">
+            <sc-for list="{{ milestones }}" as="ms" hint-placeholder-count="3">
+              <div style="display:flex; gap:16px;">
+                <div style="display:flex; flex-direction:column; align-items:center;">
+                  <span style="width:12px; height:12px; border-radius:9999px; background:{{ ms.dot }}; flex-shrink:0; margin-top:5px;"></span>
+                  <span style="width:2px; flex:1; background:#e3e8ee;"></span>
+                </div>
+                <div style="padding-bottom:22px;">
+                  <div style="font-size:18px; font-weight:900; color:#0000FF; font-feature-settings:'tnum';">{{ ms.year }}</div>
+                  <div style="font-size:16px; line-height:1.55; color:#273951;">{{ ms.text }}</div>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:18px; font-size:19px; line-height:1.75; color:#273951;">
+          <p style="margin:0;">חברת שלכם הוקמה בשנת 2013 מתוך שליחות אמיתית: <b style="color:#0d253d;">לפשט את הבירוקרטיה הרפואית עבור כל אזרח בישראל.</b> ראינו אנשים שמתמודדים עם מחלה או פציעה — ובמקום לנוח ולהחלים, הם רודפים אחרי טפסים, ועדות ומכתבי דחייה.</p>
+          <p style="margin:0;">התחלנו כחברה המשרתת את המגזר הדתי, מתוך היכרות עמוקה עם צרכי הקהילה. עם השנים הבנו שהבעיה משותפת לכולם — והיום אנחנו גאים להוביל את תחום מימוש הזכויות עבור כלל אזרחי המדינה.</p>
+          <p style="margin:0;">מאחורי כל תיק עומד צוות של <b style="color:#0d253d;">מעל 100 מומחים ורופאים</b>: יועצים רפואיים, מומחי ביטוח לאומי ומס הכנסה, ומלווים אישיים שמכירים את הוועדות מבפנים. אנחנו לא מתחילים לגבות שקל עד שאתם מקבלים תוצאה.</p>
+        </div>
+      </div>
+
+      <!-- values -->
+      <div data-comment-anchor="about-values" style="padding:24px 48px 64px;">
+        <h2 style="font-family:'RaananPro','SimplerPro',sans-serif; margin:0 0 26px; font-size:36px; font-weight:300;">מה <span style="font-weight:900; border-bottom:6px solid #F0514F;">מנחה אותנו</span></h2>
+        <div style="display:grid; grid-template-columns:repeat(4, 1fr); gap:22px;">
+          <sc-for list="{{ values }}" as="val" hint-placeholder-count="4">
+            <div style="display:flex; flex-direction:column; gap:14px; background:#ffffff; border:1px solid #e3e8ee; border-radius:18px; padding:28px 26px;">
+              <span style="width:62px; height:62px; border-radius:18px; background:#eef0ff; display:flex; align-items:center; justify-content:center;">{{ val.icon }}</span>
+              <div style="font-size:21px; font-weight:700;">{{ val.title }}</div>
+              <p style="margin:0; font-size:16px; line-height:1.6; color:#273951;">{{ val.desc }}</p>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+
+      <!-- stats -->
+      <div data-comment-anchor="about-stats" style="margin:0 48px; background:#122680; border-radius:18px; padding:44px 48px; color:#ffffff; position:relative; overflow:hidden;">
+        <div style="position:absolute; top:-140px; left:-100px; width:520px; height:440px; border-radius:50%; background:radial-gradient(circle, rgba(0,0,255,0.5) 0%, rgba(0,0,255,0) 70%);"></div>
+        <div style="position:relative; display:grid; grid-template-columns:repeat(3, 1fr); gap:32px; text-align:center;">
+          <sc-for list="{{ stats }}" as="st" hint-placeholder-count="3">
+            <div style="display:flex; flex-direction:column; gap:6px;">
+              <div style="font-family:'RaananPro','SimplerPro',sans-serif; font-size:58px; font-weight:900; font-feature-settings:'tnum'; color:{{ st.color }};">{{ st.value }}</div>
+              <div style="font-size:19px; color:rgba(255,255,255,0.88);">{{ st.label }}</div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+
+      <!-- process -->
+      <div data-comment-anchor="about-process" style="padding:72px 48px 56px;">
+        <div style="max-width:760px; margin-bottom:36px;">
+          <h2 style="font-family:'RaananPro','SimplerPro',sans-serif; margin:0 0 12px; font-size:36px; font-weight:300;">איך זה עובד — <span style="font-weight:900; border-bottom:6px solid #F0514F;">5 שלבים</span></h2>
+          <p style="margin:0; font-size:18px; line-height:1.6; color:#273951;">מהשיחה הראשונה ועד הכסף בחשבון — אתם תמיד יודעים איפה התיק עומד ומה השלב הבא.</p>
+        </div>
+        <div style="display:grid; grid-template-columns:repeat(5, 1fr); gap:0; position:relative;">
+          <div style="position:absolute; top:29px; right:10%; left:10%; height:2px; background:#e3e8ee;"></div>
+          <sc-for list="{{ steps }}" as="step" hint-placeholder-count="5">
+            <div style="position:relative; display:flex; flex-direction:column; align-items:center; text-align:center; gap:12px; padding:0 14px;">
+              <span style="width:58px; height:58px; border-radius:9999px; background:{{ step.bg }}; color:{{ step.fg }}; border:2px solid {{ step.border }}; display:flex; align-items:center; justify-content:center; font-size:22px; font-weight:900; font-feature-settings:'tnum';">{{ step.n }}</span>
+              <div style="font-size:18px; font-weight:700; line-height:1.3;">{{ step.title }}</div>
+              <p style="margin:0; font-size:15px; line-height:1.55; color:#4a5b74;">{{ step.desc }}</p>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+
+      <!-- social responsibility -->
+      <div data-comment-anchor="about-community" style="margin:0 48px 64px; display:grid; grid-template-columns:1fr 1fr; gap:44px; align-items:center; background:#fdf2f2; border:1px solid #f6dcdb; border-radius:18px; padding:44px 48px;">
+        <div style="display:flex; flex-direction:column; gap:14px;">
+          <div style="font-size:15px; font-weight:700; color:#F0514F; letter-spacing:0.5px;">אחריות חברתית</div>
+          <h2 style="font-family:'RaananPro','SimplerPro',sans-serif; margin:0; font-size:34px; line-height:1.2; font-weight:300;">זכויות הן לא מותרות — <span style="font-weight:900;">הן שייכות לכולם.</span></h2>
+          <p style="margin:0; font-size:18px; line-height:1.7; color:#273951;">לצד הפעילות העסקית, אנחנו מלווים מדי שנה עשרות משפחות במצוקה כלכלית — ללא עלות. אנחנו מקיימים הרצאות חינמיות על זכויות רפואיות בקהילות, במרכזי חולים ובעמותות, ומפרסמים במגזין שלנו מדריכים פתוחים לכולם.</p>
+          <div style="display:flex; flex-wrap:wrap; gap:10px; margin-top:4px;">
+            <span style="font-size:15px; color:#273951; background:#ffffff; border:1px solid #f0c8c7; padding:8px 16px; border-radius:9999px;">ליווי פרו-בונו למשפחות</span>
+            <span style="font-size:15px; color:#273951; background:#ffffff; border:1px solid #f0c8c7; padding:8px 16px; border-radius:9999px;">הרצאות חינם בקהילה</span>
+            <span style="font-size:15px; color:#273951; background:#ffffff; border:1px solid #f0c8c7; padding:8px 16px; border-radius:9999px;">מדריכים פתוחים במגזין</span>
+          </div>
+        </div>
+        <div style="height:320px; border-radius:14px; overflow:hidden;">
+          <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="about-community-photo" placeholder="תמונת פעילות קהילתית — הרצאה או ליווי" shape="rounded" hint-size="100%,320px" style="width:100%; height:100%; display:block;"></x-import>
+        </div>
+      </div>
+
+      <!-- CTA -->
+      <div data-comment-anchor="about-cta" style="margin:0 48px 56px; display:flex; align-items:center; justify-content:space-between; gap:32px; background:#ffffff; border:1px solid #e3e8ee; border-radius:18px; padding:36px 44px;">
+        <div>
+          <h2 style="font-family:'RaananPro','SimplerPro',sans-serif; margin:0 0 8px; font-size:30px; font-weight:300;">רוצים לדעת מה מגיע לכם? <span style="font-weight:700;">נבדוק יחד, בחינם.</span></h2>
+          <p style="margin:0; font-size:17px; color:#273951;">פגישת היכרות ראשונית ללא עלות וללא התחייבות — שכר טרחה רק בהצלחה.</p>
+        </div>
+        <div style="display:flex; align-items:center; gap:14px; flex-shrink:0;">
+          <a href="tel:076-8017778" style="font-size:18px; font-weight:700; color:#0d253d; text-decoration:none; font-feature-settings:'tnum';">076-8017778</a>
+          <button onClick="{{ noop }}" style="font-family:inherit; background:#F0514F; color:#fff; font-size:17px; font-weight:700; padding:13px 30px; border:none; border-radius:9999px; cursor:pointer;" style-hover="background:#d94341;">חזרו אליי ›</button>
+        </div>
+      </div>
+
+      <!-- footer -->
+      <footer style="border-top:1px solid #e3e8ee; padding:36px 48px 28px; display:flex; justify-content:space-between; align-items:center; gap:24px; flex-wrap:wrap;">
+        <img src="assets/logo.svg" alt="שלכם" style="height:44px; width:auto;">
+        <div style="display:flex; gap:22px; font-size:14.5px; color:#4a5b74;">
+          <a href="#1a" style="color:#4a5b74; text-decoration:none;">מדיניות פרטיות</a>
+          <a href="#1a" style="color:#4a5b74; text-decoration:none;">הצהרת נגישות</a>
+          <a href="#1a" style="color:#4a5b74; text-decoration:none;">יצירת קשר</a>
+          <span style="font-feature-settings:'tnum';">076-8017778</span>
+        </div>
+        <span style="font-size:13.5px; color:#4a5b74;">© שלכם — מימוש זכויות רפואיות</span>
+      </footer>
+    </div>
+
+    <!-- ============ MOBILE ============ -->
+    <div data-screen-label="אודות מובייל" dir="rtl" style="width:390px; flex-shrink:0; background:#ffffff; border-radius:8px; overflow:hidden; box-shadow:rgba(13,37,61,0.16) 0 24px 64px;">
+      <nav style="display:flex; align-items:center; justify-content:space-between; gap:12px; padding:12px 18px; border-bottom:1px solid #eef1f6;">
+        <button aria-label="תפריט" onClick="{{ noop }}" style="display:flex; flex-direction:column; justify-content:center; gap:5px; width:44px; height:44px; background:none; border:none; cursor:pointer; padding:10px;">
+          <span style="display:block; height:2.5px; width:22px; background:#0d253d; border-radius:2px;"></span>
+          <span style="display:block; height:2.5px; width:22px; background:#0d253d; border-radius:2px;"></span>
+          <span style="display:block; height:2.5px; width:14px; background:#0d253d; border-radius:2px;"></span>
+        </button>
+        <img src="assets/logo.svg" alt="שלכם" style="height:36px; width:auto;">
+        <a href="tel:076-8017778" aria-label="חייגו עכשיו" style="display:flex; align-items:center; justify-content:center; width:44px; height:44px; border-radius:9999px; background:#F0514F; color:#fff; text-decoration:none;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6.5 3.5h3l1.5 4.5-2 1.5a13 13 0 0 0 5.5 5.5l1.5-2 4.5 1.5v3a2 2 0 0 1-2.2 2A17.5 17.5 0 0 1 4.5 5.7 2 2 0 0 1 6.5 3.5Z" fill="currentColor"></path></svg>
+        </a>
+      </nav>
+
+      <!-- hero mobile -->
+      <div style="position:relative; background:#122680; color:#ffffff; overflow:hidden; padding:34px 22px 0;">
+        <div style="position:absolute; top:-90px; left:-60px; width:320px; height:280px; border-radius:50%; background:radial-gradient(circle, rgba(0,0,255,0.5) 0%, rgba(0,0,255,0) 70%);"></div>
+        <div style="position:relative; display:flex; flex-direction:column; gap:12px;">
+          <div style="font-size:13px; color:rgba(255,255,255,0.75); display:flex; align-items:center; gap:6px;">
+            <a href="#1a" style="color:rgba(255,255,255,0.75); text-decoration:none;">בית</a><span>‹</span>
+            <span style="color:#fff; font-weight:700;">הסיפור שלנו</span>
+          </div>
+          <h1 style="font-family:'RaananPro','SimplerPro',sans-serif; margin:0; font-size:38px; line-height:1.12; font-weight:300; color:#fff;">המשימה שלנו:<br><span style="font-weight:900; border-bottom:5px solid #F0514F;">הזכויות שלכם.</span></h1>
+          <p style="margin:0; font-size:16.5px; line-height:1.6; color:rgba(255,255,255,0.88);">מאחורי כל תיק יש אדם — ומולו מערכת מסובכת. אנחנו כאן כדי שלא תעמדו בה לבד.</p>
+          <button onClick="{{ noop }}" style="font-family:inherit; background:#F0514F; color:#fff; font-size:16px; font-weight:700; padding:13px 28px; min-height:50px; border:none; border-radius:9999px; cursor:pointer; align-self:flex-start;" style-hover="background:#d94341;">לבדיקת זכאות חינם ›</button>
+          <img src="assets/hero-team.png" alt="צוות שלכם" style="width:100%; height:190px; object-fit:cover; border-radius:14px 14px 0 0; margin-top:10px; display:block;">
+        </div>
+      </div>
+
+      <div style="padding:30px 22px 40px; display:flex; flex-direction:column; gap:32px;">
+        <!-- story mobile -->
+        <div style="display:flex; flex-direction:column; gap:12px;">
+          <div style="font-size:14px; font-weight:700; color:#F0514F;">הסיפור שלנו</div>
+          <h2 style="font-family:'RaananPro','SimplerPro',sans-serif; margin:0; font-size:28px; line-height:1.18; font-weight:300;">מ-2013 ועד היום: <span style="font-weight:900;">שליחות אחת.</span></h2>
+          <p style="margin:0; font-size:16.5px; line-height:1.7; color:#273951;">חברת שלכם הוקמה בשנת 2013 מתוך שליחות אמיתית: לפשט את הבירוקרטיה הרפואית עבור כל אזרח בישראל. התחלנו כחברה המשרתת את המגזר הדתי — והיום אנחנו מובילים את תחום מימוש הזכויות עבור כלל המדינה, עם צוות של מעל 100 מומחים ורופאים.</p>
+        </div>
+
+        <!-- stats mobile -->
+        <div style="background:#122680; border-radius:14px; padding:26px 20px; color:#fff; display:flex; flex-direction:column; gap:18px; text-align:center;">
+          <sc-for list="{{ stats }}" as="st" hint-placeholder-count="3">
+            <div style="display:flex; flex-direction:column; gap:2px;">
+              <div style="font-family:'RaananPro','SimplerPro',sans-serif; font-size:40px; font-weight:900; font-feature-settings:'tnum'; color:{{ st.color }};">{{ st.value }}</div>
+              <div style="font-size:16px; color:rgba(255,255,255,0.88);">{{ st.label }}</div>
+            </div>
+          </sc-for>
+        </div>
+
+        <!-- values mobile -->
+        <div style="display:flex; flex-direction:column; gap:12px;">
+          <h2 style="font-family:'RaananPro','SimplerPro',sans-serif; margin:0 0 4px; font-size:26px; font-weight:300;">מה <span style="font-weight:900; border-bottom:4px solid #F0514F;">מנחה אותנו</span></h2>
+          <sc-for list="{{ values }}" as="val" hint-placeholder-count="4">
+            <div style="display:flex; align-items:flex-start; gap:14px; background:#ffffff; border:1px solid #e3e8ee; border-radius:14px; padding:16px 18px;">
+              <span style="width:48px; height:48px; flex-shrink:0; border-radius:14px; background:#eef0ff; display:flex; align-items:center; justify-content:center;">{{ val.iconSm }}</span>
+              <span>
+                <span style="display:block; font-size:17px; font-weight:700;">{{ val.title }}</span>
+                <span style="display:block; font-size:14.5px; line-height:1.55; color:#4a5b74; margin-top:2px;">{{ val.desc }}</span>
+              </span>
+            </div>
+          </sc-for>
+        </div>
+
+        <!-- process mobile -->
+        <div style="display:flex; flex-direction:column; gap:14px;">
+          <h2 style="font-family:'RaananPro','SimplerPro',sans-serif; margin:0; font-size:26px; font-weight:300;">איך זה עובד — <span style="font-weight:900; border-bottom:4px solid #F0514F;">5 שלבים</span></h2>
+          <div style="display:flex; flex-direction:column; gap:0;">
+            <sc-for list="{{ steps }}" as="step" hint-placeholder-count="5">
+              <div style="display:flex; gap:14px;">
+                <div style="display:flex; flex-direction:column; align-items:center;">
+                  <span style="width:44px; height:44px; flex-shrink:0; border-radius:9999px; background:{{ step.bg }}; color:{{ step.fg }}; border:2px solid {{ step.border }}; display:flex; align-items:center; justify-content:center; font-size:17px; font-weight:900; font-feature-settings:'tnum';">{{ step.n }}</span>
+                  <span style="width:2px; flex:1; background:#e3e8ee;"></span>
+                </div>
+                <div style="padding-bottom:20px; padding-top:6px;">
+                  <div style="font-size:17px; font-weight:700;">{{ step.title }}</div>
+                  <div style="font-size:14.5px; line-height:1.55; color:#4a5b74; margin-top:2px;">{{ step.desc }}</div>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+
+        <!-- community mobile -->
+        <div style="background:#fdf2f2; border:1px solid #f6dcdb; border-radius:14px; padding:22px 20px; display:flex; flex-direction:column; gap:10px;">
+          <div style="font-size:14px; font-weight:700; color:#F0514F;">אחריות חברתית</div>
+          <h2 style="font-family:'RaananPro','SimplerPro',sans-serif; margin:0; font-size:24px; line-height:1.22; font-weight:300;">זכויות הן לא מותרות — <span style="font-weight:900;">הן שייכות לכולם.</span></h2>
+          <p style="margin:0; font-size:15.5px; line-height:1.65; color:#273951;">אנחנו מלווים מדי שנה עשרות משפחות במצוקה כלכלית ללא עלות, ומקיימים הרצאות חינמיות על זכויות רפואיות בקהילה.</p>
+        </div>
+
+        <!-- cta mobile -->
+        <div style="position:relative; overflow:hidden; background:#122680; border-radius:14px; padding:26px 20px; color:#ffffff;">
+          <div style="position:absolute; top:-90px; left:-60px; width:320px; height:280px; border-radius:50%; background:radial-gradient(circle, rgba(0,0,255,0.5) 0%, rgba(0,0,255,0) 70%);"></div>
+          <div style="position:relative; display:flex; flex-direction:column; gap:12px;">
+            <h2 style="font-family:'RaananPro','SimplerPro',sans-serif; margin:0; font-size:23px; font-weight:300; color:#fff;">רוצים לדעת מה מגיע לכם? <span style="font-weight:700;">נבדוק יחד, בחינם.</span></h2>
+            <input aria-label="שם מלא (שדה חובה)" placeholder="*שם מלא" style="font-family:inherit; font-size:16px; color:#0d253d; padding:12px 16px; border-radius:10px; border:none; outline:none; min-height:48px; box-sizing:border-box; width:100%;">
+            <input aria-label="טלפון (שדה חובה)" placeholder="*טלפון" style="font-family:inherit; font-size:16px; color:#0d253d; padding:12px 16px; border-radius:10px; border:none; outline:none; min-height:48px; box-sizing:border-box; width:100%;">
+            <button onClick="{{ noop }}" style="font-family:inherit; background:#F0514F; color:#fff; font-size:16px; font-weight:700; padding:13px 28px; min-height:50px; border:none; border-radius:9999px; cursor:pointer;" style-hover="background:#d94341;">חזרו אליי ›</button>
+            <div style="font-size:13px; color:rgba(255,255,255,0.7); text-align:center;">בחינם וללא התחייבות · שכר טרחה רק בהצלחה</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  renderVals() {
+    const el = React.createElement;
+    const icon = (paths, size) => el('svg', { width: size, height: size, viewBox: '0 0 24 24', fill: 'none', 'aria-hidden': true }, ...paths);
+
+    const heartPaths = (k) => [el('path', { key: k, d: 'M12 20s-7-4.5-9-9a5 5 0 0 1 9-3.5A5 5 0 0 1 21 11c-2 4.5-9 9-9 9Z', stroke: '#0000FF', strokeWidth: 1.8, strokeLinejoin: 'round' })];
+    const shieldPaths = (k) => [el('path', { key: k, d: 'M12 3l7 3v5c0 5-3.2 8.4-7 10-3.8-1.6-7-5-7-10V6l7-3Z', stroke: '#0000FF', strokeWidth: 1.8, strokeLinejoin: 'round' }), el('path', { key: k + 'c', d: 'M9 12l2 2 4-4.5', stroke: '#F0514F', strokeWidth: 1.8, strokeLinecap: 'round', strokeLinejoin: 'round' })];
+    const eyePaths = (k) => [el('path', { key: k, d: 'M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12Z', stroke: '#0000FF', strokeWidth: 1.8 }), el('circle', { key: k + 'c', cx: 12, cy: 12, r: 3, stroke: '#F0514F', strokeWidth: 1.8 })];
+    const starPaths = (k) => [el('path', { key: k, d: 'M12 3.5l2.5 5.2 5.7.8-4.1 4 1 5.7L12 16.5l-5.1 2.7 1-5.7-4.1-4 5.7-.8L12 3.5Z', stroke: '#0000FF', strokeWidth: 1.8, strokeLinejoin: 'round' })];
+
+    const values = [
+      { title: 'אנושיות לפני הכל', desc: 'מאחורי כל תיק יש אדם. אנחנו מלווים אתכם בגובה העיניים, בסבלנות וברגישות — גם ברגעים הקשים.', paths: heartPaths },
+      { title: 'שכר טרחה רק בהצלחה', desc: 'לא גובים שקל מראש. אם לא השגנו לכם תוצאה — לא שילמתם. האינטרס שלנו הוא ההצלחה שלכם.', paths: shieldPaths },
+      { title: 'שקיפות מלאה', desc: 'אתם יודעים בכל רגע איפה התיק עומד, מה השלב הבא ומה סיכויי ההצלחה — בלי אותיות קטנות.', paths: eyePaths },
+      { title: 'מקצועיות ללא פשרות', desc: 'מעל 100 מומחים ורופאים שמכירים את הוועדות מבפנים ובונים כל תיק ברמה הגבוהה ביותר.', paths: starPaths },
+    ].map((v) => ({ title: v.title, desc: v.desc, icon: icon(v.paths('d'), 30), iconSm: icon(v.paths('m'), 24) }));
+
+    return {
+      noop: () => {},
+      milestones: [
+        { year: '2013', text: 'הקמת החברה — ליווי מימוש זכויות למגזר הדתי.', dot: '#F0514F' },
+        { year: '2017', text: 'הרחבת הפעילות לכלל אזרחי המדינה והקמת מערך רפואי פנימי.', dot: '#0000FF' },
+        { year: '2021', text: 'חציית רף 10,000 לקוחות מלווים וצוות של 100+ מומחים.', dot: '#0000FF' },
+        { year: 'היום', text: 'מהחברות המובילות בישראל במימוש זכויות רפואיות.', dot: '#122680' },
+      ],
+      values,
+      stats: [
+        { value: '+13', label: 'שנות ניסיון במימוש זכויות', color: '#ffffff' },
+        { value: '+100', label: 'מומחים ורופאים בצוות', color: '#F0514F' },
+        { value: '10,000+', label: 'לקוחות שליווינו להצלחה', color: '#ffffff' },
+      ],
+      steps: [
+        { n: '1', title: 'שיחת היכרות חינם', desc: 'מספרים לנו על המצב הרפואי — ואנחנו בודקים זכאות ראשונית, ללא עלות.', bg: '#0000FF', fg: '#ffffff', border: '#0000FF' },
+        { n: '2', title: 'בדיקה רפואית מקיפה', desc: 'רופאי החברה עוברים על התיק הרפואי ומאתרים כל זכות אפשרית.', bg: '#ffffff', fg: '#0000FF', border: '#0000FF' },
+        { n: '3', title: 'בניית התיק והגשה', desc: 'אנחנו אוספים מסמכים, ממלאים טפסים ומגישים לכל הגורמים.', bg: '#ffffff', fg: '#0000FF', border: '#0000FF' },
+        { n: '4', title: 'ליווי לוועדות', desc: 'הכנה אישית לוועדה הרפואית וליווי צמוד עד להחלטה.', bg: '#ffffff', fg: '#0000FF', border: '#0000FF' },
+        { n: '5', title: 'הכסף אצלכם', desc: 'קצבה, מענק או החזר — ורק אז משולם שכר הטרחה.', bg: '#F0514F', fg: '#ffffff', border: '#F0514F' },
+      ],
+    };
+  }
+}
+</script>
+</body>
+</html>
