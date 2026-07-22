@@ -9,6 +9,7 @@ import { TestimonialCard } from "@/components/shared/testimonial-card";
 import { Carousel } from "@/components/shared/carousel";
 import { Reveal, Entrance } from "@/components/shared/reveal";
 import { TaxCalculator } from "@/components/services/tax-calculator";
+import { StatValue } from "@/components/magicui/number-ticker";
 import { site } from "@/lib/config";
 
 export async function generateStaticParams() {
@@ -229,11 +230,15 @@ export default async function ServicePage({
             <div className="mb-4 text-lg font-bold text-ink">למה שלכם?</div>
             <div className="flex flex-col gap-3.5 text-[15.5px] text-ink-secondary">
               <div className="flex items-center gap-3">
-                <b className="tnum min-w-16 text-[22px] text-brand">13</b>
+                <b className="tnum min-w-16 text-[22px] text-brand">
+                  <StatValue value="13" />
+                </b>
                 <span>שנות ניסיון מול רשות המסים וביטוח לאומי</span>
               </div>
               <div className="flex items-center gap-3">
-                <b className="tnum min-w-16 text-[22px] text-brand">10,059</b>
+                <b className="tnum min-w-16 text-[22px] text-brand">
+                  <StatValue value="10,059" />
+                </b>
                 <span>לקוחות שליווינו עד לקבלת הזכות</span>
               </div>
               <div className="flex items-center gap-3">

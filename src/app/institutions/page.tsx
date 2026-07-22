@@ -4,6 +4,7 @@ import { getInstitutions } from "@/lib/content";
 import { NavyHero } from "@/components/shared/navy-hero";
 import { LeadForm } from "@/components/shared/lead-form";
 import { Reveal } from "@/components/shared/reveal";
+import { StatValue } from "@/components/magicui/number-ticker";
 
 export const metadata: Metadata = {
   title: "מוסדות ובירוקרטיה",
@@ -76,7 +77,7 @@ export default async function InstitutionsPage() {
               <div
                 className={`tnum font-display text-[40px] font-black md:text-[48px] ${r.accent ? "text-accent" : "text-brand"}`}
               >
-                {r.value}
+                <StatValue value={r.value} />
               </div>
               <div className="text-base text-ink-secondary md:text-[17px]">{r.label}</div>
             </div>

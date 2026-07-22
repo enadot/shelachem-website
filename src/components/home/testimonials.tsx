@@ -3,6 +3,7 @@ import type { Testimonial } from "@/lib/content/types";
 import { Reveal } from "@/components/shared/reveal";
 import { SectionHeading } from "@/components/shared/section-heading";
 import { TestimonialCard } from "@/components/shared/testimonial-card";
+import { Button } from "@/components/ui/button";
 
 /** עדויות (homepage-live.html §7) — גריד בדסקטופ, גלילת swipe במובייל. */
 export function Testimonials({ testimonials }: { testimonials: Testimonial[] }) {
@@ -24,12 +25,9 @@ export function Testimonials({ testimonials }: { testimonials: Testimonial[] }) 
             />
           ))}
         </Reveal>
-        <Link
-          href="/#lead-form"
-          className="pill inline-block border-[1.5px] border-accent bg-white px-6 py-3 text-lg text-accent-text no-underline transition-colors hover:bg-accent-tint"
-        >
-          עוד סיפורים
-        </Link>
+        <Button asChild variant="outline-accent" className="text-lg">
+          <Link href="/#lead-form">עוד סיפורים</Link>
+        </Button>
       </div>
     </section>
   );

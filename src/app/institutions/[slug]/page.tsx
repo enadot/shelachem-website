@@ -5,6 +5,7 @@ import { getInstitution, getInstitutions } from "@/lib/content";
 import { NavyHero } from "@/components/shared/navy-hero";
 import { LeadForm } from "@/components/shared/lead-form";
 import { Reveal } from "@/components/shared/reveal";
+import { StatValue } from "@/components/magicui/number-ticker";
 
 export async function generateStaticParams() {
   const institutions = await getInstitutions();
@@ -113,7 +114,7 @@ export default async function InstitutionPage({
                 <div
                   className={`tnum font-display text-[34px] font-black md:text-[46px] ${st.accent ? "text-accent" : "text-white"}`}
                 >
-                  {st.value}
+                  <StatValue value={st.value} />
                 </div>
                 <div className="text-[15px] text-white/90 md:text-base">{st.label}</div>
               </div>

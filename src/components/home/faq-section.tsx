@@ -29,7 +29,7 @@ export function FaqSection({ faqs }: { faqs: FaqItem[] }) {
           ריכזנו עבורכם את השאלות הנפוצות ביותר — כדי שתבינו טוב יותר את הזכויות שלכם ואיך אנחנו
           מסייעים לממש אותן.
         </p>
-        <FaqAccordion items={faqs} className="[&>details]:bg-white" />
+        <FaqAccordion items={faqs} className="[&>div]:bg-white" />
       </Reveal>
     </section>
   );

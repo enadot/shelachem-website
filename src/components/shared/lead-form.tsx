@@ -1,10 +1,21 @@
 "use client";
 
 import { useState } from "react";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Label } from "@/components/ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 const schema = z.object({
   full_name: z.string().trim().min(2, "נא להזין שם מלא"),
@@ -52,6 +63,7 @@ export function LeadForm({
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
   const {
     register,
+    control,
     handleSubmit,
     formState: { errors },
   } = useForm<FormValues>({
@@ -70,10 +82,7 @@ export function LeadForm({
   const dark = variant === "dark";
 
   const inputClass = cn(
-    "focus-brand w-full min-h-12 rounded-[10px] border px-4 py-3 text-base transition-colors",
-    dark
-      ? "border-white/25 bg-white/10 text-white placeholder:text-white/60"
-      : "border-[#cbd5e1] bg-white text-ink placeholder:text-ink-faint",
+    dark && "border-white/25 bg-white/10 text-white placeholder:text-white/60",
   );
 
   const onSubmit = handleSubmit(async (values) => {
@@ -123,7 +132,7 @@ export function LeadForm({
 
   const nameField = (
     <div>
-      <input
+      <Input
         {...register("full_name")}
         aria-label="שם מלא (שדה חובה)"
         placeholder="*שם מלא"
@@ -136,7 +145,7 @@ export function LeadForm({
   );
   const phoneField = (
     <div>
-      <input
+      <Input
         {...register("phone")}
         aria-label="טלפון (שדה חובה)"
         placeholder="*טלפון"
@@ -150,7 +159,7 @@ export function LeadForm({
   );
   const emailField = (
     <div>
-      <input
+      <Input
         {...register("email")}
         aria-label="דוא״ל (אופציונלי)"
         placeholder="דואר אלקטרוני"
@@ -163,16 +172,14 @@ export function LeadForm({
     </div>
   );
   const submitButton = (
-    <button
+    <Button
       type="submit"
+      variant="accent"
       disabled={status === "sending"}
-      className={cn(
-        "pill focus-brand min-h-[50px] cursor-pointer border-none bg-accent px-7 py-3 text-[17px] font-bold text-white transition-colors hover:bg-accent-hover disabled:opacity-60",
-        layout === "hero" ? "w-full sm:w-auto" : "w-full",
-      )}
+      className={layout === "hero" ? "w-full sm:w-auto" : "w-full"}
     >
       {status === "sending" ? "שולחים…" : submitLabel}
-    </button>
+    </Button>
   );
 
   return (
@@ -196,21 +203,24 @@ export function LeadForm({
         </>
       )}
       {topicOptions && topicOptions.length > 0 && (
-        <select
-          {...register("topic")}
-          aria-label={topicLabel}
-          className={cn(inputClass, "cursor-pointer")}
-          defaultValue=""
-        >
-          <option value="" disabled>
-            {topicLabel}
-          </option>
-          {topicOptions.map((o) => (
-            <option key={o} value={o} className="text-ink">
-              {o}
-            </option>
-          ))}
-        </select>
+        <Controller
+          control={control}
+          name="topic"
+          render={({ field }) => (
+            <Select value={field.value || undefined} onValueChange={field.onChange}>
+              <SelectTrigger aria-label={topicLabel} className={inputClass}>
+                <SelectValue placeholder={topicLabel} />
+              </SelectTrigger>
+              <SelectContent>
+                {topicOptions.map((o) => (
+                  <SelectItem key={o} value={o}>
+                    {o}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          )}
+        />
       )}
 
       {/* Honeypot — hidden from humans, catches naive bots. */}
@@ -222,38 +232,45 @@ export function LeadForm({
         className="absolute h-0 w-0 overflow-hidden opacity-0"
       />
 
-      <label
-        className={cn(
-          "flex cursor-pointer items-start gap-2.5 text-[12.5px] leading-normal",
-          dark ? "text-white/75" : "text-ink-muted",
+      <Controller
+        control={control}
+        name="data_consent"
+        render={({ field }) => (
+          <Label
+            className={cn(
+              "flex cursor-pointer items-start gap-2.5 text-[12.5px]",
+              dark ? "text-white/75" : "text-ink-muted",
+            )}
+          >
+            <Checkbox checked={field.value} onCheckedChange={(v) => field.onChange(v === true)} />
+            <span>
+              ידוע לי כי המידע שאמסור יישמר במאגרי המידע של החברה בהתאם למפורט במדיניות הפרטיות
+            </span>
+          </Label>
         )}
-      >
-        <input
-          type="checkbox"
-          {...register("data_consent")}
-          className="mt-0.5 h-[18px] w-[18px] shrink-0 cursor-pointer"
-        />
-        <span>ידוע לי כי המידע שאמסור יישמר במאגרי המידע של החברה בהתאם למפורט במדיניות הפרטיות</span>
-      </label>
+      />
       {errors.data_consent && (
-        <p className={cn("m-0 -mt-1 text-[13px]", dark ? "text-red-200" : "text-accent-text")}>
-          {errors.data_consent.message}
-        </p>
+        <p className={cn(errorClass, "-mt-1")}>{errors.data_consent.message}</p>
       )}
       {withMarketingConsent && (
-        <label
-          className={cn(
-            "flex cursor-pointer items-start gap-2.5 text-[12.5px] leading-normal",
-            dark ? "text-white/75" : "text-ink-muted",
+        <Controller
+          control={control}
+          name="marketing_consent"
+          render={({ field }) => (
+            <Label
+              className={cn(
+                "flex cursor-pointer items-start gap-2.5 text-[12.5px]",
+                dark ? "text-white/75" : "text-ink-muted",
+              )}
+            >
+              <Checkbox
+                checked={field.value}
+                onCheckedChange={(v) => field.onChange(v === true)}
+              />
+              <span>אני מאשר/ת קבלת עדכונים ותוכן שיווקי (ניתן להסרה בכל עת)</span>
+            </Label>
           )}
-        >
-          <input
-            type="checkbox"
-            {...register("marketing_consent")}
-            className="mt-0.5 h-[18px] w-[18px] shrink-0 cursor-pointer"
-          />
-          <span>אני מאשר/ת קבלת עדכונים ותוכן שיווקי (ניתן להסרה בכל עת)</span>
-        </label>
+        />
       )}
 
       {layout !== "hero" && submitButton}

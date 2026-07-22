@@ -1,51 +1,33 @@
 "use client";
 
-import { useEffect } from "react";
 import { site } from "@/lib/config";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogTitle,
+} from "@/components/ui/dialog";
 
-/** מודאל ״דברו איתנו״ — וואטסאפ / טלפון / מייל (עיצוב: Shelachem Live). */
+/** מודאל ״דברו איתנו״ — וואטסאפ / טלפון / מייל (עיצוב: Shelachem Live, על בסיס shadcn Dialog). */
 export function ContactModal({ onClose }: { onClose: () => void }) {
-  useEffect(() => {
-    const onKey = (e: KeyboardEvent) => e.key === "Escape" && onClose();
-    document.addEventListener("keydown", onKey);
-    document.body.style.overflow = "hidden";
-    return () => {
-      document.removeEventListener("keydown", onKey);
-      document.body.style.overflow = "";
-    };
-  }, [onClose]);
-
   return (
-    <div
-      dir="rtl"
-      onClick={onClose}
-      className="fixed inset-0 z-[100] flex items-center justify-center bg-[rgba(6,10,44,0.55)] p-5 backdrop-blur-[7px]"
-    >
-      <div
-        role="dialog"
-        aria-modal="true"
-        aria-label="דברו איתנו"
-        onClick={(e) => e.stopPropagation()}
-        className="relative w-full max-w-[430px] rounded-3xl bg-white px-8 pb-7 pt-10 text-ink shadow-[rgba(4,8,40,0.4)_0_32px_90px]"
+    <Dialog open onOpenChange={(open) => !open && onClose()}>
+      <DialogContent
+        dir="rtl"
+        className="max-w-[430px] rounded-3xl px-8 pb-7 pt-10 shadow-[rgba(4,8,40,0.4)_0_32px_90px]"
       >
-        <button
-          aria-label="סגירה"
-          onClick={onClose}
-          className="absolute left-4 top-4 flex h-10 w-10 items-center justify-center rounded-full bg-[#f2f5f9] text-ink transition-colors hover:bg-[#e4e9f0]"
-        >
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <line x1="6" y1="6" x2="18" y2="18" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" />
-            <line x1="18" y1="6" x2="6" y2="18" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" />
-          </svg>
-        </button>
-        <h3 className="mb-2 font-display text-[30px] font-light leading-[1.2] tracking-[-0.3px]">
-          לדבר איתנו
-          <br />
-          <span className="font-bold">בכל דרך שנוחה לכם.</span>
-        </h3>
-        <p className="mb-[26px] text-base leading-[1.55] text-ink-muted">
-          עונים מהר, בלי תפריטים ובלי המתנות.
-        </p>
+        <DialogTitle asChild>
+          <h3 className="m-0 mb-2 font-display text-[30px] font-light leading-[1.2] tracking-[-0.3px] text-ink">
+            לדבר איתנו
+            <br />
+            <span className="font-bold">בכל דרך שנוחה לכם.</span>
+          </h3>
+        </DialogTitle>
+        <DialogDescription asChild>
+          <p className="m-0 mb-[26px] text-base leading-[1.55] text-ink-muted">
+            עונים מהר, בלי תפריטים ובלי המתנות.
+          </p>
+        </DialogDescription>
         <div className="flex flex-col gap-3">
           <ContactRow
             href={site.whatsappHref}
@@ -86,8 +68,8 @@ export function ContactModal({ onClose }: { onClose: () => void }) {
         <div className="mt-[22px] text-center text-sm text-ink-faint">
           בדיקת הזכאות — ללא עלות וללא התחייבות
         </div>
-      </div>
-    </div>
+      </DialogContent>
+    </Dialog>
   );
 }
 

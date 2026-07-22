@@ -4,6 +4,7 @@ import Link from "next/link";
 import { getArticles } from "@/lib/content";
 import { ArticleCard } from "@/components/shared/article-card";
 import { Reveal } from "@/components/shared/reveal";
+import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
@@ -92,18 +93,20 @@ export default async function MagazinePage({
             {/* category chips */}
             <div className="flex flex-wrap items-center gap-2.5">
               {categories.map((c) => (
-                <Link
+                <Button
                   key={c}
-                  href={c === "הכל" ? "/magazine" : `/magazine?cat=${encodeURIComponent(c)}`}
+                  asChild
+                  variant="outline"
+                  size="sm"
                   className={cn(
-                    "pill min-h-11 border px-5 py-2 text-[15.5px] no-underline transition-colors inline-flex items-center",
-                    activeCat === c
-                      ? "border-brand bg-brand font-bold text-white"
-                      : "border-[#cbd5e1] bg-white text-ink-secondary hover:border-brand hover:text-brand",
+                    activeCat === c &&
+                      "border-brand bg-brand font-bold text-white hover:bg-brand hover:text-white",
                   )}
                 >
-                  {c}
-                </Link>
+                  <Link href={c === "הכל" ? "/magazine" : `/magazine?cat=${encodeURIComponent(c)}`}>
+                    {c}
+                  </Link>
+                </Button>
               ))}
               <span className="tnum ms-auto text-[14.5px] text-ink-faint">
                 {visible.length} מאמרים

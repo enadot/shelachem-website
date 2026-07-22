@@ -1,6 +1,15 @@
 "use client";
 
 import { useState } from "react";
+import { Slider } from "@/components/ui/slider";
+import { Label } from "@/components/ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 /**
  * מחשבון פטור ממס (designs/service.html):
@@ -56,54 +65,48 @@ export function TaxCalculator() {
 
         <div className="flex flex-col gap-5">
           <div>
-            <label htmlFor="calc-income" className="mb-2 flex items-center justify-between text-[15px]">
+            <Label className="mb-3 flex items-center justify-between text-[15px] text-white">
               <span>הכנסה חודשית ברוטו</span>
               <b className="tnum text-lg">{fmt(income)} ₪</b>
-            </label>
-            <input
-              id="calc-income"
-              type="range"
+            </Label>
+            <Slider
               min={6000}
               max={60000}
               step={500}
-              value={income}
-              onChange={(e) => setIncome(parseInt(e.target.value, 10))}
-              className="w-full cursor-pointer"
+              value={[income]}
+              onValueChange={([v]) => setIncome(v)}
+              aria-label="הכנסה חודשית ברוטו"
             />
           </div>
 
           <div className="grid gap-4 sm:grid-cols-2">
             <div>
-              <label htmlFor="calc-pct" className="mb-2 block text-[15px]">
-                אחוזי נכות רפואית
-              </label>
-              <select
-                id="calc-pct"
-                value={pct}
-                onChange={(e) => setPct(e.target.value)}
-                className="focus-brand w-full min-h-12 cursor-pointer rounded-[10px] border-none bg-white px-4 py-3 text-base text-ink"
-              >
-                <option value="100">100% נכות</option>
-                <option value="90">90%+ נכות משוקללת</option>
-                <option value="80">פחות מ-90%</option>
-              </select>
+              <Label className="mb-2 block text-[15px] text-white">אחוזי נכות רפואית</Label>
+              <Select value={pct} onValueChange={setPct}>
+                <SelectTrigger aria-label="אחוזי נכות רפואית" className="border-none">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="100">100% נכות</SelectItem>
+                  <SelectItem value="90">90%+ נכות משוקללת</SelectItem>
+                  <SelectItem value="80">פחות מ-90%</SelectItem>
+                </SelectContent>
+              </Select>
             </div>
             <div>
-              <label htmlFor="calc-years" className="mb-2 block text-[15px]">
-                שנים אחורה לדרישת החזר
-              </label>
-              <select
-                id="calc-years"
-                value={years}
-                onChange={(e) => setYears(parseInt(e.target.value, 10))}
-                className="focus-brand w-full min-h-12 cursor-pointer rounded-[10px] border-none bg-white px-4 py-3 text-base text-ink"
-              >
-                {[0, 1, 2, 3, 4, 5, 6].map((y) => (
-                  <option key={y} value={y}>
-                    {y === 0 ? "ללא החזר רטרואקטיבי" : `${y} שנים`}
-                  </option>
-                ))}
-              </select>
+              <Label className="mb-2 block text-[15px] text-white">שנים אחורה לדרישת החזר</Label>
+              <Select value={String(years)} onValueChange={(v) => setYears(parseInt(v, 10))}>
+                <SelectTrigger aria-label="שנים אחורה לדרישת החזר" className="border-none">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  {[0, 1, 2, 3, 4, 5, 6].map((y) => (
+                    <SelectItem key={y} value={String(y)}>
+                      {y === 0 ? "ללא החזר רטרואקטיבי" : `${y} שנים`}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </div>
           </div>
 

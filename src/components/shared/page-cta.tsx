@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { site } from "@/lib/config";
 import { Reveal } from "@/components/shared/reveal";
+import { Button } from "@/components/ui/button";
 
 /** כרטיס CTA תחתון לעמודי תוכן — כותרת, טלפון וכפתור לטופס הליד. */
 export function PageCta({
@@ -25,12 +26,9 @@ export function PageCta({
           <a href={site.phoneHref} className="tnum text-lg font-bold text-ink no-underline hover:text-brand">
             {site.phone}
           </a>
-          <Link
-            href="/#lead-form"
-            className="pill inline-block bg-accent px-7 py-3 text-[17px] font-bold text-white no-underline transition-colors hover:bg-accent-hover"
-          >
-            חזרו אליי ›
-          </Link>
+          <Button asChild variant="accent">
+            <Link href="/#lead-form">חזרו אליי ›</Link>
+          </Button>
         </div>
       </Reveal>
     </section>

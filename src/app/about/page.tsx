@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Reveal, Entrance } from "@/components/shared/reveal";
 import { PageCta } from "@/components/shared/page-cta";
+import { Button } from "@/components/ui/button";
+import { StatValue } from "@/components/magicui/number-ticker";
 
 export const metadata: Metadata = {
   title: "הסיפור שלנו",
@@ -101,12 +103,9 @@ export default function AboutPage() {
             כדי שהוא לא יעמוד בה לבד.
           </p>
           <div className="mt-2 flex flex-wrap items-center gap-3.5">
-            <Link
-              href="/#lead-form"
-              className="pill inline-block bg-accent px-7 py-3 text-[17px] font-bold text-white no-underline transition-colors hover:bg-accent-hover"
-            >
-              לבדיקת זכאות חינם ›
-            </Link>
+            <Button asChild variant="accent">
+              <Link href="/#lead-form">לבדיקת זכאות חינם ›</Link>
+            </Button>
             <a href="#process" className="px-2 py-3 text-[17px] font-bold text-white no-underline">
               איך אנחנו עובדים ↓
             </a>
@@ -196,7 +195,7 @@ export default function AboutPage() {
                 <div
                   className={`tnum font-display text-[44px] font-black md:text-[58px] ${st.accent ? "text-accent" : "text-white"}`}
                 >
-                  {st.value}
+                  <StatValue value={st.value} />
                 </div>
                 <div className="text-[17px] text-white/90 md:text-[19px]">{st.label}</div>
               </div>

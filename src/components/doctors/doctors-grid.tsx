@@ -4,6 +4,8 @@ import { useState } from "react";
 import type { Doctor, DoctorSpecialty } from "@/lib/content/types";
 import { doctorSpecialtyLabels } from "@/lib/content/local/doctors";
 import { PersonAvatar } from "@/components/shared/person-avatar";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 
 const filters: { key: DoctorSpecialty | "all"; label: string }[] = [
@@ -22,28 +24,25 @@ export function DoctorsGrid({ doctors }: { doctors: Doctor[] }) {
     <div>
       <div className="mb-6 flex flex-wrap gap-2.5" role="group" aria-label="סינון לפי התמחות">
         {filters.map((f) => (
-          <button
+          <Button
             key={f.key}
             type="button"
+            variant="outline"
+            size="sm"
             onClick={() => setSpec(f.key)}
             aria-pressed={spec === f.key}
             className={cn(
-              "pill focus-brand min-h-11 cursor-pointer border px-5 py-2 text-[15.5px] transition-colors",
-              spec === f.key
-                ? "border-brand bg-brand font-bold text-white"
-                : "border-[#d5dbe6] bg-white text-ink-secondary hover:border-brand hover:text-brand",
+              spec === f.key &&
+                "border-brand bg-brand font-bold text-white hover:bg-brand hover:text-white",
             )}
           >
             {f.label}
-          </button>
+          </Button>
         ))}
       </div>
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 md:gap-5">
         {visible.map((d) => (
-          <div
-            key={d.id}
-            className="flex flex-col gap-3 rounded-[14px] border border-hairline bg-white p-5"
-          >
+          <Card key={d.id} className="flex flex-col gap-3 rounded-[14px] p-5">
             <PersonAvatar name={d.name} image={d.image} size={72} className="!rounded-[14px]" />
             <div>
               <div className="text-[17px] font-black text-ink">{d.name}</div>
@@ -52,7 +51,7 @@ export function DoctorsGrid({ doctors }: { doctors: Doctor[] }) {
               </div>
             </div>
             <p className="m-0 text-[14px] leading-normal text-ink-muted">{d.bio}</p>
-          </div>
+          </Card>
         ))}
       </div>
     </div>

@@ -1,5 +1,6 @@
 import { Entrance } from "@/components/shared/reveal";
 import { LeadForm } from "@/components/shared/lead-form";
+import { BorderBeam } from "@/components/magicui/border-beam";
 
 /**
  * Hero מפוצל לבן/כחול (homepage-live.html §1):
@@ -32,9 +33,10 @@ export function Hero() {
             id="lead-form"
             className="relative flex scroll-mt-24 flex-col gap-3.5 rounded-[20px] border border-[#e6ebf2] bg-white px-5 pb-5 pt-9 shadow-[0_20px_48px_rgba(13,37,61,0.14)] md:rounded-b-none md:rounded-t-[28px] md:border-b-0 md:px-7 md:pb-6 md:pt-10 md:shadow-[0_-20px_48px_rgba(13,37,61,0.12)]"
           >
-            <div className="pill absolute -top-[21px] right-5 bg-brand px-5 py-3 text-base font-bold leading-none text-white shadow-[0_10px_24px_rgba(0,0,120,0.25)] md:-top-[25px] md:right-7 md:px-6 md:py-4 md:text-lg">
+            <div className="pill absolute -top-[21px] right-5 z-[1] bg-brand px-5 py-3 text-base font-bold leading-none text-white shadow-[0_10px_24px_rgba(0,0,120,0.25)] md:-top-[25px] md:right-7 md:px-6 md:py-4 md:text-lg">
               מגיע לכם לדעת מה מגיע לכם
             </div>
+            <BorderBeam size={180} duration={10} className="opacity-60" />
             <LeadForm layout="hero" sourcePage="home-hero" submitLabel="אני רוצה לבדוק ›" />
           </div>
         </Entrance>

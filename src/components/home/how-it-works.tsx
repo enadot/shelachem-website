@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Reveal } from "@/components/shared/reveal";
 import { SectionHeading } from "@/components/shared/section-heading";
+import { Button } from "@/components/ui/button";
 
 const steps = [
   {
@@ -46,12 +47,9 @@ export function HowItWorks() {
           ))}
         </div>
         <div className="mt-9 flex justify-center">
-          <Link
-            href="/#lead-form"
-            className="pill inline-block bg-brand px-11 py-4 text-lg font-bold text-white no-underline shadow-[0_12px_28px_rgba(0,0,255,0.25)] transition-colors hover:bg-brand-hover md:text-[19px]"
-          >
-            לבדיקה ראשונית חינם
-          </Link>
+          <Button asChild size="lg">
+            <Link href="/#lead-form">לבדיקה ראשונית חינם</Link>
+          </Button>
         </div>
       </div>
     </section>
