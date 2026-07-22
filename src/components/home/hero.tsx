@@ -1,3 +1,6 @@
+import { existsSync } from "node:fs";
+import path from "node:path";
+import Image from "next/image";
 import { Entrance } from "@/components/shared/reveal";
 import { LeadForm } from "@/components/shared/lead-form";
 import { BorderBeam } from "@/components/magicui/border-beam";
@@ -5,8 +8,9 @@ import { BorderBeam } from "@/components/magicui/border-beam";
 /**
  * Hero מפוצל לבן/כחול (homepage-live.html §1):
  * ימין — h1 + כרטיס טופס עם תגית pill צפה; שמאל — גרדיאנט כחול, glow פועם ופס "רצפה" כהה.
- * (תמונת הצוות תתווסף כשתסופק — public/images/hero-team.png.)
+ * תמונת הצוות: העלו קובץ ל-public/images/hero-team.png והיא תוצג אוטומטית על הרקע הכחול.
  */
+const hasTeamImage = existsSync(path.join(process.cwd(), "public/images/hero-team.png"));
 export function Hero() {
   return (
     <section className="relative flex min-h-[560px] flex-col overflow-hidden bg-white md:flex-row md:items-stretch md:min-h-[660px]">
@@ -68,6 +72,16 @@ function BlueHalf({ className }: { className?: string }) {
           className="absolute bottom-0 left-0 right-0 h-[104px] md:h-40"
           style={{ background: "linear-gradient(180deg, #000085 0%, #0000ad 100%)" }}
         />
+        {hasTeamImage && (
+          <Image
+            src="/images/hero-team.png"
+            alt=""
+            fill
+            priority
+            sizes="(min-width: 768px) 46vw, 100vw"
+            className="object-contain object-bottom"
+          />
+        )}
       </div>
     </div>
   );

@@ -104,6 +104,15 @@
 Flow ב-Directus: על כל create/update/delete ב-collections התוכן →
 `POST https://www.shelachem.net/api/revalidate?secret=<REVALIDATE_SECRET>`.
 
+הקמה אוטומטית (מתוך תיקיית `directus/` על השרת):
+
+```
+bash seed/run-revalidate-flow.sh
+```
+
+הסקריפט מייצר `REVALIDATE_SECRET` (אם אין ב-.env), יוצר/מעדכן את ה-Flow,
+ומדפיס את הסוד — יש להגדיר אותו גם כ-`REVALIDATE_SECRET` בפאנל של Vercel.
+
 ## משתני סביבה באתר (Next.js)
 
 ```
