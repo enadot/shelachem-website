@@ -47,7 +47,7 @@ export function TaxCalculator() {
         style={{ background: "radial-gradient(circle, rgba(0,0,255,0.5) 0%, rgba(0,0,255,0) 70%)" }}
       />
       <div className="relative">
-        <h2 className="m-0 mb-1.5 font-display text-[24px] font-light md:text-[30px]">
+        <h2 className="m-0 mb-1.5 font-display text-[24px] font-light text-white md:text-[30px]">
           כמה כסף <span className="font-black">מחכה לכם?</span>
         </h2>
         <p className="m-0 mb-6 text-[15px] text-white/80">

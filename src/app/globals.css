@@ -5,6 +5,8 @@
   --color-brand: #0000ff;
   --color-brand-hover: #0000c9;
   --color-brand-deep: #122680;
+  /* alias: navy banner surfaces (institutions banner, sub-page heroes, stats) */
+  --color-banner: #122680;
   --color-ink: #0d253d;
   --color-ink-secondary: #273951;
   --color-ink-muted: #4a5b74;

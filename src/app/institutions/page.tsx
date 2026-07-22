@@ -93,7 +93,7 @@ export default async function InstitutionsPage() {
             style={{ background: "radial-gradient(circle, rgba(0,0,255,0.5) 0%, rgba(0,0,255,0) 70%)" }}
           />
           <div className="relative">
-            <h2 className="m-0 mb-2 text-center font-display text-[24px] font-light md:text-[32px]">
+            <h2 className="m-0 mb-2 text-center font-display text-[24px] font-light text-white md:text-[32px]">
               לא בטוחים מול איזה מוסד להתחיל? <span className="font-bold">נבדוק בשבילכם.</span>
             </h2>
             <p className="m-0 mb-7 text-center text-base text-white/85 md:text-[17px]">

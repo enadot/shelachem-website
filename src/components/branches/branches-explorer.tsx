@@ -21,7 +21,7 @@ export function BranchesExplorer({ branches }: { branches: readonly Branch[] }) 
             onClick={() => setActive(b.id)}
             aria-label={`סניף ${b.city}`}
             style={{ top: b.marker.top, right: b.marker.right }}
-            className="absolute flex -translate-y-1/2 translate-x-1/2 items-center gap-1.5 cursor-pointer border-none bg-transparent p-0"
+            className="absolute flex -translate-y-1/2 items-center gap-1.5 cursor-pointer border-none bg-transparent p-0"
           >
             <span className="relative flex h-4 w-4">
               <span
