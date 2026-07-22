@@ -1,0 +1,5 @@
+# Caddy מנפיק ומחדש תעודת HTTPS אוטומטית עבור הדומיין.
+# הדומיין מגיע ממשתנה הסביבה CMS_DOMAIN (ב-.env).
+{$CMS_DOMAIN} {
+	reverse_proxy directus:8055
+}

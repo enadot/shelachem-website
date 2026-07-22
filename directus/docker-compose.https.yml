@@ -1,0 +1,45 @@
+# גרסת HTTPS — Directus מאחורי Caddy עם תעודת SSL אוטומטית.
+# שימוש (אחרי שהגדרת רשומת A לדומיין והוספת CMS_DOMAIN ל-.env):
+#   docker compose -f docker-compose.https.yml up -d
+# משתמש באותם volumes של docker-compose.yml, כך שכל התוכן נשמר.
+services:
+  directus:
+    image: directus/directus:11
+    restart: unless-stopped
+    # אין חשיפת פורט ציבורית — רק Caddy ניגש ל-Directus, דרך הרשת הפנימית.
+    expose:
+      - "8055"
+    volumes:
+      - directus_uploads:/directus/uploads
+      - directus_database:/directus/database
+    environment:
+      SECRET: ${DIRECTUS_SECRET:?set DIRECTUS_SECRET in .env}
+      ADMIN_EMAIL: ${DIRECTUS_ADMIN_EMAIL:?set DIRECTUS_ADMIN_EMAIL in .env}
+      ADMIN_PASSWORD: ${DIRECTUS_ADMIN_PASSWORD:?set DIRECTUS_ADMIN_PASSWORD in .env}
+      DB_CLIENT: sqlite3
+      DB_FILENAME: /directus/database/data.db
+      PUBLIC_URL: https://${CMS_DOMAIN:?set CMS_DOMAIN in .env}
+      CORS_ENABLED: "true"
+      CORS_ORIGIN: ${SITE_ORIGIN:-https://www.shelachem.co.il}
+      WEBSOCKETS_ENABLED: "false"
+
+  caddy:
+    image: caddy:2
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      CMS_DOMAIN: ${CMS_DOMAIN:?set CMS_DOMAIN in .env}
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      - directus
+
+volumes:
+  directus_uploads:
+  directus_database:
+  caddy_data:
+  caddy_config:
