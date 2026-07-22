@@ -34,7 +34,7 @@ DIRECTUS_SECRET=$SECRET
 DIRECTUS_ADMIN_EMAIL=$ADMIN_EMAIL
 DIRECTUS_ADMIN_PASSWORD=$ADMIN_PASSWORD
 DIRECTUS_PUBLIC_URL=http://$PUBLIC_IP:8055
-SITE_ORIGIN=https://www.shelachem.co.il
+SITE_ORIGIN=https://www.shelachem.net
 EOF
   chmod 600 .env
   echo "  נוצר .env (secret הופק אוטומטית)."

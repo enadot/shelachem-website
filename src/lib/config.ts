@@ -2,12 +2,12 @@
 export const site = {
   name: "שלכם — מימוש זכויות רפואיות",
   shortName: "שלכם",
-  domain: "https://www.shelachem.co.il",
+  domain: "https://www.shelachem.net",
   /** Official site-wide phone (per client decision). */
   phone: "076-8017778",
   phoneHref: "tel:076-8017778",
   whatsappHref: "https://wa.me/972768017778",
-  email: "info@shelachem.co.il",
+  email: "info@shelachem.net",
   foundedYear: 2013,
   socials: {
     facebook: "https://www.facebook.com/",

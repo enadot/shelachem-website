@@ -102,12 +102,12 @@
 ## Webhook לרענון האתר
 
 Flow ב-Directus: על כל create/update/delete ב-collections התוכן →
-`POST https://www.shelachem.co.il/api/revalidate?secret=<REVALIDATE_SECRET>`.
+`POST https://www.shelachem.net/api/revalidate?secret=<REVALIDATE_SECRET>`.
 
 ## משתני סביבה באתר (Next.js)
 
 ```
-DIRECTUS_URL=https://cms.shelachem.co.il
+DIRECTUS_URL=https://cms.shelachem.net
 DIRECTUS_STATIC_TOKEN=<token עם הרשאות הקריאה לעיל>
 REVALIDATE_SECRET=<אותו secret כמו ב-Flow>
 ```

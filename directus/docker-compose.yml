@@ -18,7 +18,7 @@ services:
       DB_FILENAME: /directus/database/data.db
       PUBLIC_URL: ${DIRECTUS_PUBLIC_URL:-http://localhost:8055}
       CORS_ENABLED: "true"
-      CORS_ORIGIN: ${SITE_ORIGIN:-https://www.shelachem.co.il}
+      CORS_ORIGIN: ${SITE_ORIGIN:-https://www.shelachem.net}
       WEBSOCKETS_ENABLED: "false"
 
 volumes:
