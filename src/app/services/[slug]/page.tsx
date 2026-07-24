@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import Image from "next/image";
+import { CmsImage } from "@/components/shared/cms-image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getInstitution, getService, getServices } from "@/lib/content";
@@ -203,7 +203,7 @@ export default async function ServicePage({
                     className="flex flex-col overflow-hidden rounded-xl border border-hairline bg-white text-ink no-underline transition-shadow hover:shadow-[0_12px_32px_rgba(13,37,61,0.12)]"
                   >
                     <div className="relative h-[120px] bg-surface-blue">
-                      {r.image && <Image src={r.image} alt="" fill sizes="300px" className="object-cover" />}
+                      {r.image && <CmsImage src={r.image} alt="" fill sizes="300px" className="object-cover" />}
                     </div>
                     <div className="flex flex-col gap-2.5 px-5 py-4">
                       <div className="text-[16.5px] leading-snug">{r.title}</div>

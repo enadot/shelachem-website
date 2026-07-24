@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import Image from "next/image";
+import { CmsImage } from "@/components/shared/cms-image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getArticle, getArticles } from "@/lib/content";
@@ -108,7 +108,7 @@ export default async function ArticlePage({
         {/* hero image */}
         <div className="relative h-[220px] overflow-hidden rounded-card bg-surface-blue md:h-[420px]">
           {article.image && (
-            <Image src={article.image} alt="" fill sizes="(max-width:768px) 100vw, 1040px" className="object-cover" priority />
+            <CmsImage src={article.image} alt="" fill sizes="(max-width:768px) 100vw, 1040px" className="object-cover" priority />
           )}
         </div>
       </div>

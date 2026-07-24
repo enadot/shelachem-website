@@ -36,6 +36,7 @@ const COLLECTIONS = [
   "team_members",
   "institutions",
   "services",
+  "globals",
 ];
 const TARGET_URL = `${SITE}/api/revalidate?secret=${SECRET}`;
 

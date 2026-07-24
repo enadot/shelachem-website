@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import Image from "next/image";
+import { CmsImage } from "@/components/shared/cms-image";
 import Link from "next/link";
 import { getArticles } from "@/lib/content";
 import { ArticleCard } from "@/components/shared/article-card";
@@ -59,7 +59,7 @@ export default async function MagazinePage({
             >
               <div className="relative min-h-[200px] bg-surface-blue md:min-h-[380px]">
                 {featured.image && (
-                  <Image src={featured.image} alt="" fill sizes="(max-width:768px) 100vw, 640px" className="object-cover" />
+                  <CmsImage src={featured.image} alt="" fill sizes="(max-width:768px) 100vw, 640px" className="object-cover" />
                 )}
               </div>
               <div className="flex flex-col justify-center gap-4 p-7 md:px-[46px] md:py-11">

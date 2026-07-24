@@ -1,5 +1,11 @@
 /** Content models — mirror the Directus collections (see directus/schema). */
 
+/** הגדרות אתר — singleton `globals` ב-Directus. */
+export interface Globals {
+  hero_image?: string | null; // resolved /assets URL
+  hero_image_alt?: string | null;
+}
+
 export interface FaqItem {
   id: string;
   question: string;
