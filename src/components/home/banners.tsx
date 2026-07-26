@@ -97,7 +97,7 @@ const institutionsIcons: { label: string; href: string; icon: React.ReactNode }[
   },
   {
     label: "משרד הרישוי",
-    href: "/institutions",
+    href: "/institutions/misrad-harishui",
     icon: (
       <>
         <circle cx="12" cy="12" r="9" stroke="#ffffff" strokeWidth="2.4" />

@@ -7,10 +7,10 @@ const columns: { title: string; links: { label: string; href: string }[] }[] = [
     title: "מוסדות ובירוקרטיה",
     links: [
       { label: "ביטוח לאומי", href: "/institutions/bituach-leumi" },
-      { label: "מס הכנסה", href: "/services/tax-exemption" },
-      { label: "קרנות פנסיה", href: "/institutions" },
-      { label: "חברות ביטוח", href: "/institutions" },
-      { label: "משרד הרישוי", href: "/institutions" },
+      { label: "מס הכנסה", href: "/institutions/mas-hachnasa" },
+      { label: "קרנות פנסיה", href: "/institutions/karnot-pensia" },
+      { label: "חברות ביטוח", href: "/institutions/hevrot-bituach" },
+      { label: "משרד הרישוי", href: "/institutions/misrad-harishui" },
     ],
   },
   {
