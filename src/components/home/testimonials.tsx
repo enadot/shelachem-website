@@ -3,7 +3,7 @@ import type { Testimonial } from "@/lib/content/types";
 import { Reveal } from "@/components/shared/reveal";
 import { SectionHeading } from "@/components/shared/section-heading";
 import { TestimonialCard } from "@/components/shared/testimonial-card";
-import { Button } from "@/components/ui/button";
+import { LeadCta } from "@/components/shared/lead-cta";
 
 /** עדויות (homepage-live.html §7) — גריד בדסקטופ, גלילת swipe במובייל. */
 export function Testimonials({ testimonials }: { testimonials: Testimonial[] }) {
@@ -25,9 +25,9 @@ export function Testimonials({ testimonials }: { testimonials: Testimonial[] }) 
             />
           ))}
         </Reveal>
-        <Button asChild variant="outline-accent" className="text-lg">
-          <Link href="/#lead-form">רוצים שנבדוק גם לכם? ←</Link>
-        </Button>
+        <LeadCta sourcePage="home-testimonials" variant="outline-accent" className="text-lg">
+          רוצים שנבדוק גם לכם? ←
+        </LeadCta>
       </div>
     </section>
   );

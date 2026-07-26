@@ -158,5 +158,8 @@
 - [x] JSON-LD: LocalBusiness, Article, FAQPage (בית+שירותים), Physician · sitemap · robots
 - [x] תיקון גראדיינט ה-BorderBeam שהסתיר את שדה הטלפון בהירו
 - [x] הגדרת מחלקת `pill` שחסרה ב-CSS — תגיות וכפתורים חזרו לעיגול המלא שבעיצובים
+- [x] מודאל בדיקת זכאות (`LeadModalProvider` + `LeadCta`) — כל ה-CTA-ים פותחים טופס מעוצב במקום קפיצת עוגן
+- [x] המתנה לעליית Directus בסקריפטי ההקמה (מונע ECONNREFUSED אחרי restart)
+- [x] מיפוי נכסי CMS ל-DIRECTUS_URL + ISR של שעה + `/api/cms-status`
 - [x] canonical לכל העמודים · תמונות OG · תאריכי כתבות (schema+sitemap) · 404/error ממותגים · CI · לכידת UTM
 - [x] ביקורת עיצוב (impeccable critique, ‎26/40) + תיקונים: ניגודיות AA באדום המותג, קריסת ההירו הריק במובייל, נורמליזציית טלפון, תוויות שדות, בר CTA דביק, skip-link, קופי CTA כן — ‏snapshot ב-.impeccable/critique/

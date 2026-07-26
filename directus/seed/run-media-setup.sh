@@ -16,6 +16,17 @@ if [ -z "$CID" ]; then
   exit 1
 fi
 
+# ממתין שה-API של Directus יענה — אחרי restart הוא לוקח כמה שניות לעלות.
+echo "▶ ממתין ש-Directus יענה…"
+for i in $(seq 1 45); do
+  if docker run --rm --network "container:$CID" curlimages/curl:latest \
+       -fsS -m 3 http://localhost:8055/server/health >/dev/null 2>&1; then
+    break
+  fi
+  [ "$i" = 45 ] && { echo "✗ Directus לא ענה תוך 90 שניות. בדוק: docker compose logs --tail 40"; exit 1; }
+  sleep 2
+done
+
 # חולק את מרחב הרשת של container ה-Directus, כך ש-localhost:8055 תמיד מגיע אליו —
 # בלי תלות בכך שהפורט חשוף החוצה ל-host (חשוב לגרסת ה-HTTPS שלא מפרסמת פורט).
 docker run --rm --network "container:$CID" \

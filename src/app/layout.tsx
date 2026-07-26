@@ -5,6 +5,7 @@ import { ContactModalProvider } from "@/components/layout/contact-modal-context"
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { MobileCtaBar } from "@/components/layout/mobile-cta-bar";
+import { LeadModalProvider } from "@/components/shared/lead-modal";
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.domain),
@@ -76,14 +77,16 @@ export default function RootLayout({
         >
           דילוג לתוכן הראשי
         </a>
-        <ContactModalProvider>
-          <Header />
-          <main id="main" className="flex-1">
-            {children}
-          </main>
-          <Footer />
-          <MobileCtaBar />
-        </ContactModalProvider>
+        <LeadModalProvider>
+          <ContactModalProvider>
+            <Header />
+            <main id="main" className="flex-1">
+              {children}
+            </main>
+            <Footer />
+            <MobileCtaBar />
+          </ContactModalProvider>
+        </LeadModalProvider>
       </body>
     </html>
   );

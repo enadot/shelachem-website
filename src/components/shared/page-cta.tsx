@@ -1,7 +1,6 @@
-import Link from "next/link";
 import { site } from "@/lib/config";
 import { Reveal } from "@/components/shared/reveal";
-import { Button } from "@/components/ui/button";
+import { LeadCta } from "@/components/shared/lead-cta";
 
 /** כרטיס CTA תחתון לעמודי תוכן — כותרת, טלפון וכפתור לטופס הליד. */
 export function PageCta({
@@ -26,9 +25,7 @@ export function PageCta({
           <a href={site.phoneHref} className="tnum text-lg font-bold text-ink no-underline hover:text-brand">
             {site.phone}
           </a>
-          <Button asChild variant="accent">
-            <Link href="/#lead-form">חזרו אליי ›</Link>
-          </Button>
+          <LeadCta sourcePage="page-cta">חזרו אליי ›</LeadCta>
         </div>
       </Reveal>
     </section>

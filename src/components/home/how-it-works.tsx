@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Reveal } from "@/components/shared/reveal";
 import { SectionHeading } from "@/components/shared/section-heading";
-import { Button } from "@/components/ui/button";
+import { LeadCta } from "@/components/shared/lead-cta";
 
 const steps = [
   {
@@ -47,9 +47,9 @@ export function HowItWorks() {
           ))}
         </div>
         <div className="mt-9 flex justify-center">
-          <Button asChild size="lg">
-            <Link href="/#lead-form">לבדיקה ראשונית חינם</Link>
-          </Button>
+          <LeadCta sourcePage="home-how-it-works" variant="brand" size="lg">
+            לבדיקה ראשונית חינם
+          </LeadCta>
         </div>
       </div>
     </section>

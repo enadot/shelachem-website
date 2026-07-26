@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { CmsImage } from "@/components/shared/cms-image";
+import { LeadCta } from "@/components/shared/lead-cta";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getArticle, getArticles } from "@/lib/content";
@@ -165,12 +166,9 @@ export default async function ArticlePage({
                   בדיקת זכאות ראשונה חינם — נבחן את הקביעה שלכם ונגיד ביושר אם יש בסיס לערר.
                 </div>
               </div>
-              <Link
-                href="/#lead-form"
-                className="pill inline-block shrink-0 bg-accent px-8 py-3.5 text-[17px] font-bold text-white no-underline transition-colors hover:bg-accent-hover"
-              >
+              <LeadCta sourcePage="article-cta" className="shrink-0">
                 בדקו את הזכאות שלי ›
-              </Link>
+              </LeadCta>
             </div>
           </div>
 

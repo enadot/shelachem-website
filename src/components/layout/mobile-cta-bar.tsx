@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Link from "next/link";
 import { site } from "@/lib/config";
+import { useLeadModal } from "@/components/shared/lead-modal";
 
 /**
  * בר CTA דביק במובייל — חיוג, וואטסאפ ובדיקת זכאות.
@@ -10,6 +10,7 @@ import { site } from "@/lib/config";
  */
 export function MobileCtaBar() {
   const [formVisible, setFormVisible] = useState(false);
+  const { openLeadForm } = useLeadModal();
 
   useEffect(() => {
     const form = document.getElementById("lead-form");
@@ -46,12 +47,13 @@ export function MobileCtaBar() {
         >
           וואטסאפ
         </a>
-        <Link
-          href="/#lead-form"
-          className="flex min-h-11 items-center justify-center rounded-full bg-accent px-2 text-[15px] font-bold text-white no-underline"
+        <button
+          type="button"
+          onClick={() => openLeadForm("mobile-cta-bar")}
+          className="flex min-h-11 cursor-pointer items-center justify-center rounded-full border-none bg-accent px-2 text-[15px] font-bold text-white"
         >
           בדיקת זכאות
-        </Link>
+        </button>
       </nav>
     </>
   );

@@ -279,7 +279,10 @@ export function LeadForm({
               <a
                 href="/privacy"
                 target="_blank"
-                className={cn("underline underline-offset-2", dark ? "text-white" : "text-brand")}
+                className={cn(
+                  "whitespace-nowrap underline underline-offset-2",
+                  dark ? "text-white" : "text-brand",
+                )}
                 onClick={(e) => e.stopPropagation()}
               >
                 מדיניות הפרטיות
