@@ -20,7 +20,9 @@ export const metadata: Metadata = {
     title: site.name,
     description:
       "מגיע לכם לדעת מה מגיע לכם. בדיקת זכאות חינם — שכר טרחה רק בהצלחה.",
+    images: [{ url: "/images/og-default.png", width: 1200, height: 630 }],
   },
+  twitter: { card: "summary_large_image" },
 };
 
 export const viewport: Viewport = {
@@ -28,6 +30,9 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
 };
+
+// רק פרופילים אמיתיים — קישור לדף הבית של הרשת (placeholder) מזיק ל-schema.
+const realSocials = Object.values(site.socials).filter((u) => new URL(u).pathname !== "/");
 
 const localBusinessJsonLd = {
   "@context": "https://schema.org",
@@ -43,7 +48,7 @@ const localBusinessJsonLd = {
     streetAddress: b.address,
     addressCountry: "IL",
   })),
-  sameAs: Object.values(site.socials),
+  ...(realSocials.length ? { sameAs: realSocials } : {}),
 };
 
 export default function RootLayout({

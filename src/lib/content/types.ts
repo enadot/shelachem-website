@@ -28,6 +28,7 @@ export interface Article {
   category: string; // מדריכים | חדשות | סיפורי הצלחה
   readingMinutes: number;
   publishedLabel: string; // e.g. "יוני 2026"
+  publishedAt?: string | null; // ISO date — datePublished ב-schema וב-sitemap
   image?: string | null;
   featured?: boolean;
   author?: Author;

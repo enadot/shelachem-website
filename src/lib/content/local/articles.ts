@@ -13,6 +13,7 @@ export const articles: Article[] = [
     category: "מדריכים",
     readingMinutes: 9,
     publishedLabel: "יוני 2026",
+    publishedAt: "2026-06-01",
     image: placeholder,
     featured: true,
     author: {
@@ -79,6 +80,7 @@ export const articles: Article[] = [
     category: "מדריכים",
     readingMinutes: 12,
     publishedLabel: "יוני 2026",
+    publishedAt: "2026-06-01",
     image: placeholder,
   },
   {
@@ -90,6 +92,7 @@ export const articles: Article[] = [
     category: "חדשות",
     readingMinutes: 5,
     publishedLabel: "יולי 2026",
+    publishedAt: "2026-07-01",
     image: placeholder,
   },
   {
@@ -101,6 +104,7 @@ export const articles: Article[] = [
     category: "מדריכים",
     readingMinutes: 10,
     publishedLabel: "יוני 2026",
+    publishedAt: "2026-06-01",
     image: placeholder,
   },
   {
@@ -112,6 +116,7 @@ export const articles: Article[] = [
     category: "סיפורי הצלחה",
     readingMinutes: 7,
     publishedLabel: "מאי 2026",
+    publishedAt: "2026-05-01",
     image: placeholder,
   },
   {
@@ -123,6 +128,7 @@ export const articles: Article[] = [
     category: "מדריכים",
     readingMinutes: 8,
     publishedLabel: "מאי 2026",
+    publishedAt: "2026-05-01",
     image: placeholder,
   },
   {
@@ -134,6 +140,7 @@ export const articles: Article[] = [
     category: "חדשות",
     readingMinutes: 4,
     publishedLabel: "אפריל 2026",
+    publishedAt: "2026-04-01",
     image: placeholder,
   },
   {
@@ -145,6 +152,7 @@ export const articles: Article[] = [
     category: "סיפורי הצלחה",
     readingMinutes: 6,
     publishedLabel: "אפריל 2026",
+    publishedAt: "2026-04-01",
     image: placeholder,
   },
   {
@@ -156,6 +164,7 @@ export const articles: Article[] = [
     category: "מדריכים",
     readingMinutes: 9,
     publishedLabel: "מרץ 2026",
+    publishedAt: "2026-03-01",
     image: placeholder,
   },
   {
@@ -167,6 +176,7 @@ export const articles: Article[] = [
     category: "חדשות",
     readingMinutes: 5,
     publishedLabel: "מרץ 2026",
+    publishedAt: "2026-03-01",
     image: placeholder,
   },
 ];

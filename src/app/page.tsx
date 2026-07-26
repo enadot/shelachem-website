@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { getArticles, getFaqs, getTestimonials } from "@/lib/content";
 import { Hero } from "@/components/home/hero";
 import { Specialties } from "@/components/home/specialties";
@@ -9,6 +10,10 @@ import { Magazine } from "@/components/home/magazine";
 import { Community } from "@/components/home/community";
 import { FinalCta } from "@/components/home/final-cta";
 import { FaqSection } from "@/components/home/faq-section";
+
+export const metadata: Metadata = {
+  alternates: { canonical: "/" },
+};
 
 export default async function HomePage() {
   const [faqs, testimonials, articles] = await Promise.all([

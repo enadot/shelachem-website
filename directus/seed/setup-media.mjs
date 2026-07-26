@@ -130,6 +130,21 @@ for (const collection of IMAGE_COLLECTIONS) {
   }
 }
 
+// --- שדרוגי סכמה קטנים -----------------------------------------------------
+// תאריך פרסום אמיתי לכתבות (datePublished ב-schema.org + lastModified ב-sitemap).
+console.log("\nשדה תאריך פרסום לכתבות:");
+if (await exists("/fields/articles/publishedAt")) {
+  console.log("  = articles.publishedAt כבר קיים");
+} else {
+  await api("POST", "/fields/articles", {
+    field: "publishedAt",
+    type: "timestamp",
+    meta: { interface: "datetime", note: "תאריך פרסום — מוצג למנועי חיפוש" },
+    schema: {},
+  });
+  console.log("  + נוסף articles.publishedAt");
+}
+
 // --- הרשאות ציבוריות -------------------------------------------------------
 console.log("\nהרשאות ציבוריות (globals + קבצים):");
 const policies = await api("GET", "/policies?fields=id,name,admin_access&limit=-1");

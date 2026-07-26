@@ -23,7 +23,7 @@
   אין שום ניטור לאתר או ל-CMS. UptimeRobot/BetterStack (חינם) על `www.shelachem.net`,
   `cms.shelachem.net/server/health` ו-`/api/revalidate` (תגובת 401 = חי).
 
-- [ ] **CI ב-GitHub Actions** — P1 · S
+- [x] **CI ב-GitHub Actions** — P1 · S
   אין CI — טעויות מתגלות רק ב-deploy. Workflow על כל PR: `tsc --noEmit`, `eslint`, `next build`.
 
 - [ ] **ניטור שגיאות (Sentry)** — P2 · S
@@ -52,7 +52,7 @@
 - [ ] **העלאת תמונת הצוות להירו** — P1 · S
   הכול מחווט (globals ▸ hero_image); חסרה התמונה עצמה. עד אז החצי הכחול ריק.
 
-- [ ] **עמוד 404 ממותג + error boundary** — P1 · S
+- [x] **עמוד 404 ממותג + error boundary** — P1 · S
   אין `not-found.tsx` ו-`error.tsx` — קישור שבור מציג היום עמוד ברירת מחדל חשוף של Next.
   404 עם ניווט חזרה + CTA לבדיקת זכאות.
 
@@ -69,7 +69,7 @@
   reduced-motion) — נדרש מעבר שיטתי: ניגודיות, ניווט מקלדת במודאל/תפריט/אקורדיון,
   aria בקרוסלות, בדיקה עם קורא מסך.
 
-- [ ] **שיפורי טופס ליד** — P2 · S
+- [ ] **שיפורי טופס ליד** — P2 · S (לכידת UTM ✓)
   `inputmode` לטלפון, שמירת פרמטרי UTM מה-URL אל הליד (attribution), גלילה/פוקוס לשדה
   השגוי הראשון, ואינדיקציה על זמן חזרה צפוי ליד הכפתור.
 
@@ -87,20 +87,20 @@
 
 ## SEO
 
-- [ ] **canonical לכל עמוד** — P1 · S
+- [x] **canonical לכל עמוד** — P1 · S
   לא מוגדר בשום עמוד (`alternates.canonical`). חשוב במיוחד למגזין עם `?cat=` — לקבוע
   קנוניקל ל-`/magazine` הנקי.
 
-- [ ] **תאריכים אמיתיים לכתבות** — P1 · M
+- [x] **תאריכים אמיתיים לכתבות** — P1 · M
   קיים רק `publishedLabel` טקסטואלי ("יוני 2026"). להוסיף שדה date ב-CMS ובטיפוסים →
   `datePublished`/`dateModified` ב-Article JSON-LD, `lastModified` ב-sitemap, ותצוגה בעמוד.
   בלי זה גוגל מנחש טריות.
 
-- [ ] **תמונות OG** — P1 · S
+- [x] **תמונות OG** — P1 · S
   אין אף תמונת שיתוף — קישור שנשלח בוואטסאפ/פייסבוק מוצג עירום. תמונת ברירת מחדל
   ממותגת (אפשר `opengraph-image` סטטי) + תמונת הכתבה בעמודי מגזין.
 
-- [ ] **קישורי רשתות חברתיות אמיתיים** — P1 · S
+- [ ] **קישורי רשתות חברתיות אמיתיים** — P1 · S (בקוד: placeholders כבר מסוננים מה-JSON-LD; נותר לקבל כתובות אמיתיות מהלקוח)
   ב-`src/lib/config.ts` ה-socials הם placeholders (facebook.com בלי עמוד) והם נכנסים
   ל-`sameAs` ב-JSON-LD — מזיק. למלא כתובות אמיתיות או להסיר עד שיהיו.
 
@@ -157,3 +157,5 @@
 - [x] טופס לידים עם ולידציה, honeypot, שמירה ל-Directus והודעת הצלחה
 - [x] JSON-LD: LocalBusiness, Article, FAQPage (בית+שירותים), Physician · sitemap · robots
 - [x] תיקון גראדיינט ה-BorderBeam שהסתיר את שדה הטלפון בהירו
+- [x] הגדרת מחלקת `pill` שחסרה ב-CSS — תגיות וכפתורים חזרו לעיגול המלא שבעיצובים
+- [x] canonical לכל העמודים · תמונות OG · תאריכי כתבות (schema+sitemap) · 404/error ממותגים · CI · לכידת UTM

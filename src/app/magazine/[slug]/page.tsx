@@ -24,7 +24,14 @@ export async function generateMetadata({
   return {
     title: article.title,
     description: article.excerpt,
-    openGraph: { title: article.title, description: article.excerpt, type: "article" },
+    alternates: { canonical: `/magazine/${article.slug}` },
+    openGraph: {
+      title: article.title,
+      description: article.excerpt,
+      type: "article",
+      publishedTime: article.publishedAt ?? undefined,
+      ...(article.image ? { images: [{ url: article.image }] } : {}),
+    },
   };
 }
 
@@ -52,6 +59,10 @@ export default async function ArticlePage({
     headline: article.title,
     description: article.excerpt,
     inLanguage: "he",
+    ...(article.publishedAt
+      ? { datePublished: article.publishedAt, dateModified: article.publishedAt }
+      : {}),
+    ...(article.image ? { image: new URL(article.image, site.domain).href } : {}),
     author: article.author
       ? { "@type": "Person", name: article.author.name, jobTitle: article.author.role }
       : { "@type": "Organization", name: site.shortName },

@@ -1,0 +1,22 @@
+# CI — typecheck, lint ו-build על כל push ו-PR.
+# ה-build רץ בלי משתני סביבה: האתר נופל חזרה לתוכן המקומי, בדיוק כמו ב-preview.
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npx tsc --noEmit
+      - run: npx eslint .
+      - run: npm run build

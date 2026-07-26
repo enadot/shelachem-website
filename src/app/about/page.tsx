@@ -7,6 +7,7 @@ import { StatValue } from "@/components/magicui/number-ticker";
 
 export const metadata: Metadata = {
   title: "הסיפור שלנו",
+  alternates: { canonical: "/about" },
   description:
     "חברת שלכם הוקמה ב-2013 מתוך שליחות: לפשט את הבירוקרטיה הרפואית עבור כל אזרח בישראל. הכירו את הדרך, הערכים והצוות.",
 };

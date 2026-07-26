@@ -9,6 +9,7 @@ import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
   title: "המגזין",
+  alternates: { canonical: "/magazine" },
   description:
     "מדריכים, עדכוני חוק וסיפורי הצלחה על מימוש זכויות רפואיות — בשפה של בני אדם, לא של פקידים.",
 };

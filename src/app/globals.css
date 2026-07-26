@@ -183,6 +183,11 @@
   font-feature-settings: "tnum";
 }
 
+/* תגיות/כפתורים מעוגלים לגמרי — border-radius:9999px בעיצובים המקוריים */
+.pill {
+  border-radius: 9999px;
+}
+
 /* Focus ring — blue, per brand */
 :focus-visible {
   outline: 2px solid var(--color-brand);

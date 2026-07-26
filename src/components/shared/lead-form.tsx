@@ -87,6 +87,11 @@ export function LeadForm({
 
   const onSubmit = handleSubmit(async (values) => {
     setStatus("sending");
+    // Attribution: פרמטרי utm_* מה-URL מצורפים ל-source_page (מוגבל ל-200 תווים בשרת).
+    const utm = new URLSearchParams(
+      [...new URLSearchParams(window.location.search)].filter(([k]) => k.startsWith("utm_")),
+    ).toString();
+    const source = (utm ? `${sourcePage}|${utm}` : sourcePage).slice(0, 200);
     try {
       const res = await fetch("/api/leads", {
         method: "POST",
@@ -96,7 +101,7 @@ export function LeadForm({
           phone: values.phone,
           email: values.email,
           topic: values.topic || undefined,
-          source_page: sourcePage,
+          source_page: source,
           marketing_consent: values.marketing_consent,
           company: values.company,
         }),
