@@ -1,5 +1,11 @@
 /** Content models — mirror the Directus collections (see directus/schema). */
 
+/** הגדרות אתר — singleton `globals` ב-Directus. */
+export interface Globals {
+  hero_image?: string | null; // resolved /assets URL
+  hero_image_alt?: string | null;
+}
+
 export interface FaqItem {
   id: string;
   question: string;
@@ -22,6 +28,7 @@ export interface Article {
   category: string; // מדריכים | חדשות | סיפורי הצלחה
   readingMinutes: number;
   publishedLabel: string; // e.g. "יוני 2026"
+  publishedAt?: string | null; // ISO date — datePublished ב-schema וב-sitemap
   image?: string | null;
   featured?: boolean;
   author?: Author;

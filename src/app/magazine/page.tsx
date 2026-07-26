@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import Image from "next/image";
+import { CmsImage } from "@/components/shared/cms-image";
+import { LeadCta } from "@/components/shared/lead-cta";
 import Link from "next/link";
 import { getArticles } from "@/lib/content";
 import { ArticleCard } from "@/components/shared/article-card";
@@ -9,6 +10,7 @@ import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
   title: "המגזין",
+  alternates: { canonical: "/magazine" },
   description:
     "מדריכים, עדכוני חוק וסיפורי הצלחה על מימוש זכויות רפואיות — בשפה של בני אדם, לא של פקידים.",
 };
@@ -59,7 +61,7 @@ export default async function MagazinePage({
             >
               <div className="relative min-h-[200px] bg-surface-blue md:min-h-[380px]">
                 {featured.image && (
-                  <Image src={featured.image} alt="" fill sizes="(max-width:768px) 100vw, 640px" className="object-cover" />
+                  <CmsImage src={featured.image} alt="" fill sizes="(max-width:768px) 100vw, 640px" className="object-cover" />
                 )}
               </div>
               <div className="flex flex-col justify-center gap-4 p-7 md:px-[46px] md:py-11">
@@ -145,12 +147,13 @@ export default async function MagazinePage({
                 <p className="m-0 mb-4 text-[14.5px] leading-relaxed text-white/85">
                   בדיקת זכאות ראשונה חינם — נגיד לכם ביושר אם יש בסיס לתביעה.
                 </p>
-                <Link
-                  href="/#lead-form"
-                  className="pill inline-block bg-accent px-5 py-2.5 text-[15px] font-bold text-white no-underline transition-colors hover:bg-accent-hover"
+                <LeadCta
+                  sourcePage="magazine-sidebar"
+                  size="sm"
+                  className="text-[15px]"
                 >
                   בדקו את הזכאות שלי ›
-                </Link>
+                </LeadCta>
               </div>
             </div>
           </aside>

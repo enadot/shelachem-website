@@ -4,6 +4,8 @@ import { site, branches } from "@/lib/config";
 import { ContactModalProvider } from "@/components/layout/contact-modal-context";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
+import { MobileCtaBar } from "@/components/layout/mobile-cta-bar";
+import { LeadModalProvider } from "@/components/shared/lead-modal";
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.domain),
@@ -20,7 +22,9 @@ export const metadata: Metadata = {
     title: site.name,
     description:
       "מגיע לכם לדעת מה מגיע לכם. בדיקת זכאות חינם — שכר טרחה רק בהצלחה.",
+    images: [{ url: "/images/og-default.png", width: 1200, height: 630 }],
   },
+  twitter: { card: "summary_large_image" },
 };
 
 export const viewport: Viewport = {
@@ -28,6 +32,9 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
 };
+
+// רק פרופילים אמיתיים — קישור לדף הבית של הרשת (placeholder) מזיק ל-schema.
+const realSocials = Object.values(site.socials).filter((u) => new URL(u).pathname !== "/");
 
 const localBusinessJsonLd = {
   "@context": "https://schema.org",
@@ -43,8 +50,14 @@ const localBusinessJsonLd = {
     streetAddress: b.address,
     addressCountry: "IL",
   })),
-  sameAs: Object.values(site.socials),
+  ...(realSocials.length ? { sameAs: realSocials } : {}),
 };
+
+/**
+ * רשת ביטחון לתוכן מה-CMS: גם אם ה-Flow של הרענון לא מוגדר/נכשל,
+ * העמודים מתרעננים לכל היותר אחרי שעה. ה-webhook עושה את זה מיידי.
+ */
+export const revalidate = 3600;
 
 export default function RootLayout({
   children,
@@ -58,11 +71,22 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessJsonLd) }}
         />
-        <ContactModalProvider>
-          <Header />
-          <main className="flex-1">{children}</main>
-          <Footer />
-        </ContactModalProvider>
+        <a
+          href="#main"
+          className="sr-only focus:not-sr-only focus:absolute focus:right-3 focus:top-3 focus:z-50 focus:rounded-full focus:bg-brand focus:px-5 focus:py-2.5 focus:font-bold focus:text-white"
+        >
+          דילוג לתוכן הראשי
+        </a>
+        <LeadModalProvider>
+          <ContactModalProvider>
+            <Header />
+            <main id="main" className="flex-1">
+              {children}
+            </main>
+            <Footer />
+            <MobileCtaBar />
+          </ContactModalProvider>
+        </LeadModalProvider>
       </body>
     </html>
   );

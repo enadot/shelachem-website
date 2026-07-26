@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useEffect } from "react";
 import { motion } from "framer-motion";
 import { site } from "@/lib/config";
+import { useLeadModal } from "@/components/shared/lead-modal";
 import { PhoneIcon } from "./contact-modal";
 
 const items = [
@@ -70,6 +71,7 @@ const items = [
 
 /** תפריט מובייל מסך-מלא בגרדיאנט כחול עם כניסת stagger (עיצוב: Shelachem Live). */
 export function MobileMenu({ onClose }: { onClose: () => void }) {
+  const { openLeadForm } = useLeadModal();
   useEffect(() => {
     document.body.style.overflow = "hidden";
     return () => {
@@ -141,13 +143,16 @@ export function MobileMenu({ onClose }: { onClose: () => void }) {
       </div>
 
       <div className="relative flex flex-col gap-3.5 px-7 pb-[34px]">
-        <Link
-          href="/#lead-form"
-          onClick={onClose}
-          className="block rounded-full bg-accent p-4 text-center text-lg font-bold text-white no-underline shadow-[rgba(0,0,40,0.3)_0_12px_28px]"
+        <button
+          type="button"
+          onClick={() => {
+            onClose();
+            openLeadForm("mobile-menu");
+          }}
+          className="block w-full cursor-pointer rounded-full border-none bg-accent p-4 text-center text-lg font-bold text-white shadow-[rgba(0,0,40,0.3)_0_12px_28px]"
         >
           בדיקת זכאות חינם
-        </Link>
+        </button>
         <a href={site.phoneHref} className="tnum block text-center text-[17px] text-white no-underline">
           {site.phone} · זמינים עכשיו
         </a>

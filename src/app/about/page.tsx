@@ -3,10 +3,12 @@ import Link from "next/link";
 import { Reveal, Entrance } from "@/components/shared/reveal";
 import { PageCta } from "@/components/shared/page-cta";
 import { Button } from "@/components/ui/button";
+import { LeadCta } from "@/components/shared/lead-cta";
 import { StatValue } from "@/components/magicui/number-ticker";
 
 export const metadata: Metadata = {
   title: "הסיפור שלנו",
+  alternates: { canonical: "/about" },
   description:
     "חברת שלכם הוקמה ב-2013 מתוך שליחות: לפשט את הבירוקרטיה הרפואית עבור כל אזרח בישראל. הכירו את הדרך, הערכים והצוות.",
 };
@@ -103,9 +105,7 @@ export default function AboutPage() {
             כדי שהוא לא יעמוד בה לבד.
           </p>
           <div className="mt-2 flex flex-wrap items-center gap-3.5">
-            <Button asChild variant="accent">
-              <Link href="/#lead-form">לבדיקת זכאות חינם ›</Link>
-            </Button>
+            <LeadCta sourcePage="about-hero">לבדיקת זכאות חינם ›</LeadCta>
             <a href="#process" className="px-2 py-3 text-[17px] font-bold text-white no-underline">
               איך אנחנו עובדים ↓
             </a>

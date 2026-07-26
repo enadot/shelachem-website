@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "מדיניות פרטיות",
+  alternates: { canonical: "/privacy" },
   description: "מדיניות הפרטיות של שלכם — מימוש זכויות רפואיות בע״מ.",
   robots: { index: false },
 };

@@ -8,6 +8,7 @@ import { StatValue } from "@/components/magicui/number-ticker";
 
 export const metadata: Metadata = {
   title: "מוסדות ובירוקרטיה",
+  alternates: { canonical: "/institutions" },
   description:
     "ביטוח לאומי, מס הכנסה, קרנות פנסיה וחברות ביטוח — כל המוסדות שמולם אנחנו מממשים את הזכויות שלכם, במקום אחד.",
 };

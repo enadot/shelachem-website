@@ -3,6 +3,7 @@ import { site } from "@/lib/config";
 
 export const metadata: Metadata = {
   title: "הצהרת נגישות",
+  alternates: { canonical: "/accessibility" },
   description: "הצהרת הנגישות של אתר שלכם — מימוש זכויות רפואיות.",
   robots: { index: false },
 };

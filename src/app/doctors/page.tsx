@@ -8,6 +8,7 @@ import { DoctorsGrid } from "@/components/doctors/doctors-grid";
 
 export const metadata: Metadata = {
   title: "הרופאים והמומחים",
+  alternates: { canonical: "/doctors" },
   description:
     "צוות רופאים מומחים שמלווה כל תיק: חוות דעת מקצועיות, הכנה אישית לוועדות הרפואיות ומעקב עד להחלטה.",
 };

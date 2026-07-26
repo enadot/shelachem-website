@@ -54,7 +54,8 @@ const SCHEMA = {
   testimonials: [pk(), f("quote", "text"), f("name", "string"), f("detail", "string"), f("image", "string")],
   articles: [
     pk(), f("slug", "string"), f("title", "string"), f("excerpt", "text"), f("category", "string"),
-    f("readingMinutes", "integer"), f("publishedLabel", "string"), f("image", "string"),
+    f("readingMinutes", "integer"), f("publishedLabel", "string"),
+    f("publishedAt", "timestamp", { meta: { interface: "datetime" } }), f("image", "string"),
     f("featured", "boolean"), f("author", "json"), f("body", "json"), f("related", "json"),
   ],
   doctors: [pk(), f("name", "string"), f("specialty", "string"), f("bio", "text"), f("image", "string")],

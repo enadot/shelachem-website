@@ -1,13 +1,23 @@
+import { existsSync } from "node:fs";
+import path from "node:path";
 import { Entrance } from "@/components/shared/reveal";
 import { LeadForm } from "@/components/shared/lead-form";
+import { CmsImage } from "@/components/shared/cms-image";
 import { BorderBeam } from "@/components/magicui/border-beam";
+import { getGlobals } from "@/lib/content";
 
 /**
  * Hero מפוצל לבן/כחול (homepage-live.html §1):
  * ימין — h1 + כרטיס טופס עם תגית pill צפה; שמאל — גרדיאנט כחול, glow פועם ופס "רצפה" כהה.
- * (תמונת הצוות תתווסף כשתסופק — public/images/hero-team.png.)
+ * תמונת הצוות מנוהלת ב-CMS (globals ▸ hero_image); נפילה חזרה ל-public/images/hero-team.png.
  */
-export function Hero() {
+const hasLocalTeamImage = existsSync(path.join(process.cwd(), "public/images/hero-team.png"));
+
+export async function Hero() {
+  const globals = await getGlobals();
+  const teamImage =
+    globals?.hero_image ?? (hasLocalTeamImage ? "/images/hero-team.png" : null);
+  const teamImageAlt = globals?.hero_image_alt ?? "";
   return (
     <section className="relative flex min-h-[560px] flex-col overflow-hidden bg-white md:flex-row md:items-stretch md:min-h-[660px]">
       {/* right (white) half */}
@@ -22,8 +32,13 @@ export function Hero() {
           </h1>
         </Entrance>
 
-        {/* blue half — mobile only, between h1 and the form card */}
-        <BlueHalf className="relative -mx-6 block h-[340px] w-[calc(100%+48px)] md:hidden" />
+        {/* blue half — mobile only, between h1 and the form card.
+            (מוצג גם בלי תמונה — תמונת הצוות תעלה לכאן דרך ה-CMS: globals ▸ hero_image) */}
+        <BlueHalf
+          className="relative -mx-6 block h-[340px] w-[calc(100%+48px)] md:hidden"
+          image={teamImage}
+          imageAlt={teamImageAlt}
+        />
 
         <Entrance
           delay={0.2}
@@ -43,20 +58,28 @@ export function Hero() {
       </div>
 
       {/* blue half — desktop */}
-      <BlueHalf className="relative hidden flex-[0.92] md:block" />
+      <BlueHalf className="relative hidden flex-[0.92] md:block" image={teamImage} imageAlt={teamImageAlt} />
     </section>
   );
 }
 
-function BlueHalf({ className }: { className?: string }) {
+function BlueHalf({
+  className,
+  image,
+  imageAlt,
+}: {
+  className?: string;
+  image: string | null;
+  imageAlt: string;
+}) {
   return (
     <div
       className={className}
       style={{ background: "linear-gradient(200deg, #1f1fff 0%, #0000e6 55%, #0000bf 100%)" }}
-      aria-hidden
     >
       <div className="absolute inset-0 overflow-hidden">
         <div
+          aria-hidden
           className="animate-glow-pulse absolute -left-[120px] -top-[160px] h-[560px] w-[560px] rounded-full"
           style={{
             background:
@@ -65,9 +88,20 @@ function BlueHalf({ className }: { className?: string }) {
         />
         {/* the darker "floor" band behind the team */}
         <div
+          aria-hidden
           className="absolute bottom-0 left-0 right-0 h-[104px] md:h-40"
           style={{ background: "linear-gradient(180deg, #000085 0%, #0000ad 100%)" }}
         />
+        {image && (
+          <CmsImage
+            src={image}
+            alt={imageAlt}
+            fill
+            priority
+            sizes="(min-width: 768px) 46vw, 100vw"
+            className="object-contain object-bottom"
+          />
+        )}
       </div>
     </div>
   );

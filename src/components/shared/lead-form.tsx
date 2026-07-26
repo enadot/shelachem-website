@@ -5,6 +5,7 @@ import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { cn } from "@/lib/utils";
+import { site } from "@/lib/config";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -17,12 +18,16 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
+/** מקבל כל פורמט נפוץ — רווחים, מקפים, +972 — ומנרמל לספרות עם 0 מוביל. */
+export const normalizePhone = (v: string) =>
+  v.trim().replace(/[\s-]/g, "").replace(/^(\+972|972)/, "0");
+
 const schema = z.object({
-  full_name: z.string().trim().min(2, "נא להזין שם מלא"),
+  full_name: z.string().trim().min(2, "נא להזין שם מלא").max(100, "השם ארוך מדי"),
   phone: z
     .string()
-    .trim()
-    .regex(/^0\d{1,2}-?\d{7}$/, "נא להזין מספר טלפון ישראלי תקין"),
+    .transform(normalizePhone)
+    .refine((v) => /^0\d{8,9}$/.test(v), "נא להזין טלפון ישראלי תקין, לדוגמה: 054-1234567"),
   email: z.union([z.string().trim().email("כתובת דוא״ל לא תקינה"), z.literal("")]),
   topic: z.string().optional(),
   data_consent: z.boolean().refine((v) => v, "יש לאשר את שמירת הפרטים"),
@@ -61,6 +66,7 @@ export function LeadForm({
   className,
 }: LeadFormProps) {
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
+  const [sentPhone, setSentPhone] = useState("");
   const {
     register,
     control,
@@ -87,6 +93,11 @@ export function LeadForm({
 
   const onSubmit = handleSubmit(async (values) => {
     setStatus("sending");
+    // Attribution: פרמטרי utm_* מה-URL מצורפים ל-source_page (מוגבל ל-200 תווים בשרת).
+    const utm = new URLSearchParams(
+      [...new URLSearchParams(window.location.search)].filter(([k]) => k.startsWith("utm_")),
+    ).toString();
+    const source = (utm ? `${sourcePage}|${utm}` : sourcePage).slice(0, 200);
     try {
       const res = await fetch("/api/leads", {
         method: "POST",
@@ -96,11 +107,12 @@ export function LeadForm({
           phone: values.phone,
           email: values.email,
           topic: values.topic || undefined,
-          source_page: sourcePage,
+          source_page: source,
           marketing_consent: values.marketing_consent,
           company: values.company,
         }),
       });
+      if (res.ok) setSentPhone(values.phone);
       setStatus(res.ok ? "sent" : "error");
     } catch {
       setStatus("error");
@@ -122,7 +134,8 @@ export function LeadForm({
         </span>
         <div className="font-display text-2xl font-bold">הפרטים התקבלו!</div>
         <p className={cn("m-0 text-base", dark ? "text-white/80" : "text-ink-secondary")}>
-          נציג שלנו יחזור אליכם בהקדם — בדרך כלל תוך יום עסקים אחד.
+          נחזור אליכם {sentPhone ? <b className="tnum">ל-{sentPhone}</b> : "בהקדם"} — בדרך כלל
+          תוך יום עסקים אחד.
         </p>
       </div>
     );
@@ -130,12 +143,22 @@ export function LeadForm({
 
   const errorClass = cn("m-0 mt-1 text-[13px]", dark ? "text-red-200" : "text-accent-text");
 
+  // תוויות קבועות מעל השדות — placeholder נעלם בהקלדה ומשאיר שדות אנונימיים.
+  const fieldLabelClass = cn(
+    "mb-1 block text-[13px] font-bold",
+    dark ? "text-white/85" : "text-ink-secondary",
+  );
+  const id = (name: string) => `${sourcePage}-${name}`;
+
   const nameField = (
     <div>
+      <Label htmlFor={id("full_name")} className={fieldLabelClass}>
+        שם מלא *
+      </Label>
       <Input
         {...register("full_name")}
-        aria-label="שם מלא (שדה חובה)"
-        placeholder="*שם מלא"
+        id={id("full_name")}
+        placeholder="ישראל ישראלי"
         autoComplete="name"
         className={inputClass}
         aria-invalid={Boolean(errors.full_name)}
@@ -145,13 +168,18 @@ export function LeadForm({
   );
   const phoneField = (
     <div>
+      <Label htmlFor={id("phone")} className={fieldLabelClass}>
+        טלפון *
+      </Label>
       <Input
         {...register("phone")}
-        aria-label="טלפון (שדה חובה)"
-        placeholder="*טלפון"
+        id={id("phone")}
+        placeholder="050-1234567"
         type="tel"
+        inputMode="tel"
+        dir="ltr"
         autoComplete="tel"
-        className={cn(inputClass, "tnum")}
+        className={cn(inputClass, "tnum text-right placeholder:text-right")}
         aria-invalid={Boolean(errors.phone)}
       />
       {errors.phone && <p className={errorClass}>{errors.phone.message}</p>}
@@ -159,10 +187,13 @@ export function LeadForm({
   );
   const emailField = (
     <div>
+      <Label htmlFor={id("email")} className={fieldLabelClass}>
+        דואר אלקטרוני
+      </Label>
       <Input
         {...register("email")}
-        aria-label="דוא״ל (אופציונלי)"
-        placeholder="דואר אלקטרוני"
+        id={id("email")}
+        placeholder="name@example.com"
         type="email"
         autoComplete="email"
         className={inputClass}
@@ -190,7 +221,7 @@ export function LeadForm({
             {nameField}
             {phoneField}
           </div>
-          <div className="grid gap-3 sm:grid-cols-[1fr_auto]">
+          <div className="grid gap-3 sm:grid-cols-[1fr_auto] sm:items-end">
             {emailField}
             {submitButton}
           </div>
@@ -244,7 +275,18 @@ export function LeadForm({
           >
             <Checkbox checked={field.value} onCheckedChange={(v) => field.onChange(v === true)} />
             <span>
-              ידוע לי כי המידע שאמסור יישמר במאגרי המידע של החברה בהתאם למפורט במדיניות הפרטיות
+              ידוע לי כי המידע שאמסור יישמר במאגרי המידע של החברה בהתאם למפורט ב
+              <a
+                href="/privacy"
+                target="_blank"
+                className={cn(
+                  "whitespace-nowrap underline underline-offset-2",
+                  dark ? "text-white" : "text-brand",
+                )}
+                onClick={(e) => e.stopPropagation()}
+              >
+                מדיניות הפרטיות
+              </a>
             </span>
           </Label>
         )}
@@ -276,7 +318,10 @@ export function LeadForm({
       {layout !== "hero" && submitButton}
       {status === "error" && (
         <p className={cn("m-0 text-center text-[13px]", dark ? "text-red-200" : "text-accent-text")} role="alert">
-          משהו השתבש בשליחה. נסו שוב או התקשרו אלינו.
+          משהו השתבש בשליחה. נסו שוב או התקשרו אלינו:{" "}
+          <a href={site.phoneHref} className="tnum font-bold underline underline-offset-2">
+            {site.phone}
+          </a>
         </p>
       )}
       <div className={cn("text-center text-[13.5px]", dark ? "text-white/70" : "text-ink-faint")}>

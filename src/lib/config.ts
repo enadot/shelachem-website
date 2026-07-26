@@ -9,6 +9,7 @@ export const site = {
   whatsappHref: "https://wa.me/972768017778",
   email: "info@shelachem.net",
   foundedYear: 2013,
+  // TODO: להחליף בכתובות הפרופילים האמיתיים — עד אז קישורי שורש מסוננים מה-JSON-LD.
   socials: {
     facebook: "https://www.facebook.com/",
     instagram: "https://www.instagram.com/",

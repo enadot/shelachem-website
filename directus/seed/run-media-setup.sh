@@ -1,11 +1,12 @@
 #!/usr/bin/env bash
-# מריץ את seed.mjs בתוך container של Node (בלי להתקין Node על השרת).
-# הרצה מתוך תיקיית directus/:  bash seed/run-seed.sh
+# מריץ את media-setup.mjs בתוך container של Node (בלי להתקין Node על השרת).
+# מעלה את public/images אל Directus, מגדיר קריאה ציבורית לקבצים ומקשר לתוכן.
+# הרצה מתוך תיקיית directus/:  bash seed/run-media-setup.sh
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
 [ -f .env ] || { echo "✗ חסר .env (הרץ קודם את setup.sh)"; exit 1; }
-[ -f seed/seed-data.json ] || { echo "✗ חסר seed/seed-data.json"; exit 1; }
+[ -d ../public/images ] || { echo "✗ לא נמצאה התיקייה ../public/images"; exit 1; }
 
 # מאתר את ה-container הרץ של Directus (עובד גם ל-compose רגיל וגם ל-HTTPS).
 CID=$(docker ps -q --filter "label=com.docker.compose.service=directus" | head -n1)
@@ -31,5 +32,8 @@ done
 docker run --rm --network "container:$CID" \
   --env-file .env \
   -e DIRECTUS_URL="http://localhost:8055" \
-  -v "$PWD/seed:/seed" -w /seed \
-  node:22-alpine node seed.mjs
+  -e MEDIA_DIR="/media" \
+  -v "$PWD/seed:/seed" \
+  -v "$PWD/../public/images:/media:ro" \
+  -w /seed \
+  node:22-alpine node media-setup.mjs

@@ -20,7 +20,11 @@ export async function generateMetadata({
   const { slug } = await params;
   const inst = await getInstitution(slug);
   if (!inst) return {};
-  return { title: inst.name, description: inst.description };
+  return {
+    title: inst.name,
+    description: inst.description,
+    alternates: { canonical: `/institutions/${inst.slug}` },
+  };
 }
 
 export default async function InstitutionPage({
