@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import Image from "next/image";
+import { CmsImage } from "@/components/shared/cms-image";
+import { LeadCta } from "@/components/shared/lead-cta";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getArticle, getArticles } from "@/lib/content";
@@ -24,7 +25,14 @@ export async function generateMetadata({
   return {
     title: article.title,
     description: article.excerpt,
-    openGraph: { title: article.title, description: article.excerpt, type: "article" },
+    alternates: { canonical: `/magazine/${article.slug}` },
+    openGraph: {
+      title: article.title,
+      description: article.excerpt,
+      type: "article",
+      publishedTime: article.publishedAt ?? undefined,
+      ...(article.image ? { images: [{ url: article.image }] } : {}),
+    },
   };
 }
 
@@ -52,6 +60,10 @@ export default async function ArticlePage({
     headline: article.title,
     description: article.excerpt,
     inLanguage: "he",
+    ...(article.publishedAt
+      ? { datePublished: article.publishedAt, dateModified: article.publishedAt }
+      : {}),
+    ...(article.image ? { image: new URL(article.image, site.domain).href } : {}),
     author: article.author
       ? { "@type": "Person", name: article.author.name, jobTitle: article.author.role }
       : { "@type": "Organization", name: site.shortName },
@@ -108,7 +120,7 @@ export default async function ArticlePage({
         {/* hero image */}
         <div className="relative h-[220px] overflow-hidden rounded-card bg-surface-blue md:h-[420px]">
           {article.image && (
-            <Image src={article.image} alt="" fill sizes="(max-width:768px) 100vw, 1040px" className="object-cover" priority />
+            <CmsImage src={article.image} alt="" fill sizes="(max-width:768px) 100vw, 1040px" className="object-cover" priority />
           )}
         </div>
       </div>
@@ -154,12 +166,9 @@ export default async function ArticlePage({
                   בדיקת זכאות ראשונה חינם — נבחן את הקביעה שלכם ונגיד ביושר אם יש בסיס לערר.
                 </div>
               </div>
-              <Link
-                href="/#lead-form"
-                className="pill inline-block shrink-0 bg-accent px-8 py-3.5 text-[17px] font-bold text-white no-underline transition-colors hover:bg-accent-hover"
-              >
+              <LeadCta sourcePage="article-cta" className="shrink-0">
                 בדקו את הזכאות שלי ›
-              </Link>
+              </LeadCta>
             </div>
           </div>
 

@@ -1,5 +1,5 @@
-import Image from "next/image";
 import Link from "next/link";
+import { CmsImage } from "@/components/shared/cms-image";
 import type { Article } from "@/lib/content/types";
 import { cn } from "@/lib/utils";
 
@@ -15,7 +15,7 @@ export function ArticleCard({ article, className }: { article: Article; classNam
     >
       <div className="relative h-[150px] overflow-hidden bg-surface-blue">
         {article.image && (
-          <Image
+          <CmsImage
             src={article.image}
             alt=""
             fill

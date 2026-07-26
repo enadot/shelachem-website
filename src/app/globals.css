@@ -10,13 +10,15 @@
   --color-ink: #0d253d;
   --color-ink-secondary: #273951;
   --color-ink-muted: #4a5b74;
-  --color-ink-faint: #64748d;
+  /* 4.8:1 מול הרקע הבהיר (#f6f9fc) — הערך הקודם (#64748d) נפל ב-4.49 */
+  --color-ink-faint: #616f88;
   --color-surface: #f6f9fc;
   --color-surface-blue: #eef0ff;
   --color-hairline: #e3e8ee;
   --color-hairline-soft: #eef1f6;
-  --color-accent: #f0514f;
-  --color-accent-hover: #d94341;
+  /* #d93a38 — הגוון הקרוב ביותר למקור (#f0514f) שעובר AA מול טקסט לבן (4.55:1) */
+  --color-accent: #d93a38;
+  --color-accent-hover: #c22f2d;
   --color-accent-tint: #fdf2f2;
   --color-accent-tint-strong: #fde3e2;
   --color-accent-text: #c93330;
@@ -183,6 +185,11 @@
   font-feature-settings: "tnum";
 }
 
+/* תגיות/כפתורים מעוגלים לגמרי — border-radius:9999px בעיצובים המקוריים */
+.pill {
+  border-radius: 9999px;
+}
+
 /* Focus ring — blue, per brand */
 :focus-visible {
   outline: 2px solid var(--color-brand);
@@ -230,5 +237,40 @@ input[type="range"] {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+}
+
+/* ── Scroll reveal / entrance ──────────────────────────────────────────────
+   Progressive enhancement: התוכן מרונדר גלוי, וההסתרה נכנסת רק כש-`data-js`
+   מסומן על <html> (סקריפט אינליין ב-layout, עם failsafe אם ההידרציה נכשלת).
+   כך שבלי JS — כל התוכן נראה, ועם JS — האנימציה כמו שתוכננה. */
+.reveal,
+.entrance {
+  transition:
+    opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+.entrance {
+  transition-duration: 0.7s;
+}
+:root[data-js] .reveal:not([data-reveal="in"]) {
+  opacity: 0;
+  transform: translateY(30px);
+}
+:root[data-js] .entrance:not([data-reveal="in"]) {
+  opacity: 0;
+  transform: translateY(24px);
+}
+:root[data-js] .entrance-fade:not([data-reveal="in"]) {
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* לא מסתירים כלום — התוכן פשוט מופיע. */
+  :root[data-js] .reveal:not([data-reveal="in"]),
+  :root[data-js] .entrance:not([data-reveal="in"]) {
+    opacity: 1;
+    transform: none;
   }
 }

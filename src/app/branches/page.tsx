@@ -7,6 +7,7 @@ import { BranchesExplorer } from "@/components/branches/branches-explorer";
 
 export const metadata: Metadata = {
   title: "סניפים ויצירת קשר",
+  alternates: { canonical: "/branches" },
   description:
     "הסניפים של שלכם בירושלים ובבני ברק — כתובות, הוראות הגעה, נגישות ואפשרות לפגישת זום מכל מקום בארץ.",
 };

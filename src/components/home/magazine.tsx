@@ -17,7 +17,7 @@ export function Magazine({ articles }: { articles: Article[] }) {
             לכל הכתבות ←
           </Link>
         </div>
-        <p className="m-0 mb-7 text-[17px] text-ink-secondary md:text-[19px]">
+        <p className="m-0 mb-7 max-w-[640px] text-[17px] text-ink-secondary md:text-[19px]">
           מדריכים, עדכוני חוק וכל מה שצריך לדעת כדי לא לפספס אף זכות — בשפה של בני אדם, לא של
           פקידים.
         </p>

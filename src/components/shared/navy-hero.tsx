@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Entrance } from "@/components/shared/reveal";
+import { site } from "@/lib/config";
 
 /** Hero נייבי לעמודי משנה — פירורי לחם, h1 עם הדגשה בקו אדום ופסקת פתיחה. */
 export function NavyHero({
@@ -15,8 +16,24 @@ export function NavyHero({
   intro?: React.ReactNode;
   children?: React.ReactNode;
 }) {
+  // BreadcrumbList — נגזר מאותו מקור של הפירורים המוצגים, כך שהם לא יכולים להיפרד.
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: breadcrumb.map((b, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      name: b.label,
+      ...(b.href ? { item: new URL(b.href, site.domain).toString() } : {}),
+    })),
+  };
+
   return (
     <section className="relative overflow-hidden bg-banner text-white">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
       <div
         aria-hidden
         className="absolute -left-[60px] -top-[90px] h-[280px] w-[320px] rounded-full md:-right-[120px] md:left-auto md:-top-40 md:h-[480px] md:w-[560px]"

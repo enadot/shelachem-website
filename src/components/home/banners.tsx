@@ -10,14 +10,14 @@ export function RedBanner() {
         <h2 className="m-0 mb-5 font-display text-[26px] font-light tracking-tight text-white md:text-[40px]">
           כנראה שמגיע לכם הרבה יותר ממה שאתם חושבים.
         </h2>
-        <p className="mx-auto my-0 max-w-[820px] text-lg leading-relaxed text-white md:text-[21px]">
-          כמה שאלות קצרות, ואנחנו נגיד לכם בדיוק איפה אתם עומדים.
+        <p className="mx-auto my-0 max-w-[640px] text-lg leading-relaxed text-white md:text-[21px]">
+          משאירים שם וטלפון, ואנחנו בודקים בשבילכם בדיוק איפה אתם עומדים.
         </p>
         <Link
           href="/#lead-form"
-          className="mt-6 inline-block text-lg font-bold text-white underline decoration-2 underline-offset-4 md:text-xl"
+          className="mt-6 inline-block px-2 py-2 text-lg font-bold text-white underline decoration-2 underline-offset-4 md:text-xl"
         >
-          אשמח לדעת ←
+          להשאיר פרטים לבדיקה ←
         </Link>
       </Reveal>
     </section>
@@ -35,7 +35,7 @@ export function Essence() {
         >
           מימוש זכויות רפואיות:
         </SectionHeading>
-        <p className="m-0 text-[17px] leading-[1.7] text-ink-secondary md:text-[19px]">
+        <p className="mx-auto my-0 max-w-[700px] text-[17px] leading-[1.7] text-ink-secondary md:text-[19px]">
           הדרך לקבלת הקצבאות והפיצויים המגיעים לכם על פי חוק לא חייבת להיות מאבק. למרות שמדובר
           בזכויות בסיסיות, הבירוקרטיה המורכבת וחוסר הידע גורמים לרבים לוותר מראש על כסף שמגיע
           להם. בשלכם, אנחנו מאמינים שאף אדם לא צריך להתמודד לבד מול גופים גדולים כמו ביטוח לאומי
@@ -97,7 +97,7 @@ const institutionsIcons: { label: string; href: string; icon: React.ReactNode }[
   },
   {
     label: "משרד הרישוי",
-    href: "/institutions",
+    href: "/institutions/misrad-harishui",
     icon: (
       <>
         <circle cx="12" cy="12" r="9" stroke="#ffffff" strokeWidth="2.4" />

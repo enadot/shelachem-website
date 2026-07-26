@@ -23,6 +23,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...staticRoutes,
     ...institutions.map((i) => ({ url: `${site.domain}/institutions/${i.slug}`, priority: 0.7 })),
     ...services.map((s) => ({ url: `${site.domain}/services/${s.slug}`, priority: 0.8 })),
-    ...articles.map((a) => ({ url: `${site.domain}/magazine/${a.slug}`, priority: 0.6 })),
+    ...articles.map((a) => ({
+      url: `${site.domain}/magazine/${a.slug}`,
+      priority: 0.6,
+      ...(a.publishedAt ? { lastModified: new Date(a.publishedAt) } : {}),
+    })),
   ];
 }

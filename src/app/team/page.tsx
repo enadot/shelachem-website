@@ -7,6 +7,7 @@ import { Reveal } from "@/components/shared/reveal";
 
 export const metadata: Metadata = {
   title: "צוות ההנהלה",
+  alternates: { canonical: "/team" },
   description:
     "הכירו את הנהגת שלכם — מומחים בעלי עשרות שנות ניסיון במערכות הבריאות, השיווק והכספים, מחויבים אישית לכל לקוח.",
 };

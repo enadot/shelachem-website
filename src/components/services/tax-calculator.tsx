@@ -117,7 +117,8 @@ export function TaxCalculator() {
                 <div className="tnum font-display text-[32px] font-black">{fmt(annual)} ₪</div>
               </div>
               <div className="rounded-xl bg-accent px-5 py-4">
-                <div className="text-sm text-white/85">החזר רטרואקטיבי משוער</div>
+                {/* לבן מלא — ב-85% שקיפות מעל האדום הניגודיות יורדת מתחת ל-AA. */}
+                <div className="text-sm text-white">החזר רטרואקטיבי משוער</div>
                 <div className="tnum font-display text-[32px] font-black">{fmt(retro)} ₪</div>
               </div>
             </div>

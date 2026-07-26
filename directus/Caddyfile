@@ -1,5 +1,8 @@
 # Caddy מנפיק ומחדש תעודת HTTPS אוטומטית עבור הדומיין.
 # הדומיין מגיע ממשתנה הסביבה CMS_DOMAIN (ב-.env).
 {$CMS_DOMAIN} {
+	# תמונות (/assets) נשמרות בדפדפן/CDN לשבוע — מוריד עומס מהשרת.
+	@assets path /assets/*
+	header @assets Cache-Control "public, max-age=604800, stale-while-revalidate=86400"
 	reverse_proxy directus:8055
 }

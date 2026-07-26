@@ -7,10 +7,10 @@ const columns: { title: string; links: { label: string; href: string }[] }[] = [
     title: "מוסדות ובירוקרטיה",
     links: [
       { label: "ביטוח לאומי", href: "/institutions/bituach-leumi" },
-      { label: "מס הכנסה", href: "/services/tax-exemption" },
-      { label: "קרנות פנסיה", href: "/institutions" },
-      { label: "חברות ביטוח", href: "/institutions" },
-      { label: "משרד הרישוי", href: "/institutions" },
+      { label: "מס הכנסה", href: "/institutions/mas-hachnasa" },
+      { label: "קרנות פנסיה", href: "/institutions/karnot-pensia" },
+      { label: "חברות ביטוח", href: "/institutions/hevrot-bituach" },
+      { label: "משרד הרישוי", href: "/institutions/misrad-harishui" },
     ],
   },
   {
@@ -55,7 +55,11 @@ export function Footer() {
               <div className="mb-1 font-bold text-ink">{col.title}</div>
               {col.links.map((l) => (
                 <div key={l.label}>
-                  <Link href={l.href} className="text-ink-muted no-underline transition-colors hover:text-brand">
+                  {/* min-h-11 — יעד מגע 44px (WCAG 2.2 Target Size). */}
+                  <Link
+                    href={l.href}
+                    className="inline-flex min-h-11 items-center text-ink-muted no-underline transition-colors hover:text-brand"
+                  >
                     {l.label}
                   </Link>
                 </div>

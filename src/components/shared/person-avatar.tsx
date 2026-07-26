@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { CmsImage } from "@/components/shared/cms-image";
 import { cn } from "@/lib/utils";
 
 /** אווטאר אדם — תמונה אם קיימת, אחרת ראשי תיבות על רקע כחלחל (כמו בעיצובים). */
@@ -15,7 +15,7 @@ export function PersonAvatar({
 }) {
   if (image) {
     return (
-      <Image
+      <CmsImage
         src={image}
         alt={name}
         width={size}
