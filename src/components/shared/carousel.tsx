@@ -52,10 +52,15 @@ export function Carousel({
           </button>
         </div>
       )}
+      {/*
+        אזור גליל חייב להיות נגיש למקלדת — בלי tabIndex אי אפשר לגלול אותו
+        בחיצים בלי עכבר (WCAG 2.1.1). role=region + aria-label נותנים לו שם.
+      */}
       <div
         ref={trackRef}
         role={ariaLabel ? "region" : undefined}
         aria-label={ariaLabel}
+        tabIndex={0}
         style={{ gap: itemGap }}
         className="no-scrollbar flex snap-x snap-mandatory overflow-x-auto pb-1.5 [&>*]:shrink-0 [&>*]:snap-start"
       >

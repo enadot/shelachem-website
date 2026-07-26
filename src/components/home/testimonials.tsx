@@ -1,4 +1,3 @@
-import Link from "next/link";
 import type { Testimonial } from "@/lib/content/types";
 import { Reveal } from "@/components/shared/reveal";
 import { SectionHeading } from "@/components/shared/section-heading";
@@ -16,14 +15,22 @@ export function Testimonials({ testimonials }: { testimonials: Testimonial[] }) 
         <p className="m-0 mb-8 max-w-[640px] text-lg text-ink-secondary md:text-xl">
           כל אחד מהסיפורים האלה התחיל ב״אין לי כוח לזה״. וכל אחד מהם נגמר בזכות שהגיעה הביתה.
         </p>
-        <Reveal className="no-scrollbar -mx-6 mb-7 flex snap-x snap-mandatory gap-5 overflow-x-auto px-6 md:mx-0 md:grid md:grid-cols-3 md:gap-6 md:overflow-visible md:px-0">
-          {testimonials.slice(0, 3).map((t) => (
-            <TestimonialCard
-              key={t.id}
-              testimonial={t}
-              className="w-[85vw] max-w-[340px] shrink-0 snap-start rounded-xl transition-[transform,box-shadow] duration-200 hover:-translate-y-[5px] hover:shadow-[0_14px_32px_rgba(0,55,112,0.10)] md:w-auto md:max-w-none"
-            />
-          ))}
+        <Reveal className="mb-7">
+          {/* אזור גליל (במובייל) — חייב שם ומיקוד מקלדת כדי שאפשר יהיה לגלול בחיצים. */}
+          <div
+            role="region"
+            aria-label="סיפורי לקוחות"
+            tabIndex={0}
+            className="no-scrollbar -mx-6 flex snap-x snap-mandatory gap-5 overflow-x-auto px-6 md:mx-0 md:grid md:grid-cols-3 md:gap-6 md:overflow-visible md:px-0"
+          >
+            {testimonials.slice(0, 3).map((t) => (
+              <TestimonialCard
+                key={t.id}
+                testimonial={t}
+                className="w-[85vw] max-w-[340px] shrink-0 snap-start rounded-xl transition-[transform,box-shadow] duration-200 hover:-translate-y-[5px] hover:shadow-[0_14px_32px_rgba(0,55,112,0.10)] md:w-auto md:max-w-none"
+              />
+            ))}
+          </div>
         </Reveal>
         <LeadCta sourcePage="home-testimonials" variant="outline-accent" className="text-lg">
           רוצים שנבדוק גם לכם? ←

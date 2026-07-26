@@ -6,6 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { cn } from "@/lib/utils";
 import { site } from "@/lib/config";
+import { trackLeadConversion } from "@/lib/analytics";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -112,7 +113,10 @@ export function LeadForm({
           company: values.company,
         }),
       });
-      if (res.ok) setSentPhone(values.phone);
+      if (res.ok) {
+        setSentPhone(values.phone);
+        trackLeadConversion({ source, topic: values.topic || undefined });
+      }
       setStatus(res.ok ? "sent" : "error");
     } catch {
       setStatus("error");

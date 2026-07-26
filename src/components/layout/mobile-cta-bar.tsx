@@ -43,7 +43,7 @@ export function MobileCtaBar() {
           href={site.whatsappHref}
           target="_blank"
           rel="noopener"
-          className="flex min-h-11 items-center justify-center rounded-full border border-[#1faf57] px-2 text-[15px] font-bold text-[#17853f] no-underline"
+          className="flex min-h-11 items-center justify-center rounded-full border border-[#1faf57] px-2 text-[15px] font-bold text-[#15793a] no-underline"
         >
           וואטסאפ
         </a>

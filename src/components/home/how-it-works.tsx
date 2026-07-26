@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { Reveal } from "@/components/shared/reveal";
 import { SectionHeading } from "@/components/shared/section-heading";
 import { LeadCta } from "@/components/shared/lead-cta";

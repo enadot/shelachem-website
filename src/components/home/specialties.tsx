@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Reveal } from "@/components/shared/reveal";
 import { SectionHeading } from "@/components/shared/section-heading";
 
@@ -177,6 +178,55 @@ function Chip({ children }: { children: React.ReactNode }) {
   );
 }
 
+/**
+ * 14 התחומים מקובצים ל-5 מוסדות — בחירה ברמה הראשונה מוגבלת ל-5 אפשרויות
+ * (במקום 14), וכל אפשרות היא קישור אמיתי לעמוד המוסד. הצ'יפים עצמם הם פירוט
+ * בתוך הכרטיס ולא יעדי לחיצה, כך שאין hover על מה שאינו אינטראקטיבי.
+ */
+const groups: { title: string; href: string; blurb: string; labels: string[] }[] = [
+  {
+    title: "ביטוח לאומי",
+    href: "/institutions/bituach-leumi",
+    blurb: "קצבאות, ועדות רפואיות ועררים — רוב הזכויות מתחילות כאן.",
+    labels: [
+      "קצבת נכות כללית",
+      "שירותים מיוחדים",
+      "ילד נכה",
+      "תאונת עבודה",
+      "מחלת מקצוע",
+      "שמירת הריון",
+      "נפגעי פעולות איבה",
+      "זכויות אלמנים ויתומים",
+    ],
+  },
+  {
+    title: "מס הכנסה",
+    href: "/institutions/mas-hachnasa",
+    blurb: "פטור ממס מטעמי בריאות, כולל החזרים עד 6 שנים אחורה.",
+    labels: ["פטור ממס הכנסה"],
+  },
+  {
+    title: "קרנות פנסיה",
+    href: "/institutions/karnot-pensia",
+    blurb: "מי שאינו יכול להמשיך לעבוד זכאי לקצבה מהקרן — במקביל לקצבאות אחרות.",
+    labels: ["אובדן כושר עבודה", "פנסיית נכות"],
+  },
+  {
+    title: "חברות ביטוח",
+    href: "/institutions/hevrot-bituach",
+    blurb: "פוליסות פרטיות שרבים לא יודעים שהם מחזיקים — ולא תובעים.",
+    labels: ["ביטוח סיעודי (ביטוח לאומי וחברות ביטוח)", "תאונות אישיות"],
+  },
+  {
+    title: "משרד הרישוי",
+    href: "/institutions/misrad-harishui",
+    blurb: "ניידות: תג חניה, אגרות וכשירות רפואית לנהיגה.",
+    labels: ["תג חניה לנכה"],
+  },
+];
+
+const iconByLabel = new Map(specialties.map((s) => [s.label, s.icon] as const));
+
 export function Specialties() {
   return (
     <section className="bg-surface px-6 py-14 md:px-[clamp(24px,6.7vw,96px)] md:py-[72px]">
@@ -186,17 +236,36 @@ export function Specialties() {
         </SectionHeading>
         <p className="m-0 mb-8 max-w-[820px] text-lg leading-relaxed text-ink-secondary md:text-xl">
           פטור ממס, קצבת נכות, אובדן כושר עבודה, סיעוד, מחלת מקצוע, שמירת הריון — מאחורי כל אחד
-          מאלה עומדת זכות שמגיעה לכם.
+          מאלה עומדת זכות שמגיעה לכם. בחרו את המוסד שמולו אתם עומדים:
         </p>
-        <div className="flex flex-wrap gap-3">
-          {specialties.map((s) => (
-            <span
-              key={s.label}
-              className="pill cursor-default border border-hairline bg-white px-5 py-3 text-base text-ink transition-colors hover:border-brand hover:text-brand md:px-6 md:text-lg"
+        <div className="grid gap-4 md:grid-cols-2 md:gap-5">
+          {groups.map((g) => (
+            <Link
+              key={g.href}
+              href={g.href}
+              className="flex flex-col gap-3 rounded-card border border-hairline bg-white p-6 no-underline transition-[transform,box-shadow,border-color] duration-200 hover:-translate-y-1 hover:border-brand hover:shadow-[0_14px_32px_rgba(0,55,112,0.10)] md:p-7"
             >
-              {s.icon}
-              {s.label}
-            </span>
+              <span className="font-display text-[22px] font-bold text-ink md:text-[24px]">
+                {g.title}
+              </span>
+              <span className="text-[15px] leading-relaxed text-ink-secondary md:text-base">
+                {g.blurb}
+              </span>
+              <span className="flex flex-wrap gap-2">
+                {g.labels.map((label) => (
+                  <span
+                    key={label}
+                    className="pill border border-hairline bg-surface px-3.5 py-1.5 text-sm text-ink-secondary md:text-[15px]"
+                  >
+                    {iconByLabel.get(label)}
+                    {label}
+                  </span>
+                ))}
+              </span>
+              <span className="mt-auto pt-1 text-[15px] font-bold text-brand">
+                לזכויות מול {g.title} ←
+              </span>
+            </Link>
           ))}
         </div>
       </Reveal>

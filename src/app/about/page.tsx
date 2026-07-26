@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Reveal, Entrance } from "@/components/shared/reveal";
 import { PageCta } from "@/components/shared/page-cta";
-import { Button } from "@/components/ui/button";
 import { LeadCta } from "@/components/shared/lead-cta";
 import { StatValue } from "@/components/magicui/number-ticker";
 

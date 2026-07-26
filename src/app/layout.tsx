@@ -67,6 +67,17 @@ export default function RootLayout({
   return (
     <html lang="he" dir="rtl" className="h-full antialiased">
       <body className="flex min-h-full flex-col">
+        {/*
+          מפעיל את הסתרת ה-Reveal רק כשה-JS באמת רץ. ה-failsafe מסיר את הסימון
+          אם ההידרציה לא הגיעה תוך 4 שניות — עדיף אתר בלי אנימציה מאתר ריק.
+        */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "(function(){var d=document.documentElement;d.setAttribute('data-js','');" +
+              "setTimeout(function(){if(!d.hasAttribute('data-reveal-ready'))d.removeAttribute('data-js')},4000)})()",
+          }}
+        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessJsonLd) }}
