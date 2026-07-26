@@ -33,18 +33,16 @@ export async function Hero() {
         </Entrance>
 
         {/* blue half — mobile only, between h1 and the form card.
-            בלי תמונה זה סתם בלוק ריק שדוחף את הטופס מתחת לקפל — אז מוצג רק כשיש תמונה. */}
-        {teamImage && (
-          <BlueHalf
-            className="relative -mx-6 block h-[340px] w-[calc(100%+48px)] md:hidden"
-            image={teamImage}
-            imageAlt={teamImageAlt}
-          />
-        )}
+            (מוצג גם בלי תמונה — תמונת הצוות תעלה לכאן דרך ה-CMS: globals ▸ hero_image) */}
+        <BlueHalf
+          className="relative -mx-6 block h-[340px] w-[calc(100%+48px)] md:hidden"
+          image={teamImage}
+          imageAlt={teamImageAlt}
+        />
 
         <Entrance
           delay={0.2}
-          className={`relative z-[2] w-full md:mt-auto md:max-w-[640px] ${teamImage ? "-mt-12" : "mt-8"}`}
+          className="relative z-[2] -mt-12 w-full md:mt-auto md:max-w-[640px]"
         >
           <div
             id="lead-form"
