@@ -12,8 +12,16 @@ if ! grep -q '^REVALIDATE_SECRET=' .env; then
   echo "▶ נוצר REVALIDATE_SECRET חדש ונשמר ב-.env"
 fi
 
-# --network host כדי שה-container יגיע ל-Directus שרץ על localhost:8055 של השרת.
-docker run --rm --network host \
+# מאתר את ה-container הרץ של Directus (עובד גם ל-compose רגיל וגם ל-HTTPS).
+CID=$(docker ps -q --filter "label=com.docker.compose.service=directus" | head -n1)
+[ -n "$CID" ] || CID=$(docker ps -q --filter "ancestor=directus/directus:11" | head -n1)
+if [ -z "$CID" ]; then
+  echo "✗ לא נמצא container רץ של Directus. הפעל אותו קודם (docker compose up -d)."
+  exit 1
+fi
+
+# חולק את מרחב הרשת של container ה-Directus, כך ש-localhost:8055 תמיד מגיע אליו.
+docker run --rm --network "container:$CID" \
   --env-file .env \
   -e DIRECTUS_URL="http://localhost:8055" \
   -v "$PWD/seed:/seed" -w /seed \

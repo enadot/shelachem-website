@@ -105,23 +105,34 @@
 הרשאות: ל-role הציבורי (או static token של האתר) — קריאה לכל collections התוכן
 (כולל globals ו-directus_files, בשביל הגשת תמונות), ו-**create בלבד** ל-leads.
 
-## תמונות (העלאה דרך ה-CMS)
+## תמונות — שני סקריפטים משלימים (מתוך תיקיית `directus/` על השרת)
 
-הקמה חד-פעמית (מתוך תיקיית `directus/` על השרת):
+**1. סכמת מדיה — העלאת תמונות דרך ה-CMS:**
+
+```
+bash seed/run-media-schema.sh
+```
+
+יוצר את `globals` (תמונת ההירו `hero_image` + alt), מוסיף שדה העלאת תמונה
+`image_file` ל-testimonials / articles / doctors / team_members, שדה
+`publishedAt` לכתבות, ומגדיר הרשאות קריאה ל-globals ולקבצים.
+
+**2. העלאת קבצי המדיה הקיימים של האתר:**
 
 ```
 bash seed/run-media-setup.sh
 ```
 
-זה יוצר את `globals` (תמונת ההירו), מוסיף שדה העלאת תמונה `image_file`
-ל-testimonials / articles / doctors / team_members, ומגדיר הרשאות קריאה לקבצים.
+מעלה את כל התמונות מ-`public/images` לספריית הקבצים של Directus, מוסיף
+הרשאת קריאה ציבורית ל-`directus_files`, ומקשר את שדות ה-`image` בתוכן
+לקבצים שהועלו. אידמפוטנטי.
 
-צנרת התמונות: העורך מעלה מקור אחד (רצוי ברוחב ~2000px). האתר מבקש כל תמונה
-דרך ה-endpoint של Directus‏ `/assets/<id>?width=…&quality=75&format=auto` —
+צנרת ההגשה: האתר מבקש כל תמונה דרך `/assets/<id>?width=…&quality=75&format=auto` —
 המנוע המובנה (sharp) מקטין לרוחב שהמסך צריך ומגיש AVIF/WebP לפי הדפדפן,
-והתוצאה נשמרת בדיסק כך שהעבודה נעשית פעם אחת. ה-`srcset` נבנה אוטומטית
-ע"י `next/image` דרך `CmsImage`‏ (`src/components/shared/cms-image.tsx`).
-Caddy מוסיף Cache-Control לשבוע על `/assets/*`.
+והתוצאה נשמרת בדיסק. ה-`srcset` נבנה אוטומטית ע"י `next/image` דרך `CmsImage`
+(`src/components/shared/cms-image.tsx`); `next.config.ts` מוסיף גם
+`images.remotePatterns` ל-`/assets/**` לפי `DIRECTUS_URL`. Caddy מוסיף
+Cache-Control לשבוע על `/assets/*`.
 
 ## Webhook לרענון האתר
 
