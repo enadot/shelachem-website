@@ -52,6 +52,12 @@ const localBusinessJsonLd = {
   ...(realSocials.length ? { sameAs: realSocials } : {}),
 };
 
+/**
+ * רשת ביטחון לתוכן מה-CMS: גם אם ה-Flow של הרענון לא מוגדר/נכשל,
+ * העמודים מתרעננים לכל היותר אחרי שעה. ה-webhook עושה את זה מיידי.
+ */
+export const revalidate = 3600;
+
 export default function RootLayout({
   children,
 }: Readonly<{

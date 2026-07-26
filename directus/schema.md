@@ -155,3 +155,23 @@ DIRECTUS_URL=https://cms.shelachem.net
 DIRECTUS_STATIC_TOKEN=<token עם הרשאות הקריאה לעיל>
 REVALIDATE_SECRET=<אותו secret כמו ב-Flow>
 ```
+
+`DIRECTUS_URL` הוא ה-host הקנוני להגשת התמונות: גם נכסים שנשמרו ב-DB
+ככתובת מוחלטת (למשל `http://<ip>:8055/assets/...`, כפי ש-media-setup כותב)
+ממופים מחדש אליו בזמן רינדור, כך שהחלפת דומיין או מעבר ל-HTTPS לא שוברת תמונות.
+
+## מעבר מ-IP ל-HTTPS על cms.shelachem.net
+
+1. רשומת A ל-`cms.shelachem.net` → ה-IP של השרת.
+2. ב-`.env` של השרת: `CMS_DOMAIN=cms.shelachem.net` ו-`DIRECTUS_PUBLIC_URL=https://cms.shelachem.net`.
+3. `docker compose down && docker compose -f docker-compose.https.yml up -d`
+   (אותם volumes — התוכן והקבצים נשמרים; Caddy מנפיק תעודה אוטומטית).
+4. ב-Vercel: `DIRECTUS_URL=https://cms.shelachem.net` ואז redeploy.
+
+עד שזה קורה, אתר ב-HTTPS שמושך תמונות מ-`http://<ip>:8055` ייחסם ע"י הדפדפן
+(mixed content) — זו הסיבה שהמעבר הוא תנאי לתמונות שעובדות בפרודקשן.
+
+## אבחון חיבור
+
+`https://www.shelachem.net/api/cms-status` מחזיר מאיזה host האתר קורא, אם
+`globals` נקרא (הרשאות), אם תמונת ההירו נמצאה ונגישה, וכמה פריטי תוכן חזרו.
