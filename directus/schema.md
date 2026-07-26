@@ -99,6 +99,21 @@
 הרשאות: ל-role הציבורי (או static token של האתר) — קריאה לכל collections התוכן,
 ו-**create בלבד** ל-leads.
 
+## מדיה (תמונות)
+
+לאחר ה-seeding, מריצים מתוך תיקיית `directus/`:
+
+```
+bash seed/run-media-setup.sh
+```
+
+הסקריפט מעלה את כל התמונות מ-`public/images` לתיקיית `shelachem` בספריית הקבצים של
+Directus, מוסיף הרשאת קריאה ציבורית ל-`directus_files`, ומעדכן את שדות ה-`image`
+בתוכן מ-`/images/xxx` ל-`<DIRECTUS_PUBLIC_URL>/assets/<id>`. הסקריפט אידמפוטנטי.
+
+כדי ש-`next/image` יציג את התמונות מה-CMS, יש להגדיר `DIRECTUS_URL` באתר —
+`next.config.ts` מוסיף לפיו `images.remotePatterns` ל-`/assets/**`.
+
 ## Webhook לרענון האתר
 
 Flow ב-Directus: על כל create/update/delete ב-collections התוכן →
