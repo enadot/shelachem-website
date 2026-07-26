@@ -16,7 +16,12 @@ import { readdirSync, readFileSync, statSync } from "node:fs";
 import { extname, join } from "node:path";
 
 const BASE = process.env.DIRECTUS_URL || "http://localhost:8055";
-const PUBLIC_BASE = (process.env.DIRECTUS_PUBLIC_URL || BASE).replace(/\/$/, "");
+// הכתובת שתיכתב ל-URLים של התמונות בתוכן — לא localhost, אלא הכתובת הציבורית.
+// עדיפות: DIRECTUS_PUBLIC_URL → https://CMS_DOMAIN (גרסת HTTPS) → BASE.
+const PUBLIC_BASE = (
+  process.env.DIRECTUS_PUBLIC_URL ||
+  (process.env.CMS_DOMAIN ? `https://${process.env.CMS_DOMAIN}` : BASE)
+).replace(/\/$/, "");
 const MEDIA_DIR = process.env.MEDIA_DIR || "/media";
 const FOLDER_NAME = "shelachem";
 const EMAIL = process.env.DIRECTUS_ADMIN_EMAIL;
