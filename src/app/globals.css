@@ -15,8 +15,9 @@
   --color-surface-blue: #eef0ff;
   --color-hairline: #e3e8ee;
   --color-hairline-soft: #eef1f6;
-  --color-accent: #f0514f;
-  --color-accent-hover: #d94341;
+  /* #d93a38 — הגוון הקרוב ביותר למקור (#f0514f) שעובר AA מול טקסט לבן (4.55:1) */
+  --color-accent: #d93a38;
+  --color-accent-hover: #c22f2d;
   --color-accent-tint: #fdf2f2;
   --color-accent-tint-strong: #fde3e2;
   --color-accent-text: #c93330;

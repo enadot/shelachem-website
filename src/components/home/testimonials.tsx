@@ -13,7 +13,7 @@ export function Testimonials({ testimonials }: { testimonials: Testimonial[] }) 
         <SectionHeading strong="על מה ששלהם." className="mb-3 text-[28px] md:text-[38px]">
           הם כבר לא מוותרים
         </SectionHeading>
-        <p className="m-0 mb-8 text-lg text-ink-secondary md:text-xl">
+        <p className="m-0 mb-8 max-w-[640px] text-lg text-ink-secondary md:text-xl">
           כל אחד מהסיפורים האלה התחיל ב״אין לי כוח לזה״. וכל אחד מהם נגמר בזכות שהגיעה הביתה.
         </p>
         <Reveal className="no-scrollbar -mx-6 mb-7 flex snap-x snap-mandatory gap-5 overflow-x-auto px-6 md:mx-0 md:grid md:grid-cols-3 md:gap-6 md:overflow-visible md:px-0">
@@ -26,7 +26,7 @@ export function Testimonials({ testimonials }: { testimonials: Testimonial[] }) 
           ))}
         </Reveal>
         <Button asChild variant="outline-accent" className="text-lg">
-          <Link href="/#lead-form">עוד סיפורים</Link>
+          <Link href="/#lead-form">רוצים שנבדוק גם לכם? ←</Link>
         </Button>
       </div>
     </section>

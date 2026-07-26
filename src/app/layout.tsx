@@ -4,6 +4,7 @@ import { site, branches } from "@/lib/config";
 import { ContactModalProvider } from "@/components/layout/contact-modal-context";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
+import { MobileCtaBar } from "@/components/layout/mobile-cta-bar";
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.domain),
@@ -63,10 +64,19 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessJsonLd) }}
         />
+        <a
+          href="#main"
+          className="sr-only focus:not-sr-only focus:absolute focus:right-3 focus:top-3 focus:z-50 focus:rounded-full focus:bg-brand focus:px-5 focus:py-2.5 focus:font-bold focus:text-white"
+        >
+          דילוג לתוכן הראשי
+        </a>
         <ContactModalProvider>
           <Header />
-          <main className="flex-1">{children}</main>
+          <main id="main" className="flex-1">
+            {children}
+          </main>
           <Footer />
+          <MobileCtaBar />
         </ContactModalProvider>
       </body>
     </html>

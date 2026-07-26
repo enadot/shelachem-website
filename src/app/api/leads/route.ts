@@ -3,11 +3,12 @@ import { createItem } from "@directus/sdk";
 import { getDirectusClient } from "@/lib/directus";
 
 const leadSchema = z.object({
-  full_name: z.string().trim().min(2, "נא להזין שם מלא"),
+  full_name: z.string().trim().min(2, "נא להזין שם מלא").max(100),
+  // אותה נורמליזציה כמו בטופס: רווחים/מקפים/+972 → ספרות עם 0 מוביל.
   phone: z
     .string()
-    .trim()
-    .regex(/^0\d{1,2}-?\d{7}$/, "נא להזין מספר טלפון ישראלי תקין"),
+    .transform((v) => v.trim().replace(/[\s-]/g, "").replace(/^(\+972|972)/, "0"))
+    .refine((v) => /^0\d{8,9}$/.test(v), "נא להזין מספר טלפון ישראלי תקין"),
   email: z.union([z.string().trim().email("כתובת דוא״ל לא תקינה"), z.literal("")]).optional(),
   topic: z.string().trim().max(200).optional(),
   source_page: z.string().trim().max(200).optional(),
