@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
-import { site, branches } from "@/lib/config";
+import { site } from "@/lib/config";
+import { siteGraph } from "@/lib/schema";
 import { ContactModalProvider } from "@/components/layout/contact-modal-context";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
@@ -33,26 +34,6 @@ export const viewport: Viewport = {
   initialScale: 1,
 };
 
-// רק פרופילים אמיתיים — קישור לדף הבית של הרשת (placeholder) מזיק ל-schema.
-const realSocials = Object.values(site.socials).filter((u) => new URL(u).pathname !== "/");
-
-const localBusinessJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "LocalBusiness",
-  name: site.name,
-  url: site.domain,
-  telephone: site.phone,
-  email: site.email,
-  foundingDate: String(site.foundedYear),
-  address: branches.map((b) => ({
-    "@type": "PostalAddress",
-    addressLocality: b.city,
-    streetAddress: b.address,
-    addressCountry: "IL",
-  })),
-  ...(realSocials.length ? { sameAs: realSocials } : {}),
-};
-
 /**
  * רשת ביטחון לתוכן מה-CMS: גם אם ה-Flow של הרענון לא מוגדר/נכשל,
  * העמודים מתרעננים לכל היותר אחרי שעה. ה-webhook עושה את זה מיידי.
@@ -80,7 +61,7 @@ export default function RootLayout({
         />
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessJsonLd) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(siteGraph()) }}
         />
         <a
           href="#main"

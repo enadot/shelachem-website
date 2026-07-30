@@ -21,7 +21,13 @@
   --color-accent-hover: #c22f2d;
   --color-accent-tint: #fdf2f2;
   --color-accent-tint-strong: #fde3e2;
+  /* טקסט אדום על לבן/נייר קריר — 5.25:1 מול לבן, 4.97:1 מול #f6f9fc.
+     `--color-accent` עצמו נופל שם ב-4.31:1, ולכן אסור לו לשמש כטקסט קטן. */
   --color-accent-text: #c93330;
+  /* טקסט אדום על גווני אדום בהירים (#fde3e2 / #fdf2f2) — 5.29:1 מול הגוון החזק */
+  --color-accent-ink: #b32926;
+  /* אדום גדול על נייבי #122680 — 3.84:1 (הגוון הרגיל נופל ב-2.86:1 מול 3:1) */
+  --color-accent-on-navy: #e75f5d;
 
   --font-display: "RaananPro", "SimplerPro", system-ui, sans-serif;
   --font-body: "SimplerPro", system-ui, sans-serif;
@@ -169,6 +175,23 @@
   }
 }
 
+/* ── הגרדיאנט הכחול של המותג ───────────────────────────────────────────────
+   שלוש הופעות (חצי ההירו, מודאל בדיקת הזכאות, תפריט המובייל) הגדירו כל אחת
+   גרדיאנט משלה עם עצירות קרובות אבל לא זהות (#0000e6 מול #0000d6, #0000bf מול
+   #0000a8). כאן יש הגדרה אחת; הזווית ניתנת לשינוי דרך --brand-gradient-angle. */
+.brand-gradient {
+  background: linear-gradient(
+    var(--brand-gradient-angle, 200deg),
+    #1f1fff 0%,
+    #0000e6 55%,
+    #0000bf 100%
+  );
+}
+/* פס ה"רצפה" הכהה שמתחת לצוות בחצי ההירו */
+.brand-gradient-floor {
+  background: linear-gradient(180deg, #000085 0%, #0000ad 100%);
+}
+
 /* Signature heading treatment: bold keyword with a thick coral underline */
 .keyword-underline {
   font-weight: 900;
@@ -190,9 +213,17 @@
   border-radius: 9999px;
 }
 
-/* Focus ring — blue, per brand */
+/* Focus ring — כחול המותג. על משטח נייבי הכחול נותן 1.51:1 בלבד (WCAG 2.2
+   SC 1.4.11 דורש 3:1), ולכן משטחי נייבי מסמנים `.surface-navy` וטבעת הפוקוס
+   בתוכם הופכת ללבנה (13:1). המשתנה יורש, כך שדי לסמן את המשטח החיצוני. */
+:root {
+  --focus-ring: var(--color-brand);
+}
+.surface-navy {
+  --focus-ring: #ffffff;
+}
 :focus-visible {
-  outline: 2px solid var(--color-brand);
+  outline: 2px solid var(--focus-ring);
   outline-offset: 2px;
 }
 

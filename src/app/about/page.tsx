@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { Reveal, Entrance } from "@/components/shared/reveal";
 import { PageCta } from "@/components/shared/page-cta";
 import { LeadCta } from "@/components/shared/lead-cta";
 import { StatValue } from "@/components/magicui/number-ticker";
+import { Breadcrumb } from "@/components/shared/breadcrumb";
+import { ChevronForward } from "@/components/shared/icons";
 
 export const metadata: Metadata = {
   title: "הסיפור שלנו",
@@ -85,13 +86,10 @@ export default function AboutPage() {
           style={{ background: "radial-gradient(circle, rgba(0,0,255,0.5) 0%, rgba(0,0,255,0) 70%)" }}
         />
         <div className="relative mx-auto flex max-w-[1240px] flex-col justify-center gap-4.5 px-6 py-16 md:px-12 md:py-[72px]">
-          <nav className="flex items-center gap-2 text-sm text-white/75" aria-label="פירורי לחם">
-            <Link href="/" className="text-white/75 no-underline hover:text-white">
-              בית
-            </Link>
-            <span aria-hidden>‹</span>
-            <span className="font-bold text-white">הסיפור שלנו</span>
-          </nav>
+          <Breadcrumb
+            tone="inverse"
+            items={[{ label: "בית", href: "/" }, { label: "הסיפור שלנו" }]}
+          />
           <Entrance>
             <h1 className="m-0 font-display text-[38px] font-light leading-[1.1] tracking-tight md:text-[60px]">
               המשימה שלנו:
@@ -104,9 +102,12 @@ export default function AboutPage() {
             כדי שהוא לא יעמוד בה לבד.
           </p>
           <div className="mt-2 flex flex-wrap items-center gap-3.5">
-            <LeadCta sourcePage="about-hero">לבדיקת זכאות חינם ›</LeadCta>
+            <LeadCta sourcePage="about-hero">
+              לבדיקת זכאות חינם
+              <ChevronForward size={16} />
+            </LeadCta>
             <a href="#process" className="px-2 py-3 text-[17px] font-bold text-white no-underline">
-              איך אנחנו עובדים ↓
+              איך אנחנו עובדים
             </a>
           </div>
         </div>
@@ -116,7 +117,7 @@ export default function AboutPage() {
       <section className="px-6 py-14 md:px-[clamp(24px,6.7vw,96px)] md:py-16">
         <Reveal className="mx-auto grid max-w-[1240px] gap-10 md:grid-cols-[0.9fr_1.1fr] md:gap-16">
           <div className="flex flex-col gap-3.5">
-            <div className="text-[15px] font-bold tracking-wide text-accent">הסיפור שלנו</div>
+            <div className="text-[15px] font-bold tracking-wide text-accent-text">הסיפור שלנו</div>
             <h2 className="m-0 font-display text-[28px] font-light leading-tight md:text-[42px]">
               מ-2013 ועד היום: <span className="font-black">שליחות אחת.</span>
             </h2>
@@ -192,7 +193,7 @@ export default function AboutPage() {
             {stats.map((st) => (
               <div key={st.label} className="flex flex-col gap-1.5">
                 <div
-                  className={`tnum font-display text-[44px] font-black md:text-[58px] ${st.accent ? "text-accent" : "text-white"}`}
+                  className={`tnum font-display text-[44px] font-black md:text-[58px] ${st.accent ? "text-accent-on-navy" : "text-white"}`}
                 >
                   <StatValue value={st.value} />
                 </div>
@@ -239,7 +240,7 @@ export default function AboutPage() {
       <section className="px-6 pb-14 md:px-[clamp(24px,6.7vw,96px)] md:pb-16">
         <Reveal className="mx-auto grid max-w-[1240px] items-center gap-8 rounded-card border border-[#f6dcdb] bg-[#fdf2f2] px-7 py-9 md:grid-cols-2 md:gap-11 md:px-12 md:py-11">
           <div className="flex flex-col gap-3.5">
-            <div className="text-[15px] font-bold tracking-wide text-accent">אחריות חברתית</div>
+            <div className="text-[15px] font-bold tracking-wide text-accent-text">אחריות חברתית</div>
             <h2 className="m-0 font-display text-[24px] font-light leading-tight md:text-[34px]">
               זכויות הן לא מותרות — <span className="font-black">הן שייכות לכולם.</span>
             </h2>

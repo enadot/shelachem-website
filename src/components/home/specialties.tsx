@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Reveal } from "@/components/shared/reveal";
 import { SectionHeading } from "@/components/shared/section-heading";
+import { ArrowForward } from "@/components/shared/icons";
 
 /** 14 תחומי ההתמחות — צ'יפים לבנים pill עם אייקון קו (homepage-live.html §2). */
 const specialties: { label: string; icon: React.ReactNode }[] = [
@@ -262,8 +263,9 @@ export function Specialties() {
                   </span>
                 ))}
               </span>
-              <span className="mt-auto pt-1 text-[15px] font-bold text-brand">
-                לזכויות מול {g.title} ←
+              <span className="mt-auto flex items-center gap-1.5 pt-1 text-[15px] font-bold text-brand">
+                לזכויות מול {g.title}
+                <ArrowForward size={16} />
               </span>
             </Link>
           ))}

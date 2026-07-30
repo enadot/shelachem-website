@@ -4,6 +4,7 @@ import { NavyHero } from "@/components/shared/navy-hero";
 import { PageCta } from "@/components/shared/page-cta";
 import { Reveal } from "@/components/shared/reveal";
 import { BranchesExplorer } from "@/components/branches/branches-explorer";
+import { ChevronForward } from "@/components/shared/icons";
 
 export const metadata: Metadata = {
   title: "סניפים ויצירת קשר",
@@ -44,9 +45,10 @@ export default function BranchesPage() {
             href={site.whatsappHref}
             target="_blank"
             rel="noopener noreferrer"
-            className="pill inline-block shrink-0 bg-brand px-7 py-3 text-[17px] font-bold text-white no-underline transition-colors hover:bg-brand-hover"
+            className="pill inline-flex shrink-0 items-center gap-2 bg-brand px-7 py-3 text-[17px] font-bold text-white no-underline transition-colors hover:bg-brand-hover"
           >
-            תיאום פגישה דיגיטלית ›
+            תיאום פגישה דיגיטלית
+            <ChevronForward size={16} />
           </a>
         </Reveal>
       </section>

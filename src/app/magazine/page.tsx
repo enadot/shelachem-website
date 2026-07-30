@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { CmsImage } from "@/components/shared/cms-image";
 import { LeadCta } from "@/components/shared/lead-cta";
 import Link from "next/link";
 import { getArticles } from "@/lib/content";
-import { ArticleCard } from "@/components/shared/article-card";
+import { Breadcrumb } from "@/components/shared/breadcrumb";
+import { CategoryFilter } from "@/components/magazine/category-filter";
+import { ArrowForward, ChevronForward } from "@/components/shared/icons";
 import { Reveal } from "@/components/shared/reveal";
-import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
   title: "המגזין",
@@ -15,20 +16,15 @@ export const metadata: Metadata = {
     "מדריכים, עדכוני חוק וסיפורי הצלחה על מימוש זכויות רפואיות — בשפה של בני אדם, לא של פקידים.",
 };
 
-const categories = ["הכל", "מדריכים", "חדשות", "סיפורי הצלחה"];
-
-export default async function MagazinePage({
-  searchParams,
-}: {
-  searchParams: Promise<{ cat?: string }>;
-}) {
-  const { cat } = await searchParams;
-  const activeCat = categories.includes(cat ?? "") ? (cat as string) : "הכל";
+/**
+ * העמוד סטטי: הסינון לפי קטגוריה עבר ל-`CategoryFilter` בצד הלקוח, ולכן אין כאן
+ * `searchParams` שהופך כל בקשה לרינדור בשרת.
+ */
+export default async function MagazinePage() {
   const articles = await getArticles();
 
   const featured = articles.find((a) => a.featured) ?? articles[0];
   const rest = articles.filter((a) => a.id !== featured?.id);
-  const visible = rest.filter((a) => activeCat === "הכל" || a.category === activeCat);
   const mostRead = rest.slice(0, 4);
 
   return (
@@ -36,11 +32,10 @@ export default async function MagazinePage({
       {/* header */}
       <section className="border-b border-hairline bg-white px-6 pb-6 pt-8 md:px-[clamp(24px,6.7vw,96px)] md:pt-10">
         <div className="mx-auto max-w-[1240px]">
-          <nav className="mb-4 flex items-center gap-2 text-sm text-ink-faint" aria-label="פירורי לחם">
-            <Link href="/" className="text-ink-faint no-underline hover:text-brand">בית</Link>
-            <span aria-hidden>‹</span>
-            <span className="font-bold text-ink">המגזין</span>
-          </nav>
+          <Breadcrumb
+            className="mb-4"
+            items={[{ label: "בית", href: "/" }, { label: "המגזין" }]}
+          />
           <h1 className="m-0 mb-2 font-display text-[34px] font-light tracking-tight text-ink md:text-[48px]">
             ידע זה כוח. <span className="keyword-underline">וכוח זה כסף שמגיע לכם.</span>
           </h1>
@@ -80,7 +75,8 @@ export default async function MagazinePage({
                   {featured.excerpt}
                 </p>
                 <span className="inline-flex items-center gap-2 text-base font-bold text-[#ffd7d6]">
-                  לקריאת הכתבה המלאה ←
+                  לקריאת הכתבה המלאה
+                  <ArrowForward size={17} />
                 </span>
               </div>
             </Link>
@@ -92,33 +88,10 @@ export default async function MagazinePage({
       <section className="px-6 py-9 md:px-[clamp(24px,6.7vw,96px)] md:pb-14">
         <div className="mx-auto grid max-w-[1240px] items-start gap-10 md:grid-cols-[1fr_320px]">
           <div className="flex min-w-0 flex-col gap-5">
-            {/* category chips */}
-            <div className="flex flex-wrap items-center gap-2.5">
-              {categories.map((c) => (
-                <Button
-                  key={c}
-                  asChild
-                  variant="outline"
-                  size="sm"
-                  className={cn(
-                    activeCat === c &&
-                      "border-brand bg-brand font-bold text-white hover:bg-brand hover:text-white",
-                  )}
-                >
-                  <Link href={c === "הכל" ? "/magazine" : `/magazine?cat=${encodeURIComponent(c)}`}>
-                    {c}
-                  </Link>
-                </Button>
-              ))}
-              <span className="tnum ms-auto text-[14.5px] text-ink-faint">
-                {visible.length} מאמרים
-              </span>
-            </div>
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 md:gap-[18px]">
-              {visible.map((a) => (
-                <ArticleCard key={a.id} article={a} />
-              ))}
-            </div>
+            {/* הסינון קורא את ?cat= בצד הלקוח — Suspense שומר את העמוד סטטי */}
+            <Suspense fallback={<div className="min-h-11" />}>
+              <CategoryFilter articles={rest} />
+            </Suspense>
           </div>
 
           {/* sidebar */}
@@ -147,12 +120,9 @@ export default async function MagazinePage({
                 <p className="m-0 mb-4 text-[14.5px] leading-relaxed text-white/85">
                   בדיקת זכאות ראשונה חינם — נגיד לכם ביושר אם יש בסיס לתביעה.
                 </p>
-                <LeadCta
-                  sourcePage="magazine-sidebar"
-                  size="sm"
-                  className="text-[15px]"
-                >
-                  בדקו את הזכאות שלי ›
+                <LeadCta sourcePage="magazine-sidebar" size="sm" className="text-[15px]">
+                  בדקו את הזכאות שלי
+                  <ChevronForward size={15} />
                 </LeadCta>
               </div>
             </div>

@@ -44,7 +44,7 @@ function DialogContent({
         {showClose && (
           <DialogPrimitive.Close
             aria-label="סגירה"
-            className="focus-brand absolute left-4 top-4 flex h-9 w-9 cursor-pointer items-center justify-center rounded-full border-none bg-surface text-ink-muted transition-colors hover:bg-surface-blue hover:text-brand"
+            className="absolute left-4 top-4 flex h-9 w-9 cursor-pointer items-center justify-center rounded-full border-none bg-surface text-ink-muted transition-colors hover:bg-surface-blue hover:text-brand"
           >
             <X className="h-4.5 w-4.5" />
           </DialogPrimitive.Close>

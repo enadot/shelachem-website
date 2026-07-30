@@ -1,6 +1,6 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-📋 שיפורים מתוכננים: ראו [BACKLOG.md](./BACKLOG.md) · הקמת ה-CMS: [directus/schema.md](./directus/schema.md)
+📋 שיפורים מתוכננים: ראו [BACKLOG.md](./BACKLOG.md) · מערכת העיצוב: [DESIGN.md](./DESIGN.md) · הקמת ה-CMS: [directus/schema.md](./directus/schema.md)
 
 ## Getting Started
 

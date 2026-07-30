@@ -1,7 +1,5 @@
 import type { Article } from "../types";
 
-const placeholder = "/images/article-placeholder.avif";
-
 /** כתבות המגזין — לפי designs/blog-index.html + designs/blog-post.html (הכתבה המרכזית). */
 export const articles: Article[] = [
   {
@@ -14,8 +12,15 @@ export const articles: Article[] = [
     readingMinutes: 9,
     publishedLabel: "יוני 2026",
     publishedAt: "2026-06-01",
-    image: placeholder,
+    image: null,
     featured: true,
+    // "בשורה התחתונה" — כל ארבע העובדות מנוסחות מגוף הכתבה עצמה.
+    keyPoints: [
+      "אחוזי נכות נקבעים לפי התפקוד והתיעוד, לא לפי שם המחלה — אותה אבחנה יכולה לזכות ב-5% או ב-65%.",
+      "ארבעה גורמים מייצרים את הפער: איכות התיעוד הרפואי, סעיף הליקוי שלפיו נבחנתם, ההתנהלות בוועדה עצמה, והאם הוגש ערר.",
+      "כ-40% מהעררים המנומקים מסתיימים בשיפור הקביעה. המועד להגשה הוא 60 יום.",
+      "כמה ליקויים אינם מתחברים אלא משוקללים בנוסחה יורדת: 60% + 40% הם 76%, לא 100%.",
+    ],
     author: {
       name: "ד״ר מיכל ברק",
       role: "מומחית לרפואה תעסוקתית, מלוות ועדות רפואיות בשלכם",
@@ -81,7 +86,7 @@ export const articles: Article[] = [
     readingMinutes: 12,
     publishedLabel: "יוני 2026",
     publishedAt: "2026-06-01",
-    image: placeholder,
+    image: null,
   },
   {
     id: "allowance-updates-2026",
@@ -93,7 +98,7 @@ export const articles: Article[] = [
     readingMinutes: 5,
     publishedLabel: "יולי 2026",
     publishedAt: "2026-07-01",
-    image: placeholder,
+    image: null,
   },
   {
     id: "medical-committee-checklist",
@@ -105,7 +110,7 @@ export const articles: Article[] = [
     readingMinutes: 10,
     publishedLabel: "יוני 2026",
     publishedAt: "2026-06-01",
-    image: placeholder,
+    image: null,
   },
   {
     id: "yaakov-diabetes-appeal",
@@ -117,7 +122,7 @@ export const articles: Article[] = [
     readingMinutes: 7,
     publishedLabel: "מאי 2026",
     publishedAt: "2026-05-01",
-    image: placeholder,
+    image: null,
   },
   {
     id: "work-disability-two-tracks",
@@ -129,7 +134,7 @@ export const articles: Article[] = [
     readingMinutes: 8,
     publishedLabel: "מאי 2026",
     publishedAt: "2026-05-01",
-    image: placeholder,
+    image: null,
   },
   {
     id: "fibromyalgia-ruling",
@@ -141,7 +146,7 @@ export const articles: Article[] = [
     readingMinutes: 4,
     publishedLabel: "אפריל 2026",
     publishedAt: "2026-04-01",
-    image: placeholder,
+    image: null,
   },
   {
     id: "levi-family-retro",
@@ -153,7 +158,7 @@ export const articles: Article[] = [
     readingMinutes: 6,
     publishedLabel: "אפריל 2026",
     publishedAt: "2026-04-01",
-    image: placeholder,
+    image: null,
   },
   {
     id: "forgotten-benefits",
@@ -165,7 +170,7 @@ export const articles: Article[] = [
     readingMinutes: 9,
     publishedLabel: "מרץ 2026",
     publishedAt: "2026-03-01",
-    image: placeholder,
+    image: null,
   },
   {
     id: "online-committees",
@@ -177,6 +182,6 @@ export const articles: Article[] = [
     readingMinutes: 5,
     publishedLabel: "מרץ 2026",
     publishedAt: "2026-03-01",
-    image: placeholder,
+    image: null,
   },
 ];

@@ -60,13 +60,32 @@ function withImage<T>(rows: Record<string, unknown>[]): T {
   return rows.map((r) => ({
     ...r,
     image: assetUrl(r.image_file) ?? assetUrl(r.image),
+    // תמונות תוכן הוצגו עם alt="" קבוע; השדה הזה נותן להן תיאור אמיתי מה-CMS.
+    imageAlt: typeof r.image_alt === "string" ? r.image_alt : null,
   })) as unknown as T;
 }
 
 export const getFaqs = () => fromDirectus<FaqItem[]>("faqs", localFaqs);
 export const getTestimonials = () =>
   fromDirectus<Testimonial[]>("testimonials", localTestimonials, withImage);
-export const getArticles = () => fromDirectus<Article[]>("articles", localArticles, withImage);
+
+/**
+ * כתבה נחשבת מפורסמת רק אם יש לה גוף עם תוכן.
+ *
+ * למה: 9 מ-10 הכתבות הוגדרו עם `excerpt`, תמונה ו-"12 דק׳ קריאה" אבל בלי `body`,
+ * ולכן העמוד רונדר כותרת, שתי שורות ו-CTA — והצהיר שזה "המדריך המלא, שלב אחר
+ * שלב". זה גרוע מ-404 (404 לפחות כן): מבקר שהגיע מחיפוש אורגני לעמוד על הזכות
+ * שלו מקבל הבטחה שלא נמסרת, בקטגוריה שכולה אמון. בנוסף, עמודים דלילים פוגעים
+ * בדירוג של כל שאר האתר.
+ *
+ * הכתבות עצמן נשארות בתוכן — ברגע שיתווסף להן `body` (מקומית או ב-CMS) הן
+ * חוזרות לאתר, ל-sitemap ולניווט בלי שינוי קוד.
+ */
+export const isPublished = (a: Article) =>
+  Boolean(a.body?.some((s) => s.paragraphs?.length || s.bullets?.length));
+
+export const getArticles = async () =>
+  (await fromDirectus<Article[]>("articles", localArticles, withImage)).filter(isPublished);
 export const getDoctors = () => fromDirectus<Doctor[]>("doctors", localDoctors, withImage);
 export const getTeam = () => fromDirectus<TeamMember[]>("team_members", localTeam, withImage);
 export const getInstitutions = () =>

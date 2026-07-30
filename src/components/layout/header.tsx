@@ -13,32 +13,57 @@ export const navLinks = [
   { href: "/", label: "בית" },
   { href: "/about", label: "הסיפור שלנו" },
   { href: "/institutions", label: "תחומי פעילות" },
-  { href: "/#how-it-works", label: "איך זה עובד" },
+  { href: "/faq", label: "שאלות ותשובות" },
   { href: "/magazine", label: "מגזין" },
 ] as const;
+
+/**
+ * `/services/*` הוא עמוד-בן של `/institutions` בהיררכיה (וכך הוא מוצג בפירורי
+ * הלחם), אבל עד כה שום פריט בניווט לא נדלק שם — בדיוק בעמוד עם כוונת הרכישה
+ * הגבוהה ביותר המשתמש לא ידע איפה הוא נמצא.
+ */
+const activeSection = (pathname: string, href: string) => {
+  if (href === "/") return pathname === "/";
+  if (href === "/institutions")
+    return pathname.startsWith("/institutions") || pathname.startsWith("/services");
+  return pathname.startsWith(href);
+};
 
 export function Header() {
   const pathname = usePathname();
   const { openContact } = useContactModal();
   const [menuOpen, setMenuOpen] = useState(false);
 
-  const isActive = (href: string) =>
-    href === "/" ? pathname === "/" : pathname.startsWith(href.split("#")[0]) && href !== "/#how-it-works";
-
   return (
-    <>
+    /**
+     * `sticky` — עמוד הבית הוא ~9,500px, ובדסקטופ לא היה שום CTA זמין בגלילה
+     * (במובייל יש בר תחתון). ההדר קומפקטי (לוגו 44px, py-3) כדי שהנוכחות
+     * הקבועה לא תגזול גובה, ובלי מאזין scroll ב-JS.
+     */
+    <header className="sticky top-0 z-30 border-b border-hairline-soft bg-white/95 backdrop-blur">
       {/* Desktop nav */}
-      <nav className="relative z-20 hidden items-center gap-8 border-b border-hairline-soft bg-white px-[clamp(20px,3.3vw,48px)] py-4 md:flex">
+      <nav
+        aria-label="ניווט ראשי"
+        className="relative hidden items-center gap-8 px-[clamp(20px,3.3vw,48px)] py-3 md:flex"
+      >
         <Link href="/" aria-label="שלכם — לעמוד הבית" className="ml-8 shrink-0">
-          <Image src="/images/logo.svg" alt="שלכם" width={126} height={52} className="h-[52px] w-auto" priority />
+          <Image
+            src="/images/logo.svg"
+            alt="שלכם"
+            width={126}
+            height={52}
+            className="h-11 w-auto"
+            priority
+          />
         </Link>
-        <div className="flex flex-1 items-center gap-[clamp(16px,2.6vw,38px)] text-[17px] text-ink-secondary">
+        <div className="flex flex-1 items-center gap-[clamp(14px,2.2vw,32px)] text-[17px] text-ink-secondary">
           {navLinks.map((l) => (
             <Link
               key={l.href}
               href={l.href}
+              aria-current={activeSection(pathname, l.href) ? "page" : undefined}
               className={
-                isActive(l.href)
+                activeSection(pathname, l.href)
                   ? "border-b-2 border-accent pb-0.5 font-bold text-ink no-underline"
                   : "text-ink-secondary no-underline transition-colors hover:text-brand"
               }
@@ -68,7 +93,10 @@ export function Header() {
       </nav>
 
       {/* Mobile nav */}
-      <nav className="relative z-20 flex items-center justify-between gap-3 border-b border-hairline-soft bg-white px-5 py-3.5 md:hidden">
+      <nav
+        aria-label="ניווט ראשי"
+        className="relative flex items-center justify-between gap-3 px-5 py-3.5 md:hidden"
+      >
         <button
           aria-label="תפריט"
           aria-expanded={menuOpen}
@@ -82,16 +110,21 @@ export function Header() {
         <Link href="/" aria-label="שלכם — לעמוד הבית">
           <Image src="/images/logo.svg" alt="שלכם" width={97} height={40} className="h-10 w-auto" priority />
         </Link>
-        <button
-          onClick={openContact}
-          aria-label="דברו איתנו"
-          className="flex h-11 w-11 cursor-pointer items-center justify-center rounded-full bg-brand text-white"
+        {/*
+          במובייל העיגול מחייג ישירות. קודם הוא פתח מודאל בחירת ערוץ — צעד מיותר
+          בדיוק עבור מי שרוצה רק לדבר עם בן אדם (פרסונת רבקה). בדסקטופ, שבו אין
+          חיוג, המודאל נשאר הבחירה הנכונה.
+        */}
+        <a
+          href={site.phoneHref}
+          aria-label={`חייגו אלינו: ${site.phone}`}
+          className="flex h-11 w-11 items-center justify-center rounded-full bg-brand text-white no-underline"
         >
           <PhoneIcon />
-        </button>
+        </a>
       </nav>
 
       {menuOpen && <MobileMenu onClose={() => setMenuOpen(false)} />}
-    </>
+    </header>
   );
 }

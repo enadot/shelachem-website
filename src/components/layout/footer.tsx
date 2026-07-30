@@ -19,26 +19,30 @@ const columns: { title: string; links: { label: string; href: string }[] }[] = [
       { label: "הסיפור שלנו", href: "/about" },
       { label: "צוות ההנהלה", href: "/team" },
       { label: "הרופאים שלנו", href: "/doctors" },
-      { label: "יצירת קשר", href: "/branches" },
+      { label: "סניפים ויצירת קשר", href: "/branches" },
     ],
   },
   {
-    title: "מגזין",
+    // היה "מגזין" והכיל את "סניפים" — קישור שלא שייך לעמודה. הכותרת החדשה מתארת
+    // את מה שבאמת יש כאן, וכל קישור מוביל ליעד שונה.
+    title: "ידע ותשובות",
     links: [
       { label: "כל הכתבות", href: "/magazine" },
-      { label: "מדריכים", href: "/magazine" },
-      { label: "שאלות ותשובות", href: "/#faq" },
-      { label: "סניפים", href: "/branches" },
+      { label: "מדריכים", href: "/magazine?cat=מדריכים" },
+      { label: "סיפורי הצלחה", href: "/magazine?cat=סיפורי הצלחה" },
+      { label: "שאלות ותשובות", href: "/faq" },
     ],
   },
   {
+    // כל קישור מצביע לעמוד שבאמת מטפל בזכות הזאת, ולא ל-/institutions הגנרי.
     title: "מחלות וזכויות",
     links: [
       { label: "פטור ממס הכנסה", href: "/services/tax-exemption" },
       { label: "נכות כללית", href: "/institutions/bituach-leumi" },
-      { label: "אובדן כושר עבודה", href: "/institutions" },
       { label: "ילד נכה", href: "/institutions/bituach-leumi" },
-      { label: "ביטוח סיעודי", href: "/institutions" },
+      { label: "אובדן כושר עבודה", href: "/institutions/karnot-pensia" },
+      { label: "ביטוח סיעודי", href: "/institutions/hevrot-bituach" },
+      { label: "תו נכה", href: "/institutions/misrad-harishui" },
     ],
   },
 ];

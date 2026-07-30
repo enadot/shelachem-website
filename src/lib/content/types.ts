@@ -10,7 +10,19 @@ export interface FaqItem {
   id: string;
   question: string;
   answer: string;
+  /**
+   * קיבוץ נושאי לעמוד ה-FAQ הייעודי (`/faq`). שאלה בלי `group` נופלת לקבוצה
+   * "שאלות נוספות", כך שתוכן שנוסף ב-CMS בלי הסיווג עדיין מוצג.
+   */
+  group?: FaqGroup;
 }
+
+export type FaqGroup =
+  | "start"
+  | "process"
+  | "cost"
+  | "rights"
+  | "tax";
 
 export interface Testimonial {
   id: string;
@@ -29,7 +41,16 @@ export interface Article {
   readingMinutes: number;
   publishedLabel: string; // e.g. "יוני 2026"
   publishedAt?: string | null; // ISO date — datePublished ב-schema וב-sitemap
+  updatedAt?: string | null; // ISO date — dateModified ב-schema
   image?: string | null;
+  /** תיאור התמונה (שדה `image_alt` ב-CMS). ריק = תמונה דקורטיבית. */
+  imageAlt?: string | null;
+  /**
+   * "בשורה התחתונה" — 2–4 עובדות שעונות ישירות על שאלת החיפוש, בראש הכתבה.
+   * זה הפורמט שמנועי מענה (AI Overviews / ChatGPT / Perplexity) מצטטים הכי הרבה,
+   * וגם מה שקורא ממהר צריך לפני שהוא מחליט להישאר.
+   */
+  keyPoints?: string[];
   featured?: boolean;
   author?: Author;
   body?: ArticleSection[];

@@ -1,6 +1,7 @@
 "use client";
 
 import { site } from "@/lib/config";
+import { ChevronForward } from "@/components/shared/icons";
 import {
   Dialog,
   DialogContent,
@@ -53,7 +54,7 @@ export function ContactModal({ onClose }: { onClose: () => void }) {
           />
           <ContactRow
             href={`mailto:${site.email}`}
-            iconBg="#F0514F"
+            iconBg="#d93a38"
             hoverClass="hover:border-accent hover:shadow-[rgba(240,81,79,0.16)_0_10px_24px]"
             title="מייל"
             subtitle={site.email}
@@ -108,7 +109,7 @@ function ContactRow({
         <span className="text-[17px] font-bold">{title}</span>
         <span className={`text-sm text-ink-faint${subtitleTnum ? " tnum" : ""}`}>{subtitle}</span>
       </span>
-      <span className="text-xl text-[#94a3b8]">‹</span>
+      <ChevronForward size={18} className="text-ink-faint" />
     </a>
   );
 }

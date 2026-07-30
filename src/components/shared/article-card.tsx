@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { CmsImage } from "@/components/shared/cms-image";
+import { ArticleImage } from "@/components/shared/article-image";
+import { ArrowForward } from "@/components/shared/icons";
 import type { Article } from "@/lib/content/types";
 import { cn } from "@/lib/utils";
 
@@ -14,15 +15,12 @@ export function ArticleCard({ article, className }: { article: Article; classNam
       )}
     >
       <div className="relative h-[150px] overflow-hidden bg-surface-blue">
-        {article.image && (
-          <CmsImage
-            src={article.image}
-            alt=""
-            fill
-            sizes="(max-width: 768px) 80vw, 320px"
-            className="object-cover"
-          />
-        )}
+        <ArticleImage
+          src={article.image}
+          alt={article.imageAlt}
+          sizes="(max-width: 768px) 80vw, 320px"
+          markSize={96}
+        />
         <span className="absolute right-3 top-3 rounded-full bg-white/95 px-3 py-1 text-[12.5px] font-bold text-brand">
           {article.category}
         </span>
@@ -31,7 +29,10 @@ export function ArticleCard({ article, className }: { article: Article; classNam
         <div className="flex-1 text-[16.5px] font-bold leading-snug">{article.title}</div>
         <p className="m-0 line-clamp-2 text-sm leading-normal text-ink-muted">{article.excerpt}</p>
         <div className="flex items-center justify-between">
-          <span className="text-sm font-bold text-brand">המשך קריאה ←</span>
+          <span className="flex items-center gap-1.5 text-sm font-bold text-brand">
+            המשך קריאה
+            <ArrowForward size={15} className="transition-transform group-hover:-translate-x-1" />
+          </span>
           <span className="tnum text-[13px] text-ink-faint">
             {article.readingMinutes} דק׳ · {article.publishedLabel}
           </span>

@@ -133,12 +133,10 @@ export const services: Service[] = [
       {
         title: "האם פטור ממס רפואי ניתן לקבל גם רטרואקטיבית? המדריך המלא",
         href: "/magazine/retroactive-tax-refund",
-        image: "/images/article-placeholder.avif",
       },
       {
         title: "איך מחושבת נכות משוקללת לצורכי מס — ולמה 40%+60% זה לא 100%",
         href: "/magazine/same-condition-different-percentages",
-        image: "/images/article-placeholder.avif",
       },
     ],
   },

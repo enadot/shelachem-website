@@ -28,7 +28,7 @@ function AccordionTrigger({
     <AccordionPrimitive.Header className="m-0">
       <AccordionPrimitive.Trigger
         className={cn(
-          "focus-brand flex min-h-11 w-full cursor-pointer items-center justify-between gap-3.5 border-none bg-transparent py-4 text-start text-[17px] font-bold text-ink [&[data-state=open]>span]:rotate-45",
+          "flex min-h-11 w-full cursor-pointer items-center justify-between gap-3.5 border-none bg-transparent py-4 text-start text-[17px] font-bold text-ink [&[data-state=open]>span]:rotate-45",
           className,
         )}
         {...props}

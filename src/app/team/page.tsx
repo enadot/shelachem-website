@@ -66,7 +66,7 @@ export default async function TeamPage() {
       {/* spirit */}
       <section className="px-6 pb-12 md:px-[clamp(24px,6.7vw,96px)] md:pb-16">
         <Reveal className="mx-auto flex max-w-[1240px] flex-col gap-2.5 rounded-card border border-[#f6dcdb] bg-[#fdf2f2] px-6 py-6 md:px-12 md:py-10">
-          <div className="text-sm font-bold text-accent md:text-[15px]">רוח שלכם</div>
+          <div className="text-sm font-bold text-accent-text md:text-[15px]">רוח שלכם</div>
           <h2 className="m-0 font-display text-[24px] font-light leading-tight md:text-[34px]">
             מעבר להנהלה — <span className="font-black">DNA של אנשים.</span>
           </h2>

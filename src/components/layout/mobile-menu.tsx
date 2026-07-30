@@ -7,6 +7,7 @@ import { motion } from "framer-motion";
 import { site } from "@/lib/config";
 import { useLeadModal } from "@/components/shared/lead-modal";
 import { PhoneIcon } from "./contact-modal";
+import { ChevronForward } from "@/components/shared/icons";
 
 const items = [
   {
@@ -53,6 +54,22 @@ const items = [
     ),
   },
   {
+    href: "/faq",
+    label: "שאלות ותשובות",
+    icon: (
+      <svg width="21" height="21" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <circle cx="12" cy="12" r="8.5" stroke="currentColor" strokeWidth="1.8" />
+        <path
+          d="M9.6 9.4a2.5 2.5 0 1 1 3.4 2.3c-.6.3-1 .8-1 1.5v.4"
+          stroke="currentColor"
+          strokeWidth="1.8"
+          strokeLinecap="round"
+        />
+        <path d="M12 16.6h.01" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" />
+      </svg>
+    ),
+  },
+  {
     href: "/magazine",
     label: "מגזין",
     icon: (
@@ -84,7 +101,8 @@ export function MobileMenu({ onClose }: { onClose: () => void }) {
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-      className="fixed inset-0 z-50 flex flex-col overflow-hidden bg-[linear-gradient(210deg,#1f1fff_0%,#0000d6_55%,#0000a8_100%)]"
+      style={{ "--brand-gradient-angle": "210deg" } as React.CSSProperties}
+      className="brand-gradient surface-navy fixed inset-0 z-50 flex flex-col overflow-hidden"
     >
       <div className="absolute -top-[140px] -left-[120px] h-[480px] w-[480px] rounded-full bg-[radial-gradient(circle,rgba(255,255,255,0.18)_0%,rgba(255,255,255,0)_70%)]" />
       <Image
@@ -136,7 +154,7 @@ export function MobileMenu({ onClose }: { onClose: () => void }) {
                 {item.icon}
               </span>
               <span className="flex-1 font-display text-2xl font-bold text-white">{item.label}</span>
-              <span className="text-xl text-white/55">‹</span>
+              <ChevronForward size={18} className="text-white/60" />
             </Link>
           </motion.div>
         ))}

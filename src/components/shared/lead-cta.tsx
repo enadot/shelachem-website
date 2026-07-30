@@ -1,6 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import { ChevronForward } from "@/components/shared/icons";
 import { useLeadModal } from "@/components/shared/lead-modal";
 import { cn } from "@/lib/utils";
 import type { VariantProps } from "class-variance-authority";
@@ -11,8 +12,9 @@ import type { buttonVariants } from "@/components/ui/button";
  * מחליף קישורי עוגן ל-#lead-form: מודאל ממיר טוב יותר מקפיצה לראש העמוד.
  */
 export function LeadCta({
-  children = "בדיקת זכאות חינם ›",
+  children,
   sourcePage,
+  topic,
   className,
   variant = "accent",
   size,
@@ -20,6 +22,8 @@ export function LeadCta({
   children?: React.ReactNode;
   /** נשמר על הליד — מאיפה בדיוק נפתח הטופס. */
   sourcePage: string;
+  /** נושא שממולא מראש בטופס (למשל שם הזכות שהמשתמש קרא עליה). */
+  topic?: string;
   className?: string;
 } & VariantProps<typeof buttonVariants>) {
   const { openLeadForm } = useLeadModal();
@@ -29,9 +33,14 @@ export function LeadCta({
       variant={variant}
       size={size}
       className={cn(className)}
-      onClick={() => openLeadForm(sourcePage)}
+      onClick={() => openLeadForm(sourcePage, topic)}
     >
-      {children}
+      {children ?? (
+        <>
+          בדיקת זכאות חינם
+          <ChevronForward size={16} />
+        </>
+      )}
     </Button>
   );
 }

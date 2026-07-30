@@ -22,15 +22,14 @@ export async function Hero() {
     <section className="relative flex min-h-[560px] flex-col overflow-hidden bg-white md:flex-row md:items-stretch md:min-h-[660px]">
       {/* right (white) half */}
       <div className="flex flex-[1.08] flex-col items-start px-6 pt-9 md:px-[clamp(24px,6.7vw,96px)] md:pt-16 md:ps-[clamp(32px,9vw,130px)]">
-        <Entrance>
-          <h1 className="m-0 mb-6 max-w-[520px] font-display text-[40px] font-light leading-[1.1] tracking-tight text-ink md:text-[clamp(46px,4.45vw,64px)] md:leading-[1.08]">
+        {/* בלי Entrance — ה-h1 הוא אלמנט ה-LCP ואסור שיהיה תלוי בהידרציה */}
+        <h1 className="m-0 mb-6 max-w-[520px] font-display text-[40px] font-light leading-[1.1] tracking-tight text-ink md:text-[clamp(46px,4.45vw,64px)] md:leading-[1.08]">
             13 שנות מקצוענות
             <br />
             במימוש הזכויות
             <br />
-            <span className="keyword-underline text-black">שלכם</span>
-          </h1>
-        </Entrance>
+          <span className="keyword-underline text-black">שלכם</span>
+        </h1>
 
         {/* blue half — mobile only, between h1 and the form card.
             (מוצג גם בלי תמונה — תמונת הצוות תעלה לכאן דרך ה-CMS: globals ▸ hero_image) */}
@@ -52,13 +51,13 @@ export async function Hero() {
               מגיע לכם לדעת מה מגיע לכם
             </div>
             <BorderBeam size={180} duration={10} className="opacity-60" />
-            <LeadForm layout="hero" sourcePage="home-hero" submitLabel="אני רוצה לבדוק ›" />
+            <LeadForm layout="hero" sourcePage="home-hero" submitLabel="אני רוצה לבדוק" />
           </div>
         </Entrance>
       </div>
 
       {/* blue half — desktop */}
-      <BlueHalf className="relative hidden flex-[0.92] md:block" image={teamImage} imageAlt={teamImageAlt} />
+      <BlueHalf className="surface-navy relative hidden flex-[0.92] md:block" image={teamImage} imageAlt={teamImageAlt} />
     </section>
   );
 }
@@ -74,8 +73,7 @@ function BlueHalf({
 }) {
   return (
     <div
-      className={className}
-      style={{ background: "linear-gradient(200deg, #1f1fff 0%, #0000e6 55%, #0000bf 100%)" }}
+      className={`brand-gradient ${className ?? ""}`}
     >
       <div className="absolute inset-0 overflow-hidden">
         <div
@@ -89,8 +87,7 @@ function BlueHalf({
         {/* the darker "floor" band behind the team */}
         <div
           aria-hidden
-          className="absolute bottom-0 left-0 right-0 h-[104px] md:h-40"
-          style={{ background: "linear-gradient(180deg, #000085 0%, #0000ad 100%)" }}
+          className="brand-gradient-floor absolute bottom-0 left-0 right-0 h-[104px] md:h-40"
         />
         {image && (
           <CmsImage

@@ -4,10 +4,14 @@ import { createContext, useCallback, useContext, useState } from "react";
 import { LeadForm } from "@/components/shared/lead-form";
 import { site } from "@/lib/config";
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from "@/components/ui/dialog";
+import { Check } from "@/components/shared/icons";
 
 interface LeadModalApi {
-  /** פותח את מודאל בדיקת הזכאות. sourcePage נשמר על הליד לצורך attribution. */
-  openLeadForm: (sourcePage?: string) => void;
+  /**
+   * פותח את מודאל בדיקת הזכאות. `sourcePage` נשמר על הליד לצורך attribution,
+   * ו-`topic` ממלא מראש את הנושא שהמשתמש קרא עליו.
+   */
+  openLeadForm: (sourcePage?: string, topic?: string) => void;
   closeLeadForm: () => void;
 }
 
@@ -19,7 +23,11 @@ export function useLeadModal() {
 
 export function LeadModalProvider({ children }: { children: React.ReactNode }) {
   const [source, setSource] = useState<string | null>(null);
-  const openLeadForm = useCallback((sourcePage = "lead-modal") => setSource(sourcePage), []);
+  const [topic, setTopic] = useState<string | undefined>(undefined);
+  const openLeadForm = useCallback((sourcePage = "lead-modal", presetTopic?: string) => {
+    setTopic(presetTopic);
+    setSource(sourcePage);
+  }, []);
   const closeLeadForm = useCallback(() => setSource(null), []);
 
   return (
@@ -33,10 +41,7 @@ export function LeadModalProvider({ children }: { children: React.ReactNode }) {
           >
             {/* כותרת על רקע המותג — מסגרת רגשית לפני השדות */}
             <div
-              className="relative overflow-hidden px-7 pb-7 pt-8 text-white"
-              style={{
-                background: "linear-gradient(200deg, #1f1fff 0%, #0000e6 60%, #0000bf 100%)",
-              }}
+              className="brand-gradient surface-navy relative overflow-hidden px-7 pb-7 pt-8 text-white"
             >
               <div
                 aria-hidden
@@ -62,7 +67,7 @@ export function LeadModalProvider({ children }: { children: React.ReactNode }) {
               <ul className="relative m-0 mt-5 flex flex-wrap gap-x-5 gap-y-2 p-0 text-[13.5px] font-bold text-white/90">
                 {["ללא עלות", "שכר טרחה רק בהצלחה", "חוזרים תוך יום עסקים"].map((item) => (
                   <li key={item} className="flex list-none items-center gap-1.5">
-                    <CheckIcon />
+                    <Check size={14} />
                     {item}
                   </li>
                 ))}
@@ -70,13 +75,17 @@ export function LeadModalProvider({ children }: { children: React.ReactNode }) {
             </div>
 
             <div className="px-6 pb-6 pt-5 md:px-7">
-              <LeadForm sourcePage={source} submitLabel="שלחו לי בדיקת זכאות ›" />
+              <LeadForm
+                sourcePage={source}
+                presetTopic={topic}
+                submitLabel="שלחו לי בדיקת זכאות"
+              />
               <div className="mt-4 border-t border-hairline-soft pt-3.5 text-center text-[13.5px] text-ink-muted">
                 מעדיפים לדבר?{" "}
                 <a href={site.phoneHref} className="tnum font-bold text-brand no-underline">
                   {site.phone}
                 </a>{" "}
-                ·{" "}
+                <span aria-hidden>·</span>{" "}
                 <a
                   href={site.whatsappHref}
                   target="_blank"
@@ -91,19 +100,5 @@ export function LeadModalProvider({ children }: { children: React.ReactNode }) {
         )}
       </Dialog>
     </Ctx.Provider>
-  );
-}
-
-function CheckIcon() {
-  return (
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden>
-      <path
-        d="M20 6.5 9.5 17 4 11.5"
-        stroke="currentColor"
-        strokeWidth="3"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
   );
 }

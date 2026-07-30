@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Reveal } from "@/components/shared/reveal";
 import { SectionHeading } from "@/components/shared/section-heading";
+import { ArrowForward } from "@/components/shared/icons";
 
 /** באנר אדום — "כנראה שמגיע לכם הרבה יותר" (homepage-live.html §3). */
 export function RedBanner() {
@@ -15,9 +16,10 @@ export function RedBanner() {
         </p>
         <Link
           href="/#lead-form"
-          className="mt-6 inline-block px-2 py-2 text-lg font-bold text-white underline decoration-2 underline-offset-4 md:text-xl"
+          className="mt-6 inline-flex items-center gap-2 px-2 py-2 text-lg font-bold text-white underline decoration-2 underline-offset-4 md:text-xl"
         >
-          להשאיר פרטים לבדיקה ←
+          להשאיר פרטים לבדיקה
+          <ArrowForward size={16} />
         </Link>
       </Reveal>
     </section>

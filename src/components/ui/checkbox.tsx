@@ -14,7 +14,7 @@ function Checkbox({ className, ...props }: React.ComponentProps<typeof CheckboxP
   return (
     <CheckboxPrimitive.Root
       className={cn(
-        "focus-brand relative mt-0.5 flex h-[18px] w-[18px] shrink-0 cursor-pointer items-center justify-center rounded-[4px] border border-[#cbd5e1] bg-white transition-colors data-[state=checked]:border-brand data-[state=checked]:bg-brand",
+        "relative mt-0.5 flex h-[18px] w-[18px] shrink-0 cursor-pointer items-center justify-center rounded-[4px] border border-[#cbd5e1] bg-white transition-colors data-[state=checked]:border-brand data-[state=checked]:bg-brand",
         "before:absolute before:left-1/2 before:top-1/2 before:h-11 before:w-11 before:-translate-x-1/2 before:-translate-y-1/2 before:content-['']",
         className,
       )}

@@ -25,11 +25,14 @@ export function Reveal({
   delay = 0,
   className,
   as = "div",
+  id,
 }: {
   children: React.ReactNode;
   delay?: number;
   className?: string;
   as?: Tag;
+  /** יעד עוגן (למשל ניווט בתוך עמוד) — נדרש `scroll-mt-*` ב-className. */
+  id?: string;
 }) {
   const ref = useRef<HTMLElement>(null);
 
@@ -62,6 +65,7 @@ export function Reveal({
   return (
     <Wrapper
       ref={ref as React.Ref<HTMLDivElement & HTMLElement & HTMLLIElement>}
+      id={id}
       className={cn("reveal", className)}
       style={delayStyle(delay)}
     >

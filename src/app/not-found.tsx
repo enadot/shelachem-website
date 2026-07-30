@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { ChevronForward } from "@/components/shared/icons";
 
 export const metadata: Metadata = {
   title: "העמוד לא נמצא",
@@ -28,9 +29,10 @@ export default function NotFound() {
         </Link>
         <Link
           href="/#lead-form"
-          className="rounded-full border border-brand px-7 py-3.5 text-base font-bold text-brand no-underline transition-colors hover:bg-brand hover:text-white"
+          className="inline-flex items-center gap-2 rounded-full border border-brand px-7 py-3.5 text-base font-bold text-brand no-underline transition-colors hover:bg-brand hover:text-white"
         >
-          בדיקת זכאות חינם ›
+          בדיקת זכאות חינם
+          <ChevronForward size={16} />
         </Link>
       </div>
       <div className="mt-10 text-sm text-ink-faint">

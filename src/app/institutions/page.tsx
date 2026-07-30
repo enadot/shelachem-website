@@ -5,6 +5,7 @@ import { NavyHero } from "@/components/shared/navy-hero";
 import { LeadForm } from "@/components/shared/lead-form";
 import { Reveal } from "@/components/shared/reveal";
 import { StatValue } from "@/components/magicui/number-ticker";
+import { ArrowForward } from "@/components/shared/icons";
 
 export const metadata: Metadata = {
   title: "מוסדות ובירוקרטיה",
@@ -61,9 +62,10 @@ export default async function InstitutionsPage() {
               </div>
               <Link
                 href={`/institutions/${inst.slug}`}
-                className="text-base font-bold text-brand no-underline hover:underline"
+                className="inline-flex items-center gap-1.5 text-base font-bold text-brand no-underline hover:underline"
               >
-                לעמוד המוסד ←
+                לעמוד המוסד
+                <ArrowForward size={16} />
               </Link>
             </Reveal>
           ))}
@@ -76,7 +78,7 @@ export default async function InstitutionsPage() {
           {reassurance.map((r) => (
             <div key={r.label} className="flex flex-col gap-1">
               <div
-                className={`tnum font-display text-[40px] font-black md:text-[48px] ${r.accent ? "text-accent" : "text-brand"}`}
+                className={`tnum font-display text-[40px] font-black md:text-[48px] ${r.accent ? "text-accent-text" : "text-brand"}`}
               >
                 <StatValue value={r.value} />
               </div>
@@ -104,7 +106,7 @@ export default async function InstitutionsPage() {
             <LeadForm
               variant="dark"
               sourcePage="institutions-hub"
-              submitLabel="חזרו אליי ›"
+              submitLabel="חזרו אליי"
               withMarketingConsent={false}
               topicOptions={institutions.map((i) => i.name)}
               topicLabel="מול איזה מוסד? (לא חובה)"

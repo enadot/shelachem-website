@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 
 /** כפתורי המותג — pill תמיד, וריאנטים לפי העיצובים. */
 const buttonVariants = cva(
-  "focus-brand inline-flex cursor-pointer items-center justify-center gap-2 whitespace-nowrap rounded-full border-none font-bold no-underline transition-colors disabled:pointer-events-none disabled:opacity-60",
+  "inline-flex cursor-pointer items-center justify-center gap-2 whitespace-nowrap rounded-full border-none font-bold no-underline transition-colors disabled:pointer-events-none disabled:opacity-60",
   {
     variants: {
       variant: {

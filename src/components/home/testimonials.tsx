@@ -3,6 +3,7 @@ import { Reveal } from "@/components/shared/reveal";
 import { SectionHeading } from "@/components/shared/section-heading";
 import { TestimonialCard } from "@/components/shared/testimonial-card";
 import { LeadCta } from "@/components/shared/lead-cta";
+import { ArrowForward } from "@/components/shared/icons";
 
 /** עדויות (homepage-live.html §7) — גריד בדסקטופ, גלילת swipe במובייל. */
 export function Testimonials({ testimonials }: { testimonials: Testimonial[] }) {
@@ -33,7 +34,8 @@ export function Testimonials({ testimonials }: { testimonials: Testimonial[] }) 
           </div>
         </Reveal>
         <LeadCta sourcePage="home-testimonials" variant="outline-accent" className="text-lg">
-          רוצים שנבדוק גם לכם? ←
+          רוצים שנבדוק גם לכם?
+          <ArrowForward size={16} />
         </LeadCta>
       </div>
     </section>

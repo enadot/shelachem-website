@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Reveal } from "@/components/shared/reveal";
+import { ArrowForward } from "@/components/shared/icons";
 
 /** הסיפור שלנו (homepage-live.html §5) — טקסט + ויז'ואל מותג (עד שתסופק תמונה). */
 export function Story() {
@@ -23,8 +24,9 @@ export function Story() {
             היום אנחנו פותחים את הדלת לכולם. כי הזכות למימוש זכויות לא שייכת לאף מגזר, לאף קבוצה
             ולאף אחד חוץ מכם. היא שלכם.
           </p>
-          <Link href="/about" className="text-lg text-brand no-underline hover:underline">
-            קצת יותר עלינו ←
+          <Link href="/about" className="inline-flex items-center gap-1.5 text-lg text-brand no-underline hover:underline">
+            קצת יותר עלינו
+            <ArrowForward size={16} />
           </Link>
         </div>
         <div className="relative flex h-[280px] items-center justify-center overflow-hidden rounded-xl border border-hairline bg-surface-blue md:h-[420px]">

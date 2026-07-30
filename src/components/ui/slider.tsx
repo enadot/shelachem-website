@@ -16,7 +16,7 @@ function Slider({ className, ...props }: React.ComponentProps<typeof SliderPrimi
       </SliderPrimitive.Track>
       <SliderPrimitive.Thumb
         aria-label="בחירת ערך"
-        className="focus-brand block h-5 w-5 cursor-grab rounded-full border-2 border-accent bg-white shadow-md transition-transform active:scale-110"
+        className="block h-5 w-5 cursor-grab rounded-full border-2 border-accent bg-white shadow-md transition-transform active:scale-110"
       />
     </SliderPrimitive.Root>
   );

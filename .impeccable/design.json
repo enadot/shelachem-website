@@ -1,0 +1,298 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-07-30T00:00:00Z",
+  "title": "Design System: שלכם",
+  "extensions": {
+    "colorMeta": {
+      "brand": {
+        "role": "primary",
+        "displayName": "כחול טופס (Pure Form Blue)",
+        "canonical": "#0000ff",
+        "tonalRamp": ["#000033", "#000066", "#000099", "#0000c9", "#0000ff", "#4d4dff", "#9999ff", "#e6e6ff"]
+      },
+      "brand-deep": {
+        "role": "primary",
+        "displayName": "נייבי מסמך (Document Navy)",
+        "canonical": "#122680",
+        "tonalRamp": ["#060d2b", "#0a1447", "#0d1c63", "#122680", "#1c37b3", "#3a57d9", "#8496ea", "#d9e0f9"]
+      },
+      "accent": {
+        "role": "secondary",
+        "displayName": "אדום סימון (Marker Red)",
+        "canonical": "#d93a38",
+        "tonalRamp": ["#3d0f0e", "#5e1817", "#8a2321", "#b32e2c", "#d93a38", "#e97472", "#f3aeac", "#fdf2f2"]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "דיו כהה (Deep Ink)",
+        "canonical": "#0d253d",
+        "tonalRamp": ["#050f19", "#0d253d", "#273951", "#4a5b74", "#616f88", "#95a2b5", "#c8d2df", "#f6f9fc"]
+      },
+      "surface": {
+        "role": "neutral",
+        "displayName": "נייר קריר (Cool Paper)",
+        "canonical": "#f6f9fc",
+        "tonalRamp": ["#0d253d", "#273951", "#4a5b74", "#8c99ac", "#c3cddb", "#e3e8ee", "#eef1f6", "#f6f9fc"]
+      },
+      "surface-blue": {
+        "role": "neutral",
+        "displayName": "תכלת טופס (Form Tint)",
+        "canonical": "#eef0ff",
+        "tonalRamp": ["#151a4d", "#1f2870", "#2c3899", "#4b57c4", "#8a93e0", "#bcc2f0", "#eef0ff", "#f7f8ff"]
+      },
+      "hairline": {
+        "role": "neutral",
+        "displayName": "קו שיער (Hairline)",
+        "canonical": "#e3e8ee",
+        "tonalRamp": ["#2b323b", "#454f5c", "#68737f", "#8f99a5", "#b7c0ca", "#e3e8ee", "#eef1f6", "#fafcfd"]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display — RaananPro 300",
+        "purpose": "h1 של דף הבית בלבד. מילת המפתח בתוכו במשקל 900 עם קו אדום."
+      },
+      "headline": {
+        "displayName": "Headline — RaananPro 300",
+        "purpose": "h2 של סקשנים ו-h1 של עמודי משנה. אותו דקדוק: קל + מילה מודגשת."
+      },
+      "title": {
+        "displayName": "Title — SimplerPro 700",
+        "purpose": "h3 בתוך תוכן וכותרות כרטיסים."
+      },
+      "body": {
+        "displayName": "Body — SimplerPro 400",
+        "purpose": "פסקאות בעמודי שירות ומוסד, תיאורי כרטיסים."
+      },
+      "body-read": {
+        "displayName": "Body Read — SimplerPro 400 / 18px",
+        "purpose": "גוף כתבה במגזין. מדידה מוגבלת ל-75 תווים."
+      },
+      "label": {
+        "displayName": "Label — SimplerPro 700",
+        "purpose": "כפתורים, תגיות, מטא-דאטה."
+      }
+    },
+    "shadows": [
+      {
+        "name": "form-card",
+        "value": "0 20px 48px rgba(13,37,61,0.14)",
+        "purpose": "כרטיס הטופס — הצל הגדול היחיד באתר. בדסקטופ מתהפך ל-0 -20px 48px rgba(13,37,61,0.12) כי הכרטיס עולה מהקפל."
+      },
+      {
+        "name": "brand-button-glow",
+        "value": "0 12px 28px rgba(0,0,255,0.25)",
+        "purpose": "כפתורי variant=brand בלבד."
+      },
+      {
+        "name": "floating-pill",
+        "value": "0 10px 24px rgba(0,0,120,0.25)",
+        "purpose": "תגית ה-pill הכחולה שיושבת על שפת כרטיס הטופס."
+      },
+      {
+        "name": "card-lift-hover",
+        "value": "0 12px 32px rgba(13,37,61,0.12)",
+        "purpose": "הרמת כרטיס שהוא קישור אמיתי, ב-hover בלבד."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-reveal",
+        "value": "cubic-bezier(0.22, 1, 0.36, 1)",
+        "purpose": "ease-out אקספוננציאלי — כל חשיפת גלילה וכניסת הירו."
+      },
+      {
+        "name": "duration-reveal",
+        "value": "600ms",
+        "purpose": "חשיפת גלילה (opacity + translateY(30px))."
+      },
+      {
+        "name": "duration-entrance",
+        "value": "700ms",
+        "purpose": "כניסת הירו (opacity + translateY(24px)), מופעלת בטעינה."
+      },
+      {
+        "name": "glow-pulse",
+        "value": "7s ease-in-out infinite alternate",
+        "purpose": "נשימת ההילה הלבנה בחצי הכחול של ההירו. אנימציה מתמשכת יחידה מותרת."
+      },
+      {
+        "name": "accordion",
+        "value": "250ms ease-out (open) / 200ms ease-out (close)",
+        "purpose": "פתיחת תשובת FAQ."
+      },
+      {
+        "name": "reduced-motion",
+        "value": "prefers-reduced-motion: reduce → 0.01ms, ותוכן נשאר גלוי",
+        "purpose": "כל האנימציות נעצרות; ההסתרה לפני חשיפה לא חלה בכלל."
+      }
+    ],
+    "breakpoints": [
+      { "name": "sm", "value": "640px" },
+      { "name": "md", "value": "768px" },
+      { "name": "lg", "value": "1024px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-brand",
+      "description": "פעולת בדיקת הזכאות — הכפתור שכל האתר מחזיר אליו.",
+      "html": "<button class=\"ds-btn-brand\">בדיקת זכאות חינם</button>",
+      "css": ".ds-btn-brand { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 50px; padding: 12px 28px; border: none; border-radius: 9999px; background: var(--color-brand, #0000ff); color: #fff; font-family: 'SimplerPro', system-ui, sans-serif; font-size: 17px; font-weight: 700; cursor: pointer; box-shadow: 0 12px 28px rgba(0,0,255,0.25); transition: background-color 0.2s; } .ds-btn-brand:hover { background: var(--color-brand-hover, #0000c9); } .ds-btn-brand:focus-visible { outline: 2px solid var(--color-brand, #0000ff); outline-offset: 2px; } .ds-btn-brand:disabled { opacity: 0.6; pointer-events: none; }"
+    },
+    {
+      "name": "Accent Button",
+      "kind": "button",
+      "refersTo": "button-accent",
+      "description": "פעולה חמה יחידה בתוך סקשן אדום. לא מופיעה לצד כפתור מותג.",
+      "html": "<button class=\"ds-btn-accent\">כמה שאלות קצרות</button>",
+      "css": ".ds-btn-accent { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 50px; padding: 12px 28px; border: none; border-radius: 9999px; background: var(--color-accent, #d93a38); color: #fff; font-family: 'SimplerPro', system-ui, sans-serif; font-size: 17px; font-weight: 700; cursor: pointer; transition: background-color 0.2s; } .ds-btn-accent:hover { background: var(--color-accent-hover, #c22f2d); } .ds-btn-accent:focus-visible { outline: 2px solid var(--color-brand, #0000ff); outline-offset: 2px; }"
+    },
+    {
+      "name": "Outline Button",
+      "kind": "button",
+      "refersTo": "button-outline",
+      "description": "פעולה משנית — הגבול והטקסט עוברים לכחול ב-hover.",
+      "html": "<button class=\"ds-btn-outline\">לכל הכתבות</button>",
+      "css": ".ds-btn-outline { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 50px; padding: 12px 28px; border: 1px solid var(--color-hairline, #e3e8ee); border-radius: 9999px; background: #fff; color: var(--color-ink, #0d253d); font-family: 'SimplerPro', system-ui, sans-serif; font-size: 17px; font-weight: 400; cursor: pointer; transition: border-color 0.2s, color 0.2s; } .ds-btn-outline:hover { border-color: var(--color-brand, #0000ff); color: var(--color-brand, #0000ff); } .ds-btn-outline:focus-visible { outline: 2px solid var(--color-brand, #0000ff); outline-offset: 2px; }"
+    },
+    {
+      "name": "Text Field",
+      "kind": "input",
+      "refersTo": "input-field",
+      "description": "תווית קבועה מעל השדה — תמיד. placeholder הוא דוגמה, לא תווית.",
+      "html": "<div class=\"ds-field\" dir=\"rtl\"><label class=\"ds-field-label\" for=\"ds-phone\">טלפון</label><input class=\"ds-input\" id=\"ds-phone\" type=\"tel\" inputmode=\"tel\" placeholder=\"050-0000000\" /></div>",
+      "css": ".ds-field { display: flex; flex-direction: column; gap: 6px; font-family: 'SimplerPro', system-ui, sans-serif; } .ds-field-label { font-size: 15px; font-weight: 700; color: var(--color-ink, #0d253d); } .ds-input { min-height: 48px; width: 100%; padding: 12px 16px; border: 1px solid #cbd5e1; border-radius: 10px; background: #fff; font-family: inherit; font-size: 16px; color: var(--color-ink, #0d253d); font-feature-settings: 'tnum'; transition: border-color 0.2s; } .ds-input::placeholder { color: var(--color-ink-faint, #616f88); } .ds-input:focus-visible { outline: 2px solid var(--color-brand, #0000ff); outline-offset: 2px; } .ds-input[aria-invalid='true'] { border-color: var(--color-accent, #d93a38); }"
+    },
+    {
+      "name": "Brand Chip",
+      "kind": "chip",
+      "refersTo": "chip-brand",
+      "description": "קטגוריית מגזין / מספר שלב. אם אינו קישור — אין hover.",
+      "html": "<span class=\"ds-chip-brand\">מדריכים</span>",
+      "css": ".ds-chip-brand { display: inline-flex; align-items: center; padding: 6px 16px; border-radius: 9999px; background: var(--color-surface-blue, #eef0ff); color: var(--color-brand, #0000ff); font-family: 'SimplerPro', system-ui, sans-serif; font-size: 14px; font-weight: 700; }"
+    },
+    {
+      "name": "Accent Chip",
+      "kind": "chip",
+      "refersTo": "chip-accent",
+      "description": "תגית שירות על כרטיס מוסד.",
+      "html": "<span class=\"ds-chip-accent\">פטור ממס</span>",
+      "css": ".ds-chip-accent { display: inline-flex; align-items: center; padding: 4px 12px; border-radius: 9999px; background: var(--color-accent-tint, #fdf2f2); color: var(--color-accent-text, #c93330); font-family: 'SimplerPro', system-ui, sans-serif; font-size: 13px; font-weight: 700; }"
+    },
+    {
+      "name": "Content Card",
+      "kind": "card",
+      "refersTo": "card-base",
+      "description": "כרטיס שטוח בניגוד טונלי לסקשן שמכיל אותו. צל רק אם הוא קישור, ורק ב-hover.",
+      "html": "<a class=\"ds-card\" href=\"#\" dir=\"rtl\"><span class=\"ds-card-title\">קצבת נכות כללית</span><span class=\"ds-card-body\">מי זכאי, איך נקבעים האחוזים, ומה עושים אחרי דחייה.</span><span class=\"ds-card-more\">לפרטים<svg class=\"ds-card-arrow\" width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" aria-hidden=\"true\"><path d=\"M15 6l-6 6 6 6\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg></span></a>",
+      "css": ".ds-card { display: flex; flex-direction: column; gap: 10px; padding: 24px; border: 1px solid var(--color-hairline, #e3e8ee); border-radius: 12px; background: #fff; text-decoration: none; font-family: 'SimplerPro', system-ui, sans-serif; transition: box-shadow 0.2s, border-color 0.2s; } .ds-card:hover { border-color: var(--color-hairline, #e3e8ee); box-shadow: 0 12px 32px rgba(13,37,61,0.12); } .ds-card:focus-visible { outline: 2px solid var(--color-brand, #0000ff); outline-offset: 2px; } .ds-card-title { font-size: 18px; font-weight: 700; color: var(--color-ink, #0d253d); } .ds-card-body { font-size: 15px; line-height: 1.625; color: var(--color-ink-secondary, #273951); } .ds-card-more { display: inline-flex; align-items: center; gap: 6px; font-size: 15px; font-weight: 700; color: var(--color-brand, #0000ff); } .ds-card:hover .ds-card-arrow { transform: translateX(-3px); } .ds-card-arrow { transition: transform 0.2s; }"
+    },
+    {
+      "name": "Desktop Navigation",
+      "kind": "nav",
+      "refersTo": null,
+      "description": "הפריט הפעיל מסומן בקו אדום 2px — אותו דקדוק של הקו שמסמן מילת מפתח.",
+      "html": "<nav class=\"ds-nav\" dir=\"rtl\"><a class=\"ds-nav-link ds-nav-link-active\" href=\"#\">בית</a><a class=\"ds-nav-link\" href=\"#\">הסיפור שלנו</a><a class=\"ds-nav-link\" href=\"#\">תחומי פעילות</a><a class=\"ds-nav-link\" href=\"#\">מגזין</a></nav>",
+      "css": ".ds-nav { display: flex; align-items: center; gap: 32px; padding: 16px 24px; background: #fff; border-bottom: 1px solid var(--color-hairline-soft, #eef1f6); font-family: 'SimplerPro', system-ui, sans-serif; } .ds-nav-link { font-size: 17px; color: var(--color-ink-secondary, #273951); text-decoration: none; transition: color 0.2s; } .ds-nav-link:hover { color: var(--color-brand, #0000ff); } .ds-nav-link:focus-visible { outline: 2px solid var(--color-brand, #0000ff); outline-offset: 2px; } .ds-nav-link-active { padding-bottom: 2px; border-bottom: 2px solid var(--color-accent, #d93a38); color: var(--color-ink, #0d253d); font-weight: 700; }"
+    },
+    {
+      "name": "Lead Form Card",
+      "kind": "custom",
+      "refersTo": null,
+      "description": "הקומפוננטה החתומה של המערכת: האובייקט היחיד שצף, עם תגית pill כחולה על השפה העליונה.",
+      "html": "<div class=\"ds-form-card\" dir=\"rtl\"><span class=\"ds-form-badge\">בודקים זכאות — חינם</span><div class=\"ds-form-row\"><label class=\"ds-field-label\" for=\"ds-name\">שם מלא</label><input class=\"ds-input\" id=\"ds-name\" placeholder=\"ישראל ישראלי\" /></div><button class=\"ds-btn-brand\">אני רוצה לבדוק</button><span class=\"ds-form-note\">נחזור אליכם עוד היום · שכר טרחה רק בהצלחה</span></div>",
+      "css": ".ds-form-card { position: relative; display: flex; flex-direction: column; gap: 14px; max-width: 420px; padding: 36px 24px 20px; border: 1px solid #e6ebf2; border-radius: 20px; background: #fff; box-shadow: 0 20px 48px rgba(13,37,61,0.14); font-family: 'SimplerPro', system-ui, sans-serif; } .ds-form-badge { position: absolute; top: -21px; right: 20px; padding: 12px 20px; border-radius: 9999px; background: var(--color-brand, #0000ff); color: #fff; font-size: 16px; font-weight: 700; line-height: 1; box-shadow: 0 10px 24px rgba(0,0,120,0.25); } .ds-form-row { display: flex; flex-direction: column; gap: 6px; } .ds-field-label { font-size: 15px; font-weight: 700; color: var(--color-ink, #0d253d); } .ds-input { min-height: 48px; padding: 12px 16px; border: 1px solid #cbd5e1; border-radius: 10px; font-family: inherit; font-size: 16px; color: var(--color-ink, #0d253d); } .ds-input:focus-visible { outline: 2px solid var(--color-brand, #0000ff); outline-offset: 2px; } .ds-btn-brand { min-height: 50px; border: none; border-radius: 9999px; background: var(--color-brand, #0000ff); color: #fff; font-family: inherit; font-size: 17px; font-weight: 700; cursor: pointer; box-shadow: 0 12px 28px rgba(0,0,255,0.25); transition: background-color 0.2s; } .ds-btn-brand:hover { background: var(--color-brand-hover, #0000c9); } .ds-form-note { font-size: 13.5px; color: var(--color-ink-faint, #616f88); }"
+    },
+    {
+      "name": "Navy Stats Band",
+      "kind": "custom",
+      "refersTo": "banner-navy",
+      "description": "הפורמט שמחזיק כל טענה מספרית באתר. מדד אחד מודגש באדום סימון, כל השאר לבן.",
+      "html": "<div class=\"ds-stats\" dir=\"rtl\"><span class=\"ds-stats-glow\" aria-hidden=\"true\"></span><div class=\"ds-stats-grid\"><div class=\"ds-stat\"><span class=\"ds-stat-value\">13</span><span class=\"ds-stat-label\">שנות ניסיון</span></div><div class=\"ds-stat\"><span class=\"ds-stat-value\">10,059</span><span class=\"ds-stat-label\">לקוחות שליווינו</span></div><div class=\"ds-stat\"><span class=\"ds-stat-value ds-stat-value-accent\">0 ₪</span><span class=\"ds-stat-label\">מראש</span></div></div></div>",
+      "css": ".ds-stats { position: relative; overflow: hidden; padding: 40px 32px; border-radius: 18px; background: var(--color-banner, #122680); color: #fff; font-family: 'SimplerPro', system-ui, sans-serif; } .ds-stats-glow { position: absolute; top: -144px; left: -100px; width: 520px; height: 440px; border-radius: 9999px; background: radial-gradient(circle, rgba(0,0,255,0.5) 0%, rgba(0,0,255,0) 70%); } .ds-stats-grid { position: relative; display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; text-align: center; } .ds-stat { display: flex; flex-direction: column; gap: 6px; } .ds-stat-value { font-family: 'RaananPro', 'SimplerPro', system-ui, sans-serif; font-size: 46px; font-weight: 900; font-feature-settings: 'tnum'; line-height: 1; } .ds-stat-value-accent { color: var(--color-accent, #d93a38); } .ds-stat-label { font-size: 16px; color: rgba(255,255,255,0.9); }"
+    }
+  ],
+  "narrative": {
+    "northStar": "הפקיד שבצד שלכם",
+    "overview": "המערכת הזאת לוקחת את אוצר המילים החזותי של הבירוקרטיה הישראלית — כחול טופס, מספרים מיושרים, שדות מוקפדים, פנייה רשמית — ומסיטה אותו 180 מעלות: אותה סמכות, רק שהפעם היא עובדת בשבילכם. הכחול (#0000ff) אינו כחול \"מוצר\" מרוכך; זהו הכחול הטהור של טופס ממשלתי, והוא נשאר טהור בכוונה. מה שנוסף עליו הוא האדום — לא אדום של שגיאה אלא של עט שמסמן, בתוך מסמך צפוף, את המילה שבאמת חשובה.\n\nהצפיפות בינונית ונדיבה כלפי מטה: הרבה אוויר בין קבוצות, מעט מאוד אוויר בתוך קבוצה. משטחים שטוחים על נייר קריר (#f6f9fc), קווי שיער דקים במקום צללים, וצל אחד גדול ורך שנשמר אך ורק לכרטיס הטופס — האובייקט היחיד באתר שמותר לו לצוף. הטיפוגרפיה עברית ראשונה: RaananPro במשקל 300 נושאת את הכותרות בגדלים גדולים, ומשקל 900 בתוך אותה שורה נושא את מילת המפתח. ההיפוך בין 300 ל-900 באותה כותרת הוא החתימה של המותג.\n\nהאנטי-רפרנס מוצהר: זו אינה קטגוריית \"משרד עורכי דין\" — בלי זהב, בלי סריפים קלאסיציסטיים, בלי דימויי סמכות. גם לא קטגוריית SaaS — בלי גרדיאנטים סגולים, בלי זכוכית, בלי איורים אקסונומטריים. הקהל נמצא במצוקה רפואית ומוקף ממילא בטפסים; האתר מוכר שקט, בהירות וכתובת אחת ברורה לפנות אליה.",
+    "keyCharacteristics": [
+      "כחול טופס טהור #0000ff כקול הראשי, ללא ריכוך",
+      "ניגוד משקלים 300↔900 בתוך כותרת אחת, עם קו אדום עבה מתחת למילת המפתח",
+      "משטחים שטוחים + קווי שיער; צל דרמטי אחד, רק לכרטיס הטופס",
+      "מספרים תמיד ב-font-feature-settings: \"tnum\" — יציבות של דוח, לא של שיווק",
+      "RTL אמיתי: כל המרווחים הלוגיים (ps/pe/ms/me), לא left/right",
+      "כל מסלול נגמר בפעולה אחת: בדיקת זכאות"
+    ],
+    "rules": [
+      {
+        "name": "חוק הקו האדום",
+        "body": "האדום מסמן, לא ממלא. הוא מופיע כקו תחתון עבה (4–7px), כתגית קטנה, או כעיגול טלפון — לעולם לא כרקע של סקשן שלם ולא כשטח גדול. אם האדום תופס יותר מ-10% מהמסך, הסימון הפסיק להיות סימון.",
+        "section": "colors"
+      },
+      {
+        "name": "חוק אפס-אפור",
+        "body": "אין באתר אף אפור נייטרלי. כל טקסט משני, כל גבול וכל רקע נגזרים מסקאלת הדיו הכחלחלה. #64748b ודומיו אסורים — הם שוברים גם את הגוון וגם את הניגודיות.",
+        "section": "colors"
+      },
+      {
+        "name": "חוק הכחול הטהור",
+        "body": "#0000ff לא מתרכך ל-#2563eb ולא לשום \"כחול מוצר\" נוח. הטהרה היא הזהות.",
+        "section": "colors"
+      },
+      {
+        "name": "חוק 300/900",
+        "body": "כותרת אינה מודגשת כולה ואינה קלה כולה. היא נכתבת ב-300 ומילת המפתח שלה — ורק היא — נושאת 900 וקו אדום. SectionHeading ו-.keyword-underline הם המימוש; אין לשחזר את התבנית ידנית.",
+        "section": "typography"
+      },
+      {
+        "name": "חוק ה-tnum",
+        "body": "כל מספר שמופיע כנתון — סכומים, אחוזי נכות, טלפונים, מספרי שלבים, מדדים — מקבל .tnum. מספרים שרוקדים ברוחב הם ההבדל בין דוח לבין באנר.",
+        "section": "typography"
+      },
+      {
+        "name": "חוק המדידה",
+        "body": "גוף טקסט לא עובר 75 תווים לשורה. במגזין המכל הוא 1040px; בעמודי שירות פסקאות מוגבלות ל-760–820px.",
+        "section": "typography"
+      },
+      {
+        "name": "חוק הצל היחיד",
+        "body": "באתר יש אובייקט אחד שצף — כרטיס הטופס. כל השאר יושב על הנייר. כל צל שנוסף למשטח שאינו הטופס מוריד את הטופס בהיררכיה.",
+        "section": "elevation"
+      },
+      {
+        "name": "חוק הצל-כתגובה",
+        "body": "משטחים שטוחים במנוחה. צל חדש מותר רק כתגובה למצב (hover על קישור), לא כקישוט במנוחה.",
+        "section": "elevation"
+      },
+      {
+        "name": "חוק הקצה הכפול",
+        "body": "אינטראקטיבי = עגול לגמרי (9999px). מכיל תוכן = פינה מדודה (10–18px). אין ביניים; צ׳יפ עם rounded-lg הוא שגיאת מערכת.",
+        "section": "shapes"
+      }
+    ],
+    "dos": [
+      "Do להשתמש ב-SectionHeading עם strong/underlineStrong לכל כותרת סקשן — התבנית הטיפוגרפית של המותג היא קומפוננטה, לא הרגל.",
+      "Do לתת .tnum לכל מספר-נתון.",
+      "Do לכתוב כל מרווח כיווני לוגית (ps/pe/ms/me) — האתר RTL.",
+      "Do לשמור על רצפת מגע 44×44 לכל דבר לחיץ, גם כשהמראה קטן יותר (הרחבה דרך ::before או min-h-11).",
+      "Do לרנדר תוכן גלוי ולהוסיף אנימציה רק כשה-JS חי (:root[data-js]) — קהל היעד מגיע במכשירים איטיים.",
+      "Do לתת תווית קבועה לכל שדה טופס.",
+      "Do להשתמש ב-#616f88 כרצפה לטקסט עמום, לא כנקודת התחלה."
+    ],
+    "donts": [
+      "Don't לרכך את #0000ff לשום כחול נוח יותר.",
+      "Don't למלא שטח גדול באדום סימון — הוא מסמן, לא ממלא.",
+      "Don't להוסיף צל למשטח שאינו כרטיס הטופס או קישור ב-hover.",
+      "Don't להשתמש באפור נייטרלי (#64748b, slate-*, gray-*) בשום מקום.",
+      "Don't לשים תגית/eyebrow מעל כותרת.",
+      "Don't לתת hover לאלמנט שאינו לחיץ.",
+      "Don't להשתמש בגליף יוניקוד (›, ‹, ←, ✓, 💡) כתחליף לאייקון — אייקונים מצוירים כ-SVG במשקל קו אחיד, ובכיוון שמתהפך נכון ב-RTL.",
+      "Don't להשתמש בגרדיאנט על טקסט או בזכוכית/blur כקישוט.",
+      "Don't להוסיף אנימציית כניסה זהה לכל סקשן — רגע אחד מכוון, והשאר שקט.",
+      "Don't לתת לתוכן גוף לעבור 75 תווים לשורה."
+    ]
+  }
+}

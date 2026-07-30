@@ -2,6 +2,7 @@
 
 import { useRef } from "react";
 import { cn } from "@/lib/utils";
+import { ChevronBack, ChevronForward } from "@/components/shared/icons";
 
 /**
  * קרוסלת scroll-snap — swipe במובייל, חצי ניווט בדסקטופ.
@@ -38,17 +39,17 @@ export function Carousel({
             type="button"
             onClick={() => scroll(-1)}
             aria-label="הקודם"
-            className="pill focus-brand h-11 w-11 cursor-pointer border border-hairline bg-white text-lg text-ink transition-colors hover:border-brand hover:text-brand"
+            className="pill flex h-11 w-11 cursor-pointer items-center justify-center border border-hairline bg-white text-ink transition-colors hover:border-brand hover:text-brand"
           >
-            ‹
+            <ChevronBack size={18} />
           </button>
           <button
             type="button"
             onClick={() => scroll(1)}
             aria-label="הבא"
-            className="pill focus-brand h-11 w-11 cursor-pointer border border-hairline bg-white text-lg text-ink transition-colors hover:border-brand hover:text-brand"
+            className="pill flex h-11 w-11 cursor-pointer items-center justify-center border border-hairline bg-white text-ink transition-colors hover:border-brand hover:text-brand"
           >
-            ›
+            <ChevronForward size={18} />
           </button>
         </div>
       )}

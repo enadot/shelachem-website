@@ -3,6 +3,7 @@ import type { Article } from "@/lib/content/types";
 import { Carousel } from "@/components/shared/carousel";
 import { ArticleCard } from "@/components/shared/article-card";
 import { SectionHeading } from "@/components/shared/section-heading";
+import { ArrowForward } from "@/components/shared/icons";
 
 /** קרוסלת המגזין (homepage-live.html §8). */
 export function Magazine({ articles }: { articles: Article[] }) {
@@ -13,8 +14,9 @@ export function Magazine({ articles }: { articles: Article[] }) {
           <SectionHeading strong="וכוח זה כסף שמגיע לכם." className="text-[28px] md:text-[38px]">
             ידע זה כוח.
           </SectionHeading>
-          <Link href="/magazine" className="text-lg text-brand no-underline hover:underline">
-            לכל הכתבות ←
+          <Link href="/magazine" className="inline-flex items-center gap-1.5 text-lg text-brand no-underline hover:underline">
+            לכל הכתבות
+            <ArrowForward size={16} />
           </Link>
         </div>
         <p className="m-0 mb-7 max-w-[640px] text-[17px] text-ink-secondary md:text-[19px]">

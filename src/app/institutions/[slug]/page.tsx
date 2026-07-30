@@ -6,6 +6,9 @@ import { NavyHero } from "@/components/shared/navy-hero";
 import { LeadForm } from "@/components/shared/lead-form";
 import { Reveal } from "@/components/shared/reveal";
 import { StatValue } from "@/components/magicui/number-ticker";
+import { SectionHeading } from "@/components/shared/section-heading";
+import { ChevronForward } from "@/components/shared/icons";
+import { InstitutionServiceCard } from "@/components/institutions/service-card";
 
 export async function generateStaticParams() {
   const institutions = await getInstitutions();
@@ -52,61 +55,53 @@ export default async function InstitutionPage({
       {/* approach */}
       <section className="px-6 py-12 md:px-[clamp(24px,6.7vw,96px)] md:py-16">
         <div className="mx-auto max-w-[1240px]">
-          <h2 className="m-0 mb-6 font-display text-[26px] font-light md:text-4xl">
-            איך אנחנו <span className="keyword-underline">עובדים</span>
-          </h2>
-          <div className="grid gap-5 sm:grid-cols-2 md:grid-cols-4">
+          <SectionHeading strong="עובדים" underlineStrong className="mb-6 text-[26px] md:text-4xl">
+            איך אנחנו
+          </SectionHeading>
+          <ol className="m-0 grid list-none gap-5 p-0 sm:grid-cols-2 md:grid-cols-4">
             {inst.approach.map((step, i) => (
               <Reveal
                 key={step.title}
+                as="li"
                 delay={i * 0.09}
                 className="rounded-xl border border-hairline bg-white p-6"
               >
-                <div className="tnum mb-4 flex h-11 w-11 items-center justify-center rounded-full bg-[#eef0ff] text-xl font-bold text-brand">
+                <div className="tnum mb-4 flex h-11 w-11 items-center justify-center rounded-full bg-surface-blue text-xl font-bold text-brand">
                   {i + 1}
                 </div>
-                <div className="mb-2 text-lg font-bold text-ink">{step.title}</div>
+                <h3 className="m-0 mb-2 font-body text-lg font-bold text-ink">{step.title}</h3>
                 <div className="text-[15px] leading-relaxed text-ink-secondary">
                   {step.description}
                 </div>
               </Reveal>
             ))}
-          </div>
+          </ol>
         </div>
       </section>
 
       {/* services */}
       <section className="bg-surface px-6 py-12 md:px-[clamp(24px,6.7vw,96px)] md:py-16">
         <div className="mx-auto max-w-[1240px]">
-          <h2 className="m-0 mb-6 font-display text-[26px] font-light md:text-4xl">
-            במה אנחנו מטפלים <span className="keyword-underline">מול {inst.name}</span>
-          </h2>
-          <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3 md:gap-5">
+          <SectionHeading
+            strong={`מול ${inst.name}`}
+            underlineStrong
+            className="mb-6 text-[26px] md:text-4xl"
+          >
+            במה אנחנו מטפלים
+          </SectionHeading>
+          <ul className="m-0 grid list-none gap-4 p-0 sm:grid-cols-2 md:grid-cols-3 md:gap-5">
             {inst.serviceCards.map((card, i) => (
-              <Reveal
-                key={card.name}
-                delay={(i % 3) * 0.09}
-                className="flex flex-col gap-2.5 rounded-xl border border-hairline bg-white p-6"
-              >
-                <span className="pill self-start bg-accent-tint px-3 py-1 text-[13px] font-bold text-accent-text">
-                  {card.tag}
-                </span>
-                <div className="text-lg font-bold text-ink">{card.name}</div>
-                <p className="m-0 flex-1 text-[15px] leading-relaxed text-ink-secondary">
-                  {card.description}
-                </p>
-                <Link href={card.href} className="text-[15px] font-bold text-brand no-underline hover:underline">
-                  לפרטים ←
-                </Link>
+              <Reveal key={card.name} as="li" delay={(i % 3) * 0.09} className="h-full">
+                <InstitutionServiceCard card={card} institutionName={inst.name} />
               </Reveal>
             ))}
-          </div>
+          </ul>
         </div>
       </section>
 
       {/* stats */}
       <section className="px-6 py-12 md:px-[clamp(24px,6.7vw,96px)] md:py-16">
-        <Reveal className="relative mx-auto max-w-[1240px] overflow-hidden rounded-card bg-banner px-8 py-10 text-white md:px-12">
+        <Reveal className="surface-navy relative mx-auto max-w-[1240px] overflow-hidden rounded-card bg-banner px-8 py-10 text-white md:px-12">
           <div
             aria-hidden
             className="absolute -left-[100px] -top-36 h-[440px] w-[520px] rounded-full"
@@ -116,7 +111,8 @@ export default async function InstitutionPage({
             {inst.stats.map((st) => (
               <div key={st.label} className="flex flex-col gap-1.5">
                 <div
-                  className={`tnum font-display text-[34px] font-black md:text-[46px] ${st.accent ? "text-accent" : "text-white"}`}
+                  /* #e75f5d על נייבי = 3.84:1; הגוון הרגיל נפל ב-2.86:1 מול 3:1 */
+                  className={`tnum font-display text-[34px] font-black md:text-[46px] ${st.accent ? "text-accent-on-navy" : "text-white"}`}
                 >
                   <StatValue value={st.value} />
                 </div>
@@ -132,7 +128,11 @@ export default async function InstitutionPage({
 
       {/* contact form */}
       <section className="px-6 pb-14 md:px-[clamp(24px,6.7vw,96px)]">
-        <Reveal className="mx-auto max-w-[720px] rounded-card border border-hairline bg-white px-7 py-9 md:px-12">
+        {/* id="lead-form" — כך MobileCtaBar מתקפל כשהטופס עצמו על המסך */}
+        <Reveal
+          id="lead-form"
+          className="mx-auto max-w-[720px] scroll-mt-24 rounded-card border border-hairline bg-white px-7 py-9 md:px-12"
+        >
           <h2 className="m-0 mb-2 text-center font-display text-[24px] font-light text-ink md:text-[30px]">
             רוצים שנטפל בשבילכם מול {inst.name}? <span className="font-bold">דברו איתנו.</span>
           </h2>
@@ -141,11 +141,21 @@ export default async function InstitutionPage({
           </p>
           <LeadForm
             sourcePage={`institution-${inst.slug}`}
-            submitLabel="חזרו אליי ›"
+            submitLabel="חזרו אליי"
             withMarketingConsent={false}
             topicOptions={[...inst.formOptions]}
             topicLabel="במה נוכל לעזור?"
           />
+          <p className="m-0 mt-5 text-center text-[15px] text-ink-secondary">
+            עוד לא בטוחים?{" "}
+            <Link
+              href="/faq"
+              className="inline-flex items-center gap-1 font-bold text-brand no-underline hover:underline"
+            >
+              קראו את השאלות והתשובות
+              <ChevronForward size={14} />
+            </Link>
+          </p>
         </Reveal>
       </section>
     </>
