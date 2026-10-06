@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { Entrance } from "@/components/shared/reveal";
-import { LeadForm } from "@/components/shared/lead-form";
+import { EligibilityQuiz } from "@/components/home/eligibility-quiz";
 import { CmsImage } from "@/components/shared/cms-image";
 import { getGlobals } from "@/lib/content";
 import { site } from "@/lib/config";
@@ -14,7 +14,7 @@ const heroInstitutions = [
 /**
  * Hero v3 (designs/homepage-v3.html §5a/5b) — רויאל מלא:
  * תגית זהב, h1 עם "שלכם" ענק, שלושה מוסדות עם קו מכחול, ותמונת הצוות.
- * מתחתיו כרטיס טופס לבן שעולה על ההירו (-72px / -48px).
+ * מתחתיו כרטיס לבן שעולה על ההירו (-72px / -48px) ובו בדיקת זכאות בשלבים.
  * תמונת הצוות מנוהלת ב-CMS (globals ▸ hero_image); נפילה חזרה ל-hero-gavel-team.
  */
 export async function Hero() {
@@ -79,13 +79,9 @@ export async function Hero() {
         <Entrance delay={0.2}>
           <div
             id="lead-form"
-            className="flex scroll-mt-28 flex-col gap-3 rounded-2xl bg-white px-[18px] pb-[18px] pt-6 shadow-[rgba(10,21,112,0.20)_0_22px_50px] md:grid md:grid-cols-[230px_1fr] md:items-center md:gap-8 md:rounded-[18px] md:px-8 md:py-7 md:shadow-[rgba(10,21,112,0.18)_0_28px_64px]"
+            className="scroll-mt-28 rounded-2xl bg-white px-[18px] pb-[18px] pt-5 shadow-[rgba(10,21,112,0.20)_0_22px_50px] md:rounded-[18px] md:px-8 md:py-7 md:shadow-[rgba(10,21,112,0.18)_0_28px_64px]"
           >
-            <h2 className="m-0 font-display text-2xl font-black leading-[1.12] text-ink md:text-[28px]">
-              מגיע לכם לדעת <br className="hidden md:block" />
-              <span className="text-brand">מה מגיע לכם</span>
-            </h2>
-            <LeadForm layout="inline" sourcePage="home-hero" submitLabel="אני רוצה לבדוק" />
+            <EligibilityQuiz />
           </div>
         </Entrance>
       </div>

@@ -17,12 +17,9 @@ export function Testimonials({ testimonials }: { testimonials: Testimonial[] }) 
       />
       <div className="relative mx-auto max-w-[1296px]">
         <div className="px-[22px] md:px-0">
-          <h2 className="m-0 mb-2 font-display text-[28px] font-light text-white md:mb-3 md:text-[48px] md:tracking-[-0.5px]">
+          <h2 className="m-0 mb-[22px] font-display text-[28px] font-light text-white md:mb-10 md:text-[48px] md:tracking-[-0.5px]">
             הם כבר לא מוותרים <span className="font-black">על מה ששלהם.</span>
           </h2>
-          <p className="m-0 mb-[22px] text-base text-on-royal-muted md:mb-10 md:text-xl">
-            כל אחד מהסיפורים האלה התחיל ב״אין לי כוח לזה״. וכל אחד מהם נגמר בזכות שהגיעה הביתה.
-          </p>
         </div>
         <Reveal>
           {/* אזור גליל (במובייל) — חייב שם ומיקוד מקלדת כדי שאפשר יהיה לגלול בחיצים. */}

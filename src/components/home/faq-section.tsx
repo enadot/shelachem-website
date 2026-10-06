@@ -14,7 +14,8 @@ import { site } from "@/lib/config";
  * משתי כתובות שחולקות את אותו תוכן.
  */
 export function FaqSection({ faqs }: { faqs: FaqItem[] }) {
-  const visible = homepageFaqs(faqs);
+  // חמש בלבד — השאר בעמוד /faq. רשימה ארוכה בדף הבית היא קיר טקסט.
+  const visible = homepageFaqs(faqs).slice(0, 5);
   const remaining = faqs.length - visible.length;
 
   return (
@@ -28,8 +29,7 @@ export function FaqSection({ faqs }: { faqs: FaqItem[] }) {
             שאלות <span className="font-black">ותשובות</span>
           </h2>
           <p className="m-0 mb-5 text-[15px] leading-relaxed text-ink-secondary md:mb-7 md:text-[19px]">
-            ריכזנו עבורכם את השאלות הנפוצות ביותר — כדי שתבינו טוב יותר את הזכויות שלכם ואיך
-            אנחנו מסייעים לממש אותן.
+            התשובות הקצרות לשאלות הנפוצות.
           </p>
           <a
             href={site.phoneHref}

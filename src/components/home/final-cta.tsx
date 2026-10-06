@@ -21,7 +21,7 @@ export function FinalCta() {
             מה מגיע לכם
           </h2>
           <p className="m-0 text-base leading-relaxed text-on-royal-muted md:text-xl">
-            השאירו פרטים ונחזור אליכם היום. בלי עלות, בלי התחייבות, בלי אותיות קטנות.
+            נחזור אליכם היום. בלי עלות ובלי התחייבות.
           </p>
         </div>
         <LeadForm
@@ -30,6 +30,7 @@ export function FinalCta() {
           sourcePage="home-final-cta"
           submitLabel="צרו איתי קשר"
           withMarketingConsent={false}
+          withEmail={false}
         />
       </Reveal>
     </section>

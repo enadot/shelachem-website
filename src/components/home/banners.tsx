@@ -1,13 +1,9 @@
-"use client";
-
 import Link from "next/link";
 import { Reveal } from "@/components/shared/reveal";
 import { ArrowForward } from "@/components/shared/icons";
-import { useLeadModal } from "@/components/shared/lead-modal";
 
 /** פס שחור/זהב — "כנראה שמגיע לכם הרבה יותר" (designs/homepage-v3.html). */
 export function GoldBand() {
-  const { openLeadForm } = useLeadModal();
   return (
     <section className="surface-navy mt-12 bg-night md:mt-0">
       <Reveal className="mx-auto flex max-w-[1440px] flex-col items-start gap-5 px-6 py-11 md:flex-row md:items-center md:justify-between md:gap-12 md:px-[clamp(24px,5vw,72px)] md:py-[76px]">
@@ -20,14 +16,14 @@ export function GoldBand() {
             כמה שאלות קצרות, ואנחנו נגיד לכם בדיוק איפה אתם עומדים.
           </p>
         </div>
-        <button
-          type="button"
-          onClick={() => openLeadForm("home-gold-band")}
-          className="inline-flex shrink-0 cursor-pointer items-center gap-2 rounded-[10px] border-none bg-gold px-[26px] py-3.5 text-[17px] font-bold text-ink transition-colors hover:bg-gold-hover md:px-[38px] md:py-[19px] md:text-[19px]"
+        {/* "כמה שאלות קצרות" — מוביל לבדיקת הזכאות בשלבים שבכרטיס ההירו */}
+        <a
+          href="#lead-form"
+          className="inline-flex shrink-0 items-center gap-2 rounded-[10px] bg-gold px-[26px] py-3.5 text-[17px] font-bold text-ink no-underline transition-colors hover:bg-gold-hover hover:text-ink md:px-[38px] md:py-[19px] md:text-[19px]"
         >
           אשמח לדעת
           <ArrowForward size={18} />
-        </button>
+        </a>
       </Reveal>
     </section>
   );

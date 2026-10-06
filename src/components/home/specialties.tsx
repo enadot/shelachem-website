@@ -16,7 +16,8 @@ const categories: { key: Cat | "all"; label: string }[] = [
   { key: "C", label: "ביטוח ופנסיה" },
   { key: "D", label: "הטבות ופטורים" },
 ];
-const catLabel = Object.fromEntries(categories.map((c) => [c.key, c.label])) as Record<Cat, string>;
+/** כמה תחומים מוצגים לפני "הצגת כל התחומים" (בתצוגת "הכל" בלבד). */
+const INITIAL = 6;
 
 const BL = "/institutions/bituach-leumi";
 
@@ -73,12 +74,15 @@ function CatIcon({ cat }: { cat: Cat }) {
 
 /**
  * תחומי פעילות (designs/homepage-v3.html) — סינון לפי קטגוריה,
- * אריחים 4 בשורה בדסקטופ / שורות במובייל, ואריח שחור "לא בטוחים?".
+ * 6 תחומים ראשונים ואז "הצגת הכל" (פחות עומס בכניסה), ואריח שחור "לא בטוחים?".
  */
 export function Specialties() {
   const [cat, setCat] = useState<Cat | "all">("all");
   const { openLeadForm } = useLeadModal();
-  const view = cat === "all" ? specialties : specialties.filter((s) => s.cat === cat);
+  const [expanded, setExpanded] = useState(false);
+  const filtered = cat === "all" ? specialties : specialties.filter((s) => s.cat === cat);
+  const collapsed = cat === "all" && !expanded;
+  const view = collapsed ? filtered.slice(0, INITIAL) : filtered;
 
   return (
     <section
@@ -86,25 +90,15 @@ export function Specialties() {
       className="scroll-mt-24 pb-2 pt-14 md:px-[clamp(24px,5vw,72px)] md:pb-24 md:pt-[104px]"
     >
       <div className="mx-auto max-w-[1296px]">
-        <Reveal className="mb-4 flex flex-col gap-4 px-[18px] md:mb-7 md:flex-row md:items-end md:justify-between md:gap-12 md:px-0">
+        <Reveal className="mb-5 px-[18px] md:mb-8 md:px-0">
           <div className="max-w-[720px]">
             <div className="mb-2 text-sm font-black tracking-[1px] text-brand md:mb-3 md:text-[15px]">
               תחומי פעילות
             </div>
-            <h2 className="m-0 mb-2.5 font-display text-[30px] font-light leading-[1.15] text-ink md:mb-4 md:text-[48px] md:leading-[1.06] md:tracking-[-0.5px]">
+            <h2 className="m-0 font-display text-[30px] font-light leading-[1.15] text-ink md:text-[48px] md:leading-[1.06] md:tracking-[-0.5px]">
               המומחים שלכם <b className="font-black">במימוש זכויות רפואיות</b>
             </h2>
-            <p className="m-0 text-base leading-relaxed text-ink-secondary md:text-[19px]">
-              בחרו נושא — ותראו מיד למי כל זכות מתאימה.
-            </p>
           </div>
-          <button
-            type="button"
-            onClick={() => openLeadForm("home-specialties")}
-            className="hidden shrink-0 cursor-pointer rounded-[10px] border-none bg-brand px-[30px] py-4 text-[17px] font-bold text-white transition-colors hover:bg-brand-hover md:block"
-          >
-            לבדיקה ראשונית חינם
-          </button>
         </Reveal>
 
         <div
@@ -120,7 +114,10 @@ export function Specialties() {
                 key={c.key}
                 type="button"
                 aria-pressed={active}
-                onClick={() => setCat(c.key)}
+                onClick={() => {
+                  setCat(c.key);
+                  setExpanded(false);
+                }}
                 className={cn(
                   "flex min-h-11 shrink-0 cursor-pointer items-center gap-2 whitespace-nowrap rounded-full border-[1.5px] px-4 py-2.5 text-[15px] font-bold transition-colors md:px-5 md:text-base",
                   active
@@ -136,22 +133,18 @@ export function Specialties() {
         </div>
 
         <ul
+          id="specialties-list"
           aria-live="polite"
-          className="m-0 flex list-none flex-col gap-2 px-[18px] md:grid md:grid-cols-2 md:gap-3.5 md:px-0 lg:grid-cols-4"
+          className="m-0 flex list-none flex-col gap-2 px-[18px] md:grid md:grid-cols-2 md:gap-3.5 md:px-0 lg:grid-cols-3"
         >
           {view.map((s) => (
             <li key={s.name}>
               <Link
                 href={s.href}
-                className="group grid min-h-[72px] grid-cols-[46px_1fr_18px] items-center gap-3.5 rounded-[14px] border-[1.5px] border-surface bg-surface p-3.5 text-ink no-underline transition-[border-color,background-color,transform] duration-200 hover:border-brand hover:bg-white md:flex md:h-full md:min-h-[168px] md:flex-col md:items-stretch md:gap-3 md:rounded-2xl md:p-5 md:hover:-translate-y-[3px]"
+                className="group grid min-h-[72px] grid-cols-[46px_1fr_18px] items-center gap-3.5 rounded-[14px] border-[1.5px] border-surface bg-surface p-3.5 text-ink no-underline transition-[border-color,background-color,transform] duration-200 hover:border-brand hover:bg-white md:flex md:h-full md:min-h-[150px] md:flex-col md:items-stretch md:gap-3 md:rounded-2xl md:p-5 md:hover:-translate-y-[3px]"
               >
-                <span className="flex items-start justify-between">
-                  <span className="flex h-[46px] w-[46px] items-center justify-center rounded-xl bg-white text-brand md:h-12 md:w-12">
-                    <CatIcon cat={s.cat} />
-                  </span>
-                  <span className="hidden rounded-full bg-surface-tag px-2.5 py-1 text-xs font-bold text-brand md:inline">
-                    {catLabel[s.cat]}
-                  </span>
+                <span className="flex h-[46px] w-[46px] items-center justify-center rounded-xl bg-white text-brand md:h-12 md:w-12">
+                  <CatIcon cat={s.cat} />
                 </span>
                 <span className="flex flex-col gap-[3px] md:contents">
                   <span className="text-[17px] font-black leading-tight md:mt-auto md:text-[21px]">{s.name}</span>
@@ -170,6 +163,20 @@ export function Specialties() {
             </li>
           ))}
         </ul>
+
+        {collapsed && filtered.length > INITIAL && (
+          <div className="mt-3 flex justify-center px-[18px] md:mt-4 md:px-0">
+            <button
+              type="button"
+              aria-expanded={false}
+              aria-controls="specialties-list"
+              onClick={() => setExpanded(true)}
+              className="min-h-11 cursor-pointer rounded-[10px] border-[1.5px] border-brand bg-transparent px-6 text-base font-bold text-brand transition-colors hover:bg-surface-blue"
+            >
+              הצגת כל {filtered.length} התחומים
+            </button>
+          </div>
+        )}
 
         <div className="px-[18px] md:px-0">
           <button

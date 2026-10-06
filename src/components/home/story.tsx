@@ -18,14 +18,8 @@ export function Story() {
             <br />
             <span className="font-black">ועושים אותו עד הסוף.</span>
           </h2>
-          <p className="m-0 mb-3 text-base leading-relaxed text-ink-secondary md:mb-4 md:text-[19px] md:leading-[1.65]">
-            ״שלכם״ קמה מתוך אמונה פשוטה: לאף אחד אסור שייגמר הכוח מול הבירוקרטיה לפני שהוא מקבל
-            את מה שמגיע לו. במשך שנים ליווינו {site.stats.clients} לקוחות&nbsp;במאבק מול ביטוח
-            לאומי, מס הכנסה, קרנות הפנסיה וחברות הביטוח — והבאנו תוצאות.
-          </p>
-          <p className="m-0 mb-[18px] text-base font-bold leading-relaxed text-ink md:mb-7 md:text-[19px] md:leading-[1.65]">
-            היום אנחנו פותחים את הדלת לכולם. כי הזכות למימוש זכויות לא שייכת לאף מגזר, לאף קבוצה
-            ולאף אחד חוץ מכם. היא שלכם.
+          <p className="m-0 mb-[18px] text-base leading-relaxed text-ink-secondary md:mb-7 md:text-[19px] md:leading-[1.65]">
+            {`ליווינו ${site.stats.clients} לקוחות מול ביטוח לאומי, מס הכנסה, קרנות הפנסיה וחברות הביטוח.`} <b className="text-ink">הזכות לא שייכת לאף מגזר — היא שלכם.</b>
           </p>
           <Link
             href="/about"

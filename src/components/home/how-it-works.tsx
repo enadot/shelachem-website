@@ -4,20 +4,20 @@ import { LeadCta } from "@/components/shared/lead-cta";
 const steps = [
   {
     title: "משאירים פרטים.",
-    body: "אתם משאירים טלפון, אנחנו חוזרים. בלי טפסים אינסופיים, בלי לרוץ בין משרדים.",
+    body: "טלפון אחד — ואנחנו חוזרים אליכם.",
   },
   {
     title: "בודקים לעומק.",
-    body: "אנחנו מוצאים בדיוק מה מגיע לכם — כולל זכויות שבחיים לא שמעתם עליהן.",
+    body: "מוצאים כל זכות שמגיעה לכם.",
   },
   {
     title: "אנחנו נכנסים בשבילכם.",
-    body: "מנהלים את כל המאבק מול ביטוח לאומי, מס הכנסה, הקרנות והביטוח. אתם ממשיכים לחיות.",
+    body: "מול כל הגופים. אתם ממשיכים לחיות.",
   },
 ];
 
 /**
- * פסקת המהות + שלושה צעדים על ציר (designs/homepage-v3.html).
+ * שלושה צעדים על ציר (designs/homepage-v3.html) — כותרת ושורה אחת לכל צעד.
  * ציר אנכי במובייל, אופקי בדסקטופ. עוגן #how-it-works מהניווט.
  */
 export function HowItWorks() {
@@ -27,22 +27,14 @@ export function HowItWorks() {
       className="scroll-mt-24 px-[22px] pb-[52px] pt-[52px] md:px-[clamp(24px,5vw,72px)] md:py-[100px]"
     >
       <div className="mx-auto max-w-[1296px]">
-        <Reveal className="mb-11 grid gap-3.5 md:mb-[72px] md:grid-cols-2 md:items-end md:gap-20">
-          <h2 className="m-0 font-display text-[28px] font-light leading-[1.25] text-ink md:text-[48px] md:leading-[1.08] md:tracking-[-0.5px]">
-            מימוש זכויות רפואיות: <span className="font-black">הופכים את הזכות שלכם למציאות.</span>
+        <Reveal className="mb-8 md:mb-14 md:text-center">
+          <h2 className="m-0 font-display text-[28px] font-light leading-[1.2] text-ink md:text-[48px] md:leading-[1.08] md:tracking-[-0.5px]">
+            שלושה צעדים שלכם. <span className="font-black">החלק הקשה שלנו.</span>
           </h2>
-          <p className="m-0 text-base leading-[1.65] text-ink-secondary md:text-lg md:leading-[1.7]">
-            הדרך לקבלת הקצבאות והפיצויים המגיעים לכם על פי חוק לא חייבת להיות מאבק. למרות שמדובר
-            בזכויות בסיסיות, הבירוקרטיה המורכבת וחוסר הידע גורמים לרבים לוותר מראש על כסף שמגיע
-            להם. בשלכם, אנחנו מאמינים שאף אדם לא צריך להתמודד לבד מול גופים גדולים כמו ביטוח לאומי
-            או חברות הביטוח. אנחנו כאן כדי לגשר על הפער שבין המצב הרפואי לבין המענק הכספי, עם ליווי
-            אישי וניסיון שפותח דלתות.
+          <p className="m-0 mt-2.5 text-base text-ink-secondary md:mt-3.5 md:text-[19px]">
+            בלי טפסים אינסופיים ובלי לרוץ בין משרדים.
           </p>
         </Reveal>
-
-        <h3 className="m-0 mb-6 font-display text-[28px] font-light text-ink md:mb-9 md:text-center md:text-[32px]">
-          שלושה צעדים שלכם. <span className="font-black">החלק הקשה שלנו.</span>
-        </h3>
 
         <ol className="relative m-0 flex list-none flex-col gap-[26px] p-0 md:grid md:grid-cols-3 md:gap-10">
           {/* הציר — אנכי במובייל, אופקי בדסקטופ */}
@@ -61,7 +53,7 @@ export function HowItWorks() {
                 {i + 1}
               </span>
               <div className="pt-1 md:pt-0">
-                <div className="mb-1.5 text-[19px] font-black text-ink md:mb-3 md:mt-3 md:text-2xl">
+                <div className="mb-1 text-[19px] font-black text-ink md:mb-2 md:mt-3 md:text-2xl">
                   {step.title}
                 </div>
                 <div className="text-base leading-[1.55] text-ink-secondary md:mx-auto md:max-w-[340px] md:text-lg md:leading-relaxed">

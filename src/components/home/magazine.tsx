@@ -14,8 +14,7 @@ export function Magazine({ articles }: { articles: Article[] }) {
             ידע זה כוח. <span className="font-black">וכוח זה כסף שמגיע לכם.</span>
           </h2>
           <p className="m-0 mb-5 max-w-[760px] text-base text-ink-secondary md:mb-2 md:text-[19px]">
-            מדריכים, עדכוני חוק וכל מה שצריך לדעת כדי לא לפספס אף זכות — בשפה של בני אדם, לא של
-            פקידים.
+            מדריכים ועדכוני חוק — בשפה של בני אדם, לא של פקידים.
           </p>
         </div>
         <Carousel ariaLabel="כתבות מהמגזין" itemGap={24} className="px-[22px] md:px-0">

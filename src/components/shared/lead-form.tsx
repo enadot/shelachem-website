@@ -54,6 +54,8 @@ export interface LeadFormProps {
   presetTopic?: string;
   /** Recorded on the lead for attribution. */
   sourcePage: string;
+  /** Show the email field (optional field). Short forms (quiz, final CTA) hide it. */
+  withEmail?: boolean;
   /** Show the two consent checkboxes (hero form). Default true for data consent only. */
   withMarketingConsent?: boolean;
   /**
@@ -73,6 +75,7 @@ export function LeadForm({
   presetTopic,
   sourcePage,
   withMarketingConsent = true,
+  withEmail = true,
   layout = "stacked",
   className,
 }: LeadFormProps) {
@@ -157,7 +160,7 @@ export function LeadForm({
   const errorClass = cn("m-0 mt-1 text-[13px]", dark ? "text-red-200" : "text-danger");
   const errorId = (name: string) => `${sourcePage}-${name}-error`;
 
-  // תוויות קבועות מעל השדות — placeholder נעלם בהקלדה ומשאיר שדות אנונימיים.
+  // תוויות קבועות מעל השדות, בלי placeholders — התווית היא ההסבר היחיד, והשדה נקי.
   const fieldLabelClass = cn(
     "mb-1 block text-[13px] font-bold",
     dark ? "text-white/90" : "text-ink-secondary",
@@ -172,7 +175,6 @@ export function LeadForm({
       <Input
         {...register("full_name")}
         id={id("full_name")}
-        placeholder="ישראל ישראלי"
         autoComplete="name"
         className={inputClass}
         aria-invalid={Boolean(errors.full_name)}
@@ -194,12 +196,11 @@ export function LeadForm({
       <Input
         {...register("phone")}
         id={id("phone")}
-        placeholder="050-1234567"
         type="tel"
         inputMode="tel"
         dir="ltr"
         autoComplete="tel"
-        className={cn(inputClass, "tnum text-right placeholder:text-right")}
+        className={cn(inputClass, "tnum text-right")}
         aria-invalid={Boolean(errors.phone)}
         aria-describedby={errors.phone ? errorId("phone") : undefined}
       />
@@ -219,7 +220,6 @@ export function LeadForm({
       <Input
         {...register("email")}
         id={id("email")}
-        placeholder="name@example.com"
         type="email"
         autoComplete="email"
         className={inputClass}
@@ -261,23 +261,32 @@ export function LeadForm({
             {nameField}
             {phoneField}
           </div>
-          <div className="grid gap-3 sm:grid-cols-[1fr_auto] sm:items-end">
-            {emailField}
-            {submitButton}
-          </div>
+          {withEmail ? (
+            <div className="grid gap-3 sm:grid-cols-[1fr_auto] sm:items-end">
+              {emailField}
+              {submitButton}
+            </div>
+          ) : (
+            submitButton
+          )}
         </>
       ) : layout === "inline" ? (
-        <div className="grid gap-3 md:grid-cols-[1fr_1fr_1fr_auto] md:items-end">
+        <div
+          className={cn(
+            "grid gap-3 md:items-end",
+            withEmail ? "md:grid-cols-[1fr_1fr_1fr_auto]" : "md:grid-cols-[1fr_1fr_auto]",
+          )}
+        >
           {nameField}
           {phoneField}
-          {emailField}
+          {withEmail && emailField}
           {submitButton}
         </div>
       ) : (
         <>
           {nameField}
           {phoneField}
-          {emailField}
+          {withEmail && emailField}
         </>
       )}
       {presetTopic && (
@@ -296,12 +305,12 @@ export function LeadForm({
           name="topic"
           render={({ field }) => (
             <Select value={field.value || undefined} onValueChange={field.onChange}>
-              {/* תווית קבועה — placeholder נעלם ברגע שנבחר נושא ומשאיר שדה אנונימי */}
+              {/* תווית קבועה מעל השדה — בלי placeholder */}
               <Label htmlFor={id("topic")} className={fieldLabelClass}>
                 {topicLabel}
               </Label>
               <SelectTrigger id={id("topic")} className={inputClass}>
-                <SelectValue placeholder="בחרו מהרשימה" />
+                <SelectValue />
               </SelectTrigger>
               <SelectContent>
                 {topicOptions.map((o) => (
@@ -342,7 +351,7 @@ export function LeadForm({
               aria-describedby={errors.data_consent ? errorId("data_consent") : undefined}
             />
             <span>
-              ידוע לי כי המידע שאמסור יישמר במאגרי המידע של החברה בהתאם למפורט ב
+              הפרטים יישמרו במאגרי החברה בהתאם ל
               <a
                 href="/privacy"
                 target="_blank"
@@ -378,7 +387,7 @@ export function LeadForm({
                 checked={field.value}
                 onCheckedChange={(v) => field.onChange(v === true)}
               />
-              <span>אני מאשר/ת קבלת עדכונים ותוכן שיווקי (ניתן להסרה בכל עת)</span>
+              <span>אשמח לקבל עדכונים ותוכן שיווקי (אפשר להסיר בכל עת)</span>
             </Label>
           )}
         />
