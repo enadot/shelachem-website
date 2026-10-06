@@ -10,7 +10,7 @@ export function ArticleCard({ article, className }: { article: Article; classNam
     <Link
       href={`/magazine/${article.slug}`}
       className={cn(
-        "group flex flex-col overflow-hidden rounded-[14px] border border-hairline bg-white text-ink no-underline transition-shadow hover:shadow-[0_12px_32px_rgba(13,37,61,0.12)]",
+        "group flex flex-col overflow-hidden rounded-[14px] border border-hairline bg-white text-ink no-underline transition-shadow hover:shadow-[0_12px_32px_rgba(10,21,112,0.12)]",
         className,
       )}
     >

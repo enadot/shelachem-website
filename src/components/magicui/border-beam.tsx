@@ -9,8 +9,8 @@ import { cn } from "@/lib/utils";
 export function BorderBeam({
   size = 220,
   duration = 12,
-  colorFrom = "#0000ff",
-  colorTo = "#7a7aff",
+  colorFrom = "#1228a8",
+  colorTo = "#1e9be0",
   className,
 }: {
   size?: number;

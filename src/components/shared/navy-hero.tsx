@@ -1,6 +1,7 @@
+import Image from "next/image";
 import { Breadcrumb, type Crumb } from "@/components/shared/breadcrumb";
 
-/** Hero נייבי לעמודי משנה — פירורי לחם, h1 עם הדגשה בקו אדום ופסקת פתיחה. */
+/** Hero רויאל לעמודי משנה (שפת v3) — פירורי לחם, h1 עם הדגשה בזהב ופסקת פתיחה. */
 export function NavyHero({
   breadcrumb,
   title,
@@ -15,11 +16,14 @@ export function NavyHero({
   children?: React.ReactNode;
 }) {
   return (
-    <section className="surface-navy relative overflow-hidden bg-banner text-white">
-      <div
+    <section className="brand-gradient surface-navy relative overflow-hidden text-white [--royal-shape:ellipse_80%_120%_at_70%_40%]">
+      <Image
+        src="/images/swirl-white.png"
+        alt=""
         aria-hidden
-        className="absolute -left-[60px] -top-[90px] h-[280px] w-[320px] rounded-full md:-right-[120px] md:left-auto md:-top-40 md:h-[480px] md:w-[560px]"
-        style={{ background: "radial-gradient(circle, rgba(0,0,255,0.5) 0%, rgba(0,0,255,0) 70%)" }}
+        width={420}
+        height={420}
+        className="pointer-events-none absolute -left-[90px] -top-[110px] w-[260px] opacity-[0.12] md:-top-[140px] md:left-[6%] md:w-[420px]"
       />
       <div className="relative mx-auto flex max-w-[1240px] flex-col gap-3.5 px-6 py-10 md:px-12 md:py-16">
         <Breadcrumb items={breadcrumb} tone="inverse" />
@@ -29,7 +33,7 @@ export function NavyHero({
             {strong !== undefined && (
               <>
                 {" "}
-                <span className="border-b-[5px] border-accent font-black md:border-b-[7px]">{strong}</span>
+                <span className="font-black text-gold">{strong}</span>
               </>
             )}
         </h1>

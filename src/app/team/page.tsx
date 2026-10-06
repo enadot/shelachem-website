@@ -46,7 +46,7 @@ export default async function TeamPage() {
                         target="_blank"
                         rel="noopener noreferrer"
                         aria-label={`הפרופיל של ${p.name} בלינקדאין`}
-                        className="flex h-[34px] w-[34px] shrink-0 items-center justify-center rounded-[9px] bg-[#eef0ff] text-brand no-underline transition-colors hover:bg-brand hover:text-white"
+                        className="flex h-[34px] w-[34px] shrink-0 items-center justify-center rounded-[9px] bg-[#eef1fb] text-brand no-underline transition-colors hover:bg-brand hover:text-white"
                       >
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
                           <path d="M6.94 8.75H3.56V20.4h3.38V8.75ZM5.25 3.6a1.96 1.96 0 1 0 0 3.92 1.96 1.96 0 0 0 0-3.92Zm8.02 6.9V8.75H9.94V20.4h3.38v-5.9c0-1.79.86-2.86 2.36-2.86 1.32 0 2.02.9 2.02 2.62v6.14h3.38v-6.8c0-3.06-1.66-4.86-4.2-4.86-1.85 0-3 .86-3.6 1.76Z" />
@@ -65,7 +65,7 @@ export default async function TeamPage() {
 
       {/* spirit */}
       <section className="px-6 pb-12 md:px-[clamp(24px,6.7vw,96px)] md:pb-16">
-        <Reveal className="mx-auto flex max-w-[1240px] flex-col gap-2.5 rounded-card border border-[#f6dcdb] bg-[#fdf2f2] px-6 py-6 md:px-12 md:py-10">
+        <Reveal className="mx-auto flex max-w-[1240px] flex-col gap-2.5 rounded-card border border-[#f1e3bd] bg-[#fbf5e4] px-6 py-6 md:px-12 md:py-10">
           <div className="text-sm font-bold text-accent-text md:text-[15px]">רוח שלכם</div>
           <h2 className="m-0 font-display text-[24px] font-light leading-tight md:text-[34px]">
             מעבר להנהלה — <span className="font-black">DNA של אנשים.</span>

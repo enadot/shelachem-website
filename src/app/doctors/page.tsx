@@ -67,7 +67,7 @@ export default async function DoctorsPage() {
                 delay={i * 0.09}
                 className="rounded-xl border border-hairline bg-white p-7"
               >
-                <div className="tnum mb-4 flex h-11 w-11 items-center justify-center rounded-full bg-[#eef0ff] text-xl font-bold text-brand">
+                <div className="tnum mb-4 flex h-11 w-11 items-center justify-center rounded-full bg-[#eef1fb] text-xl font-bold text-brand">
                   {i + 1}
                 </div>
                 <div className="mb-2 text-xl font-bold text-ink">{step.title}</div>

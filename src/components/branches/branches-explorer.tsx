@@ -27,20 +27,20 @@ export function BranchesExplorer({ branches }: { branches: readonly Branch[] }) 
               <span
                 className={cn(
                   "animate-ping-slow absolute inline-flex h-full w-full rounded-full opacity-60",
-                  active === b.id ? "bg-accent" : "bg-brand",
+                  active === b.id ? "bg-ink" : "bg-brand",
                 )}
               />
               <span
                 className={cn(
                   "relative inline-flex h-4 w-4 rounded-full border-2 border-white",
-                  active === b.id ? "bg-accent" : "bg-brand",
+                  active === b.id ? "bg-ink" : "bg-brand",
                 )}
               />
             </span>
             <span
               className={cn(
                 "pill px-2.5 py-1 text-[13px] font-bold shadow-sm",
-                active === b.id ? "bg-accent text-white" : "bg-white text-ink",
+                active === b.id ? "bg-ink text-white" : "bg-white text-ink",
               )}
             >
               {b.city}

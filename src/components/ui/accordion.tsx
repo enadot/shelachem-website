@@ -12,7 +12,7 @@ function AccordionItem({
 }: React.ComponentProps<typeof AccordionPrimitive.Item>) {
   return (
     <AccordionPrimitive.Item
-      className={cn("rounded-xl border border-hairline bg-surface px-5", className)}
+      className={cn("rounded-xl border border-hairline-soft bg-white px-4 transition-shadow duration-200 data-[state=open]:shadow-[rgba(18,40,168,0.10)_0_10px_28px] md:rounded-[14px] md:px-[26px]", className)}
       {...props}
     />
   );
@@ -28,7 +28,7 @@ function AccordionTrigger({
     <AccordionPrimitive.Header className="m-0">
       <AccordionPrimitive.Trigger
         className={cn(
-          "flex min-h-11 w-full cursor-pointer items-center justify-between gap-3.5 border-none bg-transparent py-4 text-start text-[17px] font-bold text-ink [&[data-state=open]>span]:rotate-45",
+          "flex min-h-11 w-full cursor-pointer items-center justify-between gap-3.5 border-none bg-transparent py-4 text-start text-base font-bold text-ink md:py-[22px] md:text-[19px] [&[data-state=open]>span]:rotate-45",
           className,
         )}
         {...props}
@@ -36,7 +36,7 @@ function AccordionTrigger({
         {children}
         <span
           aria-hidden
-          className="shrink-0 text-2xl font-light leading-none text-brand transition-transform duration-200"
+          className="flex h-[30px] w-[30px] shrink-0 items-center justify-center rounded-full bg-surface-blue text-[22px] leading-none text-brand transition-transform duration-200 md:h-9 md:w-9 md:text-2xl"
         >
           +
         </span>
@@ -55,7 +55,7 @@ function AccordionContent({
       className="overflow-hidden data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down"
       {...props}
     >
-      <div className={cn("pb-5 text-base leading-relaxed text-ink-secondary", className)}>
+      <div className={cn("pb-[18px] text-[15px] leading-[1.65] text-ink-secondary md:pb-6 md:text-[17px] md:leading-[1.7]", className)}>
         {children}
       </div>
     </AccordionPrimitive.Content>

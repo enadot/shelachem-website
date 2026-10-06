@@ -61,7 +61,7 @@ export default async function MagazinePage() {
               </div>
               <div className="flex flex-col justify-center gap-4 p-7 md:px-[46px] md:py-11">
                 <div className="flex items-center gap-3">
-                  <span className="pill bg-accent px-3.5 py-1.5 text-[13.5px] font-bold text-white">
+                  <span className="pill bg-gold px-3.5 py-1.5 text-[13.5px] font-bold text-ink">
                     הכתבה המרכזית
                   </span>
                   <span className="tnum text-sm text-white/65">
@@ -74,7 +74,7 @@ export default async function MagazinePage() {
                 <p className="m-0 text-[16px] leading-relaxed text-white/80 md:text-[17px]">
                   {featured.excerpt}
                 </p>
-                <span className="inline-flex items-center gap-2 text-base font-bold text-[#ffd7d6]">
+                <span className="inline-flex items-center gap-2 text-base font-bold text-[#f2d282]">
                   לקריאת הכתבה המלאה
                   <ArrowForward size={17} />
                 </span>
@@ -109,11 +109,11 @@ export default async function MagazinePage() {
                 ))}
               </div>
             </div>
-            <div className="relative overflow-hidden rounded-[14px] bg-banner p-6 text-white">
+            <div className="surface-navy relative overflow-hidden rounded-[14px] bg-banner p-6 text-white">
               <div
                 aria-hidden
                 className="absolute -left-14 -top-20 h-[260px] w-[300px] rounded-full"
-                style={{ background: "radial-gradient(circle, rgba(0,0,255,0.5) 0%, rgba(0,0,255,0) 70%)" }}
+                style={{ background: "radial-gradient(circle, rgba(29,63,214,0.55) 0%, rgba(29,63,214,0) 70%)" }}
               />
               <div className="relative">
                 <div className="mb-1.5 font-display text-[22px] font-bold">קראתם והתעורר חשד שמגיע לכם?</div>

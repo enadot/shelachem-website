@@ -47,16 +47,24 @@ const columns: { title: string; links: { label: string; href: string }[] }[] = [
   },
 ];
 
-/** מגה-פוטר (עיצוב דף הבית) — משמש בכל האתר. */
+/** מגה-פוטר (designs/homepage-v3.html) — לוגו 2026 + 4 עמודות; משמש בכל האתר. */
 export function Footer() {
   return (
-    <footer className="border-t border-hairline bg-white px-6 pb-7 pt-10 md:px-[clamp(24px,6.7vw,96px)] md:pt-14">
-      <div className="mx-auto max-w-[1200px]">
-        <Image src="/images/logo.svg" alt="שלכם" width={136} height={56} className="mb-5 h-14 w-auto" />
-        <div className="grid grid-cols-2 gap-6 text-sm leading-8 text-ink-muted md:grid-cols-4">
+    <footer className="border-t border-hairline-soft bg-white px-[22px] pb-7 pt-9 md:px-[clamp(24px,5vw,72px)] md:pb-9 md:pt-14">
+      <div className="mx-auto max-w-[1296px]">
+        <div className="grid grid-cols-2 gap-x-6 gap-y-5 text-sm leading-8 text-ink-muted md:grid-cols-[1.3fr_repeat(4,1fr)] md:gap-10 md:text-[15px]">
+          <div className="col-span-2 md:col-span-1">
+            <Image
+              src="/images/logo-2026.png"
+              alt="שלכם — מימוש זכויות רפואיות"
+              width={725}
+              height={371}
+              className="h-[66px] w-auto md:h-[96px]"
+            />
+          </div>
           {columns.map((col) => (
             <div key={col.title}>
-              <div className="mb-1 font-bold text-ink">{col.title}</div>
+              <div className="mb-1 font-black text-ink">{col.title}</div>
               {col.links.map((l) => (
                 <div key={l.label}>
                   {/* min-h-11 — יעד מגע 44px (WCAG 2.2 Target Size). */}
@@ -71,7 +79,7 @@ export function Footer() {
             </div>
           ))}
         </div>
-        <div className="mt-6 border-t border-hairline pt-4 text-[13px] leading-7 text-ink-muted">
+        <div className="mt-6 border-t border-hairline-soft pt-4 text-[13px] leading-7 text-ink-muted md:mt-9 md:text-[15px]">
           <b className="text-ink">סניפים:</b> ירושלים — בניין שערי העיר, רח׳ יפו פינת שרי ישראל (קומה 9) · בני
           ברק — רח׳ ז׳בוטינסקי 168 ·{" "}
           <a href={site.phoneHref} className="tnum text-ink-muted no-underline hover:text-brand">

@@ -145,7 +145,7 @@ export default async function ServicePage({
                     key={e.title}
                     className="flex items-start gap-3.5 rounded-xl border border-hairline bg-white px-5 py-4"
                   >
-                    {/* #b32926 על #fde3e2 = 5.29:1 — הצירוף הקודם (#c93330) נפל ב-4.32:1 */}
+                    {/* #b32926 על #f8eac4 = 5.29:1 — הצירוף הקודם (#c93330) נפל ב-4.32:1 */}
                     <span
                       aria-hidden
                       className="tnum flex h-[34px] w-[34px] shrink-0 items-center justify-center rounded-full bg-accent-tint-strong text-base font-bold text-accent-ink"
@@ -237,7 +237,7 @@ export default async function ServicePage({
                   <Link
                     key={r.href}
                     href={r.href}
-                    className="group flex flex-col overflow-hidden rounded-xl border border-hairline bg-white text-ink no-underline transition-shadow hover:shadow-[0_12px_32px_rgba(13,37,61,0.12)]"
+                    className="group flex flex-col overflow-hidden rounded-xl border border-hairline bg-white text-ink no-underline transition-shadow hover:shadow-[0_12px_32px_rgba(10,21,112,0.12)]"
                   >
                     <div className="relative h-[120px] bg-surface-blue">
                       {r.image && <CmsImage src={r.image} alt="" fill sizes="300px" className="object-cover" />}
@@ -262,7 +262,7 @@ export default async function ServicePage({
               היה קבוע לנצח דווקא בעמודים שנושאים את התנועה האורגנית. */}
           <div
             id="lead-form"
-            className="relative flex scroll-mt-24 flex-col gap-3 rounded-card border border-[#e6ebf2] bg-white px-6 pb-5 pt-9 shadow-[0_20px_48px_rgba(13,37,61,0.14)]"
+            className="relative flex scroll-mt-24 flex-col gap-3 rounded-card border border-[#e4e7ec] bg-white px-6 pb-5 pt-9 shadow-[0_20px_48px_rgba(10,21,112,0.14)]"
           >
             <div className="pill absolute -top-[19px] right-5 bg-brand px-4.5 py-3 text-[15px] font-bold leading-none text-white shadow-[0_10px_24px_rgba(0,0,120,0.25)]">
               בודקים זכאות — חינם
@@ -287,7 +287,7 @@ export default async function ServicePage({
                 <span>לקוחות שליווינו עד לקבלת הזכות</span>
               </div>
               <div className="flex items-center gap-3">
-                <b className="tnum min-w-16 text-[22px] text-accent">0 ₪</b>
+                <b className="tnum min-w-16 text-[22px] text-brand">0 ₪</b>
                 <span>מראש — שכר טרחה רק בהצלחה</span>
               </div>
             </div>

@@ -49,11 +49,11 @@ export function TaxCalculator() {
   const retro = Math.round(annual * years * 1.04);
 
   return (
-    <div className="relative overflow-hidden rounded-2xl bg-banner px-6 py-8 text-white md:px-9">
+    <div className="surface-navy relative overflow-hidden rounded-2xl bg-banner px-6 py-8 text-white md:px-9">
       <div
         aria-hidden
         className="absolute -left-20 -top-[120px] h-[400px] w-[480px] rounded-full"
-        style={{ background: "radial-gradient(circle, rgba(0,0,255,0.5) 0%, rgba(0,0,255,0) 70%)" }}
+        style={{ background: "radial-gradient(circle, rgba(29,63,214,0.55) 0%, rgba(29,63,214,0) 70%)" }}
       />
       <div className="relative">
         <h2 className="m-0 mb-1.5 font-display text-[24px] font-light text-white md:text-[30px]">
@@ -116,9 +116,8 @@ export function TaxCalculator() {
                 <div className="text-sm text-white/75">חיסכון שנתי משוער</div>
                 <div className="tnum font-display text-[32px] font-black">{fmt(annual)} ₪</div>
               </div>
-              <div className="rounded-xl bg-accent px-5 py-4">
-                {/* לבן מלא — ב-85% שקיפות מעל האדום הניגודיות יורדת מתחת ל-AA. */}
-                <div className="text-sm text-white">החזר רטרואקטיבי משוער</div>
+              <div className="rounded-xl bg-gold px-5 py-4 text-ink">
+                <div className="text-sm text-ink">החזר רטרואקטיבי משוער</div>
                 <div className="tnum font-display text-[32px] font-black">{fmt(retro)} ₪</div>
               </div>
             </div>

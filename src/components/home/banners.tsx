@@ -1,151 +1,85 @@
+"use client";
+
 import Link from "next/link";
 import { Reveal } from "@/components/shared/reveal";
-import { SectionHeading } from "@/components/shared/section-heading";
 import { ArrowForward } from "@/components/shared/icons";
+import { useLeadModal } from "@/components/shared/lead-modal";
 
-/** באנר אדום — "כנראה שמגיע לכם הרבה יותר" (homepage-live.html §3). */
-export function RedBanner() {
+/** פס שחור/זהב — "כנראה שמגיע לכם הרבה יותר" (designs/homepage-v3.html). */
+export function GoldBand() {
+  const { openLeadForm } = useLeadModal();
   return (
-    <section className="px-6 pt-16 md:px-[clamp(24px,6.7vw,96px)] md:pt-[88px]">
-      <Reveal className="mx-auto max-w-[1240px] rounded-xl bg-accent px-6 py-12 text-center md:px-20 md:py-16">
-        <h2 className="m-0 mb-5 font-display text-[26px] font-light tracking-tight text-white md:text-[40px]">
-          כנראה שמגיע לכם הרבה יותר ממה שאתם חושבים.
-        </h2>
-        <p className="mx-auto my-0 max-w-[640px] text-lg leading-relaxed text-white md:text-[21px]">
-          משאירים שם וטלפון, ואנחנו בודקים בשבילכם בדיוק איפה אתם עומדים.
-        </p>
-        <Link
-          href="/#lead-form"
-          className="mt-6 inline-flex items-center gap-2 px-2 py-2 text-lg font-bold text-white underline decoration-2 underline-offset-4 md:text-xl"
+    <section className="surface-navy mt-12 bg-night md:mt-0">
+      <Reveal className="mx-auto flex max-w-[1440px] flex-col items-start gap-5 px-6 py-11 md:flex-row md:items-center md:justify-between md:gap-12 md:px-[clamp(24px,5vw,72px)] md:py-[76px]">
+        <div className="max-w-[860px]">
+          <h2 className="m-0 mb-3 font-display text-[30px] font-light leading-[1.2] text-white md:mb-3.5 md:text-[52px] md:leading-[1.08] md:tracking-[-0.5px]">
+            כנראה שמגיע לכם <span className="font-black text-gold">הרבה יותר</span> ממה שאתם
+            חושבים.
+          </h2>
+          <p className="m-0 text-[17px] leading-relaxed text-night-text md:text-[21px]">
+            כמה שאלות קצרות, ואנחנו נגיד לכם בדיוק איפה אתם עומדים.
+          </p>
+        </div>
+        <button
+          type="button"
+          onClick={() => openLeadForm("home-gold-band")}
+          className="inline-flex shrink-0 cursor-pointer items-center gap-2 rounded-[10px] border-none bg-gold px-[26px] py-3.5 text-[17px] font-bold text-ink transition-colors hover:bg-gold-hover md:px-[38px] md:py-[19px] md:text-[19px]"
         >
-          להשאיר פרטים לבדיקה
-          <ArrowForward size={16} />
-        </Link>
+          אשמח לדעת
+          <ArrowForward size={18} />
+        </button>
       </Reveal>
     </section>
   );
 }
 
-/** פסקת המהות — "מימוש זכויות רפואיות: הופכים את הזכות שלכם למציאות" (§ intro). */
-export function Essence() {
-  return (
-    <section className="px-6 pt-16 md:px-[clamp(24px,6.7vw,96px)] md:pt-[88px]">
-      <Reveal className="mx-auto max-w-[880px] text-center">
-        <SectionHeading
-          strong="הופכים את הזכות שלכם למציאות."
-          className="mb-5 text-[28px] leading-tight md:text-[38px]"
-        >
-          מימוש זכויות רפואיות:
-        </SectionHeading>
-        <p className="mx-auto my-0 max-w-[700px] text-[17px] leading-[1.7] text-ink-secondary md:text-[19px]">
-          הדרך לקבלת הקצבאות והפיצויים המגיעים לכם על פי חוק לא חייבת להיות מאבק. למרות שמדובר
-          בזכויות בסיסיות, הבירוקרטיה המורכבת וחוסר הידע גורמים לרבים לוותר מראש על כסף שמגיע
-          להם. בשלכם, אנחנו מאמינים שאף אדם לא צריך להתמודד לבד מול גופים גדולים כמו ביטוח לאומי
-          או חברות הביטוח. אנחנו כאן כדי לגשר על הפער שבין המצב הרפואי לבין המענק הכספי, עם
-          ליווי אישי וניסיון שפותח דלתות.
-        </p>
-      </Reveal>
-    </section>
-  );
-}
-
-const institutionsIcons: { label: string; href: string; icon: React.ReactNode }[] = [
-  {
-    label: "ביטוח לאומי",
-    href: "/institutions/bituach-leumi",
-    icon: (
-      <>
-        <rect x="2.5" y="4" width="19" height="12.5" rx="1.8" fill="#ffffff" />
-        <rect x="10.8" y="16.5" width="2.4" height="2.6" fill="#ffffff" />
-        <rect x="7.5" y="19" width="9" height="2.2" rx="1" fill="#F0514F" />
-      </>
-    ),
-  },
-  {
-    label: "מס הכנסה",
-    href: "/institutions/mas-hachnasa",
-    icon: (
-      <>
-        <rect x="3" y="5" width="18" height="16" rx="2" fill="#ffffff" />
-        <rect x="3" y="9.5" width="18" height="1.8" fill="#122680" />
-        <rect x="6.5" y="2" width="2.2" height="5" rx="1" fill="#F0514F" />
-        <rect x="11" y="2" width="2.2" height="5" rx="1" fill="#F0514F" />
-        <rect x="15.5" y="2" width="2.2" height="5" rx="1" fill="#F0514F" />
-      </>
-    ),
-  },
-  {
-    label: "קרנות פנסיה",
-    href: "/institutions/karnot-pensia",
-    icon: (
-      <>
-        <path d="M9 7 L9 21 L12.6 17.6 L14.8 22.2 L17.2 21.1 L15 16.6 L19.8 16 Z" fill="#ffffff" />
-        <line x1="8" y1="4.5" x2="6.5" y2="3" stroke="#F0514F" strokeWidth="1.8" strokeLinecap="round" />
-        <line x1="11" y1="3.8" x2="11" y2="1.8" stroke="#F0514F" strokeWidth="1.8" strokeLinecap="round" />
-        <line x1="6.8" y1="7.5" x2="4.8" y2="7.5" stroke="#F0514F" strokeWidth="1.8" strokeLinecap="round" />
-      </>
-    ),
-  },
-  {
-    label: "חברות ביטוח",
-    href: "/institutions/hevrot-bituach",
-    icon: (
-      <>
-        <path d="M12 3 L17.5 18 L6.5 18 Z" fill="#ffffff" />
-        <path d="M10.1 8.2 L13.9 8.2 L14.9 11 L9.1 11 Z" fill="#F0514F" />
-        <rect x="3.5" y="18" width="17" height="2.4" rx="1.2" fill="#ffffff" />
-      </>
-    ),
-  },
-  {
-    label: "משרד הרישוי",
-    href: "/institutions/misrad-harishui",
-    icon: (
-      <>
-        <circle cx="12" cy="12" r="9" stroke="#ffffff" strokeWidth="2.4" />
-        <line x1="12" y1="4.5" x2="12" y2="19.5" stroke="#ffffff" strokeWidth="1.8" />
-        <line x1="4.5" y1="12" x2="19.5" y2="12" stroke="#ffffff" strokeWidth="1.8" />
-        <line x1="6.7" y1="6.7" x2="17.3" y2="17.3" stroke="#ffffff" strokeWidth="1.8" />
-        <line x1="17.3" y1="6.7" x2="6.7" y2="17.3" stroke="#ffffff" strokeWidth="1.8" />
-        <circle cx="12" cy="12" r="3" fill="#F0514F" stroke="#ffffff" strokeWidth="1.5" />
-      </>
-    ),
-  },
+const institutions = [
+  { label: "ביטוח לאומי", href: "/institutions/bituach-leumi" },
+  { label: "מס הכנסה", href: "/institutions/mas-hachnasa" },
+  { label: "קרנות פנסיה", href: "/institutions/karnot-pensia" },
+  { label: "חברות ביטוח", href: "/institutions/hevrot-bituach" },
+  { label: "משרד הרישוי", href: "/institutions/misrad-harishui" },
 ];
 
-/** באנר מוסדות נייבי עם 5 אייקונים עגולים (homepage-live.html §6). */
+/** מוסדות ובירוקרטיה — 5 אריחים ממוספרים על רקע בהיר (designs/homepage-v3.html). */
 export function InstitutionsBanner() {
   return (
-    <section className="px-6 pb-16 md:px-[clamp(24px,6.7vw,96px)] md:pb-24">
-      <Reveal className="relative mx-auto flex max-w-[1240px] flex-col items-start gap-8 overflow-hidden rounded-2xl bg-banner px-7 py-10 md:flex-row md:items-center md:justify-between md:gap-12 md:px-[72px] md:py-14">
-        <div
-          aria-hidden
-          className="absolute -left-20 -top-36 h-[575px] w-[1282px] rounded-full"
-          style={{
-            background: "radial-gradient(circle, rgba(0,0,255,0.5) 0%, rgba(0,0,255,0) 70%)",
-          }}
-        />
-        <h3 className="relative m-0 shrink-0 font-display text-[26px] font-normal leading-tight text-white md:text-[34px]">
-          מוסדות ובירוקרטיה
-        </h3>
-        <div className="relative flex flex-wrap items-start justify-start gap-6 md:justify-end md:gap-7">
-          {institutionsIcons.map((inst) => (
-            <Link
-              key={inst.label}
-              href={inst.href}
-              className="flex w-[96px] flex-col items-center gap-3 no-underline md:w-[108px]"
-            >
-              <span className="flex h-[74px] w-[74px] items-center justify-center rounded-full bg-white/[0.14] transition-colors hover:bg-white/[0.26] md:h-[84px] md:w-[84px]">
-                <svg width="38" height="38" viewBox="0 0 24 24" fill="none" aria-hidden>
-                  {inst.icon}
-                </svg>
-              </span>
-              <span className="text-center text-base font-bold text-white md:text-[17px]">
-                {inst.label}
-              </span>
-            </Link>
-          ))}
+    <section className="bg-surface px-[18px] py-11 md:px-[clamp(24px,5vw,72px)] md:py-20">
+      <Reveal className="mx-auto grid max-w-[1296px] items-center gap-[18px] md:grid-cols-[300px_1fr] md:gap-12">
+        <div>
+          <h2 className="m-0 font-display text-[26px] font-black leading-[1.05] text-ink md:mb-3 md:text-[40px]">
+            מוסדות <br className="hidden md:block" />
+            ובירוקרטיה
+          </h2>
+          <Link
+            href="/institutions"
+            className="hidden items-center gap-1.5 text-[17px] font-bold text-brand no-underline hover:underline md:inline-flex"
+          >
+            לכל המוסדות
+            <ArrowForward size={16} />
+          </Link>
         </div>
+        <ul className="m-0 flex list-none flex-col gap-2 p-0 md:grid md:grid-cols-5 md:gap-3.5">
+          {institutions.map((inst, i) => (
+            <li key={inst.href}>
+              <Link
+                href={inst.href}
+                className="flex items-center justify-between gap-3 rounded-xl bg-white px-[18px] py-4 text-ink no-underline transition-[transform,box-shadow] duration-200 md:h-full md:min-h-[150px] md:flex-col md:items-stretch md:gap-3.5 md:rounded-[14px] md:px-[22px] md:py-[26px] md:hover:-translate-y-1 md:hover:shadow-[rgba(18,40,168,0.14)_0_16px_32px]"
+              >
+                <span className="tnum hidden text-sm font-black text-brand md:block">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <span className="flex flex-col gap-2 md:mt-auto md:gap-3.5">
+                  <span className="text-lg font-black md:text-[21px]">{inst.label}</span>
+                  <span aria-hidden className="brush-royal h-1.5 w-[90px] md:h-2 md:w-4/5" />
+                </span>
+                <span className="text-brand md:hidden">
+                  <ArrowForward size={18} />
+                </span>
+              </Link>
+            </li>
+          ))}
+        </ul>
       </Reveal>
     </section>
   );

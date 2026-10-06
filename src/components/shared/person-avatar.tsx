@@ -36,7 +36,7 @@ export function PersonAvatar({
       aria-hidden
       style={{ width: size, height: size, fontSize: size * 0.34 }}
       className={cn(
-        "flex shrink-0 items-center justify-center rounded-full bg-[#eef0ff] font-bold text-brand",
+        "flex shrink-0 items-center justify-center rounded-full bg-[#eef1fb] font-bold text-brand",
         className,
       )}
     >

@@ -58,7 +58,7 @@ export function InstitutionServiceCard({
   );
 
   const shell =
-    "group flex h-full min-h-11 flex-col gap-2.5 rounded-xl border border-hairline bg-white p-6 text-start no-underline transition-shadow hover:shadow-[0_12px_32px_rgba(13,37,61,0.12)]";
+    "group flex h-full min-h-11 flex-col gap-2.5 rounded-xl border border-hairline bg-white p-6 text-start no-underline transition-shadow hover:shadow-[0_12px_32px_rgba(10,21,112,0.12)]";
 
   if (hasPage) {
     return (

@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 };
 
 const milestones = [
-  { year: "2013", text: "הקמת החברה — ליווי מימוש זכויות למגזר הדתי.", dot: "bg-accent" },
+  { year: "2013", text: "הקמת החברה — ליווי מימוש זכויות למגזר הדתי.", dot: "bg-gold" },
   { year: "2017", text: "הרחבת הפעילות לכלל אזרחי המדינה והקמת מערך רפואי פנימי.", dot: "bg-brand" },
   { year: "2021", text: "חציית רף 10,000 לקוחות מלווים וצוות של 100+ מומחים.", dot: "bg-brand" },
   { year: "היום", text: "מהחברות המובילות בישראל במימוש זכויות רפואיות.", dot: "bg-banner" },
@@ -26,7 +26,7 @@ const values = [
     desc: "מאחורי כל תיק יש אדם. אנחנו מלווים אתכם בגובה העיניים, בסבלנות וברגישות — גם ברגעים הקשים.",
     icon: (
       <svg width="30" height="30" viewBox="0 0 24 24" fill="none" aria-hidden>
-        <path d="M12 20s-7-4.5-9-9a5 5 0 0 1 9-3.5A5 5 0 0 1 21 11c-2 4.5-9 9-9 9Z" stroke="#0000FF" strokeWidth="1.8" strokeLinejoin="round" />
+        <path d="M12 20s-7-4.5-9-9a5 5 0 0 1 9-3.5A5 5 0 0 1 21 11c-2 4.5-9 9-9 9Z" stroke="#1228a8" strokeWidth="1.8" strokeLinejoin="round" />
       </svg>
     ),
   },
@@ -35,8 +35,8 @@ const values = [
     desc: "לא גובים שקל מראש. אם לא השגנו לכם תוצאה — לא שילמתם. האינטרס שלנו הוא ההצלחה שלכם.",
     icon: (
       <svg width="30" height="30" viewBox="0 0 24 24" fill="none" aria-hidden>
-        <path d="M12 3l7 3v5c0 5-3.2 8.4-7 10-3.8-1.6-7-5-7-10V6l7-3Z" stroke="#0000FF" strokeWidth="1.8" strokeLinejoin="round" />
-        <path d="M9 12l2 2 4-4.5" stroke="#F0514F" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M12 3l7 3v5c0 5-3.2 8.4-7 10-3.8-1.6-7-5-7-10V6l7-3Z" stroke="#1228a8" strokeWidth="1.8" strokeLinejoin="round" />
+        <path d="M9 12l2 2 4-4.5" stroke="#b98a31" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
       </svg>
     ),
   },
@@ -45,8 +45,8 @@ const values = [
     desc: "אתם יודעים בכל רגע איפה התיק עומד, מה השלב הבא ומה סיכויי ההצלחה — בלי אותיות קטנות.",
     icon: (
       <svg width="30" height="30" viewBox="0 0 24 24" fill="none" aria-hidden>
-        <path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12Z" stroke="#0000FF" strokeWidth="1.8" />
-        <circle cx="12" cy="12" r="3" stroke="#F0514F" strokeWidth="1.8" />
+        <path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12Z" stroke="#1228a8" strokeWidth="1.8" />
+        <circle cx="12" cy="12" r="3" stroke="#b98a31" strokeWidth="1.8" />
       </svg>
     ),
   },
@@ -55,7 +55,7 @@ const values = [
     desc: "מעל 100 מומחים ורופאים שמכירים את הוועדות מבפנים ובונים כל תיק ברמה הגבוהה ביותר.",
     icon: (
       <svg width="30" height="30" viewBox="0 0 24 24" fill="none" aria-hidden>
-        <path d="M12 3.5l2.5 5.2 5.7.8-4.1 4 1 5.7L12 16.5l-5.1 2.7 1-5.7-4.1-4 5.7-.8L12 3.5Z" stroke="#0000FF" strokeWidth="1.8" strokeLinejoin="round" />
+        <path d="M12 3.5l2.5 5.2 5.7.8-4.1 4 1 5.7L12 16.5l-5.1 2.7 1-5.7-4.1-4 5.7-.8L12 3.5Z" stroke="#1228a8" strokeWidth="1.8" strokeLinejoin="round" />
       </svg>
     ),
   },
@@ -72,29 +72,24 @@ const steps = [
   { title: "בדיקה רפואית מקיפה", desc: "רופאי החברה עוברים על התיק הרפואי ומאתרים כל זכות אפשרית.", style: "bg-white text-brand border-brand" },
   { title: "בניית התיק והגשה", desc: "אנחנו אוספים מסמכים, ממלאים טפסים ומגישים לכל הגורמים.", style: "bg-white text-brand border-brand" },
   { title: "ליווי לוועדות", desc: "הכנה אישית לוועדה הרפואית וליווי צמוד עד להחלטה.", style: "bg-white text-brand border-brand" },
-  { title: "הכסף אצלכם", desc: "קצבה, מענק או החזר — ורק אז משולם שכר הטרחה.", style: "bg-accent text-white border-accent" },
+  { title: "הכסף אצלכם", desc: "קצבה, מענק או החזר — ורק אז משולם שכר הטרחה.", style: "bg-ink text-white border-ink" },
 ];
 
 export default function AboutPage() {
   return (
     <>
       {/* hero */}
-      <section className="relative overflow-hidden bg-banner text-white">
-        <div
-          aria-hidden
-          className="absolute -right-[120px] -top-40 h-[480px] w-[560px] rounded-full"
-          style={{ background: "radial-gradient(circle, rgba(0,0,255,0.5) 0%, rgba(0,0,255,0) 70%)" }}
-        />
+      <section className="brand-gradient surface-navy relative overflow-hidden text-white [--royal-shape:ellipse_80%_120%_at_70%_40%]">
         <div className="relative mx-auto flex max-w-[1240px] flex-col justify-center gap-4.5 px-6 py-16 md:px-12 md:py-[72px]">
           <Breadcrumb
             tone="inverse"
             items={[{ label: "בית", href: "/" }, { label: "הסיפור שלנו" }]}
           />
           <Entrance>
-            <h1 className="m-0 font-display text-[38px] font-light leading-[1.1] tracking-tight md:text-[60px]">
+            <h1 className="m-0 font-display text-[38px] font-light leading-[1.1] tracking-tight text-white md:text-[60px]">
               המשימה שלנו:
               <br />
-              <span className="border-b-[6px] border-accent font-black md:border-b-8">הזכויות שלכם.</span>
+              <span className="font-black text-gold">הזכויות שלכם.</span>
             </h1>
           </Entrance>
           <p className="m-0 max-w-[560px] text-lg leading-relaxed text-white/90 md:text-xl">
@@ -170,7 +165,7 @@ export default function AboutPage() {
                 delay={i * 0.09}
                 className="flex flex-col gap-3.5 rounded-card border border-hairline bg-white px-6 py-7"
               >
-                <span className="flex h-[62px] w-[62px] items-center justify-center rounded-card bg-[#eef0ff]">
+                <span className="flex h-[62px] w-[62px] items-center justify-center rounded-card bg-[#eef1fb]">
                   {v.icon}
                 </span>
                 <div className="text-[21px] font-bold text-ink">{v.title}</div>
@@ -183,11 +178,11 @@ export default function AboutPage() {
 
       {/* stats banner */}
       <section className="px-6 md:px-[clamp(24px,6.7vw,96px)]">
-        <Reveal className="relative mx-auto max-w-[1240px] overflow-hidden rounded-card bg-banner px-8 py-11 text-white md:px-12">
+        <Reveal className="surface-navy relative mx-auto max-w-[1240px] overflow-hidden rounded-card bg-banner px-8 py-11 text-white md:px-12">
           <div
             aria-hidden
             className="absolute -left-[100px] -top-36 h-[440px] w-[520px] rounded-full"
-            style={{ background: "radial-gradient(circle, rgba(0,0,255,0.5) 0%, rgba(0,0,255,0) 70%)" }}
+            style={{ background: "radial-gradient(circle, rgba(29,63,214,0.55) 0%, rgba(29,63,214,0) 70%)" }}
           />
           <div className="relative grid gap-8 text-center md:grid-cols-3">
             {stats.map((st) => (
@@ -238,7 +233,7 @@ export default function AboutPage() {
 
       {/* social responsibility */}
       <section className="px-6 pb-14 md:px-[clamp(24px,6.7vw,96px)] md:pb-16">
-        <Reveal className="mx-auto grid max-w-[1240px] items-center gap-8 rounded-card border border-[#f6dcdb] bg-[#fdf2f2] px-7 py-9 md:grid-cols-2 md:gap-11 md:px-12 md:py-11">
+        <Reveal className="mx-auto grid max-w-[1240px] items-center gap-8 rounded-card border border-[#f1e3bd] bg-[#fbf5e4] px-7 py-9 md:grid-cols-2 md:gap-11 md:px-12 md:py-11">
           <div className="flex flex-col gap-3.5">
             <div className="text-[15px] font-bold tracking-wide text-accent-text">אחריות חברתית</div>
             <h2 className="m-0 font-display text-[24px] font-light leading-tight md:text-[34px]">
@@ -251,7 +246,7 @@ export default function AboutPage() {
             </p>
             <div className="mt-1 flex flex-wrap gap-2.5">
               {["ליווי פרו-בונו למשפחות", "הרצאות חינם בקהילה", "מדריכים פתוחים במגזין"].map((tag) => (
-                <span key={tag} className="pill border border-[#f0c8c7] bg-white px-4 py-2 text-[15px] text-ink-secondary">
+                <span key={tag} className="pill border border-[#ead7a6] bg-white px-4 py-2 text-[15px] text-ink-secondary">
                   {tag}
                 </span>
               ))}
@@ -259,7 +254,7 @@ export default function AboutPage() {
           </div>
           <div className="hidden h-[320px] items-center justify-center rounded-[14px] bg-white/60 md:flex">
             <svg width="120" height="120" viewBox="0 0 24 24" fill="none" aria-hidden>
-              <path d="M12 20s-7-4.5-9-9a5 5 0 0 1 9-3.5A5 5 0 0 1 21 11c-2 4.5-9 9-9 9Z" stroke="#F0514F" strokeWidth="1" strokeLinejoin="round" />
+              <path d="M12 20s-7-4.5-9-9a5 5 0 0 1 9-3.5A5 5 0 0 1 21 11c-2 4.5-9 9-9 9Z" stroke="#b98a31" strokeWidth="1" strokeLinejoin="round" />
             </svg>
           </div>
         </Reveal>

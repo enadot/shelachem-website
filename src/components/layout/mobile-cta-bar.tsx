@@ -50,7 +50,7 @@ export function MobileCtaBar() {
         <button
           type="button"
           onClick={() => openLeadForm("mobile-cta-bar")}
-          className="flex min-h-11 cursor-pointer items-center justify-center rounded-full border-none bg-accent px-2 text-[15px] font-bold text-white"
+          className="flex min-h-11 cursor-pointer items-center justify-center rounded-[10px] border-none bg-brand px-2 text-[15px] font-bold text-white"
         >
           בדיקת זכאות
         </button>

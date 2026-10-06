@@ -56,8 +56,11 @@ export interface LeadFormProps {
   sourcePage: string;
   /** Show the two consent checkboxes (hero form). Default true for data consent only. */
   withMarketingConsent?: boolean;
-  /** "hero" lays the fields out in the hero-card grid (name+phone row, email+submit row). */
-  layout?: "stacked" | "hero";
+  /**
+   * "hero" — name+phone row, email+submit row.
+   * "inline" — v3 hero card: on desktop name/phone/email/submit in one row, consents below.
+   */
+  layout?: "stacked" | "hero" | "inline";
   className?: string;
 }
 
@@ -94,9 +97,10 @@ export function LeadForm({
   });
 
   const dark = variant === "dark";
+  const rowSubmit = layout === "hero" || layout === "inline";
 
   const inputClass = cn(
-    dark && "border-white/25 bg-white/10 text-white placeholder:text-white/60",
+    dark && "border-transparent bg-white focus:border-gold",
   );
 
   const onSubmit = handleSubmit(async (values) => {
@@ -150,13 +154,13 @@ export function LeadForm({
     );
   }
 
-  const errorClass = cn("m-0 mt-1 text-[13px]", dark ? "text-red-200" : "text-accent-text");
+  const errorClass = cn("m-0 mt-1 text-[13px]", dark ? "text-red-200" : "text-danger");
   const errorId = (name: string) => `${sourcePage}-${name}-error`;
 
   // תוויות קבועות מעל השדות — placeholder נעלם בהקלדה ומשאיר שדות אנונימיים.
   const fieldLabelClass = cn(
     "mb-1 block text-[13px] font-bold",
-    dark ? "text-white/85" : "text-ink-secondary",
+    dark ? "text-white/90" : "text-ink-secondary",
   );
   const id = (name: string) => `${sourcePage}-${name}`;
 
@@ -233,9 +237,10 @@ export function LeadForm({
   const submitButton = (
     <Button
       type="submit"
-      variant="accent"
+      variant={dark ? "accent" : "brand"}
+      size="lg"
       disabled={status === "sending"}
-      className={layout === "hero" ? "w-full sm:w-auto" : "w-full"}
+      className={rowSubmit ? "w-full sm:w-auto" : "w-full"}
     >
       {status === "sending" ? (
         "שולחים…"
@@ -261,6 +266,13 @@ export function LeadForm({
             {submitButton}
           </div>
         </>
+      ) : layout === "inline" ? (
+        <div className="grid gap-3 md:grid-cols-[1fr_1fr_1fr_auto] md:items-end">
+          {nameField}
+          {phoneField}
+          {emailField}
+          {submitButton}
+        </div>
       ) : (
         <>
           {nameField}
@@ -372,9 +384,9 @@ export function LeadForm({
         />
       )}
 
-      {layout !== "hero" && submitButton}
+      {!rowSubmit && submitButton}
       {status === "error" && (
-        <p className={cn("m-0 text-center text-[13px]", dark ? "text-red-200" : "text-accent-text")} role="alert">
+        <p className={cn("m-0 text-center text-[13px]", dark ? "text-red-200" : "text-danger")} role="alert">
           משהו השתבש בשליחה. נסו שוב או התקשרו אלינו:{" "}
           <a href={site.phoneHref} className="tnum font-bold underline underline-offset-2">
             {site.phone}

@@ -2,39 +2,34 @@ import Image from "next/image";
 import { Reveal } from "@/components/shared/reveal";
 import { LeadForm } from "@/components/shared/lead-form";
 
-/** CTA סופי עם לבבות watermark (homepage-live.html §10). */
+/** CTA סופי על רויאל (designs/homepage-v3.html) — כותרת משמאל לטופס, כפתור זהב. */
 export function FinalCta() {
   return (
-    <section className="relative overflow-hidden px-6 py-16 text-center md:px-[clamp(24px,6.7vw,96px)] md:py-[88px]">
+    <section className="brand-gradient surface-navy relative overflow-hidden px-[22px] py-[52px] text-white [--royal-shape:ellipse_110%_80%_at_50%_40%] md:px-[clamp(24px,5vw,72px)] md:py-[92px] md:[--royal-shape:ellipse_70%_100%_at_25%_50%]">
       <Image
-        src="/images/heart.svg"
+        src="/images/swirl-white.png"
         alt=""
         aria-hidden
-        width={380}
-        height={380}
-        className="pointer-events-none absolute -bottom-[70px] -left-[50px] w-[280px] opacity-[0.07] md:w-[380px]"
+        width={480}
+        height={480}
+        className="pointer-events-none absolute -left-[70px] -top-10 w-[260px] opacity-[0.12] md:-top-20 md:left-10 md:w-[480px]"
       />
-      <Image
-        src="/images/heart.svg"
-        alt=""
-        aria-hidden
-        width={300}
-        height={300}
-        className="pointer-events-none absolute -right-[70px] -top-[60px] w-[220px] opacity-[0.05] md:w-[300px]"
-      />
-      <Reveal className="relative mx-auto max-w-[820px]">
-        <h2 className="m-0 mb-3 font-display text-[28px] font-bold tracking-tight text-ink md:text-[40px]">
-          בואו לבדוק מה מגיע לכם
-        </h2>
-        <p className="m-0 mb-8 text-[17px] text-ink-muted md:text-[19px]">
-          השאירו פרטים ונחזור אליכם היום. בלי עלות, בלי התחייבות, בלי אותיות קטנות.
-        </p>
+      <Reveal className="relative mx-auto grid max-w-[1296px] items-center gap-[22px] md:grid-cols-2 md:gap-20">
+        <div>
+          <h2 className="m-0 mb-2.5 font-display text-[34px] font-black leading-none text-white md:mb-3.5 md:text-[60px] md:tracking-[-1px]">
+            בואו לבדוק <br className="hidden md:block" />
+            מה מגיע לכם
+          </h2>
+          <p className="m-0 text-base leading-relaxed text-on-royal-muted md:text-xl">
+            השאירו פרטים ונחזור אליכם היום. בלי עלות, בלי התחייבות, בלי אותיות קטנות.
+          </p>
+        </div>
         <LeadForm
+          variant="dark"
           layout="hero"
           sourcePage="home-final-cta"
           submitLabel="צרו איתי קשר"
           withMarketingConsent={false}
-          className="mx-auto max-w-[640px] text-start"
         />
       </Reveal>
     </section>

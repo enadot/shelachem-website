@@ -18,7 +18,7 @@ export function PageCta({
       <Reveal className="mx-auto flex max-w-[1240px] flex-col items-start justify-between gap-6 rounded-card border border-hairline bg-white px-7 py-8 md:flex-row md:items-center md:px-11 md:py-9">
         <div>
           <h2 className="m-0 mb-2 font-display text-[24px] font-light text-ink md:text-[30px]">
-            {title} <span className="font-bold">{strong}</span>
+            {title} <span className="font-black">{strong}</span>
           </h2>
           <p className="m-0 text-[16px] text-ink-secondary md:text-[17px]">{subtitle}</p>
         </div>
@@ -26,7 +26,7 @@ export function PageCta({
           <a href={site.phoneHref} className="tnum text-lg font-bold text-ink no-underline hover:text-brand">
             {site.phone}
           </a>
-          <LeadCta sourcePage="page-cta">
+          <LeadCta sourcePage="page-cta" variant="brand">
             חזרו אליי
             <ChevronForward size={16} />
           </LeadCta>

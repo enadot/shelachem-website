@@ -1,5 +1,4 @@
 import { Reveal } from "@/components/shared/reveal";
-import { SectionHeading } from "@/components/shared/section-heading";
 import { LeadCta } from "@/components/shared/lead-cta";
 
 const steps = [
@@ -17,36 +16,64 @@ const steps = [
   },
 ];
 
-/** שלושה צעדים (homepage-live.html §4), עוגן #how-it-works מהניווט. */
+/**
+ * פסקת המהות + שלושה צעדים על ציר (designs/homepage-v3.html).
+ * ציר אנכי במובייל, אופקי בדסקטופ. עוגן #how-it-works מהניווט.
+ */
 export function HowItWorks() {
   return (
     <section
       id="how-it-works"
-      className="scroll-mt-24 px-6 py-16 md:px-[clamp(24px,6.7vw,96px)] md:py-[88px]"
+      className="scroll-mt-24 px-[22px] pb-[52px] pt-[52px] md:px-[clamp(24px,5vw,72px)] md:py-[100px]"
     >
-      <div className="mx-auto max-w-[1240px]">
-        <SectionHeading strong="החלק הקשה שלנו." className="mb-10 text-[28px] md:text-[38px]">
-          שלושה צעדים שלכם.
-        </SectionHeading>
-        <div className="grid gap-6 md:grid-cols-3">
+      <div className="mx-auto max-w-[1296px]">
+        <Reveal className="mb-11 grid gap-3.5 md:mb-[72px] md:grid-cols-2 md:items-end md:gap-20">
+          <h2 className="m-0 font-display text-[28px] font-light leading-[1.25] text-ink md:text-[48px] md:leading-[1.08] md:tracking-[-0.5px]">
+            מימוש זכויות רפואיות: <span className="font-black">הופכים את הזכות שלכם למציאות.</span>
+          </h2>
+          <p className="m-0 text-base leading-[1.65] text-ink-secondary md:text-lg md:leading-[1.7]">
+            הדרך לקבלת הקצבאות והפיצויים המגיעים לכם על פי חוק לא חייבת להיות מאבק. למרות שמדובר
+            בזכויות בסיסיות, הבירוקרטיה המורכבת וחוסר הידע גורמים לרבים לוותר מראש על כסף שמגיע
+            להם. בשלכם, אנחנו מאמינים שאף אדם לא צריך להתמודד לבד מול גופים גדולים כמו ביטוח לאומי
+            או חברות הביטוח. אנחנו כאן כדי לגשר על הפער שבין המצב הרפואי לבין המענק הכספי, עם ליווי
+            אישי וניסיון שפותח דלתות.
+          </p>
+        </Reveal>
+
+        <h3 className="m-0 mb-6 font-display text-[28px] font-light text-ink md:mb-9 md:text-center md:text-[32px]">
+          שלושה צעדים שלכם. <span className="font-black">החלק הקשה שלנו.</span>
+        </h3>
+
+        <ol className="relative m-0 flex list-none flex-col gap-[26px] p-0 md:grid md:grid-cols-3 md:gap-10">
+          {/* הציר — אנכי במובייל, אופקי בדסקטופ */}
+          <span
+            aria-hidden
+            className="absolute bottom-6 right-[23px] top-6 w-[3px] bg-gradient-to-b from-brand to-sky md:bottom-auto md:left-[16.6%] md:right-[16.6%] md:top-[35px] md:h-1 md:w-auto md:bg-gradient-to-l md:[clip-path:polygon(0_20%,100%_0,100%_100%,0_80%)]"
+          />
           {steps.map((step, i) => (
             <Reveal
+              as="li"
               key={step.title}
-              delay={i * 0.09}
-              className="rounded-xl border border-hairline bg-white p-8 transition-[transform,box-shadow] duration-200 hover:-translate-y-[5px] hover:shadow-[0_14px_32px_rgba(0,55,112,0.10)]"
+              delay={i * 0.08}
+              className="relative grid grid-cols-[50px_1fr] items-start gap-4 md:flex md:flex-col md:items-center md:gap-3 md:text-center"
             >
-              <div className="tnum mb-4 flex h-11 w-11 items-center justify-center rounded-full bg-accent-tint text-xl font-bold text-accent-text">
+              <span className="tnum flex h-[50px] w-[50px] items-center justify-center rounded-full bg-brand font-display text-2xl font-black text-white shadow-[0_0_0_6px_#fff] md:h-[72px] md:w-[72px] md:text-[34px] md:shadow-[0_0_0_10px_#fff,rgba(18,40,168,0.25)_0_14px_30px]">
                 {i + 1}
-              </div>
-              <div className="mb-2.5 text-[22px] font-bold text-ink">{step.title}</div>
-              <div className="text-[17px] leading-relaxed text-ink-secondary md:text-[19px]">
-                {step.body}
+              </span>
+              <div className="pt-1 md:pt-0">
+                <div className="mb-1.5 text-[19px] font-black text-ink md:mb-3 md:mt-3 md:text-2xl">
+                  {step.title}
+                </div>
+                <div className="text-base leading-[1.55] text-ink-secondary md:mx-auto md:max-w-[340px] md:text-lg md:leading-relaxed">
+                  {step.body}
+                </div>
               </div>
             </Reveal>
           ))}
-        </div>
-        <div className="mt-9 flex justify-center">
-          <LeadCta sourcePage="home-how-it-works" variant="brand" size="lg">
+        </ol>
+
+        <div className="mt-7 md:mt-12 md:flex md:justify-center">
+          <LeadCta sourcePage="home-how-it-works" variant="brand" size="lg" className="w-full md:w-auto">
             לבדיקה ראשונית חינם
           </LeadCta>
         </div>

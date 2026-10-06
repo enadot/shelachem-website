@@ -16,7 +16,7 @@ export function TestimonialCard({
         className,
       )}
     >
-      <div aria-hidden className="text-[34px] font-black leading-[0.6] text-accent">
+      <div aria-hidden className="text-[34px] font-black leading-[0.6] text-brand">
         ”
       </div>
       <p className="m-0 flex-1 text-base leading-relaxed text-ink-secondary">

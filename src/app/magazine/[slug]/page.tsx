@@ -119,7 +119,7 @@ export default async function ArticlePage({
         />
         <div className="flex flex-col gap-4 pt-6">
           <div className="flex items-center gap-3">
-            <span className="pill bg-[#eef0ff] px-4 py-1.5 text-sm font-bold text-brand">
+            <span className="pill bg-[#eef1fb] px-4 py-1.5 text-sm font-bold text-brand">
               {article.category}
             </span>
             <span className="tnum text-[15px] text-ink-faint">
@@ -232,7 +232,7 @@ export default async function ArticlePage({
             <div
               aria-hidden
               className="absolute -left-[70px] -top-[110px] h-[360px] w-[420px] rounded-full"
-              style={{ background: "radial-gradient(circle, rgba(0,0,255,0.5) 0%, rgba(0,0,255,0) 70%)" }}
+              style={{ background: "radial-gradient(circle, rgba(29,63,214,0.55) 0%, rgba(29,63,214,0) 70%)" }}
             />
             <div className="relative flex flex-wrap items-center justify-between gap-6">
               <div className="min-w-[260px] flex-1">
@@ -258,8 +258,7 @@ export default async function ArticlePage({
             <div className="flex items-start gap-5 rounded-2xl border border-hairline bg-surface px-7 py-6">
               <PersonAvatar name={article.author.name} size={64} />
               <div>
-                {/* #c93330 על #f6f9fc = 4.97:1 — text-accent נפל שם ב-4.31:1 */}
-                <div className="mb-1 text-sm font-bold text-accent-text">הכירו את המומחית</div>
+                                <div className="mb-1 text-sm font-bold text-accent-text">הכירו את המומחית</div>
                 <div className="mb-1.5 text-[19px] font-bold text-ink">{article.author.name}</div>
                 <p className="m-0 text-base leading-relaxed text-ink-secondary">{article.author.bio}</p>
               </div>

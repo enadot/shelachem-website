@@ -105,13 +105,13 @@ export default async function InstitutionPage({
           <div
             aria-hidden
             className="absolute -left-[100px] -top-36 h-[440px] w-[520px] rounded-full"
-            style={{ background: "radial-gradient(circle, rgba(0,0,255,0.5) 0%, rgba(0,0,255,0) 70%)" }}
+            style={{ background: "radial-gradient(circle, rgba(29,63,214,0.55) 0%, rgba(29,63,214,0) 70%)" }}
           />
           <div className="relative grid grid-cols-2 gap-8 text-center md:grid-cols-4">
             {inst.stats.map((st) => (
               <div key={st.label} className="flex flex-col gap-1.5">
                 <div
-                  /* #e75f5d על נייבי = 3.84:1; הגוון הרגיל נפל ב-2.86:1 מול 3:1 */
+                  /* זהב על רויאל = 8.6:1 */
                   className={`tnum font-display text-[34px] font-black md:text-[46px] ${st.accent ? "text-accent-on-navy" : "text-white"}`}
                 >
                   <StatValue value={st.value} />

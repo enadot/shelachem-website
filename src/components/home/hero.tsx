@@ -1,105 +1,94 @@
-import { existsSync } from "node:fs";
-import path from "node:path";
+import Image from "next/image";
 import { Entrance } from "@/components/shared/reveal";
 import { LeadForm } from "@/components/shared/lead-form";
 import { CmsImage } from "@/components/shared/cms-image";
-import { BorderBeam } from "@/components/magicui/border-beam";
 import { getGlobals } from "@/lib/content";
+import { site } from "@/lib/config";
+
+const heroInstitutions = [
+  { label: "ביטוח לאומי", brush: "" },
+  { label: "מס הכנסה", brush: "brush-2" },
+  { label: "חברות ביטוח", brush: "brush-3" },
+];
 
 /**
- * Hero מפוצל לבן/כחול (homepage-live.html §1):
- * ימין — h1 + כרטיס טופס עם תגית pill צפה; שמאל — גרדיאנט כחול, glow פועם ופס "רצפה" כהה.
- * תמונת הצוות מנוהלת ב-CMS (globals ▸ hero_image); נפילה חזרה ל-public/images/hero-team.png.
+ * Hero v3 (designs/homepage-v3.html §5a/5b) — רויאל מלא:
+ * תגית זהב, h1 עם "שלכם" ענק, שלושה מוסדות עם קו מכחול, ותמונת הצוות.
+ * מתחתיו כרטיס טופס לבן שעולה על ההירו (-72px / -48px).
+ * תמונת הצוות מנוהלת ב-CMS (globals ▸ hero_image); נפילה חזרה ל-hero-gavel-team.
  */
-const hasLocalTeamImage = existsSync(path.join(process.cwd(), "public/images/hero-team.png"));
-
 export async function Hero() {
   const globals = await getGlobals();
-  const teamImage =
-    globals?.hero_image ?? (hasLocalTeamImage ? "/images/hero-team.png" : null);
-  const teamImageAlt = globals?.hero_image_alt ?? "";
+  const teamImage = globals?.hero_image ?? "/images/hero-gavel-team.webp";
+  const teamImageAlt = globals?.hero_image_alt ?? "צוות המומחים של שלכם";
+
   return (
-    <section className="relative flex min-h-[560px] flex-col overflow-hidden bg-white md:flex-row md:items-stretch md:min-h-[660px]">
-      {/* right (white) half */}
-      <div className="flex flex-[1.08] flex-col items-start px-6 pt-9 md:px-[clamp(24px,6.7vw,96px)] md:pt-16 md:ps-[clamp(32px,9vw,130px)]">
-        {/* בלי Entrance — ה-h1 הוא אלמנט ה-LCP ואסור שיהיה תלוי בהידרציה */}
-        <h1 className="m-0 mb-6 max-w-[520px] font-display text-[40px] font-light leading-[1.1] tracking-tight text-ink md:text-[clamp(46px,4.45vw,64px)] md:leading-[1.08]">
-            13 שנות מקצוענות
-            <br />
-            במימוש הזכויות
-            <br />
-          <span className="keyword-underline text-black">שלכם</span>
-        </h1>
-
-        {/* blue half — mobile only, between h1 and the form card.
-            (מוצג גם בלי תמונה — תמונת הצוות תעלה לכאן דרך ה-CMS: globals ▸ hero_image) */}
-        <BlueHalf
-          className="relative -mx-6 block h-[340px] w-[calc(100%+48px)] md:hidden"
-          image={teamImage}
-          imageAlt={teamImageAlt}
+    <>
+      <section
+        className="brand-gradient surface-navy relative overflow-hidden text-white [--royal-shape:ellipse_110%_80%_at_50%_60%] md:[--royal-shape:ellipse_70%_90%_at_30%_50%]"
+      >
+        <Image
+          src="/images/swirl-white.png"
+          alt=""
+          aria-hidden
+          width={560}
+          height={560}
+          className="pointer-events-none absolute left-1/2 top-[300px] w-[300px] -translate-x-1/2 opacity-[0.14] md:left-[28%] md:top-1/2 md:w-[560px] md:-translate-y-[55%]"
         />
+        <div className="relative mx-auto grid max-w-[1440px] items-center gap-6 px-[22px] pt-[30px] md:grid-cols-[minmax(0,600px)_1fr] md:px-[clamp(24px,5vw,72px)] md:pb-[120px] md:pt-[72px]">
+          <div>
+            <Entrance>
+              <span className="badge-gold px-[18px] pb-1.5 pt-[7px] text-base md:px-[26px] md:pb-2 md:pt-[9px] md:text-[19px]">
+                מאז {site.foundedYear} · {site.stats.clients} לקוחות
+              </span>
+            </Entrance>
+            {/* בלי Entrance — ה-h1 הוא אלמנט ה-LCP ואסור שיהיה תלוי בהידרציה */}
+            <h1 className="m-0 mt-[18px] font-display text-[34px] font-light leading-[1.12] tracking-[-0.3px] text-white md:mt-[26px] md:text-[clamp(40px,3.6vw,52px)] md:leading-[1.08] md:tracking-[-0.5px]">
+              <b className="font-black">המקצוענים</b> שמנצחים את הבירוקרטיה בדרך לזכויות
+              <span className="mt-1.5 block text-[100px] font-black leading-[0.88] tracking-[-2px] md:mt-2 md:text-[clamp(120px,12.2vw,176px)] md:leading-[0.84] md:tracking-[-5px]">
+                שלכם
+              </span>
+            </h1>
+            <Entrance delay={0.2}>
+              <ul className="m-0 mt-[18px] grid list-none grid-cols-3 gap-2 p-0 md:mt-7 md:grid-cols-[repeat(3,minmax(0,170px))] md:gap-3">
+                {heroInstitutions.map((inst) => (
+                  <li key={inst.label} className="flex flex-col gap-1.5 md:gap-[9px]">
+                    <span className="text-[15px] font-black md:text-xl">{inst.label}</span>
+                    <span aria-hidden className={`brush h-[7px] md:h-2.5 ${inst.brush}`} />
+                  </li>
+                ))}
+              </ul>
+            </Entrance>
+          </div>
+          <Entrance delay={0.25} fade className="flex justify-center">
+            <CmsImage
+              src={teamImage}
+              alt={teamImageAlt}
+              width={1536}
+              height={1024}
+              priority
+              sizes="(min-width: 768px) 48vw, 100vw"
+              className="mb-14 mt-[22px] h-auto w-full max-w-[690px] drop-shadow-[0_16px_32px_rgba(0,10,60,0.4)] md:my-0 md:drop-shadow-[0_24px_48px_rgba(0,10,60,0.45)]"
+            />
+          </Entrance>
+        </div>
+      </section>
 
-        <Entrance
-          delay={0.2}
-          className="relative z-[2] -mt-12 w-full md:mt-auto md:max-w-[640px]"
-        >
+      {/* כרטיס הטופס — עולה על ההירו */}
+      <div className="relative z-[2] mx-3.5 -mt-12 md:mx-auto md:-mt-[72px] md:max-w-[1440px] md:px-[clamp(24px,5vw,72px)]">
+        <Entrance delay={0.2}>
           <div
             id="lead-form"
-            className="relative flex scroll-mt-24 flex-col gap-3.5 rounded-[20px] border border-[#e6ebf2] bg-white px-5 pb-5 pt-9 shadow-[0_20px_48px_rgba(13,37,61,0.14)] md:rounded-b-none md:rounded-t-[28px] md:border-b-0 md:px-7 md:pb-6 md:pt-10 md:shadow-[0_-20px_48px_rgba(13,37,61,0.12)]"
+            className="flex scroll-mt-28 flex-col gap-3 rounded-2xl bg-white px-[18px] pb-[18px] pt-6 shadow-[rgba(10,21,112,0.20)_0_22px_50px] md:grid md:grid-cols-[230px_1fr] md:items-center md:gap-8 md:rounded-[18px] md:px-8 md:py-7 md:shadow-[rgba(10,21,112,0.18)_0_28px_64px]"
           >
-            <div className="pill absolute -top-[21px] right-5 z-[1] bg-brand px-5 py-3 text-base font-bold leading-none text-white shadow-[0_10px_24px_rgba(0,0,120,0.25)] md:-top-[25px] md:right-7 md:px-6 md:py-4 md:text-lg">
-              מגיע לכם לדעת מה מגיע לכם
-            </div>
-            <BorderBeam size={180} duration={10} className="opacity-60" />
-            <LeadForm layout="hero" sourcePage="home-hero" submitLabel="אני רוצה לבדוק" />
+            <h2 className="m-0 font-display text-2xl font-black leading-[1.12] text-ink md:text-[28px]">
+              מגיע לכם לדעת <br className="hidden md:block" />
+              <span className="text-brand">מה מגיע לכם</span>
+            </h2>
+            <LeadForm layout="inline" sourcePage="home-hero" submitLabel="אני רוצה לבדוק" />
           </div>
         </Entrance>
       </div>
-
-      {/* blue half — desktop */}
-      <BlueHalf className="surface-navy relative hidden flex-[0.92] md:block" image={teamImage} imageAlt={teamImageAlt} />
-    </section>
-  );
-}
-
-function BlueHalf({
-  className,
-  image,
-  imageAlt,
-}: {
-  className?: string;
-  image: string | null;
-  imageAlt: string;
-}) {
-  return (
-    <div
-      className={`brand-gradient ${className ?? ""}`}
-    >
-      <div className="absolute inset-0 overflow-hidden">
-        <div
-          aria-hidden
-          className="animate-glow-pulse absolute -left-[120px] -top-[160px] h-[560px] w-[560px] rounded-full"
-          style={{
-            background:
-              "radial-gradient(circle, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0) 70%)",
-          }}
-        />
-        {/* the darker "floor" band behind the team */}
-        <div
-          aria-hidden
-          className="brand-gradient-floor absolute bottom-0 left-0 right-0 h-[104px] md:h-40"
-        />
-        {image && (
-          <CmsImage
-            src={image}
-            alt={imageAlt}
-            fill
-            priority
-            sizes="(min-width: 768px) 46vw, 100vw"
-            className="object-contain object-bottom"
-          />
-        )}
-      </div>
-    </div>
+    </>
   );
 }
