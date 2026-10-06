@@ -426,6 +426,8 @@ input[type="range"] {
   transition: background-size 0.45s var(--ease-out);
 }
 .link-draw:hover,
-.link-draw:focus-visible {
+.link-draw:focus-visible,
+.group:hover .link-draw,
+.group:focus-visible .link-draw {
   background-size: 100% 1.5px;
 }

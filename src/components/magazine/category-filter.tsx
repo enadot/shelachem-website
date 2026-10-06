@@ -54,7 +54,7 @@ export function CategoryFilter({ articles }: { articles: Article[] }) {
       </div>
 
       {visible.length > 0 ? (
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 md:gap-[18px]">
+        <div className="grid gap-10 sm:grid-cols-2 sm:gap-x-6 sm:gap-y-12 lg:grid-cols-3">
           {visible.map((a) => (
             <ArticleCard key={a.id} article={a} />
           ))}

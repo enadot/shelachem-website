@@ -50,11 +50,6 @@ export function TaxCalculator() {
 
   return (
     <div className="surface-navy relative overflow-hidden rounded-2xl bg-banner px-6 py-8 text-white md:px-9">
-      <div
-        aria-hidden
-        className="absolute -left-20 -top-[120px] h-[400px] w-[480px] rounded-full"
-        style={{ background: "radial-gradient(circle, rgba(29,63,214,0.55) 0%, rgba(29,63,214,0) 70%)" }}
-      />
       <div className="relative">
         <h2 className="m-0 mb-1.5 font-display text-[24px] font-light text-white md:text-[30px]">
           כמה כסף <span className="font-black">מחכה לכם?</span>

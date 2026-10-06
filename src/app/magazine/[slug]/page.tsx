@@ -229,11 +229,6 @@ export default async function ArticlePage({
 
           {/* mid-article CTA */}
           <div className="surface-navy relative overflow-hidden rounded-2xl bg-banner px-7 py-7 text-white md:px-8">
-            <div
-              aria-hidden
-              className="absolute -left-[70px] -top-[110px] h-[360px] w-[420px] rounded-full"
-              style={{ background: "radial-gradient(circle, rgba(29,63,214,0.55) 0%, rgba(29,63,214,0) 70%)" }}
-            />
             <div className="relative flex flex-wrap items-center justify-between gap-6">
               <div className="min-w-[260px] flex-1">
                 {/* ההרגעה מובילה, לא נגררת: לקורא שכבר מתבייש בקביעה נמוכה,
@@ -293,12 +288,12 @@ export default async function ArticlePage({
 
       {/* read next */}
       {readNext.length > 0 && (
-        <section className="bg-surface px-6 py-10 md:px-[clamp(24px,6.7vw,96px)] md:py-14">
+        <section className="border-t border-hairline px-6 py-14 md:px-[clamp(24px,6.7vw,96px)] md:py-24">
           <div className="mx-auto max-w-[1240px]">
-            <SectionHeading strong="לקרוא" underlineStrong className="mb-6 text-[24px] md:text-[32px]">
+            <SectionHeading strong="לקרוא" underlineStrong className="mb-10 text-[30px] md:mb-14 md:text-[52px]">
               המשיכו
             </SectionHeading>
-            <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3 md:gap-5">
+            <div className="grid gap-10 sm:grid-cols-2 sm:gap-x-6 md:grid-cols-3">
               {readNext.map((a) => (
                 <ArticleCard key={a.id} article={a} />
               ))}

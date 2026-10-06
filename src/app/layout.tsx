@@ -46,7 +46,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="he" dir="rtl" className="h-full antialiased">
+    <html lang="he" dir="rtl" className="h-full antialiased" suppressHydrationWarning>
       <body className="flex min-h-full flex-col">
         {/*
           מפעיל את הסתרת ה-Reveal רק כשה-JS באמת רץ. ה-failsafe מסיר את הסימון
