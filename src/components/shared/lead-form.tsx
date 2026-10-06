@@ -247,7 +247,7 @@ export function LeadForm({
       ) : (
         <>
           {submitLabel}
-          <ChevronForward size={16} />
+          <ChevronForward size={16} className="nudge" />
         </>
       )}
     </Button>

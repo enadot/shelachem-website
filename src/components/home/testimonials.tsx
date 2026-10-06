@@ -1,59 +1,75 @@
-import Image from "next/image";
+"use client";
+
+import { useState } from "react";
 import type { Testimonial } from "@/lib/content/types";
+import { Eyebrow } from "@/components/shared/eyebrow";
 import { Reveal } from "@/components/shared/reveal";
 import { LeadCta } from "@/components/shared/lead-cta";
+import { ArrowForward, ChevronBack, ChevronForward } from "@/components/shared/icons";
 
-/** עדויות על רויאל (designs/homepage-v3.html) — גריד בדסקטופ, גלילת swipe במובייל. */
+/**
+ * עדויות — ציטוט אחד גדול בכל פעם (טיפוגרפיה עריכתית על רויאל), עם מונה
+ * "01 / 03" וחיצים. מעבר בין ציטוטים: crossfade קצר, בלי קרוסלה נגררת.
+ */
 export function Testimonials({ testimonials }: { testimonials: Testimonial[] }) {
+  const items = testimonials.slice(0, 5);
+  const [index, setIndex] = useState(0);
+  if (items.length === 0) return null;
+  const t = items[index];
+  const go = (dir: 1 | -1) => setIndex((i) => (i + dir + items.length) % items.length);
+  const pad = (n: number) => String(n).padStart(2, "0");
+
   return (
-    <section className="brand-gradient surface-navy relative overflow-hidden py-12 text-white [--royal-shape:ellipse_110%_80%_at_50%_30%] md:px-[clamp(24px,5vw,72px)] md:py-24 md:[--royal-shape:ellipse_80%_90%_at_50%_30%]">
-      <Image
-        src="/images/swirl-white.png"
-        alt=""
-        aria-hidden
-        width={480}
-        height={480}
-        className="pointer-events-none absolute -left-[120px] -top-[140px] hidden w-[480px] opacity-10 md:block"
-      />
-      <div className="relative mx-auto max-w-[1296px]">
-        <div className="px-[22px] md:px-0">
-          <h2 className="m-0 mb-[22px] font-display text-[28px] font-light text-white md:mb-10 md:text-[48px] md:tracking-[-0.5px]">
-            הם כבר לא מוותרים <span className="font-black">על מה ששלהם.</span>
-          </h2>
-        </div>
-        <Reveal>
-          {/* אזור גליל (במובייל) — חייב שם ומיקוד מקלדת כדי שאפשר יהיה לגלול בחיצים. */}
-          <div
-            role="region"
-            aria-label="סיפורי לקוחות"
-            tabIndex={0}
-            className="no-scrollbar flex snap-x snap-mandatory gap-3 overflow-x-auto px-[22px] pb-1.5 md:grid md:grid-cols-3 md:gap-6 md:overflow-visible md:px-0 md:pb-0"
-          >
-            {testimonials.slice(0, 3).map((t) => (
-              <figure
-                key={t.id}
-                className="m-0 flex w-[280px] shrink-0 snap-start flex-col rounded-[14px] bg-white text-ink md:w-auto md:rounded-2xl"
-              >
-                <blockquote className="m-0 flex-1 px-[18px] pb-3.5 pt-[18px] text-[15px] leading-relaxed text-ink-secondary md:px-7 md:pb-5 md:pt-[26px] md:text-lg md:leading-[1.65]">
-                  ”{t.quote}“
-                </blockquote>
-                <figcaption className="px-[18px] pb-[18px] md:px-7 md:pb-[26px]">
-                  <div className="text-[15px] font-black md:text-[17px]">{t.name}</div>
-                  <div className="text-[13px] font-bold text-brand md:text-[15px]">{t.detail}</div>
-                </figcaption>
-              </figure>
-            ))}
+    <section className="surface-navy bg-brand px-[22px] py-16 text-white md:px-[clamp(24px,5vw,72px)] md:py-[120px]">
+      <div className="mx-auto max-w-[1296px]">
+        <Eyebrow index="05" tone="dark">
+          הם כבר לא מוותרים על מה ששלהם
+        </Eyebrow>
+
+        <figure className="m-0 mt-10 min-h-[260px] md:mt-16 md:min-h-[220px]" aria-live="polite">
+          <div key={t.id} className="row-in">
+            <blockquote className="m-0 max-w-[1040px] font-display text-[26px] font-light leading-[1.3] text-white md:text-[44px] md:leading-[1.2] md:tracking-[-0.01em]">
+              ”{t.quote}“
+            </blockquote>
+            <figcaption className="mt-8 flex items-center gap-3 text-base md:mt-10 md:text-lg">
+              <span className="font-black">{t.name}</span>
+              <span aria-hidden className="h-px w-6 bg-white/40" />
+              <span className="text-on-royal-muted">{t.detail}</span>
+            </figcaption>
           </div>
-        </Reveal>
-        <div className="mt-6 px-[22px] md:mt-8 md:px-0">
+        </figure>
+
+        <Reveal className="mt-10 flex flex-wrap items-center justify-between gap-6 border-t border-white/20 pt-6 md:mt-14 md:pt-8">
+          <div className="flex items-center gap-4">
+            <button
+              type="button"
+              onClick={() => go(-1)}
+              aria-label="הציטוט הקודם"
+              className="flex h-12 w-12 cursor-pointer items-center justify-center rounded-full border border-white/30 bg-transparent text-white transition-colors duration-300 hover:bg-white hover:text-brand"
+            >
+              <ChevronBack size={18} />
+            </button>
+            <span className="tnum min-w-[64px] text-center text-sm font-bold text-white/80">
+              {pad(index + 1)} / {pad(items.length)}
+            </span>
+            <button
+              type="button"
+              onClick={() => go(1)}
+              aria-label="הציטוט הבא"
+              className="flex h-12 w-12 cursor-pointer items-center justify-center rounded-full border border-white/30 bg-transparent text-white transition-colors duration-300 hover:bg-white hover:text-brand"
+            >
+              <ChevronForward size={18} />
+            </button>
+          </div>
           <LeadCta
             sourcePage="home-testimonials"
-            variant="outline-accent"
-            className="border-white text-white hover:bg-white/10"
+            variant="accent"
+            className="group"
           >
             רוצים שנבדוק גם לכם?
+            <ArrowForward size={18} className="nudge" />
           </LeadCta>
-        </div>
+        </Reveal>
       </div>
     </section>
   );

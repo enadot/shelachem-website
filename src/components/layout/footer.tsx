@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { site } from "@/lib/config";
+import { Reveal } from "@/components/shared/reveal";
 
 const columns: { title: string; links: { label: string; href: string }[] }[] = [
   {
@@ -47,10 +48,13 @@ const columns: { title: string; links: { label: string; href: string }[] }[] = [
   },
 ];
 
-/** מגה-פוטר (designs/homepage-v3.html) — לוגו 2026 + 4 עמודות; משמש בכל האתר. */
+/**
+ * מגה-פוטר — לוגו 2026 + 4 עמודות, ובתחתית סימן-מילה "שלכם" ענק שחותך את
+ * שפת הדף (חתימה עריכתית במקום פס זכויות יוצרים יבש). משמש בכל האתר.
+ */
 export function Footer() {
   return (
-    <footer className="border-t border-hairline-soft bg-white px-[22px] pb-7 pt-9 md:px-[clamp(24px,5vw,72px)] md:pb-9 md:pt-14">
+    <footer className="overflow-hidden border-t border-hairline-soft bg-white px-[22px] pt-9 md:px-[clamp(24px,5vw,72px)] md:pt-14">
       <div className="mx-auto max-w-[1296px]">
         <div className="grid grid-cols-2 gap-x-6 gap-y-5 text-sm leading-8 text-ink-muted md:grid-cols-[1.3fr_repeat(4,1fr)] md:gap-10 md:text-[15px]">
           <div className="col-span-2 md:col-span-1">
@@ -96,6 +100,17 @@ export function Footer() {
             </Link>
           </span>
         </div>
+        <Reveal
+          variant="mask"
+          className="pointer-events-none mt-8 select-none md:mt-12"
+        >
+          <div
+            aria-hidden
+            className="-mb-[0.18em] text-center font-display text-[34vw] font-black leading-[0.8] tracking-[-0.04em] text-brand md:text-[min(30vw,420px)]"
+          >
+            שלכם
+          </div>
+        </Reveal>
       </div>
     </footer>
   );

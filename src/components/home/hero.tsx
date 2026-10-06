@@ -68,7 +68,7 @@ export async function Hero() {
               height={1024}
               priority
               sizes="(min-width: 768px) 48vw, 100vw"
-              className="mb-14 mt-[22px] h-auto w-full max-w-[690px] drop-shadow-[0_16px_32px_rgba(0,10,60,0.4)] md:my-0 md:drop-shadow-[0_24px_48px_rgba(0,10,60,0.45)]"
+              className="mb-14 mt-[22px] h-auto w-full max-w-[690px] drop-shadow-[0_12px_24px_rgba(0,10,60,0.25)] md:my-0"
             />
           </Entrance>
         </div>

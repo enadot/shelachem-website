@@ -12,13 +12,13 @@ function AccordionItem({
 }: React.ComponentProps<typeof AccordionPrimitive.Item>) {
   return (
     <AccordionPrimitive.Item
-      className={cn("rounded-xl border border-hairline-soft bg-white px-4 transition-shadow duration-200 data-[state=open]:shadow-[rgba(18,40,168,0.10)_0_10px_28px] md:rounded-[14px] md:px-[26px]", className)}
+      className={cn("border-b border-hairline", className)}
       {...props}
     />
   );
 }
 
-/** כותרת שאלה — אייקון + שמסתובב ל-× בפתיחה (כמו בעיצוב). */
+/** כותרת שאלה — שורת טקסט עם קו שיער; ה-+ (שני קווים דקים) מסתובב ל-× בפתיחה. */
 function AccordionTrigger({
   className,
   children,
@@ -28,7 +28,7 @@ function AccordionTrigger({
     <AccordionPrimitive.Header className="m-0">
       <AccordionPrimitive.Trigger
         className={cn(
-          "flex min-h-11 w-full cursor-pointer items-center justify-between gap-3.5 border-none bg-transparent py-4 text-start text-base font-bold text-ink md:py-[22px] md:text-[19px] [&[data-state=open]>span]:rotate-45",
+          "group flex min-h-11 w-full cursor-pointer items-center justify-between gap-6 border-none bg-transparent py-5 text-start text-[17px] font-bold text-ink transition-colors duration-300 hover:text-brand md:py-7 md:text-[21px] [&[data-state=open]>span]:rotate-45",
           className,
         )}
         {...props}
@@ -36,9 +36,10 @@ function AccordionTrigger({
         {children}
         <span
           aria-hidden
-          className="flex h-[30px] w-[30px] shrink-0 items-center justify-center rounded-full bg-surface-blue text-[22px] leading-none text-brand transition-transform duration-200 md:h-9 md:w-9 md:text-2xl"
+          className="relative h-4 w-4 shrink-0 text-brand transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] md:h-5 md:w-5"
         >
-          +
+          <span className="absolute inset-x-0 top-1/2 h-[1.5px] -translate-y-1/2 bg-current" />
+          <span className="absolute inset-y-0 left-1/2 w-[1.5px] -translate-x-1/2 bg-current" />
         </span>
       </AccordionPrimitive.Trigger>
     </AccordionPrimitive.Header>
@@ -55,7 +56,7 @@ function AccordionContent({
       className="overflow-hidden data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down"
       {...props}
     >
-      <div className={cn("pb-[18px] text-[15px] leading-[1.65] text-ink-secondary md:pb-6 md:text-[17px] md:leading-[1.7]", className)}>
+      <div className={cn("max-w-[720px] pb-6 text-base leading-[1.7] text-ink-secondary md:pb-8 md:text-lg", className)}>
         {children}
       </div>
     </AccordionPrimitive.Content>

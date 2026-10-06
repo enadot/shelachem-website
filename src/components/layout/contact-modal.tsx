@@ -97,7 +97,7 @@ function ContactRow({
     <a
       href={href}
       {...(external ? { target: "_blank", rel: "noopener" } : {})}
-      className={`flex items-center gap-4 rounded-2xl border border-hairline px-[18px] py-[15px] text-ink no-underline transition-all hover:-translate-y-0.5 ${hoverClass}`}
+      className={`flex items-center gap-4 rounded-2xl border border-hairline px-[18px] py-[15px] text-ink no-underline transition-colors duration-300 ${hoverClass}`}
     >
       <span
         className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full text-white"

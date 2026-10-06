@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { Reveal } from "@/components/shared/reveal";
+import { Eyebrow } from "@/components/shared/eyebrow";
 import { ArrowForward } from "@/components/shared/icons";
 import { useLeadModal } from "@/components/shared/lead-modal";
 import { cn } from "@/lib/utils";
@@ -39,47 +40,14 @@ const specialties: { name: string; cat: Cat; who: string; href: string }[] = [
   { name: "תג חניה לנכה", cat: "D", who: "מוגבלות בניידות", href: "/institutions/misrad-harishui" },
 ];
 
-function CatIcon({ cat }: { cat: Cat }) {
-  return (
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      {cat === "A" && (
-        <>
-          <ellipse cx="12" cy="6.5" rx="7" ry="3" stroke="currentColor" strokeWidth="1.9" />
-          <path d="M5 6.5V12c0 1.7 3.1 3 7 3s7-1.3 7-3V6.5M5 12v5.5c0 1.7 3.1 3 7 3s7-1.3 7-3V12" stroke="currentColor" strokeWidth="1.9" />
-        </>
-      )}
-      {cat === "B" && (
-        <>
-          <rect x="3.5" y="8" width="17" height="11.5" rx="2" stroke="currentColor" strokeWidth="1.9" />
-          <path d="M9 8V6.5A1.5 1.5 0 0 1 10.5 5h3A1.5 1.5 0 0 1 15 6.5V8M3.5 13h17" stroke="currentColor" strokeWidth="1.9" />
-        </>
-      )}
-      {cat === "C" && (
-        <>
-          <path d="M12 3 19.5 6v5.2c0 4.8-3.3 8.1-7.5 9.8-4.2-1.7-7.5-5-7.5-9.8V6Z" stroke="currentColor" strokeWidth="1.9" strokeLinejoin="round" />
-          <path d="m8.8 12 2.2 2.2 4.2-4.4" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" />
-        </>
-      )}
-      {cat === "D" && (
-        <>
-          <circle cx="12" cy="12" r="8.5" stroke="currentColor" strokeWidth="1.9" />
-          <path d="M9 15l6-6" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" />
-          <circle cx="9.3" cy="9.3" r="1.3" fill="currentColor" />
-          <circle cx="14.7" cy="14.7" r="1.3" fill="currentColor" />
-        </>
-      )}
-    </svg>
-  );
-}
-
 /**
- * תחומי פעילות (designs/homepage-v3.html) — סינון לפי קטגוריה,
- * 6 תחומים ראשונים ואז "הצגת הכל" (פחות עומס בכניסה), ואריח שחור "לא בטוחים?".
+ * תחומי פעילות — רשימה טיפוגרפית בשתי עמודות עם קווי שיער (במקום כרטיסים
+ * צבועים עם אייקונים), סינון כטאבים שקטים, 6 ראשונים ואז "הצגת הכל".
  */
 export function Specialties() {
   const [cat, setCat] = useState<Cat | "all">("all");
-  const { openLeadForm } = useLeadModal();
   const [expanded, setExpanded] = useState(false);
+  const { openLeadForm } = useLeadModal();
   const filtered = cat === "all" ? specialties : specialties.filter((s) => s.cat === cat);
   const collapsed = cat === "all" && !expanded;
   const view = collapsed ? filtered.slice(0, INITIAL) : filtered;
@@ -87,109 +55,110 @@ export function Specialties() {
   return (
     <section
       id="specialties"
-      className="scroll-mt-24 pb-2 pt-14 md:px-[clamp(24px,5vw,72px)] md:pb-24 md:pt-[104px]"
+      className="scroll-mt-24 px-[22px] pb-4 pt-16 md:px-[clamp(24px,5vw,72px)] md:pb-24 md:pt-[120px]"
     >
       <div className="mx-auto max-w-[1296px]">
-        <Reveal className="mb-5 px-[18px] md:mb-8 md:px-0">
-          <div className="max-w-[720px]">
-            <div className="mb-2 text-sm font-black tracking-[1px] text-brand md:mb-3 md:text-[15px]">
-              תחומי פעילות
-            </div>
-            <h2 className="m-0 font-display text-[30px] font-light leading-[1.15] text-ink md:text-[48px] md:leading-[1.06] md:tracking-[-0.5px]">
-              המומחים שלכם <b className="font-black">במימוש זכויות רפואיות</b>
-            </h2>
-          </div>
-        </Reveal>
+        <Eyebrow index="01">תחומי פעילות</Eyebrow>
+        <div className="mb-7 mt-6 flex flex-col gap-6 md:mb-10 md:mt-8 md:gap-8">
+          <Reveal
+            as="h2"
+            variant="mask"
+            className="m-0 max-w-[900px] font-display text-[32px] font-light leading-[1.1] text-ink md:text-[56px] md:leading-[1.02] md:tracking-[-0.02em]"
+          >
+            המומחים שלכם <b className="font-black">במימוש זכויות רפואיות</b>
+          </Reveal>
 
-        <div
-          role="group"
-          aria-label="סינון לפי קטגוריה"
-          className="no-scrollbar flex gap-2 overflow-x-auto px-[18px] pb-3.5 md:mb-6 md:flex-wrap md:gap-2.5 md:overflow-visible md:px-0 md:pb-0"
-        >
-          {categories.map((c) => {
-            const active = c.key === cat;
-            const count = c.key === "all" ? specialties.length : specialties.filter((s) => s.cat === c.key).length;
-            return (
-              <button
-                key={c.key}
-                type="button"
-                aria-pressed={active}
-                onClick={() => {
-                  setCat(c.key);
-                  setExpanded(false);
-                }}
-                className={cn(
-                  "flex min-h-11 shrink-0 cursor-pointer items-center gap-2 whitespace-nowrap rounded-full border-[1.5px] px-4 py-2.5 text-[15px] font-bold transition-colors md:px-5 md:text-base",
-                  active
-                    ? "border-brand bg-brand text-white"
-                    : "border-hairline bg-white text-ink hover:border-brand",
-                )}
-              >
-                {c.label}
-                <span className="tnum text-[13px] opacity-70">{count}</span>
-              </button>
-            );
-          })}
+          <div
+            role="group"
+            aria-label="סינון לפי קטגוריה"
+            className="no-scrollbar -mx-[22px] flex gap-1 overflow-x-auto px-[22px] md:mx-0 md:flex-wrap md:px-0"
+          >
+            {categories.map((c) => {
+              const active = c.key === cat;
+              const count =
+                c.key === "all" ? specialties.length : specialties.filter((s) => s.cat === c.key).length;
+              return (
+                <button
+                  key={c.key}
+                  type="button"
+                  aria-pressed={active}
+                  onClick={() => {
+                    setCat(c.key);
+                    setExpanded(false);
+                  }}
+                  className={cn(
+                    "flex min-h-11 shrink-0 cursor-pointer items-baseline gap-1.5 whitespace-nowrap rounded-full border-none px-4 text-[15px] font-bold transition-colors duration-300",
+                    active ? "bg-ink text-white" : "bg-transparent text-ink-muted hover:text-ink",
+                  )}
+                >
+                  {c.label}
+                  <sup className="tnum text-[11px] font-bold opacity-60">{count}</sup>
+                </button>
+              );
+            })}
+          </div>
         </div>
 
         <ul
+          key={cat}
           id="specialties-list"
           aria-live="polite"
-          className="m-0 flex list-none flex-col gap-2 px-[18px] md:grid md:grid-cols-2 md:gap-3.5 md:px-0 lg:grid-cols-3"
+          className="m-0 grid list-none p-0 md:grid-cols-2 md:gap-x-14"
         >
-          {view.map((s) => (
-            <li key={s.name}>
+          {view.map((s, i) => (
+            <li
+              key={s.name}
+              className="row-in border-t border-hairline"
+              style={{ "--i": i } as React.CSSProperties}
+            >
               <Link
                 href={s.href}
-                className="group grid min-h-[72px] grid-cols-[46px_1fr_18px] items-center gap-3.5 rounded-[14px] border-[1.5px] border-surface bg-surface p-3.5 text-ink no-underline transition-[border-color,background-color,transform] duration-200 hover:border-brand hover:bg-white md:flex md:h-full md:min-h-[150px] md:flex-col md:items-stretch md:gap-3 md:rounded-2xl md:p-5 md:hover:-translate-y-[3px]"
+                className="group grid grid-cols-[28px_1fr_auto] items-center gap-3 py-5 text-ink no-underline md:grid-cols-[40px_1fr_auto] md:gap-4 md:py-6"
               >
-                <span className="flex h-[46px] w-[46px] items-center justify-center rounded-xl bg-white text-brand md:h-12 md:w-12">
-                  <CatIcon cat={s.cat} />
+                <span className="tnum self-start pt-1 text-[13px] font-bold text-ink-faint">
+                  {String(i + 1).padStart(2, "0")}
                 </span>
-                <span className="flex flex-col gap-[3px] md:contents">
-                  <span className="text-[17px] font-black leading-tight md:mt-auto md:text-[21px]">{s.name}</span>
-                  <span className="text-sm leading-snug text-ink-muted md:hidden">{s.who}</span>
-                </span>
-                <span className="text-brand md:hidden">
-                  <ArrowForward size={18} />
-                </span>
-                <span className="hidden items-end justify-between gap-2.5 md:flex">
-                  <span className="text-[15px] leading-snug text-ink-muted">{s.who}</span>
-                  <span className="shrink-0 text-brand">
-                    <ArrowForward size={20} />
+                <span className="flex flex-col gap-1">
+                  <span className="font-display text-[21px] font-black leading-tight transition-colors duration-300 group-hover:text-brand md:text-[26px]">
+                    {s.name}
                   </span>
+                  <span className="text-[15px] leading-snug text-ink-muted">{s.who}</span>
+                </span>
+                <span className="flex h-10 w-10 items-center justify-center rounded-full border border-hairline text-ink transition-colors duration-300 group-hover:border-brand group-hover:bg-brand group-hover:text-white md:h-12 md:w-12">
+                  <ArrowForward size={18} className="nudge" />
                 </span>
               </Link>
             </li>
           ))}
         </ul>
 
-        {collapsed && filtered.length > INITIAL && (
-          <div className="mt-3 flex justify-center px-[18px] md:mt-4 md:px-0">
+        <div className="flex flex-col items-stretch gap-4 border-t border-hairline pt-6 md:flex-row md:items-center md:justify-between md:pt-8">
+          {collapsed && filtered.length > INITIAL ? (
             <button
               type="button"
               aria-expanded={false}
               aria-controls="specialties-list"
               onClick={() => setExpanded(true)}
-              className="min-h-11 cursor-pointer rounded-[10px] border-[1.5px] border-brand bg-transparent px-6 text-base font-bold text-brand transition-colors hover:bg-surface-blue"
+              className="group inline-flex min-h-11 cursor-pointer items-center gap-2 self-start border-none bg-transparent p-0 text-base font-bold text-brand"
             >
-              הצגת כל {filtered.length} התחומים
+              <span className="link-draw">הצגת כל {filtered.length} התחומים</span>
+              <span aria-hidden className="text-xl leading-none transition-transform duration-300 group-hover:rotate-90">
+                +
+              </span>
             </button>
-          </div>
-        )}
-
-        <div className="px-[18px] md:px-0">
+          ) : (
+            <span />
+          )}
           <button
             type="button"
             onClick={() => openLeadForm("home-specialties-unsure")}
-            className="mt-3 flex w-full cursor-pointer items-center justify-between gap-3 rounded-[14px] border-none bg-ink p-[18px] text-start text-white md:mt-3.5 md:gap-5 md:rounded-2xl md:px-7 md:py-[22px]"
+            className="group flex min-h-14 cursor-pointer items-center justify-between gap-4 rounded-full border-none bg-ink py-2 pe-2 ps-6 text-start text-white md:ps-7"
           >
-            <span className="text-[17px] font-bold md:font-display md:text-[26px] md:font-light">
-              לא בטוחים מה מגיע לכם?{" "}
-              <b className="font-bold text-gold md:font-black">זו העבודה שלנו.</b>
+            <span className="text-base font-bold md:text-[17px]">
+              לא בטוחים מה מגיע לכם? <span className="text-gold">זו העבודה שלנו.</span>
             </span>
-            <span className="flex shrink-0 items-center justify-center text-gold md:h-[52px] md:w-[52px] md:rounded-full md:bg-gold md:text-ink">
-              <ArrowForward size={20} />
+            <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-gold text-ink">
+              <ArrowForward size={18} className="nudge" />
             </span>
           </button>
         </div>

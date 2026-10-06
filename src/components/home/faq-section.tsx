@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { FaqItem } from "@/lib/content/types";
 import { Reveal } from "@/components/shared/reveal";
+import { Eyebrow } from "@/components/shared/eyebrow";
 import { FaqAccordion } from "@/components/shared/faq-accordion";
 import { ChevronForward } from "@/components/shared/icons";
 import { PhoneIcon } from "@/components/layout/contact-modal";
@@ -21,39 +22,48 @@ export function FaqSection({ faqs }: { faqs: FaqItem[] }) {
   return (
     <section
       id="faq"
-      className="scroll-mt-24 bg-surface px-4 py-12 md:px-[clamp(24px,5vw,72px)] md:py-[100px]"
+      className="scroll-mt-24 bg-surface px-[22px] py-16 md:px-[clamp(24px,5vw,72px)] md:py-[120px]"
     >
-      <Reveal className="mx-auto grid max-w-[1296px] items-start md:grid-cols-[minmax(0,400px)_1fr] md:gap-20">
-        <div className="px-1.5 md:px-0">
-          <h2 className="m-0 mb-2 font-display text-[28px] font-light text-ink md:mb-4 md:text-[48px] md:tracking-[-0.5px]">
-            שאלות <span className="font-black">ותשובות</span>
-          </h2>
-          <p className="m-0 mb-5 text-[15px] leading-relaxed text-ink-secondary md:mb-7 md:text-[19px]">
-            התשובות הקצרות לשאלות הנפוצות.
-          </p>
-          <a
-            href={site.phoneHref}
-            className="tnum mb-7 hidden items-center gap-2.5 rounded-[10px] bg-white px-[22px] py-3.5 text-xl font-black text-ink no-underline md:inline-flex"
-          >
-            <span className="text-brand">
-              <PhoneIcon size={18} />
-            </span>
-            {site.phone}
-          </a>
-        </div>
-        <div>
-          <FaqAccordion items={visible} className="[&>div]:border-transparent" />
-          <div className="mt-6">
+      <div className="mx-auto max-w-[1296px]">
+        <Eyebrow index="07">שאלות ותשובות</Eyebrow>
+        <div className="mt-6 grid items-start gap-8 md:mt-8 md:grid-cols-[minmax(0,420px)_1fr] md:gap-20">
+          <div className="md:sticky md:top-28">
+            <Reveal
+              as="h2"
+              variant="mask"
+              className="m-0 mb-4 font-display text-[32px] font-light leading-[1.1] text-ink md:mb-6 md:text-[56px] md:leading-[1.02] md:tracking-[-0.02em]"
+            >
+              יש שאלות?
+              <br />
+              <span className="font-black">יש תשובות.</span>
+            </Reveal>
+            <p className="m-0 mb-6 text-base text-ink-muted md:text-lg">
+              ועל כל מה שלא כתוב כאן — עונים בטלפון.
+            </p>
+            <a
+              href={site.phoneHref}
+              className="group tnum hidden items-center gap-3 text-2xl font-black text-ink no-underline md:inline-flex"
+            >
+              <span className="flex h-11 w-11 items-center justify-center rounded-full bg-brand text-white">
+                <PhoneIcon size={18} />
+              </span>
+              <span className="link-draw">{site.phone}</span>
+            </a>
+          </div>
+          <Reveal>
+            <FaqAccordion items={visible} />
             <Link
               href="/faq"
-              className="inline-flex min-h-12 items-center gap-2 rounded-[10px] border-[1.5px] border-brand bg-transparent px-6 text-base font-bold text-brand no-underline transition-colors hover:bg-white"
+              className="group mt-8 inline-flex items-center gap-2 text-base font-bold text-brand no-underline md:text-[17px]"
             >
-              {remaining > 0 ? `לכל השאלות והתשובות — עוד ${remaining}` : "לכל השאלות והתשובות"}
-              <ChevronForward size={16} />
+              <span className="link-draw">
+                {remaining > 0 ? `לכל השאלות והתשובות — עוד ${remaining}` : "לכל השאלות והתשובות"}
+              </span>
+              <ChevronForward size={16} className="nudge" />
             </Link>
-          </div>
+          </Reveal>
         </div>
-      </Reveal>
+      </div>
     </section>
   );
 }

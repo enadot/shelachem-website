@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 
 /** כפתורי המותג — פינות 10px (v3), וריאנטים לפי העיצובים. */
 const buttonVariants = cva(
-  "inline-flex cursor-pointer items-center justify-center gap-2 whitespace-nowrap rounded-[10px] border-none font-bold no-underline transition-colors disabled:pointer-events-none disabled:opacity-60",
+  "group inline-flex cursor-pointer items-center justify-center gap-2.5 whitespace-nowrap rounded-[10px] border-none font-bold no-underline transition-[background-color,color,border-color,transform] duration-300 active:scale-[0.98] disabled:pointer-events-none disabled:opacity-60",
   {
     variants: {
       variant: {
