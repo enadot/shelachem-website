@@ -22,7 +22,7 @@ const INITIAL = 6;
 
 const BL = "/institutions/bituach-leumi";
 
-/** 14 תחומי הפעילות (designs/homepage-v3.html) — כל אחד מוביל לעמוד שבאמת מטפל בזכות. */
+/** 13 תחומי הפעילות (designs/homepage-v3.html) — כל אחד מוביל לעמוד שבאמת מטפל בזכות. */
 const specialties: { name: string; cat: Cat; who: string; href: string }[] = [
   { name: "קצבת נכות כללית", cat: "A", who: "מחלה או פגיעה שמגבילה את היכולת לעבוד", href: BL },
   { name: "שירותים מיוחדים", cat: "A", who: "מי שזקוק לעזרה צמודה בפעולות היומיום", href: BL },
@@ -37,7 +37,6 @@ const specialties: { name: string; cat: Cat; who: string; href: string }[] = [
   { name: "פנסיית נכות", cat: "C", who: "חברי קרן פנסיה שכושר העבודה נפגע", href: "/institutions/karnot-pensia" },
   { name: "ביטוח סיעודי", cat: "C", who: "זקוקים לעזרה ביומיום — ביטוח לאומי או פרטי", href: "/institutions/hevrot-bituach" },
   { name: "פטור ממס הכנסה", cat: "D", who: "נכות רפואית גבוהה (90% ומעלה)", href: "/services/tax-exemption" },
-  { name: "תג חניה לנכה", cat: "D", who: "מוגבלות בניידות", href: "/institutions/misrad-harishui" },
 ];
 
 /**

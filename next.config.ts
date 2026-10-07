@@ -6,6 +6,12 @@ const cmsUrl = process.env.DIRECTUS_URL;
 
 const nextConfig: NextConfig = {
   ...(cmsUrl ? { images: { remotePatterns: [new URL("/assets/**", cmsUrl)] } } : {}),
+  // משרד הרישוי הוסר מהאתר — קישורים ישנים לעמוד שלו מגיעים לרשימת המוסדות.
+  async redirects() {
+    return [
+      { source: "/institutions/misrad-harishui", destination: "/institutions", permanent: true },
+    ];
+  },
 };
 
 export default nextConfig;

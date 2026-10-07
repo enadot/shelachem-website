@@ -39,11 +39,10 @@ const institutions = [
   { label: "מס הכנסה", href: "/institutions/mas-hachnasa" },
   { label: "קרנות פנסיה", href: "/institutions/karnot-pensia" },
   { label: "חברות ביטוח", href: "/institutions/hevrot-bituach" },
-  { label: "משרד הרישוי", href: "/institutions/misrad-harishui" },
 ];
 
 /**
- * מוסדות ובירוקרטיה — חמש עמודות טיפוגרפיות מופרדות בקווי שיער (בדסקטופ),
+ * מוסדות ובירוקרטיה — ארבע עמודות טיפוגרפיות מופרדות בקווי שיער (בדסקטופ),
  * שורות במובייל. ריחוף: הרקע מתמלא בלבן והחץ זז — בלי הרמת כרטיסים.
  */
 export function InstitutionsBanner() {
@@ -70,7 +69,7 @@ export function InstitutionsBanner() {
         <Reveal
           as="ul"
           variant="stagger"
-          className="m-0 grid list-none border-y border-hairline p-0 md:grid-cols-5"
+          className="m-0 grid list-none border-y border-hairline p-0 md:grid-cols-4"
         >
           {institutions.map((inst, i) => (
             <li
