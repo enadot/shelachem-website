@@ -155,6 +155,7 @@ export default async function ArticlePage({
             sizes="(max-width:768px) 100vw, 1040px"
             priority
             markSize={260}
+            className="object-[50%_25%]"
           />
         </div>
       </div>

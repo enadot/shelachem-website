@@ -12,7 +12,6 @@ const columns: { title: string; links: { label: string; href: string }[] }[] = [
       { label: "מס הכנסה", href: "/institutions/mas-hachnasa" },
       { label: "קרנות פנסיה", href: "/institutions/karnot-pensia" },
       { label: "חברות ביטוח", href: "/institutions/hevrot-bituach" },
-      { label: "משרד הרישוי", href: "/institutions/misrad-harishui" },
     ],
   },
   {
@@ -44,7 +43,6 @@ const columns: { title: string; links: { label: string; href: string }[] }[] = [
       { label: "ילד נכה", href: "/institutions/bituach-leumi" },
       { label: "אובדן כושר עבודה", href: "/institutions/karnot-pensia" },
       { label: "ביטוח סיעודי", href: "/institutions/hevrot-bituach" },
-      { label: "תו נכה", href: "/institutions/misrad-harishui" },
     ],
   },
 ];

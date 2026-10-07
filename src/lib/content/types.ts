@@ -109,6 +109,9 @@ export interface Institution {
   stats: { value: string; label: string; accent?: boolean }[];
   statsNote?: string;
   formOptions: string[];
+  /** צילום רחב בכותרת העמוד. */
+  image?: string | null;
+  imageAlt?: string | null;
 }
 
 export interface Service {
@@ -126,6 +129,9 @@ export interface Service {
   faqs: FaqItem[];
   relatedRights: { name: string; href?: string }[];
   resources: { title: string; href: string; image?: string | null }[];
+  /** צילום רחב בכותרת העמוד. */
+  image?: string | null;
+  imageAlt?: string | null;
 }
 
 export interface Lead {
