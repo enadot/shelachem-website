@@ -9,6 +9,8 @@ export const services: Service[] = [
   {
     id: "tax-exemption",
     slug: "tax-exemption",
+    image: "/images/photos/tax-receipts.webp",
+    imageAlt: "גבר עובר על קבלות וטפסים עם מחשבון בסלון ביתו",
     name: "פטור ממס הכנסה מטעמי בריאות",
     institutionSlug: "mas-hachnasa",
     heroIntro:

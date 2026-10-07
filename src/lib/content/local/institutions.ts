@@ -8,6 +8,8 @@ export const institutions: Institution[] = [
   {
     id: "bituach-leumi",
     slug: "bituach-leumi",
+    image: "/images/photos/recovery-window.webp",
+    imageAlt: "גבר עם יד בקלע יושב ליד החלון בביתו",
     name: "ביטוח לאומי",
     tagline: "קצבאות, ועדות רפואיות ועררים",
     description:
@@ -107,6 +109,8 @@ export const institutions: Institution[] = [
   {
     id: "mas-hachnasa",
     slug: "mas-hachnasa",
+    image: "/images/photos/documents-table.webp",
+    imageAlt: "ידיים מסדרות דוחות רפואיים ומכתבים על שולחן המטבח",
     name: "מס הכנסה",
     tagline: "פטורים, החזרים ונקודות זיכוי",
     description:
@@ -180,6 +184,8 @@ export const institutions: Institution[] = [
   {
     id: "karnot-pensia",
     slug: "karnot-pensia",
+    image: "/images/photos/park-bench.webp",
+    imageAlt: "גבר עם מקל הליכה יושב על ספסל בגינה השכונתית",
     name: "קרנות פנסיה",
     tagline: "אובדן כושר עבודה ופנסיית נכות",
     description:
@@ -253,6 +259,8 @@ export const institutions: Institution[] = [
   {
     id: "hevrot-bituach",
     slug: "hevrot-bituach",
+    image: "/images/photos/kitchen-table-laptop.webp",
+    imageAlt: "אב ובנו בודקים יחד פוליסת ביטוח על שולחן המטבח",
     name: "חברות ביטוח",
     tagline: "ביטוחים פרטיים ותביעות מול מבטחים",
     description:

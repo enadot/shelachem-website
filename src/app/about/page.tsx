@@ -65,6 +65,11 @@ export default function AboutPage() {
         title="המשימה שלנו:"
         strong="הזכויות שלכם."
         intro="מאחורי כל תיק יש אדם שמתמודד עם מצב רפואי — ומולו מערכת בירוקרטית מסובכת. אנחנו כאן כדי שהוא לא יעמוד בה לבד."
+        image={{
+          src: "/images/photos/consultation.webp",
+          alt: "יועץ זכויות עובר עם לקוח על המסמכים שעל השולחן",
+          position: "50% 35%",
+        }}
       >
         <LeadCta sourcePage="about-hero" variant="brand" className="group">
           לבדיקת זכאות חינם

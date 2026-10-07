@@ -51,6 +51,9 @@ export default async function InstitutionPage({
         title={inst.heroTitle.replace(/ — .*$/, "")}
         strong={inst.heroTitle.includes(" — ") ? inst.heroTitle.split(" — ")[1] : undefined}
         intro={inst.heroIntro}
+        image={
+          inst.image ? { src: inst.image, alt: inst.imageAlt ?? "", position: "50% 30%" } : null
+        }
       />
 
       {/* approach */}

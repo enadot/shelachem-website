@@ -101,6 +101,7 @@ export default async function ServicePage({
         title={service.name.replace(" מטעמי בריאות", "")}
         strong={service.name.includes("מטעמי בריאות") ? "מטעמי בריאות" : undefined}
         intro={service.heroIntro}
+        image={service.image ? { src: service.image, alt: service.imageAlt ?? "" } : null}
       />
 
       {/* main grid */}

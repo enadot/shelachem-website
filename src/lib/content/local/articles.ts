@@ -12,7 +12,8 @@ export const articles: Article[] = [
     readingMinutes: 9,
     publishedLabel: "יוני 2026",
     publishedAt: "2026-06-01",
-    image: null,
+    image: "/images/photos/physiotherapy.webp",
+    imageAlt: "פיזיותרפיסט מלווה מטופל עם מקבע ברך בתרגיל",
     featured: true,
     // "בשורה התחתונה" — כל ארבע העובדות מנוסחות מגוף הכתבה עצמה.
     keyPoints: [
@@ -86,7 +87,8 @@ export const articles: Article[] = [
     readingMinutes: 12,
     publishedLabel: "יוני 2026",
     publishedAt: "2026-06-01",
-    image: null,
+    image: "/images/photos/documents-table.webp",
+    imageAlt: "ידיים מסדרות דוחות רפואיים ומכתבים על שולחן המטבח",
   },
   {
     id: "allowance-updates-2026",
@@ -110,7 +112,8 @@ export const articles: Article[] = [
     readingMinutes: 10,
     publishedLabel: "יוני 2026",
     publishedAt: "2026-06-01",
-    image: null,
+    image: "/images/photos/father-son-papers.webp",
+    imageAlt: "אב ובנו עוברים יחד על תיקיית מסמכים בסלון הבית",
   },
   {
     id: "yaakov-diabetes-appeal",
@@ -134,7 +137,8 @@ export const articles: Article[] = [
     readingMinutes: 8,
     publishedLabel: "מאי 2026",
     publishedAt: "2026-05-01",
-    image: null,
+    image: "/images/photos/balcony-phone.webp",
+    imageAlt: "גבר מדבר בטלפון במרפסת ומחזיק מכתב",
   },
   {
     id: "fibromyalgia-ruling",
@@ -163,7 +167,7 @@ export const articles: Article[] = [
   {
     id: "forgotten-benefits",
     slug: "forgotten-benefits",
-    title: "נקודות זיכוי, תג נכה והנחה בארנונה: הזכויות שכולם שוכחים",
+    title: "נקודות זיכוי, הנחה בארנונה ועוד: הזכויות שכולם שוכחים",
     excerpt:
       "מעבר לקצבה יש שורה של הטבות קטנות שמצטברות לאלפי שקלים בשנה. הרשימה המלאה.",
     category: "מדריכים",
