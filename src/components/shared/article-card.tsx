@@ -4,39 +4,40 @@ import { ArrowForward } from "@/components/shared/icons";
 import type { Article } from "@/lib/content/types";
 import { cn } from "@/lib/utils";
 
-/** כרטיס כתבה — משמש בקרוסלת המגזין בדף הבית ובגריד המגזין. */
+/**
+ * כרטיס כתבה — תמונה 4:3 עם זום עדין בריחוף, קטגוריה, כותרת ושורת מטא. בלי
+ * מסגרת ובלי צל: הרשת והטיפוגרפיה מחזיקות את הגריד.
+ */
 export function ArticleCard({ article, className }: { article: Article; className?: string }) {
   return (
     <Link
       href={`/magazine/${article.slug}`}
-      className={cn(
-        "group flex flex-col overflow-hidden rounded-[14px] border border-hairline bg-white text-ink no-underline transition-shadow hover:shadow-[0_12px_32px_rgba(13,37,61,0.12)]",
-        className,
-      )}
+      className={cn("group flex flex-col gap-4 text-ink no-underline", className)}
     >
-      <div className="relative h-[150px] overflow-hidden bg-surface-blue">
+      <div className="relative aspect-[4/3] overflow-hidden rounded-xl bg-surface-blue [&_img]:transition-transform [&_img]:duration-700 [&_img]:ease-[var(--ease-out)] group-hover:[&_img]:scale-[1.04]">
         <ArticleImage
           src={article.image}
           alt={article.imageAlt}
-          sizes="(max-width: 768px) 80vw, 320px"
+          sizes="(max-width: 768px) 80vw, 360px"
           markSize={96}
         />
-        <span className="absolute right-3 top-3 rounded-full bg-white/95 px-3 py-1 text-[12.5px] font-bold text-brand">
-          {article.category}
-        </span>
       </div>
-      <div className="flex flex-1 flex-col gap-2.5 px-5 pb-5 pt-4">
-        <div className="flex-1 text-[16.5px] font-bold leading-snug">{article.title}</div>
-        <p className="m-0 line-clamp-2 text-sm leading-normal text-ink-muted">{article.excerpt}</p>
-        <div className="flex items-center justify-between">
-          <span className="flex items-center gap-1.5 text-sm font-bold text-brand">
-            המשך קריאה
-            <ArrowForward size={15} className="transition-transform group-hover:-translate-x-1" />
-          </span>
-          <span className="tnum text-[13px] text-ink-faint">
+      <div className="flex flex-1 flex-col gap-2">
+        <div className="flex items-center gap-2 text-[13px] font-bold text-ink-muted">
+          <span className="text-brand">{article.category}</span>
+          <span aria-hidden className="h-px w-4 bg-hairline" />
+          <span className="tnum font-normal text-ink-faint">
             {article.readingMinutes} דק׳ · {article.publishedLabel}
           </span>
         </div>
+        <div className="flex-1 font-display text-xl font-black leading-snug transition-colors duration-300 group-hover:text-brand">
+          {article.title}
+        </div>
+        <p className="m-0 line-clamp-2 text-[15px] leading-normal text-ink-muted">{article.excerpt}</p>
+        <span className="mt-1 flex items-center gap-2 text-sm font-bold text-brand">
+          <span className="link-draw">המשך קריאה</span>
+          <ArrowForward size={15} className="nudge" />
+        </span>
       </div>
     </Link>
   );

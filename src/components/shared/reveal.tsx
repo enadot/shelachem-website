@@ -3,7 +3,17 @@
 import { useEffect, useRef } from "react";
 import { cn } from "@/lib/utils";
 
-type Tag = "div" | "section" | "li";
+type Tag = "div" | "section" | "li" | "ul" | "ol" | "h2" | "h3" | "span" | "p";
+
+/** וריאנטי התנועה — ראו "Motion system" ב-globals.css. */
+export type RevealVariant = "fade" | "mask" | "line" | "image" | "stagger";
+const variantClass: Record<RevealVariant, string> = {
+  fade: "reveal",
+  mask: "reveal-mask",
+  line: "reveal-line",
+  image: "reveal-image",
+  stagger: "reveal-stagger",
+};
 
 /**
  * מסמן ש-React חי ומריץ אפקטים. הסקריפט האינליין ב-layout מסיר את `data-js`
@@ -14,7 +24,7 @@ function markHydrated() {
 }
 
 /**
- * Scroll-reveal: fade + translateY(30px), threshold ~12%.
+ * Scroll-reveal עם וריאנטים (fade / mask / line / image / stagger), threshold ~12%.
  *
  * Progressive enhancement — התוכן מרונדר **גלוי**. ההסתרה מתבצעת ב-CSS ורק
  * כשה-JS חי (`:root[data-js]`), כך שבלי JS או אחרי כשל הידרציה העמוד נראה
@@ -26,6 +36,7 @@ export function Reveal({
   className,
   as = "div",
   id,
+  variant = "fade",
 }: {
   children: React.ReactNode;
   delay?: number;
@@ -33,6 +44,7 @@ export function Reveal({
   as?: Tag;
   /** יעד עוגן (למשל ניווט בתוך עמוד) — נדרש `scroll-mt-*` ב-className. */
   id?: string;
+  variant?: RevealVariant;
 }) {
   const ref = useRef<HTMLElement>(null);
 
@@ -55,18 +67,32 @@ export function Reveal({
           io.unobserve(entry.target);
         }
       },
-      { threshold: 0.12 },
+      { threshold: 0.12, rootMargin: "0px 0px -6% 0px" },
     );
-    io.observe(el);
-    return () => io.disconnect();
-  }, []);
+    // מסכה (clip-path) מסתירה את האלמנט כולו, ו-IntersectionObserver לא "רואה"
+    // אלמנט חתוך לאפס — לכן בוריאנטי מסכה צופים בהורה ומסמנים את האלמנט עצמו.
+    const target = (variant === "mask" || variant === "image") && el.parentElement ? el.parentElement : el;
+    const io2 = target === el ? io : new IntersectionObserver(
+      (entries) => {
+        if (!entries.some((e) => e.isIntersecting)) return;
+        el.setAttribute("data-reveal", "in");
+        io2.disconnect();
+      },
+      { threshold: 0.05, rootMargin: "0px 0px -6% 0px" },
+    );
+    io2.observe(target);
+    return () => {
+      io.disconnect();
+      io2.disconnect();
+    };
+  }, [variant]);
 
   const Wrapper = as;
   return (
     <Wrapper
-      ref={ref as React.Ref<HTMLDivElement & HTMLElement & HTMLLIElement>}
+      ref={ref as React.Ref<never>}
       id={id}
-      className={cn("reveal", className)}
+      className={cn(variantClass[variant], className)}
       style={delayStyle(delay)}
     >
       {children}

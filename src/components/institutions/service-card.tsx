@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useLeadModal } from "@/components/shared/lead-modal";
-import { ArrowForward, ChevronForward } from "@/components/shared/icons";
+import { ArrowForward } from "@/components/shared/icons";
 
 /** יעד העוגן ההיסטורי בכרטיסים שאין להם עמוד שירות משלהם. */
 const LEAD_ANCHOR = "/#lead-form";
@@ -10,17 +10,11 @@ const LEAD_ANCHOR = "/#lead-form";
 type Card = { name: string; tag: string; description: string; href: string };
 
 /**
- * כרטיס "במה אנחנו מטפלים" בעמוד מוסד.
+ * שורת "במה אנחנו מטפלים" בעמוד מוסד — שורה מלאה היא היעד (לא קישור טקסט קטן).
  *
- * שני תיקונים:
- *
- * 1. **הכרטיס כולו הוא היעד**, ולא קישור טקסט של 350×23px שהיה חצי מרצפת המגע
- *    של 44px.
- * 2. **התווית אומרת את האמת.** 20 מ-23 הכרטיסים הפנו ל-`/#lead-form` — כלומר
- *    "לפרטים" זרק את המשתמש לעוגן בדף הבית, ומשם הוא נדרש לזכור על איזו זכות
- *    קרא ולבחור אותה מחדש מרשימה של שבע. כרטיס בלי עמוד משלו פותח עכשיו את
- *    מודאל בדיקת הזכאות **עם הנושא ממולא מראש**, בלי לעזוב את העמוד; רק כרטיס
- *    שיש לו עמוד אמיתי אומר "לפרטים".
+ * שורה שיש לה עמוד שירות היא קישור ("לפרטים"). שורה בלי עמוד פותחת את מודאל
+ * בדיקת הזכאות **עם הנושא ממולא מראש**, בלי לעזוב את העמוד — במקום לזרוק את
+ * המשתמש לעוגן בדף הבית ולבקש ממנו לבחור את הזכות מחדש.
  */
 export function InstitutionServiceCard({
   card,
@@ -34,31 +28,29 @@ export function InstitutionServiceCard({
 
   const body = (
     <>
-      <span className="pill self-start bg-accent-tint px-3 py-1 text-[13px] font-bold text-accent-text">
-        {card.tag}
+      <span className="min-w-0 flex-1">
+        <span className="mb-1 block text-[13px] font-bold tracking-[0.04em] text-ink-faint">
+          {card.tag}
+        </span>
+        <span className="block font-display text-xl font-black leading-snug text-ink transition-colors duration-300 group-hover:text-brand md:text-[22px]">
+          {card.name}
+        </span>
+        <span className="mt-1.5 block text-[15px] leading-relaxed text-ink-muted">
+          {card.description}
+        </span>
+        <span className="sr-only">{hasPage ? " — לפרטים" : " — בדיקת זכאות"}</span>
       </span>
-      <h3 className="m-0 font-body text-lg font-bold text-ink">{card.name}</h3>
-      <p className="m-0 flex-1 text-[15px] leading-relaxed text-ink-secondary">
-        {card.description}
-      </p>
-      <span className="flex items-center gap-1.5 text-[15px] font-bold text-brand">
-        {hasPage ? (
-          <>
-            לפרטים
-            <ArrowForward size={16} className="transition-transform group-hover:-translate-x-1" />
-          </>
-        ) : (
-          <>
-            בדקו זכאות
-            <ChevronForward size={15} className="transition-transform group-hover:-translate-x-1" />
-          </>
-        )}
+      <span
+        aria-hidden
+        className="mt-1 flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-hairline text-brand transition-colors duration-300 group-hover:border-brand group-hover:bg-brand group-hover:text-white"
+      >
+        <ArrowForward size={16} className="nudge" />
       </span>
     </>
   );
 
   const shell =
-    "group flex h-full min-h-11 flex-col gap-2.5 rounded-xl border border-hairline bg-white p-6 text-start no-underline transition-shadow hover:shadow-[0_12px_32px_rgba(13,37,61,0.12)]";
+    "group flex w-full min-h-11 items-start gap-5 py-6 text-start no-underline";
 
   if (hasPage) {
     return (
@@ -73,7 +65,7 @@ export function InstitutionServiceCard({
       type="button"
       onClick={() => openLeadForm(`institution-card-${card.name}`, card.name)}
       aria-label={`בדיקת זכאות — ${card.name} מול ${institutionName}`}
-      className={`${shell} cursor-pointer`}
+      className={`${shell} cursor-pointer border-0 bg-transparent font-[inherit]`}
     >
       {body}
     </button>

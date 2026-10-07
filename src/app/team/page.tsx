@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import { getTeam } from "@/lib/content";
-import { NavyHero } from "@/components/shared/navy-hero";
+import { PageHeader } from "@/components/shared/page-header";
 import { PersonAvatar } from "@/components/shared/person-avatar";
 import { PageCta } from "@/components/shared/page-cta";
-import { Reveal } from "@/components/shared/reveal";
+import { Eyebrow } from "@/components/shared/eyebrow";
 
 export const metadata: Metadata = {
   title: "צוות ההנהלה",
@@ -12,69 +12,73 @@ export const metadata: Metadata = {
     "הכירו את הנהגת שלכם — מומחים בעלי עשרות שנות ניסיון במערכות הבריאות, השיווק והכספים, מחויבים אישית לכל לקוח.",
 };
 
+/**
+ * צוות ההנהלה — עמודת הצהרה דביקה מימין ורשימת אנשים משמאל, כל אחד בשורה עם
+ * קו שיער (השראה: Granola, Analogue). בלי כרטיסים ובלי אנימציה.
+ */
 export default async function TeamPage() {
   const team = await getTeam();
 
   return (
     <>
-      <NavyHero
+      <PageHeader
         breadcrumb={[{ label: "בית", href: "/" }, { label: "צוות ההנהלה" }]}
         title="הנהגת"
         strong="שלכם"
         intro="מומחים בעלי עשרות שנות ניסיון במערכות הבריאות, השיווק והכספים — מחויבים אישית לכל לקוח ולקוח."
       />
 
-      <section className="px-6 py-12 md:px-[clamp(24px,6.7vw,96px)] md:py-16">
-        <div className="mx-auto max-w-[1240px]">
-          <h2 className="m-0 mb-6 font-display text-[26px] font-light md:text-4xl">
-            האנשים <span className="keyword-underline">שמובילים</span>
-          </h2>
-          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 md:gap-6">
-            {team.map((p, i) => (
-              <Reveal
+      <section className="px-6 py-14 md:px-[clamp(24px,6.7vw,96px)] md:py-24">
+        <div className="mx-auto grid max-w-[1240px] items-start gap-12 md:grid-cols-[1fr_1.5fr] md:gap-20">
+          <div className="md:sticky md:top-28">
+            <Eyebrow index="01">ההנהלה</Eyebrow>
+            <h2 className="m-0 mb-5 mt-6 font-display text-[30px] font-light leading-[1.1] text-ink md:mt-8 md:text-[48px] md:leading-[1.04] md:tracking-[-0.02em]">
+              האנשים <span className="font-black">שמובילים.</span>
+            </h2>
+            <p className="m-0 max-w-[420px] text-base leading-relaxed text-ink-secondary md:text-lg">
+              צוות מגוון מכל המגזרים והקהילות — רופאים, מומחי זכויות ומלווים אישיים. מה שמחבר את
+              כולנו: <b className="text-ink">קודם כל בן אדם, אחר כך תיק.</b>
+            </p>
+          </div>
+
+          <ol className="m-0 list-none border-t border-ink p-0">
+            {team.map((p) => (
+              <li
                 key={p.id}
-                delay={(i % 3) * 0.09}
-                className="flex gap-4 rounded-[14px] border border-hairline bg-white p-4 md:p-5"
+                className="grid grid-cols-[64px_1fr] gap-x-5 border-b border-hairline py-7 md:grid-cols-[88px_1fr] md:gap-x-7 md:py-9"
               >
-                <PersonAvatar name={p.name} image={p.image} size={88} className="!rounded-[14px]" />
-                <div className="flex min-w-0 flex-col gap-1">
-                  <div className="flex items-center justify-between gap-2">
-                    <div className="text-[17.5px] font-black text-ink">{p.name}</div>
+                <PersonAvatar
+                  name={p.name}
+                  image={p.image}
+                  size={88}
+                  className="!h-16 !w-16 !rounded-xl md:!h-[88px] md:!w-[88px]"
+                />
+                <div className="min-w-0">
+                  <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+                    <h3 className="m-0 font-display text-[22px] font-black leading-tight text-ink md:text-[26px]">
+                      {p.name}
+                    </h3>
                     {p.linkedin && (
                       <a
                         href={p.linkedin}
                         target="_blank"
                         rel="noopener noreferrer"
                         aria-label={`הפרופיל של ${p.name} בלינקדאין`}
-                        className="flex h-[34px] w-[34px] shrink-0 items-center justify-center rounded-[9px] bg-[#eef0ff] text-brand no-underline transition-colors hover:bg-brand hover:text-white"
+                        className="text-sm font-bold text-ink-muted no-underline transition-colors duration-300 hover:text-brand"
                       >
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
-                          <path d="M6.94 8.75H3.56V20.4h3.38V8.75ZM5.25 3.6a1.96 1.96 0 1 0 0 3.92 1.96 1.96 0 0 0 0-3.92Zm8.02 6.9V8.75H9.94V20.4h3.38v-5.9c0-1.79.86-2.86 2.36-2.86 1.32 0 2.02.9 2.02 2.62v6.14h3.38v-6.8c0-3.06-1.66-4.86-4.2-4.86-1.85 0-3 .86-3.6 1.76Z" />
-                        </svg>
+                        <span className="link-draw">LinkedIn</span>
                       </a>
                     )}
                   </div>
-                  <div className="text-sm font-bold text-brand">{p.title}</div>
-                  <div className="text-[13.5px] leading-normal text-ink-muted">{p.bio}</div>
+                  <div className="mt-1 text-[15px] font-bold text-brand">{p.title}</div>
+                  <p className="m-0 mt-3 max-w-[56ch] text-[15.5px] leading-relaxed text-ink-muted">
+                    {p.bio}
+                  </p>
                 </div>
-              </Reveal>
+              </li>
             ))}
-          </div>
+          </ol>
         </div>
-      </section>
-
-      {/* spirit */}
-      <section className="px-6 pb-12 md:px-[clamp(24px,6.7vw,96px)] md:pb-16">
-        <Reveal className="mx-auto flex max-w-[1240px] flex-col gap-2.5 rounded-card border border-[#f6dcdb] bg-[#fdf2f2] px-6 py-6 md:px-12 md:py-10">
-          <div className="text-sm font-bold text-accent-text md:text-[15px]">רוח שלכם</div>
-          <h2 className="m-0 font-display text-[24px] font-light leading-tight md:text-[34px]">
-            מעבר להנהלה — <span className="font-black">DNA של אנשים.</span>
-          </h2>
-          <p className="m-0 max-w-[760px] text-[15.5px] leading-relaxed text-ink-secondary md:text-lg">
-            צוות מגוון מכל המגזרים והקהילות — רופאים, מומחי זכויות ומלווים אישיים. מה שמחבר את
-            כולנו: קודם כל בן אדם, אחר כך תיק.
-          </p>
-        </Reveal>
       </section>
 
       <PageCta title="רוצים לדבר עם הצוות?" strong="נשמח להכיר." subtitle="בחינם וללא התחייבות · שכר טרחה רק בהצלחה." />

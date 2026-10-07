@@ -37,7 +37,7 @@ export function LeadModalProvider({ children }: { children: React.ReactNode }) {
         {source !== null && (
           <DialogContent
             dir="rtl"
-            className="max-h-[92vh] max-w-[520px] overflow-y-auto rounded-[26px] border border-[#e6ebf2] p-0 shadow-[0_32px_90px_rgba(4,8,40,0.34)] duration-300 data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95 motion-reduce:animate-none motion-reduce:duration-0"
+            className="max-h-[92vh] max-w-[520px] overflow-y-auto rounded-[26px] border border-[#e4e7ec] p-0 shadow-[0_32px_90px_rgba(4,8,40,0.34)] duration-300 data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95 motion-reduce:animate-none motion-reduce:duration-0"
           >
             {/* כותרת על רקע המותג — מסגרת רגשית לפני השדות */}
             <div
@@ -52,7 +52,7 @@ export function LeadModalProvider({ children }: { children: React.ReactNode }) {
                 }}
               />
               <DialogTitle asChild>
-                <h2 className="relative m-0 font-display text-[28px] font-light leading-[1.15] tracking-[-0.3px] md:text-[32px]">
+                <h2 className="relative m-0 font-display text-[28px] font-light leading-[1.15] tracking-[-0.3px] text-white md:text-[32px]">
                   בדיקת זכאות חינם
                   <br />
                   <span className="font-bold">מגיע לכם לדעת מה מגיע לכם.</span>

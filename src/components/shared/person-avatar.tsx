@@ -1,7 +1,7 @@
 import { CmsImage } from "@/components/shared/cms-image";
 import { cn } from "@/lib/utils";
 
-/** אווטאר אדם — תמונה אם קיימת, אחרת ראשי תיבות על רקע כחלחל (כמו בעיצובים). */
+/** אווטאר אדם — תמונה אם קיימת, אחרת ראשי תיבות דקים על נייר קריר. */
 export function PersonAvatar({
   name,
   image,
@@ -36,7 +36,7 @@ export function PersonAvatar({
       aria-hidden
       style={{ width: size, height: size, fontSize: size * 0.34 }}
       className={cn(
-        "flex shrink-0 items-center justify-center rounded-full bg-[#eef0ff] font-bold text-brand",
+        "flex shrink-0 items-center justify-center rounded-full bg-surface font-display font-light text-ink-muted",
         className,
       )}
     >

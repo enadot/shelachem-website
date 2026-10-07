@@ -1,152 +1,100 @@
 import Link from "next/link";
 import { Reveal } from "@/components/shared/reveal";
-import { SectionHeading } from "@/components/shared/section-heading";
+import { Eyebrow } from "@/components/shared/eyebrow";
 import { ArrowForward } from "@/components/shared/icons";
 
-/** באנר אדום — "כנראה שמגיע לכם הרבה יותר" (homepage-live.html §3). */
-export function RedBanner() {
+/** פס שחור/זהב — "כנראה שמגיע לכם הרבה יותר" (designs/homepage-v3.html). */
+export function GoldBand() {
   return (
-    <section className="px-6 pt-16 md:px-[clamp(24px,6.7vw,96px)] md:pt-[88px]">
-      <Reveal className="mx-auto max-w-[1240px] rounded-xl bg-accent px-6 py-12 text-center md:px-20 md:py-16">
-        <h2 className="m-0 mb-5 font-display text-[26px] font-light tracking-tight text-white md:text-[40px]">
-          כנראה שמגיע לכם הרבה יותר ממה שאתם חושבים.
-        </h2>
-        <p className="mx-auto my-0 max-w-[640px] text-lg leading-relaxed text-white md:text-[21px]">
-          משאירים שם וטלפון, ואנחנו בודקים בשבילכם בדיוק איפה אתם עומדים.
-        </p>
-        <Link
-          href="/#lead-form"
-          className="mt-6 inline-flex items-center gap-2 px-2 py-2 text-lg font-bold text-white underline decoration-2 underline-offset-4 md:text-xl"
+    <section className="surface-navy bg-night">
+      <div className="mx-auto flex max-w-[1440px] flex-col items-start gap-6 px-[22px] py-14 md:flex-row md:items-end md:justify-between md:gap-12 md:px-[clamp(24px,5vw,72px)] md:py-24">
+        <div className="max-w-[860px]">
+          <Reveal
+            as="h2"
+            variant="mask"
+            className="m-0 mb-3 font-display text-[32px] font-light leading-[1.12] text-white md:mb-4 md:text-[56px] md:leading-[1.04] md:tracking-[-0.02em]"
+          >
+            כנראה שמגיע לכם <span className="font-black text-gold">הרבה יותר</span> ממה שאתם
+            חושבים.
+          </Reveal>
+          <p className="m-0 text-[17px] leading-relaxed text-night-text md:text-xl">
+            כמה שאלות קצרות, ואנחנו נגיד לכם בדיוק איפה אתם עומדים.
+          </p>
+        </div>
+        {/* "כמה שאלות קצרות" — מוביל לבדיקת הזכאות בשלבים שבכרטיס ההירו */}
+        <a
+          href="#lead-form"
+          className="group inline-flex shrink-0 items-center gap-2.5 rounded-[10px] bg-gold px-7 py-4 text-[17px] font-bold text-ink no-underline transition-colors duration-300 hover:bg-gold-hover hover:text-ink md:px-9 md:py-5 md:text-lg"
         >
-          להשאיר פרטים לבדיקה
-          <ArrowForward size={16} />
-        </Link>
-      </Reveal>
+          אשמח לדעת
+          <ArrowForward size={18} className="nudge" />
+        </a>
+      </div>
     </section>
   );
 }
 
-/** פסקת המהות — "מימוש זכויות רפואיות: הופכים את הזכות שלכם למציאות" (§ intro). */
-export function Essence() {
-  return (
-    <section className="px-6 pt-16 md:px-[clamp(24px,6.7vw,96px)] md:pt-[88px]">
-      <Reveal className="mx-auto max-w-[880px] text-center">
-        <SectionHeading
-          strong="הופכים את הזכות שלכם למציאות."
-          className="mb-5 text-[28px] leading-tight md:text-[38px]"
-        >
-          מימוש זכויות רפואיות:
-        </SectionHeading>
-        <p className="mx-auto my-0 max-w-[700px] text-[17px] leading-[1.7] text-ink-secondary md:text-[19px]">
-          הדרך לקבלת הקצבאות והפיצויים המגיעים לכם על פי חוק לא חייבת להיות מאבק. למרות שמדובר
-          בזכויות בסיסיות, הבירוקרטיה המורכבת וחוסר הידע גורמים לרבים לוותר מראש על כסף שמגיע
-          להם. בשלכם, אנחנו מאמינים שאף אדם לא צריך להתמודד לבד מול גופים גדולים כמו ביטוח לאומי
-          או חברות הביטוח. אנחנו כאן כדי לגשר על הפער שבין המצב הרפואי לבין המענק הכספי, עם
-          ליווי אישי וניסיון שפותח דלתות.
-        </p>
-      </Reveal>
-    </section>
-  );
-}
-
-const institutionsIcons: { label: string; href: string; icon: React.ReactNode }[] = [
-  {
-    label: "ביטוח לאומי",
-    href: "/institutions/bituach-leumi",
-    icon: (
-      <>
-        <rect x="2.5" y="4" width="19" height="12.5" rx="1.8" fill="#ffffff" />
-        <rect x="10.8" y="16.5" width="2.4" height="2.6" fill="#ffffff" />
-        <rect x="7.5" y="19" width="9" height="2.2" rx="1" fill="#F0514F" />
-      </>
-    ),
-  },
-  {
-    label: "מס הכנסה",
-    href: "/institutions/mas-hachnasa",
-    icon: (
-      <>
-        <rect x="3" y="5" width="18" height="16" rx="2" fill="#ffffff" />
-        <rect x="3" y="9.5" width="18" height="1.8" fill="#122680" />
-        <rect x="6.5" y="2" width="2.2" height="5" rx="1" fill="#F0514F" />
-        <rect x="11" y="2" width="2.2" height="5" rx="1" fill="#F0514F" />
-        <rect x="15.5" y="2" width="2.2" height="5" rx="1" fill="#F0514F" />
-      </>
-    ),
-  },
-  {
-    label: "קרנות פנסיה",
-    href: "/institutions/karnot-pensia",
-    icon: (
-      <>
-        <path d="M9 7 L9 21 L12.6 17.6 L14.8 22.2 L17.2 21.1 L15 16.6 L19.8 16 Z" fill="#ffffff" />
-        <line x1="8" y1="4.5" x2="6.5" y2="3" stroke="#F0514F" strokeWidth="1.8" strokeLinecap="round" />
-        <line x1="11" y1="3.8" x2="11" y2="1.8" stroke="#F0514F" strokeWidth="1.8" strokeLinecap="round" />
-        <line x1="6.8" y1="7.5" x2="4.8" y2="7.5" stroke="#F0514F" strokeWidth="1.8" strokeLinecap="round" />
-      </>
-    ),
-  },
-  {
-    label: "חברות ביטוח",
-    href: "/institutions/hevrot-bituach",
-    icon: (
-      <>
-        <path d="M12 3 L17.5 18 L6.5 18 Z" fill="#ffffff" />
-        <path d="M10.1 8.2 L13.9 8.2 L14.9 11 L9.1 11 Z" fill="#F0514F" />
-        <rect x="3.5" y="18" width="17" height="2.4" rx="1.2" fill="#ffffff" />
-      </>
-    ),
-  },
-  {
-    label: "משרד הרישוי",
-    href: "/institutions/misrad-harishui",
-    icon: (
-      <>
-        <circle cx="12" cy="12" r="9" stroke="#ffffff" strokeWidth="2.4" />
-        <line x1="12" y1="4.5" x2="12" y2="19.5" stroke="#ffffff" strokeWidth="1.8" />
-        <line x1="4.5" y1="12" x2="19.5" y2="12" stroke="#ffffff" strokeWidth="1.8" />
-        <line x1="6.7" y1="6.7" x2="17.3" y2="17.3" stroke="#ffffff" strokeWidth="1.8" />
-        <line x1="17.3" y1="6.7" x2="6.7" y2="17.3" stroke="#ffffff" strokeWidth="1.8" />
-        <circle cx="12" cy="12" r="3" fill="#F0514F" stroke="#ffffff" strokeWidth="1.5" />
-      </>
-    ),
-  },
+const institutions = [
+  { label: "ביטוח לאומי", href: "/institutions/bituach-leumi" },
+  { label: "מס הכנסה", href: "/institutions/mas-hachnasa" },
+  { label: "קרנות פנסיה", href: "/institutions/karnot-pensia" },
+  { label: "חברות ביטוח", href: "/institutions/hevrot-bituach" },
+  { label: "משרד הרישוי", href: "/institutions/misrad-harishui" },
 ];
 
-/** באנר מוסדות נייבי עם 5 אייקונים עגולים (homepage-live.html §6). */
+/**
+ * מוסדות ובירוקרטיה — חמש עמודות טיפוגרפיות מופרדות בקווי שיער (בדסקטופ),
+ * שורות במובייל. ריחוף: הרקע מתמלא בלבן והחץ זז — בלי הרמת כרטיסים.
+ */
 export function InstitutionsBanner() {
   return (
-    <section className="px-6 pb-16 md:px-[clamp(24px,6.7vw,96px)] md:pb-24">
-      <Reveal className="relative mx-auto flex max-w-[1240px] flex-col items-start gap-8 overflow-hidden rounded-2xl bg-banner px-7 py-10 md:flex-row md:items-center md:justify-between md:gap-12 md:px-[72px] md:py-14">
-        <div
-          aria-hidden
-          className="absolute -left-20 -top-36 h-[575px] w-[1282px] rounded-full"
-          style={{
-            background: "radial-gradient(circle, rgba(0,0,255,0.5) 0%, rgba(0,0,255,0) 70%)",
-          }}
-        />
-        <h3 className="relative m-0 shrink-0 font-display text-[26px] font-normal leading-tight text-white md:text-[34px]">
-          מוסדות ובירוקרטיה
-        </h3>
-        <div className="relative flex flex-wrap items-start justify-start gap-6 md:justify-end md:gap-7">
-          {institutionsIcons.map((inst) => (
-            <Link
-              key={inst.label}
-              href={inst.href}
-              className="flex w-[96px] flex-col items-center gap-3 no-underline md:w-[108px]"
-            >
-              <span className="flex h-[74px] w-[74px] items-center justify-center rounded-full bg-white/[0.14] transition-colors hover:bg-white/[0.26] md:h-[84px] md:w-[84px]">
-                <svg width="38" height="38" viewBox="0 0 24 24" fill="none" aria-hidden>
-                  {inst.icon}
-                </svg>
-              </span>
-              <span className="text-center text-base font-bold text-white md:text-[17px]">
-                {inst.label}
-              </span>
-            </Link>
-          ))}
+    <section className="bg-surface px-[22px] py-16 md:px-[clamp(24px,5vw,72px)] md:py-[120px]">
+      <div className="mx-auto max-w-[1296px]">
+        <Eyebrow index="03">מוסדות ובירוקרטיה</Eyebrow>
+        <div className="mb-8 mt-6 flex flex-col gap-4 md:mb-12 md:mt-8 md:flex-row md:items-end md:justify-between">
+          <Reveal
+            as="h2"
+            variant="mask"
+            className="m-0 font-display text-[32px] font-light leading-[1.1] text-ink md:text-[56px] md:leading-[1.02] md:tracking-[-0.02em]"
+          >
+            מול מי <b className="font-black">אנחנו עומדים בשבילכם</b>
+          </Reveal>
+          <Link
+            href="/institutions"
+            className="group inline-flex items-center gap-2 self-start text-base font-bold text-brand no-underline md:self-auto md:text-[17px]"
+          >
+            <span className="link-draw">לכל המוסדות</span>
+            <ArrowForward size={16} className="nudge" />
+          </Link>
         </div>
-      </Reveal>
+        <Reveal
+          as="ul"
+          variant="stagger"
+          className="m-0 grid list-none border-y border-hairline p-0 md:grid-cols-5"
+        >
+          {institutions.map((inst, i) => (
+            <li
+              key={inst.href}
+              className="border-hairline [&:not(:first-child)]:border-t md:[&:not(:first-child)]:border-r md:[&:not(:first-child)]:border-t-0"
+            >
+              <Link
+                href={inst.href}
+                className="group flex items-center justify-between gap-3 py-5 text-ink no-underline transition-colors duration-500 hover:bg-white md:h-full md:min-h-[200px] md:flex-col md:items-stretch md:px-6 md:py-7"
+              >
+                <span className="tnum hidden text-[13px] font-bold text-ink-faint md:block">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <span className="font-display text-[22px] font-black leading-tight md:mt-auto md:text-[26px]">
+                  {inst.label}
+                </span>
+                <span className="text-brand">
+                  <ArrowForward size={20} className="nudge" />
+                </span>
+              </Link>
+            </li>
+          ))}
+        </Reveal>
+      </div>
     </section>
   );
 }

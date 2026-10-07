@@ -2,10 +2,11 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getInstitution, getInstitutions } from "@/lib/content";
-import { NavyHero } from "@/components/shared/navy-hero";
+import { PageHeader } from "@/components/shared/page-header";
 import { LeadForm } from "@/components/shared/lead-form";
-import { Reveal } from "@/components/shared/reveal";
-import { StatValue } from "@/components/magicui/number-ticker";
+import { StatStrip } from "@/components/shared/stat-strip";
+import { NumberedSteps } from "@/components/shared/numbered-steps";
+import { Eyebrow } from "@/components/shared/eyebrow";
 import { SectionHeading } from "@/components/shared/section-heading";
 import { ChevronForward } from "@/components/shared/icons";
 import { InstitutionServiceCard } from "@/components/institutions/service-card";
@@ -41,7 +42,7 @@ export default async function InstitutionPage({
 
   return (
     <>
-      <NavyHero
+      <PageHeader
         breadcrumb={[
           { label: "בית", href: "/" },
           { label: "מוסדות ובירוקרטיה", href: "/institutions" },
@@ -53,110 +54,76 @@ export default async function InstitutionPage({
       />
 
       {/* approach */}
-      <section className="px-6 py-12 md:px-[clamp(24px,6.7vw,96px)] md:py-16">
+      <section className="px-6 py-14 md:px-[clamp(24px,6.7vw,96px)] md:py-24">
         <div className="mx-auto max-w-[1240px]">
-          <SectionHeading strong="עובדים" underlineStrong className="mb-6 text-[26px] md:text-4xl">
+          <Eyebrow index="01">השיטה</Eyebrow>
+          <SectionHeading strong="עובדים" className="mb-10 mt-6 text-[30px] md:mb-14 md:mt-8 md:text-[52px]">
             איך אנחנו
           </SectionHeading>
-          <ol className="m-0 grid list-none gap-5 p-0 sm:grid-cols-2 md:grid-cols-4">
-            {inst.approach.map((step, i) => (
-              <Reveal
-                key={step.title}
-                as="li"
-                delay={i * 0.09}
-                className="rounded-xl border border-hairline bg-white p-6"
-              >
-                <div className="tnum mb-4 flex h-11 w-11 items-center justify-center rounded-full bg-surface-blue text-xl font-bold text-brand">
-                  {i + 1}
-                </div>
-                <h3 className="m-0 mb-2 font-body text-lg font-bold text-ink">{step.title}</h3>
-                <div className="text-[15px] leading-relaxed text-ink-secondary">
-                  {step.description}
-                </div>
-              </Reveal>
-            ))}
-          </ol>
+          <NumberedSteps steps={inst.approach} />
         </div>
       </section>
 
-      {/* services */}
-      <section className="bg-surface px-6 py-12 md:px-[clamp(24px,6.7vw,96px)] md:py-16">
+      {/* services — שורות בקווי שיער */}
+      <section className="bg-surface px-6 py-14 md:px-[clamp(24px,6.7vw,96px)] md:py-24">
         <div className="mx-auto max-w-[1240px]">
-          <SectionHeading
-            strong={`מול ${inst.name}`}
-            underlineStrong
-            className="mb-6 text-[26px] md:text-4xl"
-          >
-            במה אנחנו מטפלים
+          <Eyebrow index="02">במה אנחנו מטפלים</Eyebrow>
+          <SectionHeading strong={`מול ${inst.name}`} className="mb-10 mt-6 text-[30px] md:mb-14 md:mt-8 md:text-[52px]">
+            כל מה שאפשר לממש
           </SectionHeading>
-          <ul className="m-0 grid list-none gap-4 p-0 sm:grid-cols-2 md:grid-cols-3 md:gap-5">
-            {inst.serviceCards.map((card, i) => (
-              <Reveal key={card.name} as="li" delay={(i % 3) * 0.09} className="h-full">
+          <ul
+            className="m-0 grid list-none border-t border-hairline p-0 md:grid-cols-2 md:gap-x-12"
+          >
+            {inst.serviceCards.map((card) => (
+              <li key={card.name} className="border-b border-hairline">
                 <InstitutionServiceCard card={card} institutionName={inst.name} />
-              </Reveal>
+              </li>
             ))}
           </ul>
         </div>
       </section>
 
       {/* stats */}
-      <section className="px-6 py-12 md:px-[clamp(24px,6.7vw,96px)] md:py-16">
-        <Reveal className="surface-navy relative mx-auto max-w-[1240px] overflow-hidden rounded-card bg-banner px-8 py-10 text-white md:px-12">
-          <div
-            aria-hidden
-            className="absolute -left-[100px] -top-36 h-[440px] w-[520px] rounded-full"
-            style={{ background: "radial-gradient(circle, rgba(0,0,255,0.5) 0%, rgba(0,0,255,0) 70%)" }}
-          />
-          <div className="relative grid grid-cols-2 gap-8 text-center md:grid-cols-4">
-            {inst.stats.map((st) => (
-              <div key={st.label} className="flex flex-col gap-1.5">
-                <div
-                  /* #e75f5d על נייבי = 3.84:1; הגוון הרגיל נפל ב-2.86:1 מול 3:1 */
-                  className={`tnum font-display text-[34px] font-black md:text-[46px] ${st.accent ? "text-accent-on-navy" : "text-white"}`}
-                >
-                  <StatValue value={st.value} />
-                </div>
-                <div className="text-[15px] text-white/90 md:text-base">{st.label}</div>
-              </div>
-            ))}
-          </div>
-          {inst.statsNote && (
-            <div className="relative mt-6 text-center text-sm text-white/60">{inst.statsNote}</div>
-          )}
-        </Reveal>
+      <section className="surface-navy bg-night px-6 py-14 text-white md:px-[clamp(24px,6.7vw,96px)] md:py-20">
+        <div className="mx-auto max-w-[1240px]">
+          <Eyebrow index="03" tone="dark">במספרים</Eyebrow>
+          <StatStrip stats={inst.stats} tone="dark" className="mt-8 md:mt-10" />
+          {inst.statsNote && <div className="mt-6 text-sm text-white/60">{inst.statsNote}</div>}
+        </div>
       </section>
 
-      {/* contact form */}
-      <section className="px-6 pb-14 md:px-[clamp(24px,6.7vw,96px)]">
+      {/* contact form — כותרת גדולה מימין, טופס משמאל, בלי כרטיס */}
+      <section
+        id="lead-form"
+        className="scroll-mt-24 px-6 py-14 md:px-[clamp(24px,6.7vw,96px)] md:py-24"
+      >
         {/* id="lead-form" — כך MobileCtaBar מתקפל כשהטופס עצמו על המסך */}
-        <Reveal
-          id="lead-form"
-          className="mx-auto max-w-[720px] scroll-mt-24 rounded-card border border-hairline bg-white px-7 py-9 md:px-12"
-        >
-          <h2 className="m-0 mb-2 text-center font-display text-[24px] font-light text-ink md:text-[30px]">
-            רוצים שנטפל בשבילכם מול {inst.name}? <span className="font-bold">דברו איתנו.</span>
-          </h2>
-          <p className="m-0 mb-7 text-center text-base text-ink-secondary">
-            בדיקת זכאות ראשונית חינם — בחרו נושא ונחזור אליכם עם תשובה.
-          </p>
-          <LeadForm
-            sourcePage={`institution-${inst.slug}`}
-            submitLabel="חזרו אליי"
-            withMarketingConsent={false}
-            topicOptions={[...inst.formOptions]}
-            topicLabel="במה נוכל לעזור?"
-          />
-          <p className="m-0 mt-5 text-center text-[15px] text-ink-secondary">
-            עוד לא בטוחים?{" "}
+        <div className="mx-auto grid max-w-[1240px] items-start gap-10 md:grid-cols-[1fr_1fr] md:gap-20">
+          <div>
+            <SectionHeading strong="דברו איתנו." className="mb-4 text-[30px] md:mb-6 md:text-[52px]">
+              רוצים שנטפל בשבילכם מול {inst.name}?
+            </SectionHeading>
+            <p className="m-0 mb-6 max-w-[440px] text-base leading-relaxed text-ink-secondary md:text-lg">
+              בדיקת זכאות ראשונית חינם — בחרו נושא ונחזור אליכם עם תשובה.
+            </p>
             <Link
               href="/faq"
-              className="inline-flex items-center gap-1 font-bold text-brand no-underline hover:underline"
+              className="group inline-flex items-center gap-1.5 text-[15px] font-bold text-brand no-underline"
             >
-              קראו את השאלות והתשובות
-              <ChevronForward size={14} />
+              <span className="link-draw">עוד לא בטוחים? קראו את השאלות והתשובות</span>
+              <ChevronForward size={14} className="nudge" />
             </Link>
-          </p>
-        </Reveal>
+          </div>
+          <div>
+            <LeadForm
+              sourcePage={`institution-${inst.slug}`}
+              submitLabel="חזרו אליי"
+              withMarketingConsent={false}
+              topicOptions={[...inst.formOptions]}
+              topicLabel="במה נוכל לעזור?"
+            />
+          </div>
+        </div>
       </section>
     </>
   );

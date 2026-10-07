@@ -1,42 +1,36 @@
-import Image from "next/image";
 import { Reveal } from "@/components/shared/reveal";
 import { LeadForm } from "@/components/shared/lead-form";
 
-/** CTA סופי עם לבבות watermark (homepage-live.html §10). */
+/** CTA סופי על רויאל — כותרת גדולה וטופס קצר (שם + טלפון), בלי עיטורים. */
 export function FinalCta() {
   return (
-    <section className="relative overflow-hidden px-6 py-16 text-center md:px-[clamp(24px,6.7vw,96px)] md:py-[88px]">
-      <Image
-        src="/images/heart.svg"
-        alt=""
-        aria-hidden
-        width={380}
-        height={380}
-        className="pointer-events-none absolute -bottom-[70px] -left-[50px] w-[280px] opacity-[0.07] md:w-[380px]"
-      />
-      <Image
-        src="/images/heart.svg"
-        alt=""
-        aria-hidden
-        width={300}
-        height={300}
-        className="pointer-events-none absolute -right-[70px] -top-[60px] w-[220px] opacity-[0.05] md:w-[300px]"
-      />
-      <Reveal className="relative mx-auto max-w-[820px]">
-        <h2 className="m-0 mb-3 font-display text-[28px] font-bold tracking-tight text-ink md:text-[40px]">
-          בואו לבדוק מה מגיע לכם
-        </h2>
-        <p className="m-0 mb-8 text-[17px] text-ink-muted md:text-[19px]">
-          השאירו פרטים ונחזור אליכם היום. בלי עלות, בלי התחייבות, בלי אותיות קטנות.
-        </p>
-        <LeadForm
-          layout="hero"
-          sourcePage="home-final-cta"
-          submitLabel="צרו איתי קשר"
-          withMarketingConsent={false}
-          className="mx-auto max-w-[640px] text-start"
-        />
-      </Reveal>
+    <section className="surface-navy bg-brand px-[22px] py-16 text-white md:px-[clamp(24px,5vw,72px)] md:py-[120px]">
+      <div className="mx-auto grid max-w-[1296px] items-end gap-10 md:grid-cols-[1.1fr_1fr] md:gap-20">
+        <div>
+          <Reveal
+            as="h2"
+            variant="mask"
+            className="m-0 mb-4 font-display text-[44px] font-black leading-[0.95] tracking-[-0.02em] text-white md:mb-6 md:text-[88px]"
+          >
+            בואו לבדוק
+            <br />
+            מה מגיע לכם.
+          </Reveal>
+          <p className="m-0 text-base text-on-royal-muted md:text-xl">
+            נחזור אליכם היום. בלי עלות ובלי התחייבות.
+          </p>
+        </div>
+        <Reveal delay={0.15}>
+          <LeadForm
+            variant="dark"
+            layout="hero"
+            sourcePage="home-final-cta"
+            submitLabel="צרו איתי קשר"
+            withMarketingConsent={false}
+            withEmail={false}
+          />
+        </Reveal>
+      </div>
     </section>
   );
 }

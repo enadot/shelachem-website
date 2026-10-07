@@ -39,17 +39,17 @@ export function Carousel({
             type="button"
             onClick={() => scroll(-1)}
             aria-label="הקודם"
-            className="pill flex h-11 w-11 cursor-pointer items-center justify-center border border-hairline bg-white text-ink transition-colors hover:border-brand hover:text-brand"
+            className="pill flex h-[52px] w-[52px] cursor-pointer items-center justify-center border-[1.5px] border-brand bg-white text-brand transition-colors hover:bg-surface-blue"
           >
-            <ChevronBack size={18} />
+            <ChevronBack size={20} />
           </button>
           <button
             type="button"
             onClick={() => scroll(1)}
             aria-label="הבא"
-            className="pill flex h-11 w-11 cursor-pointer items-center justify-center border border-hairline bg-white text-ink transition-colors hover:border-brand hover:text-brand"
+            className="pill flex h-[52px] w-[52px] cursor-pointer items-center justify-center border-none bg-brand text-white transition-colors hover:bg-brand-hover"
           >
-            <ChevronForward size={18} />
+            <ChevronForward size={20} />
           </button>
         </div>
       )}

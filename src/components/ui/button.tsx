@@ -3,19 +3,19 @@ import { Slot } from "@radix-ui/react-slot";
 import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
-/** כפתורי המותג — pill תמיד, וריאנטים לפי העיצובים. */
+/** כפתורי המותג — פינות 10px (v3), וריאנטים לפי העיצובים. */
 const buttonVariants = cva(
-  "inline-flex cursor-pointer items-center justify-center gap-2 whitespace-nowrap rounded-full border-none font-bold no-underline transition-colors disabled:pointer-events-none disabled:opacity-60",
+  "group inline-flex cursor-pointer items-center justify-center gap-2.5 whitespace-nowrap rounded-[10px] border-none font-bold no-underline transition-[background-color,color,border-color,transform] duration-300 active:scale-[0.98] disabled:pointer-events-none disabled:opacity-60",
   {
     variants: {
       variant: {
         brand:
-          "bg-brand text-white shadow-[0_12px_28px_rgba(0,0,255,0.25)] hover:bg-brand-hover",
-        accent: "bg-accent text-white hover:bg-accent-hover",
+          "bg-brand text-white hover:bg-brand-hover",
+        accent: "bg-gold text-ink hover:bg-gold-hover",
         outline:
           "border border-solid border-hairline bg-white font-normal text-ink hover:border-brand hover:text-brand",
         "outline-accent":
-          "border-[1.5px] border-solid border-accent bg-white font-normal text-accent-text hover:bg-accent-tint",
+          "border-[1.5px] border-solid border-brand bg-transparent text-brand hover:bg-surface-blue",
         ghost: "bg-transparent font-normal text-ink hover:text-brand",
         link: "bg-transparent p-0 text-brand hover:underline",
       },

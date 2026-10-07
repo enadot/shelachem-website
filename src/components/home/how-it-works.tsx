@@ -1,53 +1,69 @@
 import { Reveal } from "@/components/shared/reveal";
-import { SectionHeading } from "@/components/shared/section-heading";
 import { LeadCta } from "@/components/shared/lead-cta";
+import { Eyebrow } from "@/components/shared/eyebrow";
+import { ArrowForward } from "@/components/shared/icons";
 
 const steps = [
   {
     title: "משאירים פרטים.",
-    body: "אתם משאירים טלפון, אנחנו חוזרים. בלי טפסים אינסופיים, בלי לרוץ בין משרדים.",
+    body: "טלפון אחד — ואנחנו חוזרים אליכם.",
   },
   {
     title: "בודקים לעומק.",
-    body: "אנחנו מוצאים בדיוק מה מגיע לכם — כולל זכויות שבחיים לא שמעתם עליהן.",
+    body: "מוצאים כל זכות שמגיעה לכם.",
   },
   {
     title: "אנחנו נכנסים בשבילכם.",
-    body: "מנהלים את כל המאבק מול ביטוח לאומי, מס הכנסה, הקרנות והביטוח. אתם ממשיכים לחיות.",
+    body: "מול כל הגופים. אתם ממשיכים לחיות.",
   },
 ];
 
-/** שלושה צעדים (homepage-live.html §4), עוגן #how-it-works מהניווט. */
+/**
+ * שלושה צעדים — מספרים גדולים, קו שיער שנמתח מעל כל צעד ושורה אחת.
+ * בלי עיגולים ובלי ציר גרדיאנט: הטיפוגרפיה עושה את העבודה.
+ */
 export function HowItWorks() {
   return (
     <section
       id="how-it-works"
-      className="scroll-mt-24 px-6 py-16 md:px-[clamp(24px,6.7vw,96px)] md:py-[88px]"
+      className="scroll-mt-24 px-[22px] py-16 md:px-[clamp(24px,5vw,72px)] md:py-[120px]"
     >
-      <div className="mx-auto max-w-[1240px]">
-        <SectionHeading strong="החלק הקשה שלנו." className="mb-10 text-[28px] md:text-[38px]">
-          שלושה צעדים שלכם.
-        </SectionHeading>
-        <div className="grid gap-6 md:grid-cols-3">
+      <div className="mx-auto max-w-[1296px]">
+        <Eyebrow index="02">איך זה עובד</Eyebrow>
+        <Reveal
+          as="h2"
+          variant="mask"
+          className="m-0 mb-10 mt-6 max-w-[820px] font-display text-[32px] font-light leading-[1.1] text-ink md:mb-16 md:mt-8 md:text-[56px] md:leading-[1.02] md:tracking-[-0.02em]"
+        >
+          שלושה צעדים שלכם. <span className="font-black">החלק הקשה שלנו.</span>
+        </Reveal>
+
+        <ol className="m-0 grid list-none gap-8 p-0 md:grid-cols-3 md:gap-12">
           {steps.map((step, i) => (
-            <Reveal
-              key={step.title}
-              delay={i * 0.09}
-              className="rounded-xl border border-hairline bg-white p-8 transition-[transform,box-shadow] duration-200 hover:-translate-y-[5px] hover:shadow-[0_14px_32px_rgba(0,55,112,0.10)]"
-            >
-              <div className="tnum mb-4 flex h-11 w-11 items-center justify-center rounded-full bg-accent-tint text-xl font-bold text-accent-text">
-                {i + 1}
-              </div>
-              <div className="mb-2.5 text-[22px] font-bold text-ink">{step.title}</div>
-              <div className="text-[17px] leading-relaxed text-ink-secondary md:text-[19px]">
-                {step.body}
-              </div>
-            </Reveal>
+            <li key={step.title} className="relative pt-5 md:pt-8">
+              <Reveal
+                as="span"
+                variant="line"
+                delay={i * 0.12}
+                className="absolute inset-x-0 top-0 block h-px bg-ink"
+              >
+                {null}
+              </Reveal>
+              <Reveal delay={0.15 + i * 0.12}>
+                <div className="tnum mb-3 font-display text-[44px] font-light leading-none text-brand md:mb-8 md:text-[96px]">
+                  {String(i + 1).padStart(2, "0")}
+                </div>
+                <div className="mb-1.5 text-xl font-black text-ink md:text-2xl">{step.title}</div>
+                <div className="text-base leading-relaxed text-ink-muted md:text-lg">{step.body}</div>
+              </Reveal>
+            </li>
           ))}
-        </div>
-        <div className="mt-9 flex justify-center">
-          <LeadCta sourcePage="home-how-it-works" variant="brand" size="lg">
+        </ol>
+
+        <div className="mt-12 md:mt-16">
+          <LeadCta sourcePage="home-how-it-works" variant="brand" size="lg" className="group w-full md:w-auto">
             לבדיקה ראשונית חינם
+            <ArrowForward size={18} className="nudge" />
           </LeadCta>
         </div>
       </div>

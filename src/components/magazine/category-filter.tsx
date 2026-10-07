@@ -4,8 +4,7 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import type { Article } from "@/lib/content/types";
 import { ArticleCard } from "@/components/shared/article-card";
-import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
+import { quietTab } from "@/lib/quiet-tab";
 
 export const magazineCategories = ["הכל", "מדריכים", "חדשות", "סיפורי הצלחה"] as const;
 
@@ -27,26 +26,17 @@ export function CategoryFilter({ articles }: { articles: Article[] }) {
 
   return (
     <>
-      <div className="flex flex-wrap items-center gap-2.5">
+      <div className="flex flex-wrap items-center gap-1 border-b border-hairline pb-4">
         {magazineCategories.map((c) => (
-          <Button
+          <Link
             key={c}
-            asChild
-            variant="outline"
-            size="sm"
-            className={cn(
-              active === c &&
-                "border-brand bg-brand font-bold text-white hover:bg-brand hover:text-white",
-            )}
+            href={c === "הכל" ? "/magazine" : `/magazine?cat=${encodeURIComponent(c)}`}
+            scroll={false}
+            aria-current={active === c ? "true" : undefined}
+            className={quietTab(active === c)}
           >
-            <Link
-              href={c === "הכל" ? "/magazine" : `/magazine?cat=${encodeURIComponent(c)}`}
-              scroll={false}
-              aria-current={active === c ? "true" : undefined}
-            >
-              {c}
-            </Link>
-          </Button>
+            {c}
+          </Link>
         ))}
         <span className="tnum ms-auto text-[14.5px] text-ink-faint" aria-live="polite">
           {visible.length} מאמרים
@@ -54,13 +44,13 @@ export function CategoryFilter({ articles }: { articles: Article[] }) {
       </div>
 
       {visible.length > 0 ? (
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 md:gap-[18px]">
+        <div className="grid gap-10 sm:grid-cols-2 sm:gap-x-6 sm:gap-y-12 lg:grid-cols-3">
           {visible.map((a) => (
             <ArticleCard key={a.id} article={a} />
           ))}
         </div>
       ) : (
-        <p className="m-0 rounded-[14px] border border-hairline bg-surface px-6 py-8 text-center text-[16.5px] text-ink-secondary">
+        <p className="m-0 border-b border-hairline py-10 text-[16.5px] text-ink-secondary">
           עוד לא פרסמנו כתבות בקטגוריה הזאת.{" "}
           <Link href="/magazine" className="font-bold text-brand no-underline hover:underline">
             לכל הכתבות

@@ -3,7 +3,7 @@ import Link from "next/link";
 import { getFaqs, getServices } from "@/lib/content";
 import { ChevronForward } from "@/components/shared/icons";
 import type { FaqItem } from "@/lib/content/types";
-import { NavyHero } from "@/components/shared/navy-hero";
+import { PageHeader } from "@/components/shared/page-header";
 import { PageCta } from "@/components/shared/page-cta";
 import { FaqAccordion } from "@/components/shared/faq-accordion";
 import { groupFaqs } from "@/lib/faq-groups";
@@ -58,24 +58,24 @@ export default async function FaqPage() {
         }}
       />
 
-      <NavyHero
+      <PageHeader
         breadcrumb={[{ label: "בית", href: "/" }, { label: "שאלות ותשובות" }]}
         title="שאלות"
         strong="ותשובות"
         intro={`${allItems.length} השאלות שאנחנו נשאלים הכי הרבה — על זכאות, על אחוזי נכות, על החזרי מס ועל מה שקורה אחרי דחייה. בלי שפה של פקידים.`}
       />
 
-      <section className="px-6 py-10 md:px-[clamp(24px,6.7vw,96px)] md:py-14">
-        <div className="mx-auto grid max-w-[1100px] items-start gap-10 md:grid-cols-[240px_1fr] md:gap-14">
+      <section className="px-6 py-14 md:px-[clamp(24px,6.7vw,96px)] md:py-20">
+        <div className="mx-auto grid max-w-[1240px] items-start gap-10 md:grid-cols-[240px_1fr] md:gap-20">
           {/* נושאים — ניווט בעמוד */}
-          <nav aria-label="נושאים" className="md:sticky md:top-24">
-            <h2 className="m-0 mb-3 text-[15px] font-bold text-ink">הנושאים</h2>
-            <ul className="m-0 flex list-none flex-wrap gap-2 p-0 md:flex-col md:gap-0">
+          <nav aria-label="נושאים" className="md:sticky md:top-28">
+            <h2 className="m-0 mb-3 text-sm font-bold tracking-[0.04em] text-ink-muted">הנושאים</h2>
+            <ul className="m-0 flex list-none flex-wrap gap-x-5 border-hairline p-0 md:flex-col md:gap-0 md:border-t">
               {sections.map((s) => (
-                <li key={s.id}>
+                <li key={s.id} className="md:border-b md:border-hairline">
                   <a
                     href={`#${s.id}`}
-                    className="pill inline-flex min-h-11 items-center border border-hairline px-3.5 text-[14.5px] text-ink-secondary no-underline transition-colors hover:border-brand hover:text-brand md:rounded-none md:border-0 md:px-0 md:text-[15px]"
+                    className="flex min-h-11 items-center justify-between text-[15px] text-ink-secondary no-underline transition-colors duration-300 hover:text-ink"
                   >
                     {s.label}
                     <span className="tnum ms-2 text-ink-faint">{s.items.length}</span>
@@ -85,7 +85,7 @@ export default async function FaqPage() {
             </ul>
           </nav>
 
-          <div className="flex min-w-0 flex-col gap-10">
+          <div className="flex min-w-0 flex-col gap-16 md:gap-20">
             {/*
               בכוונה בלי `Reveal`: זה עמוד עיון שמגיעים אליו מחיפוש ומקישור עוגן,
               והתוכן צריך פשוט להיות שם. גם נמדד — גלילה מהירה עד לתחתית דילגה על
@@ -94,7 +94,7 @@ export default async function FaqPage() {
             */}
             {sections.map((s) => (
               <section key={s.id} className="scroll-mt-24" id={s.id}>
-                <h2 className="m-0 mb-1.5 font-display text-[26px] font-light tracking-tight text-ink md:text-[32px]">
+                <h2 className="m-0 mb-2 font-display text-[28px] font-black leading-tight tracking-[-0.01em] text-ink md:text-[36px]">
                   {s.label}
                 </h2>
                 {s.intro && (
@@ -106,10 +106,10 @@ export default async function FaqPage() {
                 {s.href && (
                   <Link
                     href={s.href}
-                    className="mt-3.5 inline-flex min-h-11 items-center gap-1.5 text-[15px] font-bold text-brand no-underline hover:underline"
+                    className="group mt-4 inline-flex min-h-11 items-center gap-2 text-[15px] font-bold text-brand no-underline"
                   >
-                    לעמוד המלא של {s.label}
-                    <ChevronForward size={15} />
+                    <span className="link-draw">לעמוד המלא של {s.label}</span>
+                    <ChevronForward size={15} className="nudge" />
                   </Link>
                 )}
               </section>

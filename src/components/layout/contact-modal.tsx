@@ -45,8 +45,8 @@ export function ContactModal({ onClose }: { onClose: () => void }) {
           />
           <ContactRow
             href={site.phoneHref}
-            iconBg="#0000FF"
-            hoverClass="hover:border-brand hover:shadow-[rgba(0,0,255,0.14)_0_10px_24px]"
+            iconBg="#1228a8"
+            hoverClass="hover:border-brand hover:shadow-[rgba(18,40,168,0.14)_0_10px_24px]"
             title="טלפון"
             subtitle={site.phone}
             subtitleTnum
@@ -54,8 +54,8 @@ export function ContactModal({ onClose }: { onClose: () => void }) {
           />
           <ContactRow
             href={`mailto:${site.email}`}
-            iconBg="#d93a38"
-            hoverClass="hover:border-accent hover:shadow-[rgba(240,81,79,0.16)_0_10px_24px]"
+            iconBg="#0f1114"
+            hoverClass="hover:border-brand hover:shadow-[rgba(18,40,168,0.14)_0_10px_24px]"
             title="מייל"
             subtitle={site.email}
             icon={
@@ -97,7 +97,7 @@ function ContactRow({
     <a
       href={href}
       {...(external ? { target: "_blank", rel: "noopener" } : {})}
-      className={`flex items-center gap-4 rounded-2xl border border-hairline px-[18px] py-[15px] text-ink no-underline transition-all hover:-translate-y-0.5 ${hoverClass}`}
+      className={`flex items-center gap-4 rounded-2xl border border-hairline px-[18px] py-[15px] text-ink no-underline transition-colors duration-300 ${hoverClass}`}
     >
       <span
         className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full text-white"

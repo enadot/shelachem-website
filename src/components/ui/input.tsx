@@ -1,13 +1,13 @@
 import * as React from "react";
 import { cn } from "@/lib/utils";
 
-/** שדה קלט בסגנון הטפסים שבעיצוב (focus ring כחול, פינות 10px). */
+/** שדה קלט בסגנון v3 — רקע אפרפר, מסגרת 1.5px, בפוקוס מסגרת רויאל ורקע לבן. */
 function Input({ className, type, ...props }: React.ComponentProps<"input">) {
   return (
     <input
       type={type}
       className={cn(
-        "min-h-12 w-full rounded-[10px] border border-[#cbd5e1] bg-white px-4 py-3 text-base text-ink transition-colors placeholder:text-ink-faint aria-invalid:border-accent",
+        "min-h-[50px] w-full rounded-[10px] border-[1.5px] border-hairline bg-field px-4 py-3 text-[17px] text-ink transition-colors placeholder:text-ink-faint focus:border-brand focus:bg-white aria-invalid:border-danger",
         className,
       )}
       {...props}

@@ -119,9 +119,8 @@ export default async function ArticlePage({
         />
         <div className="flex flex-col gap-4 pt-6">
           <div className="flex items-center gap-3">
-            <span className="pill bg-[#eef0ff] px-4 py-1.5 text-sm font-bold text-brand">
-              {article.category}
-            </span>
+            <span className="text-sm font-bold text-brand">{article.category}</span>
+            <span aria-hidden className="h-px w-4 bg-hairline" />
             <span className="tnum text-[15px] text-ink-faint">
               עודכן ב{article.publishedLabel} · {article.readingMinutes} דק׳ קריאה
             </span>
@@ -132,7 +131,7 @@ export default async function ArticlePage({
             אותה ב-5.95ש׳ — כלומר כמעט 4 שניות של עמוד ריק מול הפרסונה המרכזית
             (רבקה, אנדרואיד ישן), כשהתוכן כבר היה ב-DOM. ה-h1 הוא גם אלמנט ה-LCP.
           */}
-          <h1 className="m-0 max-w-[900px] font-display text-[32px] font-light leading-[1.15] tracking-tight text-ink md:text-[54px] md:leading-[1.12]">
+          <h1 className="m-0 max-w-[900px] text-balance font-display text-[36px] font-light leading-[1.08] tracking-[-0.01em] text-ink md:text-[60px] md:leading-[1.04] md:tracking-[-0.02em]">
             {article.title}
           </h1>
           <p className="m-0 max-w-[820px] text-[17px] leading-relaxed text-ink-secondary md:text-xl">
@@ -149,7 +148,7 @@ export default async function ArticlePage({
           )}
         </div>
         {/* hero image */}
-        <div className="relative h-[220px] overflow-hidden rounded-card bg-surface-blue md:h-[420px]">
+        <div className="relative aspect-[16/9] overflow-hidden rounded-2xl bg-surface-blue md:aspect-[21/9]">
           <ArticleImage
             src={article.image}
             alt={article.imageAlt}
@@ -229,11 +228,6 @@ export default async function ArticlePage({
 
           {/* mid-article CTA */}
           <div className="surface-navy relative overflow-hidden rounded-2xl bg-banner px-7 py-7 text-white md:px-8">
-            <div
-              aria-hidden
-              className="absolute -left-[70px] -top-[110px] h-[360px] w-[420px] rounded-full"
-              style={{ background: "radial-gradient(circle, rgba(0,0,255,0.5) 0%, rgba(0,0,255,0) 70%)" }}
-            />
             <div className="relative flex flex-wrap items-center justify-between gap-6">
               <div className="min-w-[260px] flex-1">
                 {/* ההרגעה מובילה, לא נגררת: לקורא שכבר מתבייש בקביעה נמוכה,
@@ -258,8 +252,7 @@ export default async function ArticlePage({
             <div className="flex items-start gap-5 rounded-2xl border border-hairline bg-surface px-7 py-6">
               <PersonAvatar name={article.author.name} size={64} />
               <div>
-                {/* #c93330 על #f6f9fc = 4.97:1 — text-accent נפל שם ב-4.31:1 */}
-                <div className="mb-1 text-sm font-bold text-accent-text">הכירו את המומחית</div>
+                                <div className="mb-1 text-sm font-bold text-accent-text">הכירו את המומחית</div>
                 <div className="mb-1.5 text-[19px] font-bold text-ink">{article.author.name}</div>
                 <p className="m-0 text-base leading-relaxed text-ink-secondary">{article.author.bio}</p>
               </div>
@@ -294,12 +287,12 @@ export default async function ArticlePage({
 
       {/* read next */}
       {readNext.length > 0 && (
-        <section className="bg-surface px-6 py-10 md:px-[clamp(24px,6.7vw,96px)] md:py-14">
+        <section className="border-t border-hairline px-6 py-14 md:px-[clamp(24px,6.7vw,96px)] md:py-24">
           <div className="mx-auto max-w-[1240px]">
-            <SectionHeading strong="לקרוא" underlineStrong className="mb-6 text-[24px] md:text-[32px]">
+            <SectionHeading strong="לקרוא" underlineStrong className="mb-10 text-[30px] md:mb-14 md:text-[52px]">
               המשיכו
             </SectionHeading>
-            <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3 md:gap-5">
+            <div className="grid gap-10 sm:grid-cols-2 sm:gap-x-6 md:grid-cols-3">
               {readNext.map((a) => (
                 <ArticleCard key={a.id} article={a} />
               ))}
