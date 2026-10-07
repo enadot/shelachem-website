@@ -1,12 +1,11 @@
 import type { Metadata } from "next";
-import { Reveal, Entrance } from "@/components/shared/reveal";
 import { PageCta } from "@/components/shared/page-cta";
 import { LeadCta } from "@/components/shared/lead-cta";
 import { StatStrip } from "@/components/shared/stat-strip";
 import { NumberedSteps } from "@/components/shared/numbered-steps";
 import { Eyebrow } from "@/components/shared/eyebrow";
-import { Breadcrumb } from "@/components/shared/breadcrumb";
-import { ChevronForward } from "@/components/shared/icons";
+import { PageHeader } from "@/components/shared/page-header";
+import { ArrowForward } from "@/components/shared/icons";
 
 export const metadata: Metadata = {
   title: "הסיפור שלנו",
@@ -61,35 +60,20 @@ const headingClass =
 export default function AboutPage() {
   return (
     <>
-      {/* hero */}
-      <section className="brand-gradient surface-navy relative overflow-hidden text-white [--royal-shape:ellipse_80%_120%_at_70%_40%]">
-        <div className="relative mx-auto flex max-w-[1240px] flex-col justify-center gap-4.5 px-6 py-16 md:px-12 md:py-[72px]">
-          <Breadcrumb
-            tone="inverse"
-            items={[{ label: "בית", href: "/" }, { label: "הסיפור שלנו" }]}
-          />
-          <Entrance>
-            <h1 className="m-0 font-display text-[38px] font-light leading-[1.1] tracking-tight text-white md:text-[60px]">
-              המשימה שלנו:
-              <br />
-              <span className="font-black text-gold">הזכויות שלכם.</span>
-            </h1>
-          </Entrance>
-          <p className="m-0 max-w-[560px] text-lg leading-relaxed text-white/90 md:text-xl">
-            מאחורי כל תיק יש אדם שמתמודד עם מצב רפואי — ומולו מערכת בירוקרטית מסובכת. אנחנו כאן
-            כדי שהוא לא יעמוד בה לבד.
-          </p>
-          <div className="mt-2 flex flex-wrap items-center gap-3.5">
-            <LeadCta sourcePage="about-hero" variant="accent" className="group">
-              לבדיקת זכאות חינם
-              <ChevronForward size={16} className="nudge" />
-            </LeadCta>
-            <a href="#process" className="px-2 py-3 text-[17px] font-bold text-white no-underline">
-              <span className="link-draw">איך אנחנו עובדים</span>
-            </a>
-          </div>
-        </div>
-      </section>
+      <PageHeader
+        breadcrumb={[{ label: "בית", href: "/" }, { label: "הסיפור שלנו" }]}
+        title="המשימה שלנו:"
+        strong="הזכויות שלכם."
+        intro="מאחורי כל תיק יש אדם שמתמודד עם מצב רפואי — ומולו מערכת בירוקרטית מסובכת. אנחנו כאן כדי שהוא לא יעמוד בה לבד."
+      >
+        <LeadCta sourcePage="about-hero" variant="brand" className="group">
+          לבדיקת זכאות חינם
+          <ArrowForward size={16} className="nudge" />
+        </LeadCta>
+        <a href="#process" className="group text-base font-bold text-ink no-underline">
+          <span className="link-draw">איך אנחנו עובדים</span>
+        </a>
+      </PageHeader>
 
       {/* story + timeline */}
       <section className="px-6 py-14 md:px-[clamp(24px,6.7vw,96px)] md:py-24">
@@ -97,10 +81,10 @@ export default function AboutPage() {
           <Eyebrow index="01">הסיפור שלנו</Eyebrow>
           <div className="mt-6 grid gap-10 md:mt-8 md:grid-cols-[1fr_1.1fr] md:gap-20">
             <div>
-              <Reveal as="h2" variant="mask" className={headingClass}>
+              <h2 className={headingClass}>
                 מ-2013 ועד היום: <span className="font-black">שליחות אחת.</span>
-              </Reveal>
-              <Reveal as="ol" variant="stagger" className="m-0 mt-8 list-none border-t border-hairline p-0 md:mt-12">
+              </h2>
+              <ol className="m-0 mt-8 list-none border-t border-hairline p-0 md:mt-12">
                 {milestones.map((ms) => (
                   <li
                     key={ms.year}
@@ -112,9 +96,9 @@ export default function AboutPage() {
                     <span className="text-base leading-relaxed text-ink-secondary">{ms.text}</span>
                   </li>
                 ))}
-              </Reveal>
+              </ol>
             </div>
-            <Reveal className="flex flex-col gap-5 text-[17px] leading-[1.75] text-ink-secondary md:pt-2 md:text-[19px]">
+            <div className="flex flex-col gap-5 text-[17px] leading-[1.75] text-ink-secondary md:pt-2 md:text-[19px]">
               <p className="m-0">
                 חברת שלכם הוקמה בשנת 2013 מתוך שליחות אמיתית:{" "}
                 <b className="text-ink">לפשט את הבירוקרטיה הרפואית עבור כל אזרח בישראל.</b> ראינו
@@ -131,7 +115,7 @@ export default function AboutPage() {
                 יועצים רפואיים, מומחי ביטוח לאומי ומס הכנסה, ומלווים אישיים שמכירים את הוועדות
                 מבפנים. אנחנו לא מתחילים לגבות שקל עד שאתם מקבלים תוצאה.
               </p>
-            </Reveal>
+            </div>
           </div>
         </div>
       </section>
@@ -148,10 +132,10 @@ export default function AboutPage() {
       <section className="px-6 py-14 md:px-[clamp(24px,6.7vw,96px)] md:py-24">
         <div className="mx-auto max-w-[1240px]">
           <Eyebrow index="03">הערכים</Eyebrow>
-          <Reveal as="h2" variant="mask" className={`${headingClass} mb-10 mt-6 md:mb-14 md:mt-8`}>
+          <h2 className={`${headingClass} mb-10 mt-6 md:mb-14 md:mt-8`}>
             מה <span className="font-black">מנחה אותנו</span>
-          </Reveal>
-          <Reveal as="ul" variant="stagger" className="m-0 grid list-none border-t border-hairline p-0 md:grid-cols-2 md:gap-x-16">
+          </h2>
+          <ul className="m-0 grid list-none border-t border-hairline p-0 md:grid-cols-2 md:gap-x-16">
             {values.map((v, i) => (
               <li key={v.title} className="grid grid-cols-[40px_1fr] gap-x-4 border-b border-hairline py-7 md:py-9">
                 <span className="tnum pt-1.5 text-sm font-bold text-brand">
@@ -165,7 +149,7 @@ export default function AboutPage() {
                 </div>
               </li>
             ))}
-          </Reveal>
+          </ul>
         </div>
       </section>
 
@@ -173,9 +157,9 @@ export default function AboutPage() {
       <section id="process" className="scroll-mt-24 bg-surface px-6 py-14 md:px-[clamp(24px,6.7vw,96px)] md:py-24">
         <div className="mx-auto max-w-[1240px]">
           <Eyebrow index="04">התהליך</Eyebrow>
-          <Reveal as="h2" variant="mask" className={`${headingClass} mt-6 md:mt-8`}>
+          <h2 className={`${headingClass} mt-6 md:mt-8`}>
             איך זה עובד — <span className="font-black">5 שלבים</span>
-          </Reveal>
+          </h2>
           <p className="m-0 mb-10 mt-4 max-w-[620px] text-[17px] leading-relaxed text-ink-secondary md:mb-14 md:text-lg">
             מהשיחה הראשונה ועד הכסף בחשבון — אתם תמיד יודעים איפה התיק עומד ומה השלב הבא.
           </p>
@@ -188,10 +172,10 @@ export default function AboutPage() {
         <div className="mx-auto max-w-[1240px]">
           <Eyebrow index="05">אחריות חברתית</Eyebrow>
           <div className="mt-6 grid gap-8 md:mt-8 md:grid-cols-[1fr_1fr] md:items-end md:gap-20">
-            <Reveal as="h2" variant="mask" className={headingClass}>
+            <h2 className={headingClass}>
               זכויות הן לא מותרות — <span className="font-black">הן שייכות לכולם.</span>
-            </Reveal>
-            <Reveal>
+            </h2>
+            <div>
               <p className="m-0 text-[16px] leading-[1.7] text-ink-secondary md:text-lg">
                 לצד הפעילות העסקית, אנחנו מלווים מדי שנה עשרות משפחות במצוקה כלכלית — ללא עלות.
                 אנחנו מקיימים הרצאות חינמיות על זכויות רפואיות בקהילות, במרכזי חולים ובעמותות,
@@ -200,7 +184,7 @@ export default function AboutPage() {
               <p className="m-0 mt-4 text-sm font-bold text-ink-muted">
                 ליווי פרו-בונו למשפחות · הרצאות חינם בקהילה · מדריכים פתוחים במגזין
               </p>
-            </Reveal>
+            </div>
           </div>
         </div>
       </section>

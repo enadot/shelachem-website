@@ -1,5 +1,4 @@
 import { site } from "@/lib/config";
-import { Reveal } from "@/components/shared/reveal";
 import { LeadCta } from "@/components/shared/lead-cta";
 import { ArrowForward } from "@/components/shared/icons";
 
@@ -20,13 +19,11 @@ export function PageCta({
     <section className="px-6 py-14 md:px-[clamp(24px,6.7vw,96px)] md:py-24">
       <div className="mx-auto flex max-w-[1240px] flex-col items-start justify-between gap-8 border-t border-ink pt-10 md:flex-row md:items-end md:gap-16 md:pt-14">
         <div className="max-w-[760px]">
-          <Reveal
-            as="h2"
-            variant="mask"
+          <h2
             className="m-0 mb-3 font-display text-[30px] font-light leading-[1.1] text-ink md:mb-4 md:text-[52px] md:leading-[1.04] md:tracking-[-0.02em]"
           >
             {title} <span className="font-black">{strong}</span>
-          </Reveal>
+          </h2>
           <p className="m-0 text-base text-ink-secondary md:text-lg">{subtitle}</p>
         </div>
         <div className="flex shrink-0 flex-wrap items-center gap-5">

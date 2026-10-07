@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { getInstitutions } from "@/lib/content";
-import { NavyHero } from "@/components/shared/navy-hero";
+import { PageHeader } from "@/components/shared/page-header";
 import { LeadForm } from "@/components/shared/lead-form";
-import { Reveal } from "@/components/shared/reveal";
 import { StatStrip } from "@/components/shared/stat-strip";
 import { ArrowForward } from "@/components/shared/icons";
 
@@ -25,7 +24,7 @@ export default async function InstitutionsPage() {
 
   return (
     <>
-      <NavyHero
+      <PageHeader
         breadcrumb={[{ label: "בית", href: "/" }, { label: "מוסדות ובירוקרטיה" }]}
         title="כל מוסד, והדרך"
         strong="לנצח בו"
@@ -35,7 +34,7 @@ export default async function InstitutionsPage() {
       {/* institutions — שורות עריכתיות: מספר, שם גדול, תיאור ורשימת זכויות */}
       <section className="px-6 py-14 md:px-[clamp(24px,6.7vw,96px)] md:py-24">
         <div className="mx-auto max-w-[1240px]">
-          <Reveal as="ol" variant="stagger" className="m-0 list-none border-t border-ink p-0">
+          <ol className="m-0 list-none border-t border-ink p-0">
             {institutions.map((inst, i) => (
               <li key={inst.id} className="border-b border-hairline">
                 <Link
@@ -68,7 +67,7 @@ export default async function InstitutionsPage() {
                 </Link>
               </li>
             ))}
-          </Reveal>
+          </ol>
         </div>
       </section>
 
@@ -81,7 +80,7 @@ export default async function InstitutionsPage() {
 
       {/* navy contact form */}
       <section className="surface-navy bg-brand px-6 py-14 text-white md:px-[clamp(24px,6.7vw,96px)] md:py-24">
-        <Reveal className="mx-auto max-w-[880px]">
+        <div className="mx-auto max-w-[880px]">
           <div className="relative">
             <h2 className="m-0 mb-3 text-center font-display text-[30px] font-light leading-[1.1] text-white md:text-[48px]">
               לא בטוחים מול איזה מוסד להתחיל? <span className="font-black">נבדוק בשבילכם.</span>
@@ -99,7 +98,7 @@ export default async function InstitutionsPage() {
               className="mx-auto max-w-[520px]"
             />
           </div>
-        </Reveal>
+        </div>
       </section>
     </>
   );

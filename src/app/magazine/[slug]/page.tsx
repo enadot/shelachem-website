@@ -119,9 +119,8 @@ export default async function ArticlePage({
         />
         <div className="flex flex-col gap-4 pt-6">
           <div className="flex items-center gap-3">
-            <span className="pill bg-[#eef1fb] px-4 py-1.5 text-sm font-bold text-brand">
-              {article.category}
-            </span>
+            <span className="text-sm font-bold text-brand">{article.category}</span>
+            <span aria-hidden className="h-px w-4 bg-hairline" />
             <span className="tnum text-[15px] text-ink-faint">
               עודכן ב{article.publishedLabel} · {article.readingMinutes} דק׳ קריאה
             </span>
@@ -132,7 +131,7 @@ export default async function ArticlePage({
             אותה ב-5.95ש׳ — כלומר כמעט 4 שניות של עמוד ריק מול הפרסונה המרכזית
             (רבקה, אנדרואיד ישן), כשהתוכן כבר היה ב-DOM. ה-h1 הוא גם אלמנט ה-LCP.
           */}
-          <h1 className="m-0 max-w-[900px] font-display text-[32px] font-light leading-[1.15] tracking-tight text-ink md:text-[54px] md:leading-[1.12]">
+          <h1 className="m-0 max-w-[900px] text-balance font-display text-[36px] font-light leading-[1.08] tracking-[-0.01em] text-ink md:text-[60px] md:leading-[1.04] md:tracking-[-0.02em]">
             {article.title}
           </h1>
           <p className="m-0 max-w-[820px] text-[17px] leading-relaxed text-ink-secondary md:text-xl">
@@ -149,7 +148,7 @@ export default async function ArticlePage({
           )}
         </div>
         {/* hero image */}
-        <div className="relative h-[220px] overflow-hidden rounded-card bg-surface-blue md:h-[420px]">
+        <div className="relative aspect-[16/9] overflow-hidden rounded-2xl bg-surface-blue md:aspect-[21/9]">
           <ArticleImage
             src={article.image}
             alt={article.imageAlt}

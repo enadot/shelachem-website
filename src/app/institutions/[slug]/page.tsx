@@ -2,9 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getInstitution, getInstitutions } from "@/lib/content";
-import { NavyHero } from "@/components/shared/navy-hero";
+import { PageHeader } from "@/components/shared/page-header";
 import { LeadForm } from "@/components/shared/lead-form";
-import { Reveal } from "@/components/shared/reveal";
 import { StatStrip } from "@/components/shared/stat-strip";
 import { NumberedSteps } from "@/components/shared/numbered-steps";
 import { Eyebrow } from "@/components/shared/eyebrow";
@@ -43,7 +42,7 @@ export default async function InstitutionPage({
 
   return (
     <>
-      <NavyHero
+      <PageHeader
         breadcrumb={[
           { label: "בית", href: "/" },
           { label: "מוסדות ובירוקרטיה", href: "/institutions" },
@@ -72,9 +71,7 @@ export default async function InstitutionPage({
           <SectionHeading strong={`מול ${inst.name}`} className="mb-10 mt-6 text-[30px] md:mb-14 md:mt-8 md:text-[52px]">
             כל מה שאפשר לממש
           </SectionHeading>
-          <Reveal
-            as="ul"
-            variant="stagger"
+          <ul
             className="m-0 grid list-none border-t border-hairline p-0 md:grid-cols-2 md:gap-x-12"
           >
             {inst.serviceCards.map((card) => (
@@ -82,7 +79,7 @@ export default async function InstitutionPage({
                 <InstitutionServiceCard card={card} institutionName={inst.name} />
               </li>
             ))}
-          </Reveal>
+          </ul>
         </div>
       </section>
 
@@ -117,7 +114,7 @@ export default async function InstitutionPage({
               <ChevronForward size={14} className="nudge" />
             </Link>
           </div>
-          <Reveal delay={0.1}>
+          <div>
             <LeadForm
               sourcePage={`institution-${inst.slug}`}
               submitLabel="חזרו אליי"
@@ -125,7 +122,7 @@ export default async function InstitutionPage({
               topicOptions={[...inst.formOptions]}
               topicLabel="במה נוכל לעזור?"
             />
-          </Reveal>
+          </div>
         </div>
       </section>
     </>

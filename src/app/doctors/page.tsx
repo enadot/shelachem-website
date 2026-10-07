@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { getDoctors } from "@/lib/content";
 import { doctorSpecialtyLabels } from "@/lib/content/local/doctors";
-import { NavyHero } from "@/components/shared/navy-hero";
+import { PageHeader } from "@/components/shared/page-header";
 import { PageCta } from "@/components/shared/page-cta";
 import { Eyebrow } from "@/components/shared/eyebrow";
 import { SectionHeading } from "@/components/shared/section-heading";
@@ -49,7 +49,7 @@ export default async function DoctorsPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <NavyHero
+      <PageHeader
         breadcrumb={[{ label: "בית", href: "/" }, { label: "הרופאים והמומחים" }]}
         title="הרופאים שעומדים"
         strong="מאחוריכם"

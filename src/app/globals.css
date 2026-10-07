@@ -49,7 +49,6 @@
   --radius-card: 16px;
   --radius-btn: 10px;
 
-  --animate-ping-slow: ping-slow 2.2s cubic-bezier(0, 0, 0.2, 1) infinite;
   --animate-glow-pulse: glow-pulse 7s ease-in-out infinite alternate;
   --animate-accordion-down: accordion-down 0.5s cubic-bezier(0.16, 1, 0.3, 1);
   --animate-accordion-up: accordion-up 0.35s cubic-bezier(0.65, 0, 0.35, 1);
@@ -81,13 +80,6 @@
     }
   }
 
-  @keyframes ping-slow {
-    75%,
-    100% {
-      transform: scale(2.2);
-      opacity: 0;
-    }
-  }
   @keyframes glow-pulse {
     from {
       transform: scale(1);

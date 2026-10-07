@@ -7,9 +7,8 @@ import { LeadForm } from "@/components/shared/lead-form";
 import { FaqAccordion } from "@/components/shared/faq-accordion";
 import { TestimonialCard } from "@/components/shared/testimonial-card";
 import { Carousel } from "@/components/shared/carousel";
-import { Reveal } from "@/components/shared/reveal";
 import { TaxCalculator } from "@/components/services/tax-calculator";
-import { Breadcrumb } from "@/components/shared/breadcrumb";
+import { PageHeader } from "@/components/shared/page-header";
 import { SectionHeading } from "@/components/shared/section-heading";
 import { PageCta } from "@/components/shared/page-cta";
 import { Eyebrow } from "@/components/shared/eyebrow";
@@ -91,30 +90,18 @@ export default async function ServicePage({
         />
       ))}
 
-      {/* hero */}
-      <section className="border-b border-hairline bg-white px-6 pb-10 pt-8 md:px-[clamp(24px,6.7vw,96px)] md:pb-16 md:pt-10">
-        <div className="mx-auto max-w-[1240px]">
-          <Breadcrumb
-            className="mb-5"
-            items={[
-              { label: "בית", href: "/" },
-              ...(institution
-                ? [{ label: institution.name, href: `/institutions/${institution.slug}` }]
-                : []),
-              { label: service.name },
-            ]}
-          />
-          <h1 className="m-0 mb-4 max-w-[900px] font-display text-[36px] font-light leading-[1.08] tracking-[-0.01em] text-ink md:mb-6 md:text-[64px] md:leading-[1.02] md:tracking-[-0.02em]">
-            {service.name.replace(" מטעמי בריאות", "")}{" "}
-            {service.name.includes("מטעמי בריאות") && (
-              <span className="font-black">מטעמי בריאות</span>
-            )}
-          </h1>
-          <p className="m-0 max-w-[68ch] text-[17px] leading-relaxed text-ink-secondary md:text-[19px]">
-            {service.heroIntro}
-          </p>
-        </div>
-      </section>
+      <PageHeader
+        breadcrumb={[
+          { label: "בית", href: "/" },
+          ...(institution
+            ? [{ label: institution.name, href: `/institutions/${institution.slug}` }]
+            : []),
+          { label: service.name },
+        ]}
+        title={service.name.replace(" מטעמי בריאות", "")}
+        strong={service.name.includes("מטעמי בריאות") ? "מטעמי בריאות" : undefined}
+        intro={service.heroIntro}
+      />
 
       {/* main grid */}
       <div className="mx-auto grid max-w-[1240px] items-start gap-14 px-6 py-12 md:grid-cols-[1fr_360px] md:gap-16 md:px-[clamp(24px,6.7vw,96px)] md:py-20 lg:px-6">
@@ -123,9 +110,7 @@ export default async function ServicePage({
           {service.takeaways.length > 0 && (
             <section>
               <Eyebrow>מה חשוב לדעת — בשורה התחתונה</Eyebrow>
-              <Reveal
-                as="ul"
-                variant="stagger"
+              <ul
                 className="m-0 mt-4 grid list-none p-0 md:grid-cols-2 md:gap-x-10"
               >
                 {service.takeaways.map((t) => (
@@ -136,7 +121,7 @@ export default async function ServicePage({
                     {t}
                   </li>
                 ))}
-              </Reveal>
+              </ul>
             </section>
           )}
 
@@ -148,7 +133,7 @@ export default async function ServicePage({
               <SectionHeading strong="זכאי?" underlineStrong className="mb-6 text-[28px] md:text-[40px]">
                 מי
               </SectionHeading>
-              <Reveal as="ol" variant="stagger" className="m-0 list-none border-t border-hairline p-0">
+              <ol className="m-0 list-none border-t border-hairline p-0">
                 {service.eligibility.map((e, i) => (
                   <li
                     key={e.title}
@@ -165,7 +150,7 @@ export default async function ServicePage({
                     </div>
                   </li>
                 ))}
-              </Reveal>
+              </ol>
               {service.eligibilityTip && (
                 <p className="m-0 mt-5 max-w-[68ch] border-s-2 border-gold ps-4 text-[15.5px] leading-relaxed text-ink-muted">
                   {service.eligibilityTip}
@@ -195,14 +180,14 @@ export default async function ServicePage({
 
           {/* calculator */}
           {service.hasTaxCalculator && (
-            <Reveal>
+            <div>
               <TaxCalculator />
-            </Reveal>
+            </div>
           )}
 
           {/* testimonials */}
           {service.testimonials.length > 0 && (
-            <Reveal>
+            <div>
               <SectionHeading strong="בזכות שלכם" underlineStrong className="mb-6 text-[28px] md:text-[40px]">
                 קיבלו פטור
               </SectionHeading>
@@ -213,12 +198,12 @@ export default async function ServicePage({
                   <TestimonialCard key={t.id} testimonial={t} />
                 ))}
               </Carousel>
-            </Reveal>
+            </div>
           )}
 
           {/* FAQ */}
           {service.faqs.length > 0 && (
-            <Reveal>
+            <div>
               <SectionHeading strong="נפוצות" underlineStrong className="mb-6 text-[28px] md:text-[40px]">
                 שאלות
               </SectionHeading>
@@ -230,12 +215,12 @@ export default async function ServicePage({
                 <span className="link-draw">לכל השאלות והתשובות</span>
                 <ArrowForward size={16} className="nudge" />
               </Link>
-            </Reveal>
+            </div>
           )}
 
           {/* resources */}
           {resources.length > 0 && (
-            <Reveal>
+            <div>
               <SectionHeading strong="בנושא" underlineStrong className="mb-6 text-[28px] md:text-[40px]">
                 להעמיק
               </SectionHeading>
@@ -267,7 +252,7 @@ export default async function ServicePage({
                   </Link>
                 ))}
               </div>
-            </Reveal>
+            </div>
           )}
         </div>
 

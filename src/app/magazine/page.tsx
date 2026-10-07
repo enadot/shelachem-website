@@ -4,10 +4,9 @@ import { CmsImage } from "@/components/shared/cms-image";
 import { LeadCta } from "@/components/shared/lead-cta";
 import Link from "next/link";
 import { getArticles } from "@/lib/content";
-import { Breadcrumb } from "@/components/shared/breadcrumb";
+import { PageHeader } from "@/components/shared/page-header";
 import { CategoryFilter } from "@/components/magazine/category-filter";
 import { ArrowForward, ChevronForward } from "@/components/shared/icons";
-import { Reveal } from "@/components/shared/reveal";
 
 export const metadata: Metadata = {
   title: "המגזין",
@@ -29,27 +28,18 @@ export default async function MagazinePage() {
 
   return (
     <>
-      {/* header */}
-      <section className="bg-white px-6 pb-8 pt-8 md:px-[clamp(24px,6.7vw,96px)] md:pb-12 md:pt-10">
-        <div className="mx-auto max-w-[1240px]">
-          <Breadcrumb
-            className="mb-4"
-            items={[{ label: "בית", href: "/" }, { label: "המגזין" }]}
-          />
-          <h1 className="m-0 mb-4 max-w-[980px] font-display text-[36px] font-light leading-[1.08] tracking-[-0.01em] text-ink md:mb-6 md:text-[64px] md:leading-[1.02] md:tracking-[-0.02em]">
-            ידע זה כוח. <span className="font-black">וכוח זה כסף שמגיע לכם.</span>
-          </h1>
-          <p className="m-0 max-w-[720px] text-[17px] leading-relaxed text-ink-secondary md:text-lg">
-            מדריכים, עדכוני חוק וכל מה שצריך לדעת כדי לא לפספס אף זכות — בשפה של בני אדם, לא של
-            פקידים.
-          </p>
-        </div>
-      </section>
+      <PageHeader
+        breadcrumb={[{ label: "בית", href: "/" }, { label: "המגזין" }]}
+        title="ידע זה כוח."
+        strong="וכוח זה כסף שמגיע לכם."
+        intro="מדריכים, עדכוני חוק וכל מה שצריך לדעת כדי לא לפספס אף זכות — בשפה של בני אדם, לא של פקידים."
+        className="border-b-0"
+      />
 
       {/* featured */}
       {featured && (
         <section className="px-6 md:px-[clamp(24px,6.7vw,96px)]">
-          <Reveal className="mx-auto max-w-[1240px]">
+          <div className="mx-auto max-w-[1240px]">
             <Link
               href={`/magazine/${featured.slug}`}
               className="group grid min-h-[280px] overflow-hidden rounded-2xl bg-ink text-white no-underline md:min-h-[420px] md:grid-cols-[1.15fr_1fr]"
@@ -79,7 +69,7 @@ export default async function MagazinePage() {
                 </span>
               </div>
             </Link>
-          </Reveal>
+          </div>
         </section>
       )}
 

@@ -1,4 +1,3 @@
-import { Reveal } from "@/components/shared/reveal";
 import { cn } from "@/lib/utils";
 
 export type Stat = { value: string; label: string };
@@ -22,9 +21,7 @@ export function StatStrip({
   const line = dark ? "border-white/20" : "border-hairline";
   const cols = stats.length === 4 ? "md:grid-cols-4" : stats.length === 2 ? "md:grid-cols-2" : "md:grid-cols-3";
   return (
-    <Reveal
-      as="ul"
-      variant="stagger"
+    <ul
       className={cn("m-0 grid list-none border-t p-0", line, cols, className)}
     >
       {stats.map((st) => (
@@ -49,6 +46,6 @@ export function StatStrip({
           </span>
         </li>
       ))}
-    </Reveal>
+    </ul>
   );
 }
