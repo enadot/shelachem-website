@@ -6,7 +6,7 @@ import { Reveal } from "@/components/shared/reveal";
 import { Eyebrow } from "@/components/shared/eyebrow";
 import { ArrowForward } from "@/components/shared/icons";
 import { useLeadModal } from "@/components/shared/lead-modal";
-import { cn } from "@/lib/utils";
+import { quietTab } from "@/lib/quiet-tab";
 
 type Cat = "A" | "B" | "C" | "D";
 
@@ -86,13 +86,12 @@ export function Specialties() {
                     setCat(c.key);
                     setExpanded(false);
                   }}
-                  className={cn(
-                    "flex min-h-11 shrink-0 cursor-pointer items-baseline gap-1.5 whitespace-nowrap rounded-full border-none px-4 text-[15px] font-bold transition-colors duration-300",
-                    active ? "bg-ink text-white" : "bg-transparent text-ink-muted hover:text-ink",
-                  )}
+                  className={quietTab(active)}
                 >
                   {c.label}
-                  <sup className="tnum text-[11px] font-bold opacity-60">{count}</sup>
+                  {/* המונה יושב באמצע הגובה של הטאב (לא `sup` על baseline, שדחף את
+                      הטקסט של הטאב הפעיל לראש הגלולה). */}
+                  <span className="tnum text-xs font-bold leading-none opacity-60">{count}</span>
                 </button>
               );
             })}
