@@ -5,8 +5,8 @@ export const site = {
   legalName: "שלכם — מימוש זכויות רפואיות בע״מ",
   domain: "https://www.shelachem.net",
   /** Official site-wide phone (per client decision). */
-  phone: "076-8017778",
-  phoneHref: "tel:076-8017778",
+  phone: "03-8002000",
+  phoneHref: "tel:03-8002000",
   whatsappHref: "https://wa.me/972768017778",
   email: "info@shelachem.net",
   foundedYear: 2013,
