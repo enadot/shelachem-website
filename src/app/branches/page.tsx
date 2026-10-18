@@ -1,16 +1,17 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/metadata";
 import Image from "next/image";
 import { branches, site } from "@/lib/config";
 import { PageHeader } from "@/components/shared/page-header";
 import { PageCta } from "@/components/shared/page-cta";
 import { ArrowForward } from "@/components/shared/icons";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "סניפים ויצירת קשר",
-  alternates: { canonical: "/branches" },
+  path: "/branches",
   description:
     "הסניפים של שלכם בירושלים ובבני ברק — כתובות, הוראות הגעה, נגישות ואפשרות לפגישת זום מכל מקום בארץ.",
-};
+});
 
 const navLink =
   "group inline-flex min-h-11 items-center gap-2 text-[15px] font-bold text-ink no-underline transition-colors duration-300 hover:text-brand";

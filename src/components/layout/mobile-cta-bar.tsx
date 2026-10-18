@@ -29,6 +29,7 @@ export function MobileCtaBar() {
       <div aria-hidden className="h-16 md:hidden" />
       <nav
         aria-label="יצירת קשר מהירה"
+        data-track-location="mobile-cta-bar"
         className={`fixed inset-x-0 bottom-0 z-40 grid grid-cols-3 gap-2 border-t border-hairline bg-white/95 px-3 pb-[max(env(safe-area-inset-bottom),8px)] pt-2 backdrop-blur transition-transform duration-300 md:hidden ${
           formVisible ? "translate-y-full" : "translate-y-0"
         }`}

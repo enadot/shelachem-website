@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/metadata";
 import { PageCta } from "@/components/shared/page-cta";
 import { LeadCta } from "@/components/shared/lead-cta";
 import { StatStrip } from "@/components/shared/stat-strip";
@@ -7,12 +8,12 @@ import { Eyebrow } from "@/components/shared/eyebrow";
 import { PageHeader } from "@/components/shared/page-header";
 import { ArrowForward } from "@/components/shared/icons";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "הסיפור שלנו",
-  alternates: { canonical: "/about" },
+  path: "/about",
   description:
     "חברת שלכם הוקמה ב-2013 מתוך שליחות: לפשט את הבירוקרטיה הרפואית עבור כל אזרח בישראל. הכירו את הדרך, הערכים והצוות.",
-};
+});
 
 const milestones = [
   { year: "2013", text: "הקמת החברה — ליווי מימוש זכויות למגזר הדתי." },

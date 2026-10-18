@@ -95,6 +95,7 @@
 | source_page | string |
 | marketing_consent | boolean |
 | submitted_at | datetime |
+| attribution | json — מקור הליד: first/last touch (UTM, gclid/fbclid…), עוגיות פיקסלים, event_id. ראו `docs/marketing.md` |
 
 ### globals (singleton — הגדרות אתר)
 | field | type |

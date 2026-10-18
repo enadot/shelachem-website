@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/metadata";
 import { site } from "@/lib/config";
 import { LegalPage } from "@/components/legal/legal-page";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "הצהרת נגישות",
-  alternates: { canonical: "/accessibility" },
+  path: "/accessibility",
   description: "הצהרת הנגישות של אתר שלכם — מימוש זכויות רפואיות.",
   robots: { index: false },
-};
+});
 
 const link = "font-bold text-brand no-underline hover:underline";
 

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/metadata";
 import { getDoctors } from "@/lib/content";
 import { doctorSpecialtyLabels } from "@/lib/content/local/doctors";
 import { PageHeader } from "@/components/shared/page-header";
@@ -8,12 +9,12 @@ import { SectionHeading } from "@/components/shared/section-heading";
 import { NumberedSteps } from "@/components/shared/numbered-steps";
 import { DoctorsGrid } from "@/components/doctors/doctors-grid";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "הרופאים והמומחים",
-  alternates: { canonical: "/doctors" },
+  path: "/doctors",
   description:
     "צוות רופאים מומחים שמלווה כל תיק: חוות דעת מקצועיות, הכנה אישית לוועדות הרפואיות ומעקב עד להחלטה.",
-};
+});
 
 const whySteps = [
   {

@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/metadata";
 import { LegalPage } from "@/components/legal/legal-page";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "מדיניות פרטיות",
-  alternates: { canonical: "/privacy" },
+  path: "/privacy",
   description: "מדיניות הפרטיות של שלכם — מימוש זכויות רפואיות בע״מ.",
   robots: { index: false },
-};
+});
 
 /** עמוד placeholder — הנוסח המשפטי הסופי יסופק על ידי הלקוח. */
 export default function PrivacyPage() {

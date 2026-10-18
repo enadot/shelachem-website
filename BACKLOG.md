@@ -65,8 +65,11 @@
 
 - [x] **מדידת המרות: עמוד תודה או אירוע** — P1 · S (צד קוד ✓ · נותר להתקין תג)
   אירוע `generate_lead` נדחף ל-`dataLayer` אחרי שמירה מוצלחת בשרת, כולל מקור הליד
-  ופרמטרי ה-UTM (`src/lib/analytics.ts`). **נותר תפעולי:** להתקין GTM/GA4 ולמפות את
-  האירוע להמרה — בלי תג מותקן האירוע נכתב ל-dataLayer ואף אחד לא מאזין לו.
+  ופרמטרי ה-UTM (`src/lib/analytics.ts`). **תשתית שיווק מלאה ✓** (אוקטובר 2026): GTM /
+  GA4 / Google Ads / Meta / TikTok / LinkedIn / Clarity דרך משתני סביבה, Consent Mode v2
+  + באנר אופציונלי, מדידת קליקים לטלפון/וואטסאפ, attribution מתמשך על הליד —
+  ראו `docs/marketing.md`. **נותר תפעולי:** למלא `NEXT_PUBLIC_GTM_ID` ב-Vercel, להקים
+  את התגים בקונטיינר לפי המדריך, ולהריץ `seed/run-lead-attribution.sh` ב-Directus.
 
 - [ ] **סקירת נגישות מלאה (WCAG 2.2 AA)** — P1 · M (סריקה אוטומטית ✓ · קורא מסך ✗)
   חובה חוקית בישראל לעסק בסדר גודל כזה. סריקת axe-core (wcag2a/2aa/21aa/22aa) על 6
@@ -106,12 +109,14 @@
 - [x] **תמונות OG** — P1 · S
   אין אף תמונת שיתוף — קישור שנשלח בוואטסאפ/פייסבוק מוצג עירום. תמונת ברירת מחדל
   ממותגת (אפשר `opengraph-image` סטטי) + תמונת הכתבה בעמודי מגזין.
+  **שודרג:** תמונת OG ייעודית לכל עמוד שנוצרת בקוד (דף הבית בעיצוב ההירו), ו-og:title/
+  description לכל עמוד במקום הירושה מדף הבית — ראו `docs/marketing.md` §5.
 
 - [ ] **קישורי רשתות חברתיות אמיתיים** — P1 · S (בקוד: placeholders כבר מסוננים מה-JSON-LD; נותר לקבל כתובות אמיתיות מהלקוח)
   ב-`src/lib/config.ts` ה-socials הם placeholders (facebook.com בלי עמוד) והם נכנסים
   ל-`sameAs` ב-JSON-LD — מזיק. למלא כתובות אמיתיות או להסיר עד שיהיו.
 
-- [ ] **Google Search Console + Bing Webmaster** — P1 · S (תפעולי)
+- [ ] **Google Search Console + Bing Webmaster** — P1 · S (תפעולי · צד קוד ✓: תגי אימות דרך `NEXT_PUBLIC_*_SITE_VERIFICATION`)
   אימות בעלות, הגשת sitemap, מעקב שגיאות זחילה והופעות. Bing מזין גם את Copilot (GEO).
 
 - [x] **הרחבת ה-LocalBusiness schema** — P2 · S *(נותרו נתונים מהלקוח)*

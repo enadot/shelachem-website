@@ -1,16 +1,17 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/metadata";
 import { getTeam } from "@/lib/content";
 import { PageHeader } from "@/components/shared/page-header";
 import { PersonAvatar } from "@/components/shared/person-avatar";
 import { PageCta } from "@/components/shared/page-cta";
 import { Eyebrow } from "@/components/shared/eyebrow";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "צוות ההנהלה",
-  alternates: { canonical: "/team" },
+  path: "/team",
   description:
     "הכירו את הנהגת שלכם — מומחים בעלי עשרות שנות ניסיון במערכות הבריאות, השיווק והכספים, מחויבים אישית לכל לקוח.",
-};
+});
 
 /**
  * צוות ההנהלה — עמודת הצהרה דביקה מימין ורשימת אנשים משמאל, כל אחד בשורה עם

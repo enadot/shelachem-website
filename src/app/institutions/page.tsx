@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/metadata";
 import Link from "next/link";
 import { getInstitutions } from "@/lib/content";
 import { PageHeader } from "@/components/shared/page-header";
@@ -6,12 +7,12 @@ import { LeadForm } from "@/components/shared/lead-form";
 import { StatStrip } from "@/components/shared/stat-strip";
 import { ArrowForward } from "@/components/shared/icons";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "מוסדות ובירוקרטיה",
-  alternates: { canonical: "/institutions" },
+  path: "/institutions",
   description:
     "ביטוח לאומי, מס הכנסה, קרנות פנסיה וחברות ביטוח — כל המוסדות שמולם אנחנו מממשים את הזכויות שלכם, במקום אחד.",
-};
+});
 
 const reassurance = [
   { value: "13", label: "שנות ניסיון מול המוסדות" },

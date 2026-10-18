@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/metadata";
 import { CmsImage } from "@/components/shared/cms-image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -35,11 +36,11 @@ export async function generateMetadata({
   const { slug } = await params;
   const service = await getService(slug);
   if (!service) return {};
-  return {
+  return pageMetadata({
     title: service.name,
     description: service.heroIntro,
-    alternates: { canonical: `/services/${service.slug}` },
-  };
+    path: `/services/${service.slug}`,
+  });
 }
 
 export default async function ServicePage({

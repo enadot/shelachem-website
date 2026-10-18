@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/metadata";
 import Link from "next/link";
 import { getFaqs, getServices } from "@/lib/content";
 import { ChevronForward } from "@/components/shared/icons";
@@ -10,12 +11,12 @@ import { groupFaqs } from "@/lib/faq-groups";
 import { faqPageNode } from "@/lib/schema";
 import { site } from "@/lib/config";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "שאלות ותשובות על מימוש זכויות רפואיות",
-  alternates: { canonical: "/faq" },
+  path: "/faq",
   description:
     "כל השאלות הנפוצות על מימוש זכויות רפואיות: איך יודעים אם מגיע לכם, כמה זמן לוקח התהליך, איך מחשבים אחוזי נכות, מה עושים אחרי דחייה ואיך עובד שכר טרחה רק בהצלחה.",
-};
+});
 
 /**
  * עמוד השאלות והתשובות המרכזי.

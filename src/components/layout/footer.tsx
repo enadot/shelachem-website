@@ -3,6 +3,7 @@ import Link from "next/link";
 import { branches, site } from "@/lib/config";
 import { LeadCta } from "@/components/shared/lead-cta";
 import { ArrowForward } from "@/components/shared/icons";
+import { CookieSettingsLink } from "@/components/marketing/cookie-consent";
 
 const columns: { title: string; links: { label: string; href: string }[] }[] = [
   {
@@ -164,6 +165,7 @@ export function Footer() {
             <Link href="/faq" className="inline-flex min-h-11 items-center text-ink-muted no-underline hover:text-ink">
               שאלות ותשובות
             </Link>
+            <CookieSettingsLink className="inline-flex min-h-11 cursor-pointer items-center border-none bg-transparent p-0 text-[13.5px] text-ink-muted hover:text-ink" />
           </span>
         </div>
       </div>

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/metadata";
 import { LeadCta } from "@/components/shared/lead-cta";
 import { notFound } from "next/navigation";
 import { getArticle, getArticles } from "@/lib/content";
@@ -24,19 +25,19 @@ export async function generateMetadata({
   const { slug } = await params;
   const article = await getArticle(slug);
   if (!article) return {};
-  return {
+  // תמונת השיתוף (כולל צילום הכתבה) נבנית ב-opengraph-image.tsx שליד העמוד.
+  return pageMetadata({
     title: article.title,
     description: article.excerpt,
-    alternates: { canonical: `/magazine/${article.slug}` },
+    path: `/magazine/${article.slug}`,
     openGraph: {
-      title: article.title,
-      description: article.excerpt,
       type: "article",
+      section: article.category,
+      authors: article.author?.name ? [article.author.name] : undefined,
       publishedTime: article.publishedAt ?? undefined,
       modifiedTime: article.updatedAt ?? article.publishedAt ?? undefined,
-      ...(article.image ? { images: [{ url: article.image }] } : {}),
     },
-  };
+  });
 }
 
 export default async function ArticlePage({

@@ -6,7 +6,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { cn } from "@/lib/utils";
 import { site } from "@/lib/config";
-import { trackLeadConversion } from "@/lib/analytics";
+import { newEventId, trackEvent, trackLeadConversion } from "@/lib/analytics";
+import { getAttribution, utmSummary } from "@/lib/attribution";
 import { Button } from "@/components/ui/button";
 import { CheckCircle, ChevronForward } from "@/components/shared/icons";
 import { Input } from "@/components/ui/input";
@@ -81,6 +82,7 @@ export function LeadForm({
 }: LeadFormProps) {
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
   const [sentPhone, setSentPhone] = useState("");
+  const [started, setStarted] = useState(false);
   const {
     register,
     control,
@@ -108,11 +110,13 @@ export function LeadForm({
 
   const onSubmit = handleSubmit(async (values) => {
     setStatus("sending");
-    // Attribution: פרמטרי utm_* מה-URL מצורפים ל-source_page (מוגבל ל-200 תווים בשרת).
-    const utm = new URLSearchParams(
-      [...new URLSearchParams(window.location.search)].filter(([k]) => k.startsWith("utm_")),
-    ).toString();
+    // Attribution: ה-UTM של הקמפיין האחרון (נלכד בכניסה לאתר, גם אם מאז עברו עמודים)
+    // מצורף ל-source_page (מוגבל ל-200 תווים בשרת); הפירוט המלא נשלח ב-attribution.
+    const attribution = getAttribution();
+    const utm = utmSummary(attribution);
     const source = (utm ? `${sourcePage}|${utm}` : sourcePage).slice(0, 200);
+    // אותו מזהה על הליד ועל אירוע ההמרה — מאפשר dedup מול המרות שיישלחו מהשרת.
+    const eventId = newEventId();
     try {
       const res = await fetch("/api/leads", {
         method: "POST",
@@ -125,11 +129,18 @@ export function LeadForm({
           source_page: source,
           marketing_consent: values.marketing_consent,
           company: values.company,
+          attribution: { ...attribution, event_id: eventId, page: window.location.pathname },
         }),
       });
       if (res.ok) {
         setSentPhone(values.phone);
-        trackLeadConversion({ source, topic: values.topic || undefined });
+        void trackLeadConversion({
+          source,
+          topic: values.topic || undefined,
+          eventId,
+          phone: values.phone,
+          email: values.email || undefined,
+        });
       }
       setStatus(res.ok ? "sent" : "error");
     } catch {
@@ -254,7 +265,17 @@ export function LeadForm({
   );
 
   return (
-    <form onSubmit={onSubmit} noValidate className={cn("flex flex-col gap-3", className)}>
+    <form
+      onSubmit={onSubmit}
+      onFocus={() => {
+        // מדידת נטישה: כמה התחילו למלא לעומת כמה שלחו (form_start → generate_lead).
+        if (started) return;
+        setStarted(true);
+        trackEvent("form_start", { lead_source: sourcePage, lead_topic: presetTopic });
+      }}
+      noValidate
+      className={cn("flex flex-col gap-3", className)}
+    >
       {layout === "hero" ? (
         <>
           <div className="grid gap-3 sm:grid-cols-2">

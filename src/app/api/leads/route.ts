@@ -13,6 +13,14 @@ const leadSchema = z.object({
   topic: z.string().trim().max(200).optional(),
   source_page: z.string().trim().max(200).optional(),
   marketing_consent: z.boolean().optional(),
+  /**
+   * מקור הליד (src/lib/attribution.ts): first/last touch, מזהי קליק ועוגיות פיקסלים.
+   * נשמר כ-JSON בשדה `attribution`; מוגבל בגודל כדי שלא ישמש לדחיסת זבל.
+   */
+  attribution: z
+    .record(z.string(), z.unknown())
+    .refine((v) => JSON.stringify(v).length <= 4000, "attribution too large")
+    .optional(),
   /** Honeypot — humans never fill this hidden field. */
   company: z.string().max(0).optional(),
 });
@@ -33,24 +41,28 @@ export async function POST(request: Request) {
     );
   }
 
-  const { company: _honeypot, email, ...lead } = parsed.data;
+  const { company: _honeypot, email, attribution, ...lead } = parsed.data;
 
   const client = getDirectusClient();
   if (client) {
+    const item = { ...lead, email: email || null, submitted_at: new Date().toISOString() };
+    const create = (data: Record<string, unknown>) =>
+      client.request(createItem("leads" as never, data as never));
     try {
-      await client.request(
-        createItem("leads" as never, {
-          ...lead,
-          email: email || null,
-          submitted_at: new Date().toISOString(),
-        } as never),
-      );
+      await create(attribution ? { ...item, attribution } : item);
     } catch (err) {
-      // Never lose a lead silently — keep it in the server log for manual recovery.
-      console.error("[leads] Directus write failed:", err, lead);
+      try {
+        // התקנה שעוד לא הוסיפה את שדה attribution (או את ההרשאה אליו) — הליד חשוב יותר.
+        if (!attribution) throw err;
+        await create(item);
+        console.warn("[leads] saved without attribution — add the field in Directus:", err);
+      } catch (err2) {
+        // Never lose a lead silently — keep it in the server log for manual recovery.
+        console.error("[leads] Directus write failed:", err2, lead, attribution);
+      }
     }
   } else {
-    console.info("[leads] Directus not configured; lead received:", { ...lead, email });
+    console.info("[leads] Directus not configured; lead received:", { ...lead, email, attribution });
   }
 
   return Response.json({ ok: true });

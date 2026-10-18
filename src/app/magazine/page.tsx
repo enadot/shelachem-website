@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/metadata";
 import { Suspense } from "react";
 import { CmsImage } from "@/components/shared/cms-image";
 import { LeadCta } from "@/components/shared/lead-cta";
@@ -8,12 +9,12 @@ import { PageHeader } from "@/components/shared/page-header";
 import { CategoryFilter } from "@/components/magazine/category-filter";
 import { ArrowForward, ChevronForward } from "@/components/shared/icons";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "המגזין",
-  alternates: { canonical: "/magazine" },
+  path: "/magazine",
   description:
     "מדריכים, עדכוני חוק וסיפורי הצלחה על מימוש זכויות רפואיות — בשפה של בני אדם, לא של פקידים.",
-};
+});
 
 /**
  * העמוד סטטי: הסינון לפי קטגוריה עבר ל-`CategoryFilter` בצד הלקוח, ולכן אין כאן

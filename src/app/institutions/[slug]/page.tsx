@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/metadata";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getInstitution, getInstitutions } from "@/lib/content";
@@ -24,11 +25,11 @@ export async function generateMetadata({
   const { slug } = await params;
   const inst = await getInstitution(slug);
   if (!inst) return {};
-  return {
+  return pageMetadata({
     title: inst.name,
     description: inst.description,
-    alternates: { canonical: `/institutions/${inst.slug}` },
-  };
+    path: `/institutions/${inst.slug}`,
+  });
 }
 
 export default async function InstitutionPage({
