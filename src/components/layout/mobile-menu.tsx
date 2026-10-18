@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import { motion } from "framer-motion";
 import { site } from "@/lib/config";
 import { useLeadModal } from "@/components/shared/lead-modal";
+import { useSite } from "@/components/settings-provider";
 
 const items = [
   { href: "/", label: "בית" },
@@ -18,6 +19,7 @@ const items = [
 
 /** תפריט מובייל מסך-מלא ברויאל radial עם כניסת stagger (עיצוב: designs/homepage-v3.html §5a). */
 export function MobileMenu({ onClose }: { onClose: () => void }) {
+  const { contact } = useSite();
   const { openLeadForm } = useLeadModal();
   useEffect(() => {
     document.body.style.overflow = "hidden";
@@ -89,8 +91,8 @@ export function MobileMenu({ onClose }: { onClose: () => void }) {
         >
           בדיקת זכאות חינם
         </button>
-        <a href={site.phoneHref} className="tnum block text-center text-[17px] text-white no-underline">
-          {site.phone} · זמינים עכשיו
+        <a href={contact.phoneHref} className="tnum block text-center text-[17px] text-white no-underline">
+          {contact.phone} · זמינים עכשיו
         </a>
       </div>
     </motion.div>

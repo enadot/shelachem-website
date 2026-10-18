@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import { pageMetadata } from "@/lib/metadata";
 import Image from "next/image";
-import { branches, site } from "@/lib/config";
 import { PageHeader } from "@/components/shared/page-header";
 import { PageCta } from "@/components/shared/page-cta";
 import { ArrowForward } from "@/components/shared/icons";
+import { getSiteSettings } from "@/lib/content";
 
 export const metadata: Metadata = pageMetadata({
   title: "סניפים ויצירת קשר",
@@ -21,7 +21,8 @@ const navLink =
  * ונגישות בעמודה שלישית (השראה: SIGMA, Zendesk). הפגישה הדיגיטלית היא "הסניף
  * השלישי" באותה שפה, במקום כרטיס צבעוני נפרד.
  */
-export default function BranchesPage() {
+export default async function BranchesPage() {
+  const { contact, branches } = await getSiteSettings();
   return (
     <>
       <PageHeader
@@ -30,8 +31,8 @@ export default function BranchesPage() {
         strong="בכל הארץ."
         intro="שני סניפים — ירושלים ובני ברק — ופגישות דיגיטליות לכל מקום אחר. בחרו את הדרך הנוחה לכם להיפגש."
       >
-        <a href={site.phoneHref} className="tnum text-xl font-bold text-ink no-underline transition-colors duration-300 hover:text-brand">
-          {site.phone}
+        <a href={contact.phoneHref} className="tnum text-xl font-bold text-ink no-underline transition-colors duration-300 hover:text-brand">
+          {contact.phone}
         </a>
       </PageHeader>
 
@@ -99,7 +100,7 @@ export default function BranchesPage() {
             </p>
             <div className="md:self-end">
               <a
-                href={site.whatsappHref}
+                href={contact.whatsappHref}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group inline-flex items-center gap-2.5 rounded-[10px] bg-brand px-6 py-3.5 text-base font-bold text-white no-underline transition-colors duration-300 hover:bg-brand-hover active:scale-[0.98]"

@@ -1,5 +1,5 @@
-import { branches, site } from "@/lib/config";
-import { getArticles, getInstitutions, getServices } from "@/lib/content";
+import { site } from "@/lib/config";
+import { getArticles, getInstitutions, getServices, getSiteSettings } from "@/lib/content";
 
 /**
  * `/llms.txt` — אינדקס קריא-למודל של האתר (llmstxt.org).
@@ -14,10 +14,11 @@ import { getArticles, getInstitutions, getServices } from "@/lib/content";
 export const revalidate = 3600;
 
 export async function GET() {
-  const [institutions, services, articles] = await Promise.all([
+  const [institutions, services, articles, { contact, branches }] = await Promise.all([
     getInstitutions(),
     getServices(),
     getArticles(),
+    getSiteSettings(),
   ]);
 
   const url = (path: string) => `${site.domain}${path}`;
@@ -39,8 +40,8 @@ export async function GET() {
 - מודל תשלום: ${site.feeModel} — אין תשלום מראש
 - שפת השירות: עברית
 - אזור שירות: כל ישראל (פגישות פיזיות בשני סניפים, ליווי טלפוני ובזום בכל הארץ)
-- טלפון: ${site.phone}
-- דוא״ל: ${site.email}
+- טלפון: ${contact.phone}
+- דוא״ל: ${contact.email}
 - סניפים:
 ${branches.map((b) => `  - ${b.city}: ${b.address} · ${b.phone}`).join("\n")}
 

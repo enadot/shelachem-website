@@ -1,14 +1,15 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { site } from "@/lib/config";
 import { useLeadModal } from "@/components/shared/lead-modal";
+import { useSite } from "@/components/settings-provider";
 
 /**
  * בר CTA דביק במובייל — חיוג, וואטסאפ ובדיקת זכאות.
  * מוסתר כשטופס הליד נמצא על המסך (אין טעם להציע את מה שכבר מול העיניים).
  */
 export function MobileCtaBar() {
+  const { contact } = useSite();
   const [formVisible, setFormVisible] = useState(false);
   const { openLeadForm } = useLeadModal();
 
@@ -35,13 +36,13 @@ export function MobileCtaBar() {
         }`}
       >
         <a
-          href={site.phoneHref}
+          href={contact.phoneHref}
           className="flex min-h-11 items-center justify-center rounded-full border border-brand px-2 text-[15px] font-bold text-brand no-underline"
         >
           חייגו
         </a>
         <a
-          href={site.whatsappHref}
+          href={contact.whatsappHref}
           target="_blank"
           rel="noopener"
           className="flex min-h-11 items-center justify-center rounded-full border border-[#1faf57] px-2 text-[15px] font-bold text-[#15793a] no-underline"

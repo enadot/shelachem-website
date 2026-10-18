@@ -1,11 +1,11 @@
 "use client";
 
+import { useSite } from "@/components/settings-provider";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { cn } from "@/lib/utils";
-import { site } from "@/lib/config";
 import { newEventId, trackEvent, trackLeadConversion } from "@/lib/analytics";
 import { getAttribution, utmSummary } from "@/lib/attribution";
 import { Button } from "@/components/ui/button";
@@ -80,6 +80,7 @@ export function LeadForm({
   layout = "stacked",
   className,
 }: LeadFormProps) {
+  const { contact } = useSite();
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
   const [sentPhone, setSentPhone] = useState("");
   const [started, setStarted] = useState(false);
@@ -418,8 +419,8 @@ export function LeadForm({
       {status === "error" && (
         <p className={cn("m-0 text-center text-[13px]", dark ? "text-red-200" : "text-danger")} role="alert">
           משהו השתבש בשליחה. נסו שוב או התקשרו אלינו:{" "}
-          <a href={site.phoneHref} className="tnum font-bold underline underline-offset-2">
-            {site.phone}
+          <a href={contact.phoneHref} className="tnum font-bold underline underline-offset-2">
+            {contact.phone}
           </a>
         </p>
       )}

@@ -2,12 +2,18 @@
  * שכבת המדידה של האתר — נקודת כניסה אחת לכל אירוע שיווקי.
  *
  * כל אירוע נדחף ל-`dataLayer` (ש-GTM מאזין לו), ובנוסף — רק לפיקסלים שנטענים
- * ישירות מהאתר (ראו `src/lib/marketing.ts`) — מתורגם לאירוע הסטנדרטי של כל
+ * ישירות מהאתר (מוגדרים בלוח הבקרה, `/admin/marketing`) — מתורגם לאירוע הסטנדרטי של כל
  * פלטפורמה. פיקסל שמנוהל דרך GTM לא מקבל קריאה ישירה, כדי שלא ייספר פעמיים.
  *
  * מילון האירועים המלא ב-`docs/marketing.md`.
  */
-import { marketing } from "@/lib/marketing";
+import { EMPTY_MARKETING, type MarketingConfig } from "@/lib/marketing";
+
+/** ההגדרות מה-CMS — נקבעות פעם אחת ע״י SettingsProvider. */
+let marketing: MarketingConfig = EMPTY_MARKETING;
+export function setAnalyticsConfig(config: MarketingConfig) {
+  marketing = config;
+}
 
 export const LEAD_CONVERSION_EVENT = "generate_lead";
 

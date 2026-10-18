@@ -2,9 +2,9 @@
 
 import { createContext, useCallback, useContext, useState } from "react";
 import { LeadForm } from "@/components/shared/lead-form";
-import { site } from "@/lib/config";
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from "@/components/ui/dialog";
 import { Check } from "@/components/shared/icons";
+import { useSite } from "@/components/settings-provider";
 
 interface LeadModalApi {
   /**
@@ -22,6 +22,7 @@ export function useLeadModal() {
 }
 
 export function LeadModalProvider({ children }: { children: React.ReactNode }) {
+  const { contact } = useSite();
   const [source, setSource] = useState<string | null>(null);
   const [topic, setTopic] = useState<string | undefined>(undefined);
   const openLeadForm = useCallback((sourcePage = "lead-modal", presetTopic?: string) => {
@@ -82,12 +83,12 @@ export function LeadModalProvider({ children }: { children: React.ReactNode }) {
               />
               <div className="mt-4 border-t border-hairline-soft pt-3.5 text-center text-[13.5px] text-ink-muted">
                 מעדיפים לדבר?{" "}
-                <a href={site.phoneHref} className="tnum font-bold text-brand no-underline">
-                  {site.phone}
+                <a href={contact.phoneHref} className="tnum font-bold text-brand no-underline">
+                  {contact.phone}
                 </a>{" "}
                 <span aria-hidden>·</span>{" "}
                 <a
-                  href={site.whatsappHref}
+                  href={contact.whatsappHref}
                   target="_blank"
                   rel="noopener"
                   className="font-bold text-[#17853f] no-underline"

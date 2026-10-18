@@ -2,19 +2,20 @@
 
 import { useEffect, useState, useSyncExternalStore } from "react";
 import Link from "next/link";
-import { marketing } from "@/lib/marketing";
+import { useMarketing } from "@/components/settings-provider";
 import { OPEN_CONSENT_EVENT, setConsent, useConsent } from "@/lib/consent";
 import { Button } from "@/components/ui/button";
 
 const noopSubscribe = () => () => {};
 
 /**
- * באנר עוגיות — מוצג רק כש-`NEXT_PUBLIC_CONSENT_REQUIRED=true` ועוד לא נבחר כלום,
+ * באנר עוגיות — מוצג רק כשבלוח הבקרה הופעלה "דרישת הסכמה" ועוד לא נבחר כלום,
  * או כשהגולש פותח אותו מחדש מהקישור "הגדרות עוגיות" בפוטר.
  * לא חוסם את האתר: יושב בתחתית, מעל בר ה-CTA של המובייל.
  */
 export function CookieConsent() {
   const consent = useConsent();
+  const { consentRequired } = useMarketing();
   const [reopened, setReopened] = useState(false);
   // לא מרנדרים בשרת: שם הבחירה השמורה לא ידועה, והבאנר היה מהבהב גם למי שכבר בחר.
   const mounted = useSyncExternalStore(noopSubscribe, () => true, () => false);
@@ -25,7 +26,7 @@ export function CookieConsent() {
     return () => window.removeEventListener(OPEN_CONSENT_EVENT, open);
   }, []);
 
-  if (!marketing.consentRequired || !mounted || (consent !== null && !reopened)) return null;
+  if (!consentRequired || !mounted || (consent !== null && !reopened)) return null;
 
   const choose = (choice: "granted" | "denied") => {
     setConsent(choice);
@@ -59,7 +60,8 @@ export function CookieConsent() {
 
 /** קישור לפוטר שפותח מחדש את הבאנר. לא מוצג כשאין צורך בהסכמה. */
 export function CookieSettingsLink({ className }: { className?: string }) {
-  if (!marketing.consentRequired) return null;
+  const { consentRequired } = useMarketing();
+  if (!consentRequired) return null;
   return (
     <button
       type="button"

@@ -1,4 +1,9 @@
-/** Central site configuration — single source of truth for contact details. */
+/**
+ * Central site configuration — brand constants, plus the *defaults* for everything
+ * the client edits in the dashboard (/admin/settings): phone, WhatsApp, email,
+ * socials, branches and opening hours. Values saved in the CMS override these
+ * (see src/lib/site-settings.ts); these keep the site working without a CMS.
+ */
 export const site = {
   name: "שלכם — מימוש זכויות רפואיות",
   shortName: "שלכם",
@@ -20,7 +25,8 @@ export const site = {
     years: "13",
     clients: "10,059",
   },
-  // TODO: להחליף בכתובות הפרופילים האמיתיים — עד אז קישורי שורש מסוננים מה-JSON-LD.
+  // ברירת מחדל בלבד — הכתובות האמיתיות נערכות בלוח הבקרה (/admin/settings).
+  // קישורי שורש (placeholder) מסוננים מה-JSON-LD.
   socials: {
     facebook: "https://www.facebook.com/",
     instagram: "https://www.instagram.com/",
@@ -35,9 +41,7 @@ export const site = {
  *
  * מכוון ל-`null`: אין לנו את השעות האמיתיות, ופרסום שעות שגויות ב-schema גרוע
  * מהיעדרן — גוגל מציג אותן בתוצאות החיפוש ומנועי AI מצטטים אותן.
- * TODO(לקוח): להחליף למשל ב-
- * `[{ days: ["Sunday","Monday","Tuesday","Wednesday","Thursday"], opens: "09:00", closes: "17:00" }]`
- * וה-JSON-LD ייכלל אוטומטית.
+ * נערכות בלוח הבקרה (/admin/settings ▸ שעות פעילות) — ה-JSON-LD נכלל אוטומטית.
  */
 export const openingHours: {
   days: string[];
@@ -90,7 +94,7 @@ export type Branch = (typeof branches)[number];
 /**
  * קואורדינטות לכל סניף (`geo` ב-schema). ריק בכוונה — קואורדינטות משוערות שולחות
  * מנועי חיפוש ומשתמשים לכתובת הלא נכונה.
- * TODO(לקוח): למלא מהפין המדויק ב-Google Business Profile, למשל
- * `{ jerusalem: { lat: 31.7889, lng: 35.2050 } }` — וה-JSON-LD ייכלל אוטומטית.
+ * נערכות בלוח הבקרה (/admin/settings ▸ סניפים ▸ lat/lng) מהפין המדויק ב-Google
+ * Business Profile — וה-JSON-LD נכלל אוטומטית.
  */
 export const branchGeo: Record<string, { lat: number; lng: number }> = {};

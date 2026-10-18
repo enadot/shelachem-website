@@ -3,7 +3,7 @@ import { pageMetadata } from "@/lib/metadata";
 import { CmsImage } from "@/components/shared/cms-image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getArticles, getInstitution, getService, getServices } from "@/lib/content";
+import { getArticles, getInstitution, getService, getServices, getSiteSettings } from "@/lib/content";
 import { LeadForm } from "@/components/shared/lead-form";
 import { FaqAccordion } from "@/components/shared/faq-accordion";
 import { TestimonialCard } from "@/components/shared/testimonial-card";
@@ -48,6 +48,7 @@ export default async function ServicePage({
 }: {
   params: Promise<{ slug: string }>;
 }) {
+  const { contact } = await getSiteSettings();
   const { slug } = await params;
   const service = await getService(slug);
   if (!service) notFound();
@@ -314,9 +315,9 @@ export default async function ServicePage({
             </div>
           )}
 
-          <a href={site.phoneHref} className="flex items-center justify-between gap-2 border-t border-ink pt-4 text-[17px] font-bold text-ink no-underline transition-colors duration-300 hover:text-brand">
+          <a href={contact.phoneHref} className="flex items-center justify-between gap-2 border-t border-ink pt-4 text-[17px] font-bold text-ink no-underline transition-colors duration-300 hover:text-brand">
             <span>מעדיפים לדבר?</span>
-            <span className="tnum text-brand">{site.phone}</span>
+            <span className="tnum text-brand">{contact.phone}</span>
           </a>
         </aside>
       </div>

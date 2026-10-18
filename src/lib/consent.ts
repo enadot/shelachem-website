@@ -1,7 +1,8 @@
 "use client";
 
 import { useSyncExternalStore } from "react";
-import { CONSENT_STORAGE_KEY, marketing } from "@/lib/marketing";
+import { CONSENT_STORAGE_KEY } from "@/lib/marketing";
+import { useMarketing } from "@/components/settings-provider";
 
 /**
  * בחירת העוגיות של הגולש. `null` = עוד לא בחר (הבאנר מוצג אם נדרשת הסכמה).
@@ -39,7 +40,8 @@ export function useConsent(): ConsentChoice {
 /** האם מותר לטעון תגי שיווק של צד שלישי עכשיו. */
 export function useMarketingAllowed() {
   const consent = useConsent();
-  return marketing.consentRequired ? consent === "granted" : consent !== "denied";
+  const { consentRequired } = useMarketing();
+  return consentRequired ? consent === "granted" : consent !== "denied";
 }
 
 export function setConsent(choice: "granted" | "denied") {

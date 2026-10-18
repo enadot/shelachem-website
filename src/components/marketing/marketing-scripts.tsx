@@ -2,13 +2,14 @@
 
 import Script from "next/script";
 import { useMarketingAllowed } from "@/lib/consent";
-import { directGoogleTagId, marketing } from "@/lib/marketing";
+import { directGoogleTagId } from "@/lib/marketing";
+import { useMarketing } from "@/components/settings-provider";
 
 /** המזהים מוזרקים כמחרוזת JSON — גם מזהה שעבר ולידציה לא נכתב גולמי לתוך קוד. */
 const q = (v: string) => JSON.stringify(v);
 
 /**
- * טעינת תגי השיווק. כל תג נטען רק אם הוגדר לו מזהה ב-`src/lib/marketing.ts`.
+ * טעינת תגי השיווק. כל תג נטען רק אם הוגדר לו מזהה בלוח הבקרה (`/admin/marketing`).
  *
  * GTM ו-gtag.js נטענים תמיד — Consent Mode (שהוגדר בסקריפט ה-inline שב-layout)
  * קובע מה מותר להם לשמור. פיקסלים של צד שלישי, שאין להם Consent Mode אמין,
@@ -16,8 +17,10 @@ const q = (v: string) => JSON.stringify(v);
  */
 export function MarketingScripts() {
   const allowed = useMarketingAllowed();
+  const marketing = useMarketing();
   const { gtmId, ga4Id, googleAdsId, metaPixelId, tiktokPixelId, linkedinPartnerId, clarityId } =
     marketing;
+  const googleTagId = directGoogleTagId(marketing);
 
   return (
     <>
@@ -27,10 +30,10 @@ export function MarketingScripts() {
         </Script>
       )}
 
-      {directGoogleTagId && (
+      {googleTagId && (
         <>
           <Script
-            src={`https://www.googletagmanager.com/gtag/js?id=${directGoogleTagId}`}
+            src={`https://www.googletagmanager.com/gtag/js?id=${googleTagId}`}
             strategy="afterInteractive"
           />
           <Script id="gtag-config" strategy="afterInteractive">

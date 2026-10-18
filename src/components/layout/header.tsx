@@ -4,10 +4,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import { site } from "@/lib/config";
 import { useLeadModal } from "@/components/shared/lead-modal";
 import { PhoneIcon } from "./contact-modal";
 import { MobileMenu } from "./mobile-menu";
+import { useSite } from "@/components/settings-provider";
 
 export const navLinks = [
   { href: "/", label: "בית" },
@@ -32,6 +32,7 @@ const activeSection = (pathname: string, href: string) => {
 };
 
 export function Header() {
+  const { contact } = useSite();
   const pathname = usePathname();
   const { openLeadForm } = useLeadModal();
   const [menuOpen, setMenuOpen] = useState(false);
@@ -77,12 +78,12 @@ export function Header() {
         </div>
         <div className="ms-auto flex items-center gap-4">
           <a
-            href={site.phoneHref}
+            href={contact.phoneHref}
             className="tnum flex items-center gap-2 whitespace-nowrap text-[18px] font-black text-ink no-underline"
-            aria-label={`חייגו אלינו: ${site.phone}`}
+            aria-label={`חייגו אלינו: ${contact.phone}`}
           >
             <span className="text-brand"><PhoneIcon size={18} /></span>
-            {site.phone}
+            {contact.phone}
           </a>
           <button
             onClick={() => openLeadForm("header")}
@@ -124,8 +125,8 @@ export function Header() {
           חיוג, המודאל נשאר הבחירה הנכונה.
         */}
         <a
-          href={site.phoneHref}
-          aria-label={`חייגו אלינו: ${site.phone}`}
+          href={contact.phoneHref}
+          aria-label={`חייגו אלינו: ${contact.phone}`}
           className="flex h-11 w-11 items-center justify-center rounded-full bg-brand text-white no-underline"
         >
           <PhoneIcon />

@@ -1,9 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
-import { branches, site } from "@/lib/config";
+import { site } from "@/lib/config";
 import { LeadCta } from "@/components/shared/lead-cta";
 import { ArrowForward } from "@/components/shared/icons";
 import { CookieSettingsLink } from "@/components/marketing/cookie-consent";
+import { getSiteSettings } from "@/lib/content";
 
 const columns: { title: string; links: { label: string; href: string }[] }[] = [
   {
@@ -57,7 +58,8 @@ const year = new Date().getFullYear();
  * 2. ארבע עמודות ניווט ועמודת סניפים.
  * 3. שורת זכויות ומסמכים משפטיים.
  */
-export function Footer() {
+export async function Footer() {
+  const { contact, branches } = await getSiteSettings();
   return (
     <footer className="border-t border-hairline bg-surface px-[22px] md:px-[clamp(24px,5vw,72px)]">
       <div className="mx-auto max-w-[1296px]">
@@ -80,10 +82,10 @@ export function Footer() {
           <div className="md:justify-self-end">
             <div className="text-sm font-bold tracking-[0.04em] text-ink-muted">דברו איתנו</div>
             <a
-              href={site.phoneHref}
+              href={contact.phoneHref}
               className="tnum mt-2 block font-display text-[40px] font-light leading-none tracking-[-0.01em] text-ink no-underline transition-colors duration-300 hover:text-brand md:text-[56px]"
             >
-              {site.phone}
+              {contact.phone}
             </a>
             <div className="mt-5 flex flex-wrap items-center gap-x-6 gap-y-3">
               <LeadCta sourcePage="footer" variant="brand" className="group">
@@ -91,7 +93,7 @@ export function Footer() {
                 <ArrowForward size={16} className="nudge" />
               </LeadCta>
               <a
-                href={site.whatsappHref}
+                href={contact.whatsappHref}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-[15px] font-bold text-ink no-underline transition-colors duration-300 hover:text-brand"
@@ -99,10 +101,10 @@ export function Footer() {
                 <span className="link-draw">וואטסאפ</span>
               </a>
               <a
-                href={`mailto:${site.email}`}
+                href={`mailto:${contact.email}`}
                 className="text-[15px] font-bold text-ink no-underline transition-colors duration-300 hover:text-brand"
               >
-                <span className="link-draw">{site.email}</span>
+                <span className="link-draw">{contact.email}</span>
               </a>
             </div>
           </div>

@@ -1,12 +1,12 @@
-import { site } from "@/lib/config";
 import { LeadCta } from "@/components/shared/lead-cta";
 import { ArrowForward } from "@/components/shared/icons";
+import { getSiteSettings } from "@/lib/content";
 
 /**
  * CTA תחתון לעמודי תוכן — פס מלא עם כותרת גדולה, טלפון וכפתור. בלי כרטיס:
  * קו שיער כהה מעליו סוגר את העמוד כמו סוף מסמך.
  */
-export function PageCta({
+export async function PageCta({
   title = "רוצים לדעת מה מגיע לכם?",
   strong = "נבדוק יחד, בחינם.",
   subtitle = "פגישת היכרות ראשונית ללא עלות וללא התחייבות — שכר טרחה רק בהצלחה.",
@@ -15,6 +15,7 @@ export function PageCta({
   strong?: string;
   subtitle?: string;
 }) {
+  const { contact } = await getSiteSettings();
   return (
     <section className="px-6 py-14 md:px-[clamp(24px,6.7vw,96px)] md:py-24">
       <div className="mx-auto flex max-w-[1240px] flex-col items-start justify-between gap-8 border-t border-ink pt-10 md:flex-row md:items-end md:gap-16 md:pt-14">
@@ -28,10 +29,10 @@ export function PageCta({
         </div>
         <div className="flex shrink-0 flex-wrap items-center gap-5">
           <a
-            href={site.phoneHref}
+            href={contact.phoneHref}
             className="tnum text-lg font-bold text-ink no-underline transition-colors duration-300 hover:text-brand"
           >
-            {site.phone}
+            {contact.phone}
           </a>
           <LeadCta sourcePage="page-cta" variant="brand" size="lg" className="group">
             חזרו אליי

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { pageMetadata } from "@/lib/metadata";
-import { site } from "@/lib/config";
 import { LegalPage } from "@/components/legal/legal-page";
+import { getSiteSettings } from "@/lib/content";
 
 export const metadata: Metadata = pageMetadata({
   title: "הצהרת נגישות",
@@ -13,7 +13,8 @@ export const metadata: Metadata = pageMetadata({
 const link = "font-bold text-brand no-underline hover:underline";
 
 /** עמוד placeholder — יושלם עם פרטי רכז הנגישות של החברה. */
-export default function AccessibilityPage() {
+export default async function AccessibilityPage() {
+  const { contact } = await getSiteSettings();
   return (
     <LegalPage
       current="/accessibility"
@@ -47,12 +48,12 @@ export default function AccessibilityPage() {
           body: (
             <p>
               נשמח לתקן — פנו אלינו בטלפון{" "}
-              <a href={site.phoneHref} className={`tnum ${link}`}>
-                {site.phone}
+              <a href={contact.phoneHref} className={`tnum ${link}`}>
+                {contact.phone}
               </a>{" "}
               או בדוא״ל{" "}
-              <a href={`mailto:${site.email}`} className={link}>
-                {site.email}
+              <a href={`mailto:${contact.email}`} className={link}>
+                {contact.email}
               </a>
               .
             </p>

@@ -1,17 +1,11 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { site } from "@/lib/config";
-import { siteGraph } from "@/lib/schema";
-import { ContactModalProvider } from "@/components/layout/contact-modal-context";
-import { Header } from "@/components/layout/header";
-import { Footer } from "@/components/layout/footer";
-import { MobileCtaBar } from "@/components/layout/mobile-cta-bar";
-import { LeadModalProvider } from "@/components/shared/lead-modal";
-import { consentInitScript, marketing } from "@/lib/marketing";
-import { MarketingScripts } from "@/components/marketing/marketing-scripts";
-import { MarketingTracker } from "@/components/marketing/marketing-tracker";
-import { CookieConsent } from "@/components/marketing/cookie-consent";
 
+/**
+ * ה-layout המשותף לאתר ולוח הבקרה — רק html/body ו-metadata בסיסי.
+ * המעטפת של האתר (header/footer/תגי מדידה) ב-`(site)/layout.tsx`, ושל הלוח ב-`admin/layout.tsx`.
+ */
 export const metadata: Metadata = {
   metadataBase: new URL(site.domain),
   title: {
@@ -31,15 +25,6 @@ export const metadata: Metadata = {
       "מגיע לכם לדעת מה מגיע לכם. בדיקת זכאות חינם — שכר טרחה רק בהצלחה.",
   },
   twitter: { card: "summary_large_image" },
-  verification: {
-    google: marketing.verification.google,
-    other: {
-      ...(marketing.verification.bing ? { "msvalidate.01": marketing.verification.bing } : {}),
-      ...(marketing.verification.facebook
-        ? { "facebook-domain-verification": marketing.verification.facebook }
-        : {}),
-    },
-  },
 };
 
 export const viewport: Viewport = {
@@ -48,12 +33,6 @@ export const viewport: Viewport = {
   initialScale: 1,
 };
 
-/**
- * רשת ביטחון לתוכן מה-CMS: גם אם ה-Flow של הרענון לא מוגדר/נכשל,
- * העמודים מתרעננים לכל היותר אחרי שעה. ה-webhook עושה את זה מיידי.
- */
-export const revalidate = 3600;
-
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -61,54 +40,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="he" dir="rtl" className="h-full antialiased" suppressHydrationWarning>
-      <body className="flex min-h-full flex-col">
-        {/* Consent Mode + dataLayer — חייב לרוץ לפני כל תג מדידה */}
-        <script dangerouslySetInnerHTML={{ __html: consentInitScript() }} />
-        {marketing.gtmId && (
-          <noscript>
-            <iframe
-              src={`https://www.googletagmanager.com/ns.html?id=${marketing.gtmId}`}
-              height="0"
-              width="0"
-              style={{ display: "none", visibility: "hidden" }}
-            />
-          </noscript>
-        )}
-        {/*
-          מפעיל את הסתרת ה-Reveal רק כשה-JS באמת רץ. ה-failsafe מסיר את הסימון
-          אם ההידרציה לא הגיעה תוך 4 שניות — עדיף אתר בלי אנימציה מאתר ריק.
-        */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html:
-              "(function(){var d=document.documentElement;d.setAttribute('data-js','');" +
-              "setTimeout(function(){if(!d.hasAttribute('data-reveal-ready'))d.removeAttribute('data-js')},4000)})()",
-          }}
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(siteGraph()) }}
-        />
-        <a
-          href="#main"
-          className="sr-only focus:not-sr-only focus:absolute focus:right-3 focus:top-3 focus:z-50 focus:rounded-full focus:bg-brand focus:px-5 focus:py-2.5 focus:font-bold focus:text-white"
-        >
-          דילוג לתוכן הראשי
-        </a>
-        <LeadModalProvider>
-          <ContactModalProvider>
-            <Header />
-            <main id="main" className="flex-1">
-              {children}
-            </main>
-            <Footer />
-            <MobileCtaBar />
-            <CookieConsent />
-          </ContactModalProvider>
-        </LeadModalProvider>
-        <MarketingScripts />
-        <MarketingTracker />
-      </body>
+      <body className="flex min-h-full flex-col">{children}</body>
     </html>
   );
 }
