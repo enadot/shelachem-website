@@ -1,23 +1,20 @@
-import { getAdminUser, requireSession } from "@/lib/admin/session";
-import { directusUrl } from "@/lib/admin/auth-shared";
+import { requireSession } from "@/lib/admin/session";
 import { readGlobals } from "@/lib/admin/globals";
 import { SETTINGS_FIELDS } from "@/lib/admin/collections";
 import { normalizeEntity } from "@/lib/admin/fields";
 import { buildSiteSettings, formatIlPhone } from "@/lib/site-settings";
-import { PageTitle, Panel } from "@/components/admin/ui";
+import { PageTitle } from "@/components/admin/ui";
 import { DEFAULT_LEAD_WEBHOOKS } from "@/lib/lead-forwarding";
 import { EntityForm } from "@/components/admin/entity-form";
 import { saveSettingsAction } from "./actions";
-import { CreateUserForm } from "./create-user-form";
 
 export const metadata = { title: "הגדרות אתר" };
 
 export default async function SettingsPage() {
-  const { client } = await requireSession();
-  const user = await getAdminUser();
-  const g = await readGlobals(client);
+  await requireSession();
+  const g = await readGlobals();
 
-  // שדה שעוד לא מולא ב-CMS מוצג עם הערך שבאמת מופיע באתר (ברירת המחדל מהקוד),
+  // שדה שעוד לא מולא בלוח מוצג עם הערך שבאמת מופיע באתר (ברירת המחדל מהקוד),
   // כדי שהלקוח יערוך את מה שהוא רואה — לא טופס ריק.
   const live = buildSiteSettings(g);
   const initial = normalizeEntity(SETTINGS_FIELDS, {
@@ -39,16 +36,7 @@ export default async function SettingsPage() {
         strong="אתר"
         description="פרטי הקשר, הסניפים ותמונת ההירו. השמירה מתעדכנת בכל עמודי האתר מיד."
       />
-      <EntityForm form="settings" initial={initial} action={saveSettingsAction} assetBase={directusUrl()} />
-      {user.isAdmin && (
-        <Panel
-          title="משתמשי לוח הבקרה"
-          description="יצירת משתמש לצוות המשרד, בהרשאת “עורך אתר”: תוכן, לידים והגדרות — בלי גישה לניהול המערכת."
-          className="mb-10"
-        >
-          <CreateUserForm />
-        </Panel>
-      )}
+      <EntityForm form="settings" initial={initial} action={saveSettingsAction} />
     </>
   );
 }

@@ -1,20 +1,23 @@
 import "server-only";
-import { readSingleton, updateSingleton } from "@directus/sdk";
 import { revalidatePath } from "next/cache";
-import type { AdminClient } from "@/lib/admin/session";
+import { sql } from "drizzle-orm";
+import { db, schema } from "@/db";
 
-/** שורת globals עדכנית (ישר מה-CMS, בלי המטמון של האתר). */
-export async function readGlobals(client: AdminClient) {
-  try {
-    return (await client.request(readSingleton("globals" as never))) as Record<string, unknown>;
-  } catch {
-    return {};
-  }
+/** שורת ההגדרות העדכנית (ישר מהמסד, בלי המטמון של האתר). */
+export async function readGlobals() {
+  const rows = await db()!.select().from(schema.siteSettings).limit(1);
+  return (rows[0]?.data ?? {}) as Record<string, unknown>;
 }
 
-/** שמירה + רענון האתר כולו — השינוי מופיע מיד, בלי build. */
-export async function saveGlobals(client: AdminClient, patch: Record<string, unknown>) {
-  await client.request(updateSingleton("globals" as never, patch as never));
+/** שמירה (מיזוג עם הקיים) + רענון האתר כולו — השינוי מופיע מיד, בלי build. */
+export async function saveGlobals(patch: Record<string, unknown>, by: string) {
+  await db()!
+    .insert(schema.siteSettings)
+    .values({ id: 1, data: patch, updatedBy: by })
+    .onConflictDoUpdate({
+      target: schema.siteSettings.id,
+      set: { data: sql`${schema.siteSettings.data} || ${JSON.stringify(patch)}::jsonb`, updatedAt: new Date(), updatedBy: by },
+    });
   revalidateSite();
 }
 
@@ -22,10 +25,9 @@ export function revalidateSite() {
   revalidatePath("/", "layout");
 }
 
-/** הודעת שגיאה קריאה משגיאת Directus SDK. */
+/** הודעת שגיאה קריאה. */
 export function errorMessage(err: unknown) {
-  const e = err as { errors?: { message?: string; extensions?: { code?: string } }[]; message?: string };
-  const first = e?.errors?.[0];
-  if (first?.extensions?.code === "FORBIDDEN") return "אין לך הרשאה לפעולה הזו.";
-  return first?.message ?? e?.message ?? "הפעולה נכשלה";
+  const e = err as { message?: string; code?: string };
+  if (e?.code === "23505") return "כבר קיים פריט עם אותו ערך";
+  return e?.message && !/[\u0000-\u001f]/.test(e.message) ? e.message : "הפעולה נכשלה";
 }

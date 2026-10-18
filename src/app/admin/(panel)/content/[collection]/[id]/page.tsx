@@ -1,12 +1,12 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { readItem } from "@directus/sdk";
 import { requireSession } from "@/lib/admin/session";
-import { directusUrl } from "@/lib/admin/auth-shared";
+import { getItem, listRevisions } from "@/lib/admin/content";
 import { COLLECTIONS, isCollection, type CollectionConfig } from "@/lib/admin/collections";
 import { emptyEntity, normalizeEntity } from "@/lib/admin/fields";
 import { PageTitle } from "@/components/admin/ui";
 import { ItemEditor } from "./item-editor";
+import { Revisions } from "./revisions";
 
 export const metadata = { title: "עריכה" };
 
@@ -14,16 +14,15 @@ export default async function ItemPage({ params }: { params: Promise<{ collectio
   const { collection, id } = await params;
   if (!isCollection(collection)) notFound();
   const config: CollectionConfig = COLLECTIONS[collection];
-  const { client } = await requireSession();
+  await requireSession();
   const isNew = id === "new";
 
   let row: Record<string, unknown> | null = null;
   if (!isNew) {
-    row = (await client.request(readItem(collection as never, id, { fields: ["*"] } as never)).catch(
-      () => null,
-    )) as Record<string, unknown> | null;
+    row = await getItem(collection, id);
     if (!row) notFound();
   }
+  const revisions = isNew ? [] : await listRevisions(collection, id);
   // שדה תמונה ישן (נתיב סטטי) נשמר ב-initial רק לתצוגה המקדימה — לא בהגדרת הטופס.
   const initial = isNew
     ? emptyEntity(config.fields)
@@ -50,9 +49,9 @@ export default async function ItemPage({ params }: { params: Promise<{ collectio
         collection={collection}
         id={isNew ? null : id}
         initial={initial}
-        assetBase={directusUrl()}
         singular={config.singular}
       />
+      {revisions.length > 0 && <Revisions collection={collection} id={id} revisions={revisions} />}
     </>
   );
 }

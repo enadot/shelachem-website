@@ -91,27 +91,35 @@ async function post(url: string, body: Record<string, unknown>) {
   return { ok: res.ok && json.ok !== false, status: res.status, error: json.error, leadId: json.leadId };
 }
 
+export type ForwardResult =
+  | { ok: true; channel: "quiz" | "site"; leadId?: number }
+  | { ok: false; error: string };
+
 /**
- * שולח ליד ל-BARAM Leads. לא זורק — כשל נרשם בלוג (הליד כבר שמור ב-Directus).
- * מחזיר את הערוץ שקיבל את הליד, לשימוש בלוג.
+ * שולח ליד ל-BARAM Leads. לא זורק — הליד כבר שמור בגיבוי (`lead_backups`),
+ * והתוצאה נרשמת שם; ליד שלא הועבר אפשר לשלוח שוב מהלוח.
  */
-export async function forwardLead(lead: ForwardableLead, hooks: LeadWebhooks) {
+export async function forwardLead(lead: ForwardableLead, hooks: LeadWebhooks): Promise<ForwardResult> {
   const siteUrl = isLeadWebhook(hooks.site) ? hooks.site : undefined;
   const quizUrl = isLeadWebhook(hooks.quiz) ? hooks.quiz : undefined;
   const fromQuiz = lead.source_page?.startsWith("home-quiz") ?? false;
   const targets = [...new Set([fromQuiz ? quizUrl : undefined, siteUrl].filter((u): u is string => Boolean(u)))];
-  if (!targets.length) return null;
+  if (!targets.length) return { ok: false, error: "לא הוגדרה כתובת webhook תקינה" };
 
   const body = payloadFor(lead);
+  const errors: string[] = [];
   for (const url of targets) {
+    const which = url === quizUrl ? "quiz" : "site";
     try {
       const res = await post(url, body);
-      if (res.ok) return { channel: url === quizUrl ? "quiz" : "site", leadId: res.leadId };
-      console.error("[leads] BARAM Leads rejected the lead:", res.status, res.error, url === quizUrl ? "(quiz)" : "(site)");
+      if (res.ok) return { ok: true, channel: which, leadId: res.leadId };
+      console.error("[leads] BARAM Leads rejected the lead:", res.status, res.error, `(${which})`);
+      errors.push(`${which}: ${res.status} ${res.error ?? ""}`.trim());
     } catch (err) {
       console.error("[leads] BARAM Leads unreachable:", err);
+      errors.push(`${which}: ${err instanceof Error ? err.message : "unreachable"}`);
     }
   }
   console.error("[leads] lead NOT forwarded to BARAM Leads:", { ...lead, attribution: undefined });
-  return null;
+  return { ok: false, error: errors.join("; ").slice(0, 500) };
 }

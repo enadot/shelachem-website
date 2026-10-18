@@ -1,14 +1,12 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { readItems } from "@directus/sdk";
 import { requireSession } from "@/lib/admin/session";
 import { COLLECTIONS, isCollection, type CollectionConfig } from "@/lib/admin/collections";
 import { errorMessage } from "@/lib/admin/globals";
+import { listItems, type Row } from "@/lib/admin/content";
 import { Badge, EmptyState, PageTitle } from "@/components/admin/ui";
 import { Input } from "@/components/ui/input";
 import { buttonVariants } from "@/components/ui/button";
-
-type Row = Record<string, unknown> & { id: string };
 
 /** טיוטה = כתבה בלי פסקאות — אותה לוגיקה כמו isPublished באתר. */
 const isDraft = (r: Row) =>
@@ -33,18 +31,12 @@ export default async function CollectionPage({
   const { q } = await searchParams;
   if (!isCollection(collection)) notFound();
   const config: CollectionConfig = COLLECTIONS[collection];
-  const { client } = await requireSession();
+  await requireSession();
 
   let rows: Row[] = [];
   let error: string | null = null;
   try {
-    rows = (await client.request(
-      readItems(collection as never, {
-        fields: ["*"],
-        limit: -1,
-        ...(q ? { search: q } : {}),
-      } as never),
-    )) as unknown as Row[];
+    rows = await listItems(collection, q?.trim() || undefined);
   } catch (err) {
     error = errorMessage(err);
   }
@@ -83,7 +75,7 @@ export default async function CollectionPage({
 
       {!error && rows.length === 0 ? (
         <EmptyState title={q ? "לא נמצאו תוצאות" : `עדיין אין ${config.label}`}>
-          {!q && "התוכן שמוצג כרגע באתר מגיע מברירת המחדל שבקוד. פריט ראשון שתיצרו כאן יחליף אותו."}
+          {!q && "התוכן שמוצג כרגע באתר מגיע מברירת המחדל שבקוד. פריט ראשון שתיצרו כאן יחליף את כל הרשימה."}
         </EmptyState>
       ) : (
         <ul className="m-0 list-none overflow-hidden rounded-card border border-hairline bg-white p-0">

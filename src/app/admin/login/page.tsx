@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import { directusUrl } from "@/lib/admin/auth-shared";
+import { dbEnabled } from "@/db";
 import { LoginForm } from "./login-form";
 
 export const metadata: Metadata = { title: "התחברות" };
@@ -11,7 +11,7 @@ export default async function LoginPage({
   searchParams: Promise<{ expired?: string }>;
 }) {
   const { expired } = await searchParams;
-  const configured = Boolean(directusUrl());
+  const configured = dbEnabled();
 
   return (
     <main className="grid min-h-svh flex-1 md:grid-cols-[1fr_minmax(0,560px)]">
@@ -36,7 +36,7 @@ export default async function LoginPage({
             כניסה ל<span className="font-black">לוח הבקרה</span>
           </h1>
           <p className="m-0 mb-8 mt-2 text-[15.5px] text-ink-muted">
-            עם אותו דוא״ל וסיסמה של מערכת התוכן.
+            עם הדוא״ל והסיסמה שקיבלתם ממנהל האתר.
           </p>
           {expired && (
             <p role="status" className="mb-6 rounded-[10px] bg-accent-tint px-4 py-3 text-[14.5px]">
@@ -47,7 +47,7 @@ export default async function LoginPage({
             <LoginForm />
           ) : (
             <p role="alert" className="rounded-[10px] bg-[#fbe6e6] px-4 py-3 text-[15px] text-danger">
-              מערכת התוכן (Directus) לא מחוברת לאתר. יש להגדיר את <code>DIRECTUS_URL</code> בשרת.
+              מסד הנתונים לא מחובר לאתר. יש לחבר את Neon לפרויקט ב-Vercel (<code>DATABASE_URL</code>).
             </p>
           )}
         </div>

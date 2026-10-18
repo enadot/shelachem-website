@@ -7,6 +7,8 @@ import { usePathname } from "next/navigation";
 import {
   ExternalLink,
   FileText,
+  KeyRound,
+  Users,
   Inbox,
   LayoutDashboard,
   LogOut,
@@ -27,7 +29,7 @@ const MAIN = [
 ];
 
 /** סרגל צד ברויאל (במובייל — מגירה). */
-export function Sidebar({ userName }: { userName: string }) {
+export function Sidebar({ userName, isAdmin }: { userName: string; isAdmin: boolean }) {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const isActive = (href: string, exact?: boolean) =>
@@ -39,9 +41,10 @@ export function Sidebar({ userName }: { userName: string }) {
       active ? "bg-white font-bold text-brand" : "text-white/90 hover:bg-white/10",
     );
 
+  const main = isAdmin ? [...MAIN, { href: "/admin/users", label: "משתמשים", icon: Users }] : MAIN;
   const nav = (
     <nav aria-label="ניווט לוח הבקרה" className="flex flex-1 flex-col gap-1 overflow-y-auto">
-      {MAIN.map(({ href, label, icon: Icon, exact }) => (
+      {main.map(({ href, label, icon: Icon, exact }) => (
         <Link key={href} href={href} onClick={() => setOpen(false)} className={link(isActive(href, exact))}>
           <Icon size={18} aria-hidden />
           {label}
@@ -68,6 +71,10 @@ export function Sidebar({ userName }: { userName: string }) {
         <ExternalLink size={18} aria-hidden />
         צפייה באתר
       </a>
+      <Link href="/admin/change-password" onClick={() => setOpen(false)} className={link(isActive("/admin/change-password"))}>
+        <KeyRound size={18} aria-hidden />
+        החלפת סיסמה
+      </Link>
       <form action={logoutAction}>
         <button type="submit" className={cn(link(false), "w-full cursor-pointer border-none bg-transparent")}>
           <LogOut size={18} aria-hidden />

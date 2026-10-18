@@ -1,11 +1,11 @@
 "use server";
 
 import { redirect } from "next/navigation";
-import { revalidatePath } from "next/cache";
 import { z } from "zod";
-import { login, logout, requireSession } from "@/lib/admin/session";
-import { directusUrl } from "@/lib/admin/auth-shared";
-import { runMigration } from "@/lib/admin/migrate";
+import { changeOwnPassword, login, logout, requireSession } from "@/lib/admin/session";
+import { verifyPassword, PASSWORD_MIN } from "@/lib/admin/password";
+import { db, schema } from "@/db";
+import { eq } from "drizzle-orm";
 
 export interface LoginState {
   error?: string;
@@ -20,14 +20,12 @@ const loginSchema = z.object({
 
 export async function loginAction(_prev: LoginState, formData: FormData): Promise<LoginState> {
   const email = String(formData.get("email") ?? "");
-  if (!directusUrl()) return { email, error: "ה-CMS לא מוגדר בשרת (DIRECTUS_URL)." };
-  const parsed = loginSchema.safeParse({
-    email: formData.get("email"),
-    password: formData.get("password"),
-  });
+  const parsed = loginSchema.safeParse({ email, password: formData.get("password") });
   if (!parsed.success) return { email, error: parsed.error.issues[0]?.message };
-  const ok = await login(parsed.data.email, parsed.data.password);
-  if (!ok) return { email, error: "הדוא״ל או הסיסמה שגויים." };
+  const result = await login(parsed.data.email, parsed.data.password);
+  if (result === "no_db") return { email, error: "מסד הנתונים לא מחובר לאתר (DATABASE_URL)." };
+  if (result === "locked") return { email, error: "יותר מדי ניסיונות. נסו שוב בעוד 15 דקות." };
+  if (result === "invalid") return { email, error: "הדוא״ל או הסיסמה שגויים." };
   redirect("/admin");
 }
 
@@ -36,14 +34,21 @@ export async function logoutAction() {
   redirect("/admin/login");
 }
 
-/** עדכון מבנה ה-CMS (שדות חדשים + role עורך). Directus עצמו בודק שהמשתמש admin. */
-export async function migrateAction(): Promise<{ ok: boolean; log: string[]; error?: string }> {
-  const { token } = await requireSession();
-  try {
-    const { log } = await runMigration(token);
-    revalidatePath("/admin", "layout");
-    return { ok: true, log };
-  } catch (err) {
-    return { ok: false, log: [], error: err instanceof Error ? err.message : "העדכון נכשל" };
-  }
+export interface PasswordState {
+  error?: string;
+}
+
+/** החלפת סיסמה — חובה אחרי סיסמה זמנית, ואפשרית תמיד מהלוח. */
+export async function changePasswordAction(_prev: PasswordState, formData: FormData): Promise<PasswordState> {
+  const { user } = await requireSession({ allowTempPassword: true });
+  const current = String(formData.get("current") ?? "");
+  const next = String(formData.get("next") ?? "");
+  const confirm = String(formData.get("confirm") ?? "");
+  if (next.length < PASSWORD_MIN) return { error: `סיסמה של ${PASSWORD_MIN} תווים לפחות` };
+  if (next !== confirm) return { error: "שתי הסיסמאות החדשות לא זהות" };
+  const [row] = await db()!.select().from(schema.adminUsers).where(eq(schema.adminUsers.id, user.id));
+  if (!row || !(await verifyPassword(current, row.passwordHash))) return { error: "הסיסמה הנוכחית שגויה" };
+  if (current === next) return { error: "הסיסמה החדשה צריכה להיות שונה מהנוכחית" };
+  await changeOwnPassword(user.id, next);
+  redirect("/admin");
 }
