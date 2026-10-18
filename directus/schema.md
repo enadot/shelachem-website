@@ -96,12 +96,24 @@
 | marketing_consent | boolean |
 | submitted_at | datetime |
 | attribution | json — מקור הליד: first/last touch (UTM, gclid/fbclid…), עוגיות פיקסלים, event_id. ראו `docs/marketing.md` |
+| status | string — חדש / בטיפול / נסגר / לא רלוונטי (נערך בלוח הבקרה) |
+| notes | text — הערות פנימיות (נערך בלוח הבקרה) |
 
 ### globals (singleton — הגדרות אתר)
 | field | type |
 |---|---|
 | hero_image | file — תמונת הצוות בהירו של דף הבית |
 | hero_image_alt | string |
+| gtm_id, ga4_id, google_ads_id, google_ads_lead_label, meta_pixel_id, tiktok_pixel_id, linkedin_partner_id, linkedin_lead_conversion_id, clarity_id | string — תגי מדידה |
+| consent_required, enhanced_conversions | boolean |
+| google_site_verification, bing_site_verification, facebook_domain_verification | string |
+| phone, whatsapp_number, email | string — פרטי קשר (ריק = ברירת המחדל מ-`src/lib/config.ts`) |
+| socials, branches, opening_hours | json — רשתות, סניפים, שעות פעילות |
+
+> **השדות שנוספו ללוח הבקרה** (ב-globals, ב-leads, וגם `faqs.group`, `articles.keyPoints/image_alt/updatedAt`,
+> `image_alt` לתמונות, `image_file` למוסדות ולשירותים) נוצרים מתוך הלוח: מתחברים ל-`/admin` עם
+> משתמש admin ולוחצים "עדכון מבנה". אותה פעולה יוצרת את ה-role **"עורך אתר"** למשתמשי הלקוח.
+> הגדרת השדות: `src/lib/admin/migrate.ts`.
 
 הרשאות: ל-role הציבורי (או static token של האתר) — קריאה לכל collections התוכן
 (כולל globals ו-directus_files, בשביל הגשת תמונות), ו-**create בלבד** ל-leads.

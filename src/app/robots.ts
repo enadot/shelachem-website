@@ -41,14 +41,14 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "*",
         allow: "/",
-        // /api/ אינו תוכן. privacy ו-accessibility מסומנים noindex ברמת העמוד —
+        // /api/ ו-/admin/ אינם תוכן. privacy ו-accessibility מסומנים noindex ברמת העמוד —
         // חסימה ב-robots הייתה מונעת מגוגל לראות את ה-noindex עצמו.
-        disallow: ["/api/"],
+        disallow: ["/api/", "/admin/"],
       },
       {
         userAgent: aiAgents,
         allow: "/",
-        disallow: ["/api/"],
+        disallow: ["/api/", "/admin/"],
       },
     ],
     sitemap: `${site.domain}/sitemap.xml`,

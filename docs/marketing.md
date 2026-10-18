@@ -3,33 +3,58 @@
 מדריך לתשתית השיווק של האתר: איך מחברים GTM, GA4 ופיקסלים, אילו אירועים האתר
 שולח, איך עובד ה-attribution של הלידים, ואיך בנויות תמונות ה-OG.
 
-**העיקרון:** הקוד כבר שולח את כל האירועים. חיבור מערכת חדשה = משתנה סביבה בפאנל
-הפריסה (Vercel ▸ Settings ▸ Environment Variables) ופריסה מחדש, בלי שינוי קוד.
-משתני `NEXT_PUBLIC_*` נצרבים בזמן ה-build, לכן אחרי שינוי שלהם חייבים redeploy.
+**העיקרון:** הקוד כבר שולח את כל האירועים, והכול נשלט מ**לוח הבקרה** של האתר —
+`https://www.shelachem.net/admin`. מדביקים מזהה ושומרים, והתג נטען באתר מיד — בלי
+משתני סביבה, בלי פריסה מחדש ובלי להיכנס ל-Directus.
+
+---
+
+## 0. לוח הבקרה (`/admin`)
+
+| מסך | מה עושים בו |
+|---|---|
+| **סקירה** | לידים היום / 7 / 30 ימים, ממתינים לטיפול, הלידים האחרונים, ומה מחובר מבין תגי המדידה |
+| **לידים** | טבלה עם חיפוש וסינון (סטטוס, מקור/קמפיין, תאריכים), שינוי סטטוס, הערות פנימיות, מקור הגעה מלא לכל ליד, ייצוא CSV לאקסל |
+| **שיווק ופיקסלים** | GTM, GA4, Google Ads, Meta, TikTok, LinkedIn, Clarity, באנר עוגיות, Enhanced Conversions, אימותי בעלות |
+| **הגדרות אתר** | טלפון, וואטסאפ, מייל, רשתות חברתיות, סניפים, שעות פעילות, תמונת ההירו. למנהל: יצירת משתמשים |
+| **תוכן האתר** | כתבות, שאלות נפוצות, המלצות, רופאים, צוות, מוסדות ושירותים — כולל העלאת תמונות |
+
+- **התחברות:** עם משתמש Directus (אותו דוא״ל וסיסמה). ההרשאות הן של המשתמש ב-Directus.
+- **הפעלה ראשונה:** מתחברים עם משתמש **admin** ולוחצים **"עדכון מבנה"** בבאנר שבראש
+  הלוח. העדכון מוסיף ל-CMS את השדות שהלוח צריך (שיווק, פרטי קשר, סטטוס והערות ללידים,
+  מקור הליד, שדות תוכן חסרים) ויוצר role בשם **"עורך אתר"**. בטוח להרצה חוזרת.
+- **משתמשים לצוות:** הגדרות אתר ▸ "משתמשי לוח הבקרה" (רק admin רואה). משתמש "עורך אתר"
+  מנהל תוכן, לידים והגדרות — בלי גישה לניהול המערכת עצמה.
+- **שמירה = האתר מתעדכן מיד** (`revalidatePath`). עריכות שנעשות ישירות ב-Directus
+  ממשיכות להתעדכן דרך ה-Flow הקיים.
+- **קוד:** `src/app/admin/`, `src/components/admin/`, `src/lib/admin/`. התחברות:
+  `src/lib/admin/session.ts` + `src/proxy.ts`. הגדרת שדות העורך: `src/lib/admin/collections.ts`.
 
 ---
 
 ## 1. חיבור התגים
 
-| משתנה | מה הוא טוען | הערות |
+במסך **שיווק ופיקסלים** — לכל מערכת יש הסבר איפה מוצאים את המזהה, ובדיקת פורמט בזמן
+ההקלדה. שדה ריק = התג כבוי.
+
+| שדה | מה הוא טוען | הערות |
 |---|---|---|
-| `NEXT_PUBLIC_GTM_ID` | Google Tag Manager (`GTM-XXXXXXX`) | **מומלץ.** כל השאר מנוהל בתוך הקונטיינר |
-| `NEXT_PUBLIC_GA4_ID` | GA4 ישיר (gtag.js) | רק אם GA4 לא מוגדר ב-GTM |
-| `NEXT_PUBLIC_GOOGLE_ADS_ID` + `NEXT_PUBLIC_GOOGLE_ADS_LEAD_LABEL` | Google Ads ישיר + המרת ליד | התווית מופיעה ב-Ads ▸ Conversions ▸ Tag setup |
-| `NEXT_PUBLIC_META_PIXEL_ID` | Meta (Facebook/Instagram) Pixel | |
-| `NEXT_PUBLIC_TIKTOK_PIXEL_ID` | TikTok Pixel | |
-| `NEXT_PUBLIC_LINKEDIN_PARTNER_ID` + `NEXT_PUBLIC_LINKEDIN_LEAD_CONVERSION_ID` | LinkedIn Insight Tag + המרת ליד | |
-| `NEXT_PUBLIC_CLARITY_ID` | Microsoft Clarity (מפות חום והקלטות) | |
-| `NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION` | `<meta name="google-site-verification">` | Search Console ▸ HTML tag — הערך בלבד |
-| `NEXT_PUBLIC_BING_SITE_VERIFICATION` | `<meta name="msvalidate.01">` | Bing Webmaster (מזין גם את Copilot) |
-| `NEXT_PUBLIC_FACEBOOK_DOMAIN_VERIFICATION` | `<meta name="facebook-domain-verification">` | Meta Business ▸ Brand safety ▸ Domains |
+| Google Tag Manager | קונטיינר GTM (`GTM-XXXXXXX`) | **מומלץ.** כל השאר מנוהל בתוך הקונטיינר |
+| Google Analytics 4 | GA4 ישיר (gtag.js) | רק אם GA4 לא מוגדר ב-GTM |
+| Google Ads + תווית המרת ליד | Google Ads ישיר + המרת ליד | התווית ב-Ads ▸ Conversions ▸ Tag setup |
+| Meta Pixel | Meta (Facebook/Instagram) Pixel | |
+| TikTok Pixel | TikTok Pixel | |
+| LinkedIn + מזהה המרה | LinkedIn Insight Tag + המרת ליד | |
+| Microsoft Clarity | מפות חום והקלטות | |
+| אימות Google / Bing / Meta | תגי `meta` לאימות בעלות | אפשר להדביק את התג המלא — הערך נחלץ אוטומטית |
 
-> ⚠️ **כל פיקסל ממקום אחד בלבד.** אם Meta Pixel מוגדר בתוך GTM — לא ממלאים את
-> `NEXT_PUBLIC_META_PIXEL_ID`, אחרת כל PageView וכל ליד ייספרו פעמיים. האתר שולח
-> אירועים ישירות לפיקסל רק כשהוא זה שטען אותו.
+> ⚠️ **כל פיקסל ממקום אחד בלבד.** אם Meta Pixel מוגדר בתוך GTM — לא ממלאים אותו גם
+> בלוח, אחרת כל PageView וכל ליד ייספרו פעמיים. הלוח מציג אזהרה כשמוגדרים גם GTM וגם
+> פיקסלים ישירים. האתר שולח אירועים ישירות לפיקסל רק כשהוא זה שטען אותו.
 
-**הקוד:** `src/lib/marketing.ts` (הגדרות), `src/components/marketing/` (טעינה, מאזין
-קליקים, באנר עוגיות), `src/lib/analytics.ts` (אירועים), `src/lib/attribution.ts`.
+**הקוד:** הערכים נשמרים ב-singleton `globals` ונקראים ב-`getSiteSettings()`
+(`src/lib/content/index.ts`, `src/lib/site-settings.ts`, `src/lib/marketing.ts`).
+הטעינה ב-`src/components/marketing/`, האירועים ב-`src/lib/analytics.ts`.
 
 ---
 
@@ -49,7 +74,7 @@
 | `virtual_page_view` | מעבר עמוד פנימי (לא בטעינה הראשונה) | `page_path`, `page_location`, `page_title` | Meta `PageView` · TikTok `page()` |
 | `consent_update` | הגולש בחר בבאנר העוגיות | `consent_state` | — |
 
-\* `user_data` = `sha256_phone_number` / `sha256_email_address`, רק כש-`NEXT_PUBLIC_ENHANCED_CONVERSIONS=true`.
+\* `user_data` = `sha256_phone_number` / `sha256_email_address`, רק כשהמתג Enhanced Conversions דלוק בלוח.
 
 `link_location` הוא האזור שבו נלחץ הקישור: `header`, `footer`, `mobile-cta-bar`,
 `dialog`, `content` — או ערך מפורש מ-`data-track-location="..."` על אלמנט עוטף.
@@ -82,9 +107,9 @@
 
 ## 3. הסכמה לעוגיות (Consent Mode v2)
 
-- **ברירת מחדל** (`NEXT_PUBLIC_CONSENT_REQUIRED` לא מוגדר): Consent Mode במצב
+- **ברירת מחדל** (המתג "באנר עוגיות" כבוי בלוח): Consent Mode במצב
   `granted`, אין באנר, המדידה פועלת מיד.
-- **`NEXT_PUBLIC_CONSENT_REQUIRED=true`:** Consent Mode במצב `denied` (גוגל ממשיך
+- **המתג דלוק:** Consent Mode במצב `denied` (גוגל ממשיך
   במדידה ללא עוגיות — cookieless pings), באנר בתחתית המסך, ופיקסלים של צד שלישי
   (Meta/TikTok/LinkedIn/Clarity) נטענים **רק אחרי אישור**. בפוטר מופיע קישור
   "הגדרות עוגיות" לשינוי הבחירה. הבחירה נשמרת ב-localStorage (`shelachem-consent`).
@@ -110,13 +135,9 @@
 Google Ads Offline Conversions) ולהחזרת "ליד שהפך ללקוח" לפלטפורמות.
 ב-`source_page` נשאר גם תקציר ה-UTM הקצר (כמו קודם).
 
-**התקנה קיימת של Directus** — להוסיף את השדה וההרשאה פעם אחת:
-
-```
-bash seed/run-lead-attribution.sh     # מתוך תיקיית directus/ על השרת
-```
-
-עד שזה רץ, האתר ממשיך לשמור לידים כרגיל — בלי השדה (ומתריע בלוג).
+את המקור רואים בלוח הבקרה בעמוד של כל ליד ("מאיפה הגיע הליד"), ובייצוא ה-CSV.
+השדה נוסף ל-CMS בלחיצה על "עדכון מבנה" בלוח (או בסקריפט `directus/seed/run-lead-attribution.sh`).
+עד אז האתר ממשיך לשמור לידים כרגיל — בלי השדה (ומתריע בלוג).
 
 ---
 
