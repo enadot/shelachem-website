@@ -127,6 +127,25 @@ export const SETTINGS_FIELDS: FieldConfig[] = [
       { name: "closes", label: "סגירה", type: "text", ltr: true, half: true, required: true, placeholder: "17:00", pattern: PATTERNS.time },
     ],
   },
+  ...(["leads_webhook_url", "leads_quiz_webhook_url"] as const).map(
+    (name): FieldConfig => ({
+      name,
+      label:
+        name === "leads_webhook_url"
+          ? "BARAM Leads — ערוץ “לידים מהאתר”"
+          : "BARAM Leads — ערוץ “שאלון” (בדיקת הזכאות בדף הבית)",
+      type: "text",
+      ltr: true,
+      pattern: {
+        re: /^https:\/\/leads\.baram\.digital\/api\/ingest\/[A-Za-z0-9_-]{16,64}$/,
+        message: "כתובת webhook של BARAM Leads, למשל https://leads.baram.digital/api/ingest/…",
+      },
+      hint:
+        name === "leads_webhook_url"
+          ? "כל ליד מהאתר נשלח לכאן (בנוסף לשמירה במערכת התוכן). BARAM Leads ▸ הערוץ ▸ כתובת webhook."
+          : "לידים משאלון הזכאות. אם הערוץ כבוי, הליד נשלח לערוץ האתר במקום — כך שלא הולך לאיבוד.",
+    }),
+  ),
   { name: "hero_image", label: "תמונת ההירו בדף הבית", type: "image", hint: "תמונת הצוות. רצוי PNG עם רקע שקוף, לפחות 1500px רוחב." },
   { name: "hero_image_alt", label: "תיאור תמונת ההירו", type: "text" },
 ];

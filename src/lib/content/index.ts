@@ -2,6 +2,7 @@ import { cache } from "react";
 import { getDirectusClient } from "../directus";
 import { readItems, readSingleton } from "@directus/sdk";
 import { buildSiteSettings } from "../site-settings";
+import { DEFAULT_LEAD_WEBHOOKS, type LeadWebhooks } from "../lead-forwarding";
 import type {
   Article,
   Doctor,
@@ -123,6 +124,19 @@ export async function getGlobals(): Promise<Globals | null> {
   return {
     hero_image: assetUrl(g.hero_image),
     hero_image_alt: typeof g.hero_image_alt === "string" ? g.hero_image_alt : null,
+  };
+}
+
+/**
+ * כתובות ה-webhook של BARAM Leads (לוח הבקרה ▸ הגדרות אתר). בשרת בלבד — לא עובר
+ * ל-SettingsProvider ולא מגיע לדפדפן.
+ */
+export async function getLeadWebhooks(): Promise<LeadWebhooks> {
+  const g = await getGlobalsRaw();
+  const pick = (v: unknown, fallback: string) => (typeof v === "string" && v.trim() ? v.trim() : fallback);
+  return {
+    site: pick(g?.leads_webhook_url, DEFAULT_LEAD_WEBHOOKS.site),
+    quiz: pick(g?.leads_quiz_webhook_url, DEFAULT_LEAD_WEBHOOKS.quiz),
   };
 }
 

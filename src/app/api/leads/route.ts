@@ -1,6 +1,9 @@
 import { z } from "zod";
 import { createItem } from "@directus/sdk";
+import { after } from "next/server";
 import { getDirectusClient } from "@/lib/directus";
+import { getLeadWebhooks } from "@/lib/content";
+import { forwardLead } from "@/lib/lead-forwarding";
 
 const leadSchema = z.object({
   full_name: z.string().trim().min(2, "נא להזין שם מלא").max(100),
@@ -64,6 +67,12 @@ export async function POST(request: Request) {
   } else {
     console.info("[leads] Directus not configured; lead received:", { ...lead, email, attribution });
   }
+
+  // העברה ל-BARAM Leads אחרי שהתשובה כבר יצאה לגולש — המתנה למערכת חיצונית לא
+  // מעכבת את הודעת ה"תודה", וכשל בה לא מאבד את הליד (הוא כבר שמור ב-Directus).
+  after(async () => {
+    await forwardLead({ ...lead, email, attribution }, await getLeadWebhooks());
+  });
 
   return Response.json({ ok: true });
 }

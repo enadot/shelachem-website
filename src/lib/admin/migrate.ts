@@ -58,6 +58,8 @@ export const SCHEMA: Record<string, FieldDef[]> = {
     json("socials", "פרופילים ברשתות — {facebook, instagram, ...}"),
     json("branches", "סניפים — נערך בלוח הבקרה"),
     json("opening_hours", "שעות פעילות — נערך בלוח הבקרה"),
+    str("leads_webhook_url", "BARAM Leads — כתובת webhook לערוץ 'לידים מהאתר'"),
+    str("leads_quiz_webhook_url", "BARAM Leads — כתובת webhook לערוץ 'שאלון'"),
   ],
   leads: [
     {

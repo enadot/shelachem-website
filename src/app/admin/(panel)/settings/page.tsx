@@ -5,6 +5,7 @@ import { SETTINGS_FIELDS } from "@/lib/admin/collections";
 import { normalizeEntity } from "@/lib/admin/fields";
 import { buildSiteSettings, formatIlPhone } from "@/lib/site-settings";
 import { PageTitle, Panel } from "@/components/admin/ui";
+import { DEFAULT_LEAD_WEBHOOKS } from "@/lib/lead-forwarding";
 import { EntityForm } from "@/components/admin/entity-form";
 import { saveSettingsAction } from "./actions";
 import { CreateUserForm } from "./create-user-form";
@@ -27,6 +28,8 @@ export default async function SettingsPage() {
     socials: g.socials ?? live.socials,
     branches: g.branches ?? live.branches,
     opening_hours: g.opening_hours ?? live.openingHours ?? [],
+    leads_webhook_url: g.leads_webhook_url || DEFAULT_LEAD_WEBHOOKS.site,
+    leads_quiz_webhook_url: g.leads_quiz_webhook_url || DEFAULT_LEAD_WEBHOOKS.quiz,
   });
 
   return (
