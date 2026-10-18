@@ -1,5 +1,7 @@
+import { cache } from "react";
 import { getDirectusClient } from "../directus";
 import { readItems, readSingleton } from "@directus/sdk";
+import { buildSiteSettings } from "../site-settings";
 import type {
   Article,
   Doctor,
@@ -89,38 +91,43 @@ export const getArticles = async () =>
 export const getDoctors = () => fromDirectus<Doctor[]>("doctors", localDoctors, withImage);
 export const getTeam = () => fromDirectus<TeamMember[]>("team_members", localTeam, withImage);
 export const getInstitutions = () =>
-  fromDirectus<Institution[]>("institutions", localInstitutions);
-export const getServices = () => fromDirectus<Service[]>("services", localServices);
+  fromDirectus<Institution[]>("institutions", localInstitutions, withImage);
+export const getServices = () => fromDirectus<Service[]>("services", localServices, withImage);
 
 /**
- * הגדרות אתר — תמונת ההירו ועוד. null כשאין CMS או שעוד לא הוגדר.
+ * שורת ה-globals הגולמית (singleton). null כשאין CMS, שגיאה או שעוד לא נוצרה.
  * קורא כ-singleton, ובנפילה גם כ-collection רגיל (אם globals נוצר ידנית ב-Directus
- * בלי סימון singleton) — כך שהעלאת תמונה עובדת בשני המקרים.
+ * בלי סימון singleton). עטוף ב-cache — כמה רכיבים באותו רינדור = בקשה אחת.
  */
-export async function getGlobals(): Promise<Globals | null> {
+const getGlobalsRaw = cache(async (): Promise<Record<string, unknown> | null> => {
   const client = getDirectusClient();
   if (!client) return null;
-  const read = async () => {
+  try {
+    return (await client.request(readSingleton("globals" as never))) as Record<string, unknown>;
+  } catch {
     try {
-      return (await client.request(readSingleton("globals" as never))) as Record<string, unknown>;
-    } catch {
       const rows = (await client.request(
         readItems("globals" as never, { limit: 1 } as never),
       )) as Record<string, unknown>[];
-      return rows?.[0];
+      return rows?.[0] ?? null;
+    } catch {
+      return null;
     }
-  };
-  try {
-    const g = await read();
-    if (!g) return null;
-    return {
-      hero_image: assetUrl(g.hero_image),
-      hero_image_alt: typeof g.hero_image_alt === "string" ? g.hero_image_alt : null,
-    };
-  } catch {
-    return null;
   }
+});
+
+/** תמונת ההירו. null כשאין CMS או שעוד לא הוגדרה. */
+export async function getGlobals(): Promise<Globals | null> {
+  const g = await getGlobalsRaw();
+  if (!g) return null;
+  return {
+    hero_image: assetUrl(g.hero_image),
+    hero_image_alt: typeof g.hero_image_alt === "string" ? g.hero_image_alt : null,
+  };
 }
+
+/** פרטי קשר, סניפים ותגי שיווק — מה-CMS, עם נפילה חזרה ל-config.ts (ראו site-settings.ts). */
+export const getSiteSettings = cache(async () => buildSiteSettings(await getGlobalsRaw()));
 
 export async function getArticle(slug: string) {
   const all = await getArticles();

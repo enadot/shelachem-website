@@ -5,6 +5,7 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { LeadForm } from "@/components/shared/lead-form";
 import { ChevronBack } from "@/components/shared/icons";
 import { cn } from "@/lib/utils";
+import { trackEvent } from "@/lib/analytics";
 
 /**
  * בדיקת זכאות בשלבים — שאלה אחת בכל מסך, תשובות כקלפים גדולים, ופרטים אישיים
@@ -41,6 +42,7 @@ export function EligibilityQuiz() {
 
   const choose = (answer: string) => {
     moved.current = true;
+    trackEvent("quiz_step", { quiz_step: step + 1, quiz_question: questions[step]?.id, quiz_answer: answer });
     setAnswers((a) => [...a.slice(0, step), answer]);
     setStep((s) => s + 1);
   };

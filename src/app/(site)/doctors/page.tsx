@@ -1,0 +1,92 @@
+import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/metadata";
+import { getDoctors } from "@/lib/content";
+import { doctorSpecialtyLabels } from "@/lib/content/local/doctors";
+import { PageHeader } from "@/components/shared/page-header";
+import { PageCta } from "@/components/shared/page-cta";
+import { Eyebrow } from "@/components/shared/eyebrow";
+import { SectionHeading } from "@/components/shared/section-heading";
+import { NumberedSteps } from "@/components/shared/numbered-steps";
+import { DoctorsGrid } from "@/components/doctors/doctors-grid";
+
+export const metadata: Metadata = pageMetadata({
+  title: "הרופאים והמומחים",
+  path: "/doctors",
+  description:
+    "צוות רופאים מומחים שמלווה כל תיק: חוות דעת מקצועיות, הכנה אישית לוועדות הרפואיות ומעקב עד להחלטה.",
+});
+
+const whySteps = [
+  {
+    title: "חוות דעת רפואית מקצועית",
+    description: "רופא מומחה בתחום הרלוונטי קורא את כל התיעוד הרפואי שלכם וכותב חוות דעת מנומקת — במונחים שהוועדה מחויבת להתייחס אליהם.",
+  },
+  {
+    title: "הכנה אישית לוועדה",
+    description: "לפני הוועדה תשבו עם רופא מהצוות: מה ישאלו, מה חשוב להגיד, ואיך לתאר את המגבלה שלכם בצורה מדויקת — בלי להמעיט ובלי להגזים.",
+  },
+  {
+    title: "מעקב עד להחלטה",
+    description: "אם ההחלטה לא משקפת את המצב האמיתי, הרופאים שלנו מנתחים את הפרוטוקול ובונים את הבסיס הרפואי לערר — עד למיצוי מלא של הזכויות.",
+  },
+];
+
+export default async function DoctorsPage() {
+  const doctors = await getDoctors();
+
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@graph": doctors.map((d) => ({
+      "@type": "Physician",
+      name: d.name,
+      medicalSpecialty: doctorSpecialtyLabels[d.specialty],
+      description: d.bio,
+    })),
+  };
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <PageHeader
+        breadcrumb={[{ label: "בית", href: "/" }, { label: "הרופאים והמומחים" }]}
+        title="הרופאים שעומדים"
+        strong="מאחוריכם"
+        intro="בוועדה רפואית, הנייר החזק ביותר הוא חוות דעת של מומחה. הצוות הרפואי שלנו מכיר את הוועדות מבפנים — ובונה איתכם את התיק שקשה לדחות."
+      />
+
+      {/* why doctors matter */}
+      <section className="px-6 py-14 md:px-[clamp(24px,6.7vw,96px)] md:py-24">
+        <div className="mx-auto max-w-[1240px]">
+          <Eyebrow index="01">למה זה חשוב</Eyebrow>
+          <SectionHeading strong="מכריע את התיק" className="mb-10 mt-6 text-[30px] md:mb-14 md:mt-8 md:text-[52px]">
+            למה רופא מומחה
+          </SectionHeading>
+          <NumberedSteps steps={whySteps} />
+        </div>
+      </section>
+
+      {/* doctors grid + filters */}
+      <section className="bg-surface px-6 py-14 md:px-[clamp(24px,6.7vw,96px)] md:py-24">
+        <div className="mx-auto max-w-[1240px]">
+          <Eyebrow index="02">הצוות הרפואי</Eyebrow>
+          <SectionHeading strong="המומחים" className="mb-10 mt-6 text-[30px] md:mb-14 md:mt-8 md:text-[52px]">
+            הכירו את
+          </SectionHeading>
+          <DoctorsGrid doctors={doctors} />
+          <p className="m-0 mt-6 text-[15px] text-ink-faint">
+            * הצוות המלא מונה מעל 100 רופאים ומומחים בכל תחומי הרפואה.
+          </p>
+        </div>
+      </section>
+
+      <PageCta
+        title="לא בטוחים איזה מומחה מתאים לתיק שלכם?"
+        strong="נכוון אתכם."
+        subtitle="שיחת בדיקה ראשונית חינם — נתאים את הרופא הנכון למצב הרפואי שלכם."
+      />
+    </>
+  );
+}

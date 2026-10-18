@@ -1,6 +1,6 @@
 "use client";
 
-import { site } from "@/lib/config";
+import { useSite } from "@/components/settings-provider";
 import { ChevronForward } from "@/components/shared/icons";
 import {
   Dialog,
@@ -11,6 +11,7 @@ import {
 
 /** מודאל ״דברו איתנו״ — וואטסאפ / טלפון / מייל (עיצוב: Shelachem Live, על בסיס shadcn Dialog). */
 export function ContactModal({ onClose }: { onClose: () => void }) {
+  const { contact } = useSite();
   return (
     <Dialog open onOpenChange={(open) => !open && onClose()}>
       <DialogContent
@@ -31,7 +32,7 @@ export function ContactModal({ onClose }: { onClose: () => void }) {
         </DialogDescription>
         <div className="flex flex-col gap-3">
           <ContactRow
-            href={site.whatsappHref}
+            href={contact.whatsappHref}
             external
             iconBg="#25D366"
             hoverClass="hover:border-[#25D366] hover:shadow-[rgba(37,211,102,0.18)_0_10px_24px]"
@@ -44,20 +45,20 @@ export function ContactModal({ onClose }: { onClose: () => void }) {
             }
           />
           <ContactRow
-            href={site.phoneHref}
+            href={contact.phoneHref}
             iconBg="#1228a8"
             hoverClass="hover:border-brand hover:shadow-[rgba(18,40,168,0.14)_0_10px_24px]"
             title="טלפון"
-            subtitle={site.phone}
+            subtitle={contact.phone}
             subtitleTnum
             icon={<PhoneIcon size={21} />}
           />
           <ContactRow
-            href={`mailto:${site.email}`}
+            href={`mailto:${contact.email}`}
             iconBg="#0f1114"
             hoverClass="hover:border-brand hover:shadow-[rgba(18,40,168,0.14)_0_10px_24px]"
             title="מייל"
-            subtitle={site.email}
+            subtitle={contact.email}
             icon={
               <svg width="21" height="21" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                 <rect x="3" y="5.5" width="18" height="13" rx="2.5" stroke="currentColor" strokeWidth="1.8" />

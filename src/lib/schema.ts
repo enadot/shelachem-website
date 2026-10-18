@@ -11,7 +11,8 @@
  *   LocalBusiness      `/branches#<id>` — ישות נפרדת לכל סניף, `parentOrganization` → הארגון
  */
 
-import { branchGeo, branches, openingHours, site } from "./config";
+import { site } from "./config";
+import type { BranchInfo, SiteSettings } from "./site-settings";
 
 export const ORG_ID = `${site.domain}/#organization`;
 export const WEBSITE_ID = `${site.domain}/#website`;
@@ -20,12 +21,9 @@ export const branchId = (id: string) => `${site.domain}/branches#${id}`;
 /** הפניה לישות קיימת בגרף — לא שכפול שלה. */
 export const ref = (id: string) => ({ "@id": id });
 
-/** רק פרופילים אמיתיים — קישור לדף הבית של רשת חברתית ב-`sameAs` מזיק. */
-const realSocials = Object.values(site.socials).filter((u) => new URL(u).pathname !== "/");
-
 const areaServed = { "@type": "Country", name: "IL" } as const;
 
-function openingHoursSpecification() {
+function openingHoursSpecification(openingHours: SiteSettings["openingHours"]) {
   if (!openingHours?.length) return {};
   return {
     openingHoursSpecification: openingHours.map((h) => ({
@@ -37,8 +35,7 @@ function openingHoursSpecification() {
   };
 }
 
-function branchNode(branch: (typeof branches)[number]) {
-  const geo = branchGeo[branch.id];
+function branchNode(branch: BranchInfo, s: SiteSettings) {
   return {
     "@type": "LocalBusiness",
     "@id": branchId(branch.id),
@@ -46,7 +43,7 @@ function branchNode(branch: (typeof branches)[number]) {
     parentOrganization: ref(ORG_ID),
     url: `${site.domain}/branches`,
     telephone: branch.phone,
-    email: site.email,
+    email: s.contact.email,
     priceRange: site.feeModel,
     address: {
       "@type": "PostalAddress",
@@ -56,13 +53,21 @@ function branchNode(branch: (typeof branches)[number]) {
     },
     hasMap: branch.googleMapsUrl,
     areaServed,
-    ...(geo ? { geo: { "@type": "GeoCoordinates", latitude: geo.lat, longitude: geo.lng } } : {}),
-    ...openingHoursSpecification(),
+    ...(branch.lat !== undefined && branch.lng !== undefined
+      ? { geo: { "@type": "GeoCoordinates", latitude: branch.lat, longitude: branch.lng } }
+      : {}),
+    ...openingHoursSpecification(s.openingHours),
   };
 }
 
-/** הגרף הראשי — מוזרק פעם אחת ב-layout, ולא נשנה מעמוד לעמוד. */
-export function siteGraph() {
+/**
+ * הגרף הראשי — מוזרק פעם אחת ב-layout, ולא נשנה מעמוד לעמוד.
+ * פרטי קשר, סניפים ורשתות מגיעים מהגדרות האתר (לוח הבקרה). `sameAs` כולל רק
+ * פרופילים אמיתיים — קישור לדף הבית של רשת חברתית מזיק (מסונן ב-site-settings).
+ */
+export function siteGraph(s: SiteSettings) {
+  const { contact, branches } = s;
+  const realSocials = Object.values(s.socials);
   return {
     "@context": "https://schema.org",
     "@graph": [
@@ -81,8 +86,8 @@ export function siteGraph() {
           url: `${site.domain}/images/logo.svg`,
         },
         image: `${site.domain}/images/og-default.png`,
-        telephone: site.phone,
-        email: site.email,
+        telephone: contact.phone,
+        email: contact.email,
         foundingDate: String(site.foundedYear),
         priceRange: site.feeModel,
         knowsLanguage: ["he", "en"],
@@ -98,8 +103,8 @@ export function siteGraph() {
           {
             "@type": "ContactPoint",
             contactType: "customer service",
-            telephone: site.phone,
-            email: site.email,
+            telephone: contact.phone,
+            email: contact.email,
             availableLanguage: ["he"],
             areaServed: "IL",
           },
@@ -114,7 +119,7 @@ export function siteGraph() {
         inLanguage: "he-IL",
         publisher: ref(ORG_ID),
       },
-      ...branches.map(branchNode),
+      ...branches.map((b) => branchNode(b, s)),
     ],
   };
 }

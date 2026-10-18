@@ -75,6 +75,7 @@ const SCHEMA = {
     { field: "id", type: "uuid", meta: { interface: "input", hidden: true, readonly: true, special: ["uuid"] }, schema: { is_primary_key: true } },
     f("full_name", "string"), f("phone", "string"), f("email", "string"), f("topic", "string"),
     f("source_page", "string"), f("marketing_consent", "boolean"), f("submitted_at", "timestamp"),
+    f("attribution", "json"),
   ],
 };
 
@@ -133,7 +134,7 @@ async function grantPublicRead() {
   try {
     await api("POST", "/permissions", {
       policy: pub.id, collection: "leads", action: "create",
-      fields: ["full_name", "phone", "email", "topic", "source_page", "marketing_consent", "submitted_at"],
+      fields: ["full_name", "phone", "email", "topic", "source_page", "marketing_consent", "submitted_at", "attribution"],
     });
   } catch (e) {
     if (e.status !== 400) throw e;

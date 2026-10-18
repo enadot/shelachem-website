@@ -6,7 +6,7 @@ import { FaqAccordion } from "@/components/shared/faq-accordion";
 import { ChevronForward } from "@/components/shared/icons";
 import { PhoneIcon } from "@/components/layout/contact-modal";
 import { homepageFaqs } from "@/lib/faq-groups";
-import { site } from "@/lib/config";
+import { getSiteSettings } from "@/lib/content";
 
 /**
  * שאלות ותשובות בדף הבית (designs/homepage-v3.html) — כותרת וטלפון בצד, אקורדיון לבן.
@@ -14,7 +14,8 @@ import { site } from "@/lib/config";
  * ה-`FAQPage` JSON-LD עבר ל-`/faq`: כתובת קנונית אחת לשאלות מדורגת טוב יותר
  * משתי כתובות שחולקות את אותו תוכן.
  */
-export function FaqSection({ faqs }: { faqs: FaqItem[] }) {
+export async function FaqSection({ faqs }: { faqs: FaqItem[] }) {
+  const { contact } = await getSiteSettings();
   // חמש בלבד — השאר בעמוד /faq. רשימה ארוכה בדף הבית היא קיר טקסט.
   const visible = homepageFaqs(faqs).slice(0, 5);
   const remaining = faqs.length - visible.length;
@@ -41,13 +42,13 @@ export function FaqSection({ faqs }: { faqs: FaqItem[] }) {
               ועל כל מה שלא כתוב כאן — עונים בטלפון.
             </p>
             <a
-              href={site.phoneHref}
+              href={contact.phoneHref}
               className="group tnum hidden items-center gap-3 text-2xl font-black text-ink no-underline md:inline-flex"
             >
               <span className="flex h-11 w-11 items-center justify-center rounded-full bg-brand text-white">
                 <PhoneIcon size={18} />
               </span>
-              <span className="link-draw">{site.phone}</span>
+              <span className="link-draw">{contact.phone}</span>
             </a>
           </div>
           <Reveal>

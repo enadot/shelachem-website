@@ -1,15 +1,20 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ChevronForward } from "@/components/shared/icons";
+import { SiteChrome } from "@/components/layout/site-chrome";
 
 export const metadata: Metadata = {
   title: "העמוד לא נמצא",
   robots: { index: false },
 };
 
-/** 404 ממותג — מפנה חזרה למסלולים המרכזיים במקום עמוד שגיאה חשוף. */
+/**
+ * 404 ממותג — מפנה חזרה למסלולים המרכזיים במקום עמוד שגיאה חשוף.
+ * יושב בשורש (לכתובות שלא קיימות בכלל), ולכן עוטף את עצמו במעטפת האתר.
+ */
 export default function NotFound() {
   return (
+    <SiteChrome>
     <section className="flex flex-1 flex-col items-center justify-center px-6 py-24 text-center">
       <div className="font-display text-[96px] font-light leading-none text-brand md:text-[128px]">
         404
@@ -46,5 +51,6 @@ export default function NotFound() {
         </Link>
       </div>
     </section>
+    </SiteChrome>
   );
 }

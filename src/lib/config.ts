@@ -1,13 +1,18 @@
-/** Central site configuration — single source of truth for contact details. */
+/**
+ * Central site configuration — brand constants, plus the *defaults* for everything
+ * the client edits in the dashboard (/admin/settings): phone, WhatsApp, email,
+ * socials, branches and opening hours. Values saved in the CMS override these
+ * (see src/lib/site-settings.ts); these keep the site working without a CMS.
+ */
 export const site = {
   name: "שלכם — מימוש זכויות רפואיות",
   shortName: "שלכם",
   legalName: "שלכם — מימוש זכויות רפואיות בע״מ",
   domain: "https://www.shelachem.net",
   /** Official site-wide phone (per client decision). */
-  phone: "076-8017778",
-  phoneHref: "tel:076-8017778",
-  whatsappHref: "https://wa.me/972768017778",
+  phone: "03-8002000",
+  phoneHref: "tel:03-8002000",
+  whatsappHref: "https://wa.me/97238002000",
   email: "info@shelachem.net",
   foundedYear: 2013,
   /**
@@ -20,7 +25,8 @@ export const site = {
     years: "13",
     clients: "10,059",
   },
-  // TODO: להחליף בכתובות הפרופילים האמיתיים — עד אז קישורי שורש מסוננים מה-JSON-LD.
+  // ברירת מחדל בלבד — הכתובות האמיתיות נערכות בלוח הבקרה (/admin/settings).
+  // קישורי שורש (placeholder) מסוננים מה-JSON-LD.
   socials: {
     facebook: "https://www.facebook.com/",
     instagram: "https://www.instagram.com/",
@@ -35,9 +41,7 @@ export const site = {
  *
  * מכוון ל-`null`: אין לנו את השעות האמיתיות, ופרסום שעות שגויות ב-schema גרוע
  * מהיעדרן — גוגל מציג אותן בתוצאות החיפוש ומנועי AI מצטטים אותן.
- * TODO(לקוח): להחליף למשל ב-
- * `[{ days: ["Sunday","Monday","Tuesday","Wednesday","Thursday"], opens: "09:00", closes: "17:00" }]`
- * וה-JSON-LD ייכלל אוטומטית.
+ * נערכות בלוח הבקרה (/admin/settings ▸ שעות פעילות) — ה-JSON-LD נכלל אוטומטית.
  */
 export const openingHours: {
   days: string[];
@@ -50,8 +54,8 @@ export const branches = [
     id: "jerusalem",
     city: "ירושלים",
     address: "בניין שערי העיר, רח׳ יפו פינת שרי ישראל, קומה 9",
-    phone: "03-5430302",
-    phoneHref: "tel:03-5430302",
+    phone: "03-8002000",
+    phoneHref: "tel:03-8002000",
     googleMapsUrl: "https://maps.google.com/?q=שערי+העיר+יפו+216+ירושלים",
     wazeUrl: "https://waze.com/ul?q=שערי+העיר+ירושלים&navigate=yes",
     arrival: [
@@ -71,8 +75,8 @@ export const branches = [
     id: "bnei-brak",
     city: "בני ברק",
     address: "רח׳ ז׳בוטינסקי 168, בני ברק",
-    phone: "03-5430302",
-    phoneHref: "tel:03-5430302",
+    phone: "03-8002000",
+    phoneHref: "tel:03-8002000",
     googleMapsUrl: "https://maps.google.com/?q=ז׳בוטינסקי+168+בני+ברק",
     wazeUrl: "https://waze.com/ul?q=ז׳בוטינסקי+168+בני+ברק&navigate=yes",
     arrival: [
@@ -90,7 +94,7 @@ export type Branch = (typeof branches)[number];
 /**
  * קואורדינטות לכל סניף (`geo` ב-schema). ריק בכוונה — קואורדינטות משוערות שולחות
  * מנועי חיפוש ומשתמשים לכתובת הלא נכונה.
- * TODO(לקוח): למלא מהפין המדויק ב-Google Business Profile, למשל
- * `{ jerusalem: { lat: 31.7889, lng: 35.2050 } }` — וה-JSON-LD ייכלל אוטומטית.
+ * נערכות בלוח הבקרה (/admin/settings ▸ סניפים ▸ lat/lng) מהפין המדויק ב-Google
+ * Business Profile — וה-JSON-LD נכלל אוטומטית.
  */
 export const branchGeo: Record<string, { lat: number; lng: number }> = {};
