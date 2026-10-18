@@ -3,7 +3,7 @@ import { directusUrl } from "@/lib/admin/auth-shared";
 import { readGlobals } from "@/lib/admin/globals";
 import { SETTINGS_FIELDS } from "@/lib/admin/collections";
 import { normalizeEntity } from "@/lib/admin/fields";
-import { buildSiteSettings } from "@/lib/site-settings";
+import { buildSiteSettings, formatIlPhone } from "@/lib/site-settings";
 import { PageTitle, Panel } from "@/components/admin/ui";
 import { EntityForm } from "@/components/admin/entity-form";
 import { saveSettingsAction } from "./actions";
@@ -22,7 +22,7 @@ export default async function SettingsPage() {
   const initial = normalizeEntity(SETTINGS_FIELDS, {
     ...g,
     phone: g.phone ?? live.contact.phone,
-    whatsapp_number: g.whatsapp_number ?? live.contact.whatsappNumber.replace(/^972/, "0"),
+    whatsapp_number: g.whatsapp_number ?? formatIlPhone(live.contact.whatsappNumber),
     email: g.email ?? live.contact.email,
     socials: g.socials ?? live.socials,
     branches: g.branches ?? live.branches,

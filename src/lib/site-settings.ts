@@ -60,10 +60,17 @@ const httpUrl = (v: unknown) => {
 
 export const telHref = (phone: string) => `tel:${phone.replace(/[^\d+]/g, "")}`;
 
-/** 076-8017778 / ‎+972768017778 / 972768017778 → 972768017778 */
+/** 03-8002000 / ‎+97238002000 / 97238002000 → 97238002000 */
 export const toWhatsappNumber = (v: string) => {
   const digits = v.replace(/\D/g, "");
   return digits.startsWith("0") ? `972${digits.slice(1)}` : digits;
+};
+
+/** 97238002000 → 03-8002000, 972768017778 → 076-8017778 (לתצוגה בטפסים). */
+export const formatIlPhone = (international: string) => {
+  const local = `0${international.replace(/\D/g, "").replace(/^972/, "")}`;
+  const prefix = /^0[57]/.test(local) ? 3 : 2;
+  return `${local.slice(0, prefix)}-${local.slice(prefix)}`;
 };
 
 const DEFAULT_BRANCHES: BranchInfo[] = defaultBranches.map((b) => ({

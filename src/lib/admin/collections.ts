@@ -62,7 +62,7 @@ export const SETTINGS_FIELDS: FieldConfig[] = [
     ltr: true,
     half: true,
     pattern: PATTERNS.phone,
-    hint: "מספר שמחובר לוואטסאפ, למשל 076-8017778.",
+    hint: "מספר שמחובר לוואטסאפ, למשל 03-8002000.",
   },
   {
     name: "email",

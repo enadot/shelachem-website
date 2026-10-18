@@ -10,9 +10,9 @@ export const site = {
   legalName: "שלכם — מימוש זכויות רפואיות בע״מ",
   domain: "https://www.shelachem.net",
   /** Official site-wide phone (per client decision). */
-  phone: "076-8017778",
-  phoneHref: "tel:076-8017778",
-  whatsappHref: "https://wa.me/972768017778",
+  phone: "03-8002000",
+  phoneHref: "tel:03-8002000",
+  whatsappHref: "https://wa.me/97238002000",
   email: "info@shelachem.net",
   foundedYear: 2013,
   /**
@@ -54,8 +54,8 @@ export const branches = [
     id: "jerusalem",
     city: "ירושלים",
     address: "בניין שערי העיר, רח׳ יפו פינת שרי ישראל, קומה 9",
-    phone: "03-5430302",
-    phoneHref: "tel:03-5430302",
+    phone: "03-8002000",
+    phoneHref: "tel:03-8002000",
     googleMapsUrl: "https://maps.google.com/?q=שערי+העיר+יפו+216+ירושלים",
     wazeUrl: "https://waze.com/ul?q=שערי+העיר+ירושלים&navigate=yes",
     arrival: [
@@ -75,8 +75,8 @@ export const branches = [
     id: "bnei-brak",
     city: "בני ברק",
     address: "רח׳ ז׳בוטינסקי 168, בני ברק",
-    phone: "03-5430302",
-    phoneHref: "tel:03-5430302",
+    phone: "03-8002000",
+    phoneHref: "tel:03-8002000",
     googleMapsUrl: "https://maps.google.com/?q=ז׳בוטינסקי+168+בני+ברק",
     wazeUrl: "https://waze.com/ul?q=ז׳בוטינסקי+168+בני+ברק&navigate=yes",
     arrival: [
