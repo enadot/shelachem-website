@@ -30,17 +30,14 @@
 - 5 ניסיונות כושלים לאימייל ב-15 דקות → חסימה זמנית (`login_attempts`).
 - משתמש חדש או איפוס → סיסמה זמנית שמוצגת פעם אחת, וחובה להחליף אותה בכניסה.
 - השבתה או איפוס מנתקים את המשתמש מכל המכשירים מיד. תמיד נשאר לפחות מנהל פעיל אחד.
-- שכחתם סיסמה? מנהל אחר מאפס. אם אין אף מנהל: `npm run db:seed -- --admin-email <email> --admin-name <שם>` מאפס את המשתמש לסיסמה זמנית חדשה.
+- שכחתם סיסמה? מנהל אחר מאפס. אם אין אף מנהל פעיל: `npm run db:seed -- --admin-email <email חדש> --admin-name <שם>` יוצר מנהל חדש עם סיסמה זמנית (משתמש קיים לא משתנה).
 
 ## הקמה (פעם אחת)
 1. Vercel ▸ Storage: לחבר **Neon** ו-**Blob** לפרויקט. המשתנים `DATABASE_URL` ו-`BLOB_READ_WRITE_TOKEN` נוספים לבד.
 2. BARAM Leads ▸ הגדרות ▸ "API ו-MCP" ▸ מפתח חדש, ללקוח "שלכם", קריאה וכתיבה. לשמור ב-Vercel בשם `BARAM_LEADS_API_KEY`.
-3. מיגרציות וזרע (עם `DATABASE_URL` של production בסביבה המקומית):
-   ```bash
-   npm run db:migrate
-   npm run db:seed -- --admin-email you@example.com --admin-name "שם"
-   ```
-   ה-seed אידמפוטנטי: מכניס את התוכן המקומי רק ל-collection ריק, ויוצר את המנהל עם סיסמה זמנית שמודפסת למסך.
+3. מיגרציות ו-seed רצים **אוטומטית בבניית production** (`scripts/vercel-db.mjs`, לפני `next build`). שניהם אידמפוטנטיים: התוכן המקומי נכנס רק ל-collection ריק.
+   המנהל הראשון נוצר לפי משתני הסביבה `ADMIN_BOOTSTRAP_EMAIL` ו-`ADMIN_BOOTSTRAP_NAME`. הסיסמה הזמנית שלו מודפסת **פעם אחת** ביומן הבנייה (Vercel ▸ Deployments ▸ Build Logs, לחפש "סיסמה זמנית"), ומוחלפת בכניסה הראשונה.
+   מקומית, מול מסד אחר: `DATABASE_URL=... npm run db:migrate && npm run db:seed -- --admin-email you@example.com --admin-name "שם"`.
 4. Redeploy ב-Vercel, כדי שהמשתנים ייכנסו לתוקף.
 
 ## שינוי מבנה המסד
