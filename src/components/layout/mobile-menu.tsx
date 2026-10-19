@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect } from "react";
+import { createPortal } from "react-dom";
 import { motion } from "framer-motion";
 import { site } from "@/lib/config";
 import { useLeadModal } from "@/components/shared/lead-modal";
@@ -17,7 +18,11 @@ const items = [
   { href: "/magazine", label: "מגזין" },
 ];
 
-/** תפריט מובייל מסך-מלא ברויאל radial עם כניסת stagger (עיצוב: designs/homepage-v3.html §5a). */
+/**
+ * תפריט מובייל מסך-מלא ברויאל radial עם כניסת stagger (עיצוב: designs/homepage-v3.html §5a).
+ * מרונדר ב-portal ל-body: ההדר הוא sticky עם backdrop-blur, ו-backdrop-filter הופך אותו
+ * ל-containing block של צאצאים fixed — בתוכו `fixed inset-0` נחתך לגובה ההדר (60px).
+ */
 export function MobileMenu({ onClose }: { onClose: () => void }) {
   const { contact } = useSite();
   const { openLeadForm } = useLeadModal();
@@ -28,7 +33,7 @@ export function MobileMenu({ onClose }: { onClose: () => void }) {
     };
   }, []);
 
-  return (
+  return createPortal(
     <motion.div
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
@@ -95,6 +100,7 @@ export function MobileMenu({ onClose }: { onClose: () => void }) {
           {contact.phone} · זמינים עכשיו
         </a>
       </div>
-    </motion.div>
+    </motion.div>,
+    document.body,
   );
 }
