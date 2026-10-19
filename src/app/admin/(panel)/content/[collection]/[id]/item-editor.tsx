@@ -12,13 +12,11 @@ export function ItemEditor({
   collection,
   id,
   initial,
-  assetBase,
   singular,
 }: {
   collection: CollectionSlug;
   id: string | null;
   initial: Values;
-  assetBase: string | null;
   singular: string;
 }) {
   const [deleting, start] = useTransition();
@@ -29,7 +27,6 @@ export function ItemEditor({
     <EntityForm
       form={collection}
       initial={initial}
-      assetBase={assetBase}
       action={(values) => saveItemAction(collection, id, values)}
       onSaved={() => router.refresh()}
       extraActions={

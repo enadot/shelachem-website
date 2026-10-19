@@ -1,6 +1,6 @@
-/** Content models — mirror the Directus collections (see directus/schema). */
+/** Content models — the shape stored in `content_items.data` (see src/db/schema.ts) and in local content. */
 
-/** הגדרות אתר — singleton `globals` ב-Directus. */
+/** הגדרות אתר — השורה היחידה בטבלה `site_settings`. */
 export interface Globals {
   hero_image?: string | null; // resolved /assets URL
   hero_image_alt?: string | null;

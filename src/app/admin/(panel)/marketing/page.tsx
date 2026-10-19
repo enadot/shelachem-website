@@ -8,8 +8,8 @@ import { MarketingForm } from "./marketing-form";
 export const metadata = { title: "שיווק ופיקסלים" };
 
 export default async function MarketingPage() {
-  const { client } = await requireSession();
-  const g = await readGlobals(client);
+  await requireSession();
+  const g = await readGlobals();
   const text = (k: string) => (typeof g[k] === "string" ? (g[k] as string) : "");
 
   return (

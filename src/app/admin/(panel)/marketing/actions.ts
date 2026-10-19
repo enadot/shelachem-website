@@ -18,7 +18,7 @@ export interface MarketingInput {
 }
 
 export async function saveMarketingAction(input: MarketingInput) {
-  const { client } = await requireSession();
+  const { user } = await requireSession();
   const patch: Record<string, unknown> = {
     consent_required: input.consent_required === true,
     enhanced_conversions: input.enhanced_conversions === true,
@@ -38,7 +38,7 @@ export async function saveMarketingAction(input: MarketingInput) {
   if (Object.keys(errors).length) return { ok: false as const, errors };
 
   try {
-    await saveGlobals(client, patch);
+    await saveGlobals(patch, user.email);
     return { ok: true as const };
   } catch (err) {
     return { ok: false as const, errors: {}, error: errorMessage(err) };

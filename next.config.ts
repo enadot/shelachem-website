@@ -1,11 +1,10 @@
 import type { NextConfig } from "next";
 
-// כשהתוכן מגיע מ-Directus, התמונות מוגשות מ-<DIRECTUS_URL>/assets/<id>,
-// ולכן next/image דורש אישור מפורש ל-host הזה.
-const cmsUrl = process.env.DIRECTUS_URL;
-
 const nextConfig: NextConfig = {
-  ...(cmsUrl ? { images: { remotePatterns: [new URL("/assets/**", cmsUrl)] } } : {}),
+  // תמונות שהועלו מהלוח נשמרות ב-Vercel Blob (public), ו-next/image דורש אישור מפורש ל-host.
+  images: {
+    remotePatterns: [{ protocol: "https", hostname: "*.public.blob.vercel-storage.com" }],
+  },
   // משרד הרישוי הוסר מהאתר — קישורים ישנים לעמוד שלו מגיעים לרשימת המוסדות.
   async redirects() {
     return [

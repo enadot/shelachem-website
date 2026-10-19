@@ -4,12 +4,33 @@ import { useRef, useState, useTransition } from "react";
 import { ChevronDown, ChevronUp, ImagePlus, Plus, Trash2 } from "lucide-react";
 import { FORMS } from "@/lib/admin/collections";
 import { validate, emptyValue, type FieldConfig, type Values } from "@/lib/admin/fields";
-import { uploadImageAction } from "@/app/admin/(panel)/upload-action";
+import { upload } from "@vercel/blob/client";
 import { Field, Switch, Textarea } from "@/components/admin/ui";
 import { SaveBar } from "@/components/admin/save-bar";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/components/admin/toast";
 import { cn } from "@/lib/utils";
+
+const IMAGE_TYPES = ["image/jpeg", "image/png", "image/webp", "image/avif"];
+const MAX_IMAGE_BYTES = 10 * 1024 * 1024;
+
+/** שם קובץ בטוח ל-URL (עברית ורווחים → מקפים); Blob מוסיף סיומת אקראית. */
+function safeFileName(name: string) {
+  const dot = name.lastIndexOf(".");
+  const ext = dot > 0 ? name.slice(dot + 1).toLowerCase().replace(/[^a-z0-9]/g, "") : "jpg";
+  const base = (dot > 0 ? name.slice(0, dot) : name)
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "")
+    .slice(0, 60);
+  return `${base || "image"}.${ext || "jpg"}`;
+}
+
+function uploadError(err: unknown) {
+  const msg = err instanceof Error ? err.message : "";
+  // השגיאה מהשרת (התחברות, נתיב) מגיעה כטקסט בעברית; שגיאות רשת/ספרייה — הודעה כללית.
+  return /[\u0590-\u05FF]/.test(msg) ? msg.replace(/^Vercel Blob:\s*/, "") : "ההעלאה נכשלה — נסו שוב";
+}
 
 export interface SaveResult {
   ok: boolean;
@@ -21,7 +42,6 @@ export interface SaveResult {
 
 interface Ctx {
   errors: Record<string, string>;
-  assetBase: string | null;
 }
 
 /**
@@ -32,14 +52,12 @@ export function EntityForm({
   form,
   initial,
   action,
-  assetBase,
   extraActions,
   onSaved,
 }: {
   form: keyof typeof FORMS;
   initial: Values;
   action: (values: Values) => Promise<SaveResult>;
-  assetBase: string | null;
   extraActions?: React.ReactNode;
   onSaved?: (res: SaveResult) => void;
 }) {
@@ -89,7 +107,7 @@ export function EntityForm({
           fields={fields}
           values={values}
           path=""
-          ctx={{ errors, assetBase }}
+          ctx={{ errors }}
           onChange={(name, v) => setValues((cur) => ({ ...cur, [name]: v }))}
         />
       </div>
@@ -218,7 +236,7 @@ function FieldInput({
     case "image":
       return (
         <Field label={label} hint={f.hint} error={error} className={span}>
-          <ImageInput value={value as string} legacy={legacy as string} assetBase={ctx.assetBase} onChange={onChange} />
+          <ImageInput value={value as string} legacy={legacy as string} onChange={onChange} />
         </Field>
       );
     case "string-list":
@@ -469,28 +487,27 @@ function Repeater({
   );
 }
 
-/** כתובת תצוגה: נכס Directus לפי מזהה, או נתיב סטטי ישן מהאתר. */
-function previewUrl(value: string | undefined, legacy: string | undefined, assetBase: string | null) {
-  if (value) return assetBase ? `${assetBase}/assets/${value}?width=480&format=auto` : null;
-  if (legacy && (legacy.startsWith("/") || legacy.startsWith("http"))) return legacy;
+/** כתובת תצוגה: התמונה שהועלתה (Vercel Blob), או נתיב סטטי ישן מהאתר. */
+const isImageUrl = (v: string | undefined) => Boolean(v && /^(https?:\/\/|\/)/.test(v));
+function previewUrl(value: string | undefined, legacy: string | undefined) {
+  if (isImageUrl(value)) return value!;
+  if (isImageUrl(legacy)) return legacy!;
   return null;
 }
 
 function ImageInput({
   value,
   legacy,
-  assetBase,
   onChange,
 }: {
   value?: string;
   legacy?: string;
-  assetBase: string | null;
   onChange: (v: unknown) => void;
 }) {
   const fileRef = useRef<HTMLInputElement>(null);
   const [pending, start] = useTransition();
   const toast = useToast();
-  const src = previewUrl(value, legacy, assetBase);
+  const src = previewUrl(value, legacy);
 
   return (
     <div className="flex flex-wrap items-center gap-4">
@@ -512,14 +529,19 @@ function ImageInput({
             const file = e.target.files?.[0];
             e.target.value = "";
             if (!file) return;
-            const fd = new FormData();
-            fd.append("file", file);
+            if (!IMAGE_TYPES.includes(file.type)) return toast("רק JPG, PNG, WebP או AVIF", "error");
+            if (file.size > MAX_IMAGE_BYTES) return toast("הקובץ גדול מ-10MB", "error");
             start(async () => {
-              const res = await uploadImageAction(fd);
-              if (res.ok) {
-                onChange(res.id);
+              try {
+                const blob = await upload(`uploads/${safeFileName(file.name)}`, file, {
+                  access: "public",
+                  handleUploadUrl: "/admin/upload",
+                });
+                onChange(blob.url);
                 toast("התמונה הועלתה — לא לשכוח לשמור");
-              } else toast(res.error ?? "ההעלאה נכשלה", "error");
+              } catch (err) {
+                toast(uploadError(err), "error");
+              }
             });
           }}
         />

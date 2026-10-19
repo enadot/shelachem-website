@@ -1,9 +1,6 @@
 import { z } from "zod";
-import { createItem } from "@directus/sdk";
 import { after } from "next/server";
-import { getDirectusClient } from "@/lib/directus";
-import { getLeadWebhooks } from "@/lib/content";
-import { forwardLead } from "@/lib/lead-forwarding";
+import { backupLead, forwardBackedUp } from "@/lib/lead-backups";
 
 const leadSchema = z.object({
   full_name: z.string().trim().min(2, "נא להזין שם מלא").max(100),
@@ -18,7 +15,7 @@ const leadSchema = z.object({
   marketing_consent: z.boolean().optional(),
   /**
    * מקור הליד (src/lib/attribution.ts): first/last touch, מזהי קליק ועוגיות פיקסלים.
-   * נשמר כ-JSON בשדה `attribution`; מוגבל בגודל כדי שלא ישמש לדחיסת זבל.
+   * נשמר בגיבוי ונשלח ל-BARAM; מוגבל בגודל כדי שלא ישמש לדחיסת זבל.
    */
   attribution: z
     .record(z.string(), z.unknown())
@@ -46,33 +43,12 @@ export async function POST(request: Request) {
 
   const { company: _honeypot, email, attribution, ...lead } = parsed.data;
 
-  const client = getDirectusClient();
-  if (client) {
-    const item = { ...lead, email: email || null, submitted_at: new Date().toISOString() };
-    const create = (data: Record<string, unknown>) =>
-      client.request(createItem("leads" as never, data as never));
-    try {
-      await create(attribution ? { ...item, attribution } : item);
-    } catch (err) {
-      try {
-        // התקנה שעוד לא הוסיפה את שדה attribution (או את ההרשאה אליו) — הליד חשוב יותר.
-        if (!attribution) throw err;
-        await create(item);
-        console.warn("[leads] saved without attribution — add the field in Directus:", err);
-      } catch (err2) {
-        // Never lose a lead silently — keep it in the server log for manual recovery.
-        console.error("[leads] Directus write failed:", err2, lead, attribution);
-      }
-    }
-  } else {
-    console.info("[leads] Directus not configured; lead received:", { ...lead, email, attribution });
-  }
-
-  // העברה ל-BARAM Leads אחרי שהתשובה כבר יצאה לגולש — המתנה למערכת חיצונית לא
-  // מעכבת את הודעת ה"תודה", וכשל בה לא מאבד את הליד (הוא כבר שמור ב-Directus).
-  after(async () => {
-    await forwardLead({ ...lead, email, attribution }, await getLeadWebhooks());
-  });
+  const item = { ...lead, email: email || null, ...(attribution ? { attribution } : {}) };
+  // קודם גיבוי במסד שלנו (מהיר), ואז ההעברה ל-BARAM Leads אחרי שהתשובה כבר יצאה
+  // לגולש — המתנה למערכת חיצונית לא מעכבת את הודעת ה"תודה", וכשל בה לא מאבד את
+  // הליד: הוא שמור בגיבוי ואפשר לשלוח אותו שוב מהלוח.
+  const backupId = await backupLead(item);
+  after(() => forwardBackedUp(backupId, item));
 
   return Response.json({ ok: true });
 }

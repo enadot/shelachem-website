@@ -72,13 +72,7 @@ export async function loadPhoto(
   try {
     const input = src.startsWith("/")
       ? await publicImage(src)
-      : Buffer.from(
-          await (
-            await fetch(`${src}${src.includes("?") ? "&" : "?"}width=${width * 2}&format=jpg`, {
-              signal: AbortSignal.timeout(8000),
-            })
-          ).arrayBuffer(),
-        );
+      : Buffer.from(await (await fetch(src, { signal: AbortSignal.timeout(8000) })).arrayBuffer());
     const out = await sharp(input)
       .resize(width * 2, height * 2, { fit: "cover", position })
       .jpeg({ quality: 78 })
