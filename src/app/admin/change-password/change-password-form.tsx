@@ -3,28 +3,55 @@
 import { useActionState } from "react";
 import { changePasswordAction, type PasswordState } from "../actions";
 import { Field } from "@/components/admin/ui";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
+import { Loader2 } from "lucide-react";
+import { Input } from "@/components/admin/ui/input";
+import { Button } from "@/components/admin/ui/button";
+import { Alert, AlertDescription } from "@/components/admin/ui/alert";
 
 export function ChangePasswordForm() {
   const [state, action, pending] = useActionState<PasswordState, FormData>(changePasswordAction, {});
   return (
-    <form action={action} className="flex flex-col gap-5">
+    <form action={action} className="flex flex-col gap-4">
       <Field label="סיסמה נוכחית" htmlFor="current">
-        <Input id="current" name="current" type="password" autoComplete="current-password" dir="ltr" required />
+        <Input
+          id="current"
+          name="current"
+          type="password"
+          autoComplete="current-password"
+          dir="ltr"
+          required
+          className="h-11 bg-white text-[15px]"
+        />
       </Field>
       <Field label="סיסמה חדשה" htmlFor="next">
-        <Input id="next" name="next" type="password" autoComplete="new-password" dir="ltr" required />
+        <Input
+          id="next"
+          name="next"
+          type="password"
+          autoComplete="new-password"
+          dir="ltr"
+          required
+          className="h-11 bg-white text-[15px]"
+        />
       </Field>
       <Field label="שוב, לאימות" htmlFor="confirm">
-        <Input id="confirm" name="confirm" type="password" autoComplete="new-password" dir="ltr" required />
+        <Input
+          id="confirm"
+          name="confirm"
+          type="password"
+          autoComplete="new-password"
+          dir="ltr"
+          required
+          className="h-11 bg-white text-[15px]"
+        />
       </Field>
       {state.error && (
-        <p role="alert" className="m-0 text-[14.5px] font-bold text-danger">
-          {state.error}
-        </p>
+        <Alert variant="destructive">
+          <AlertDescription className="font-bold">{state.error}</AlertDescription>
+        </Alert>
       )}
-      <Button type="submit" disabled={pending} className="mt-2 w-full">
+      <Button type="submit" size="lg" disabled={pending} className="mt-1 h-11 w-full text-[15px]">
+        {pending && <Loader2 className="animate-spin" aria-hidden />}
         {pending ? "שומר…" : "שמירת סיסמה"}
       </Button>
     </form>

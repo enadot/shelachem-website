@@ -1,10 +1,12 @@
 "use client";
 
 import { useState, useTransition } from "react";
+import { Loader2, Send } from "lucide-react";
 import { addNoteAction, updateFeedbackAction } from "@/app/admin/(panel)/leads/actions";
-import { Textarea } from "@/components/admin/ui";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { Field, Textarea } from "@/components/admin/ui";
+import { Button } from "@/components/admin/ui/button";
+import { Input } from "@/components/admin/ui/input";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/admin/ui/select";
 import { useToast } from "@/components/admin/toast";
 import { cn } from "@/lib/utils";
 
@@ -14,8 +16,23 @@ export interface FeedbackOption {
   action: "none" | "reason" | "reminder";
 }
 
-const selectClass =
-  "min-h-10 cursor-pointer rounded-[10px] border-[1.5px] border-hairline bg-white px-3 text-[14px] font-bold";
+/** Radix Select לא מקבל ערך ריק — "ללא משוב" מיוצג כ-"none". */
+const NONE = "none";
+const toValue = (id: number | null) => (id === null ? NONE : String(id));
+const fromValue = (v: string) => (v === NONE ? null : Number(v));
+
+function FeedbackItems({ options }: { options: FeedbackOption[] }) {
+  return (
+    <SelectContent>
+      <SelectItem value={NONE}>ללא משוב</SelectItem>
+      {options.map((f) => (
+        <SelectItem key={f.id} value={String(f.id)}>
+          {f.name}
+        </SelectItem>
+      ))}
+    </SelectContent>
+  );
+}
 
 /** שינוי משוב ישירות מהטבלה (משוב שדורש סיבה/מועד — דרך עמוד הליד). */
 export function FeedbackSelect({
@@ -33,12 +50,11 @@ export function FeedbackSelect({
   const [pending, start] = useTransition();
   const toast = useToast();
   return (
-    <select
-      aria-label={label ?? "משוב"}
-      value={value ?? ""}
+    <Select
+      value={toValue(value)}
       disabled={pending}
-      onChange={(e) => {
-        const next = e.target.value ? Number(e.target.value) : null;
+      onValueChange={(v) => {
+        const next = fromValue(v);
         const prev = value;
         setValue(next);
         start(async () => {
@@ -49,15 +65,20 @@ export function FeedbackSelect({
           } else toast("המשוב עודכן ב-BARAM Leads");
         });
       }}
-      className={cn(selectClass, value === null ? "text-brand" : "text-ink-secondary")}
     >
-      <option value="">ללא משוב</option>
-      {options.map((f) => (
-        <option key={f.id} value={f.id}>
-          {f.name}
-        </option>
-      ))}
-    </select>
+      <SelectTrigger
+        aria-label={label ?? "משוב"}
+        size="sm"
+        className={cn(
+          "w-full min-w-[150px] bg-white font-bold md:w-[170px]",
+          value === null ? "border-amber-300 bg-amber-50 text-amber-900" : "text-foreground",
+        )}
+      >
+        {pending && <Loader2 className="size-3.5 animate-spin" aria-hidden />}
+        <SelectValue />
+      </SelectTrigger>
+      <FeedbackItems options={options} />
+    </Select>
   );
 }
 
@@ -80,7 +101,7 @@ export function FeedbackForm({ id, value, options }: { id: number; value: number
 
   return (
     <form
-      className="flex flex-col gap-3"
+      className="flex flex-col gap-4"
       onSubmit={(e) => {
         e.preventDefault();
         start(async () => {
@@ -99,29 +120,30 @@ export function FeedbackForm({ id, value, options }: { id: number; value: number
         });
       }}
     >
-      <select
-        aria-label="משוב"
-        value={feedbackId ?? ""}
-        onChange={(e) => setFeedbackId(e.target.value ? Number(e.target.value) : null)}
-        className={cn(selectClass, "min-h-[50px] w-full text-[16px]")}
-      >
-        <option value="">ללא משוב</option>
-        {options.map((f) => (
-          <option key={f.id} value={f.id}>
-            {f.name}
-          </option>
-        ))}
-      </select>
+      <Select value={toValue(feedbackId)} onValueChange={(v) => setFeedbackId(fromValue(v))}>
+        <SelectTrigger aria-label="משוב" className="h-10 w-full bg-white text-[15px]">
+          <SelectValue />
+        </SelectTrigger>
+        <FeedbackItems options={options} />
+      </Select>
       {action === "reason" && (
-        <Input aria-label="סיבה" placeholder="סיבה (לא חובה)" value={reason} onChange={(e) => setReason(e.target.value)} />
+        <Field label="סיבה" hint="לא חובה" htmlFor="fb-reason">
+          <Input id="fb-reason" value={reason} onChange={(e) => setReason(e.target.value)} className="h-10 bg-white" />
+        </Field>
       )}
       {action === "reminder" && (
-        <label className="flex flex-col gap-1 text-[13.5px] font-bold">
-          מתי לחזור אליו (תיווצר משימה ב-BARAM)
-          <Input type="datetime-local" value={remindAt} onChange={(e) => setRemindAt(e.target.value)} />
-        </label>
+        <Field label="מתי לחזור אליו" hint="תיווצר משימה ב-BARAM Leads" htmlFor="fb-remind">
+          <Input
+            id="fb-remind"
+            type="datetime-local"
+            value={remindAt}
+            onChange={(e) => setRemindAt(e.target.value)}
+            className="h-10 bg-white"
+          />
+        </Field>
       )}
-      <Button type="submit" size="sm" className="self-start" disabled={pending || !dirty}>
+      <Button type="submit" className="self-start" disabled={pending || !dirty}>
+        {pending && <Loader2 className="animate-spin" aria-hidden />}
         {pending ? "שומר…" : "עדכון משוב"}
       </Button>
     </form>
@@ -152,8 +174,10 @@ export function NoteForm({ id }: { id: number }) {
         onChange={(e) => setText(e.target.value)}
         placeholder="למשל: חזרנו אליו ב-10:30, ביקש לדבר שוב ביום ראשון…"
         rows={3}
+        className="min-h-[90px]"
       />
-      <Button type="submit" size="sm" className="self-start" disabled={pending || !text.trim()}>
+      <Button type="submit" variant="secondary" className="self-start" disabled={pending || !text.trim()}>
+        {pending ? <Loader2 className="animate-spin" aria-hidden /> : <Send aria-hidden />}
         {pending ? "מוסיף…" : "הוספת הערה"}
       </Button>
     </form>

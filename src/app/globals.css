@@ -423,3 +423,84 @@ input[type="range"] {
 .group:focus-visible .link-draw {
   background-size: 100% 1.5px;
 }
+
+/* ── לוח הבקרה (/admin) — טוקנים של shadcn/ui במיפוי למותג. ──────────────────
+   האתר הציבורי לא משתמש בשמות האלה (חוץ מ-accent, ולכן ה-accent של shadcn
+   נקרא כאן ui-accent). רדיוסים — ברירות המחדל של Tailwind, כי האתר משתמש בהן.
+   רכיבי הלוח: src/components/admin/ui. */
+:root {
+  --radius: 0.75rem;
+  --card: #ffffff;
+  --card-foreground: #0f1114;
+  --popover: #ffffff;
+  --popover-foreground: #0f1114;
+  --primary: #1228a8;
+  --primary-foreground: #ffffff;
+  --secondary: #eef1fb;
+  --secondary-foreground: #1228a8;
+  --muted: #f4f6fb;
+  --muted-foreground: #5a6170;
+  --ui-accent: #eef1fb;
+  --ui-accent-foreground: #0a1570;
+  --destructive: #c42b2b;
+  --border: #e4e7ec;
+  --input: #d5dae3;
+  --ring: #1d3fd6;
+  --chart-1: #1228a8;
+  --chart-2: #f2d282;
+  --chart-3: #1e9be0;
+  --chart-4: #b98a31;
+  --chart-5: #7fd8f0;
+  --sidebar: #f4f6fb;
+  --sidebar-foreground: #3a3d42;
+  --sidebar-primary: #1228a8;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #e3e8fa;
+  --sidebar-accent-foreground: #0a1570;
+  --sidebar-border: #e4e7ec;
+  --sidebar-ring: #1d3fd6;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-ui-accent: var(--ui-accent);
+  --color-ui-accent-foreground: var(--ui-accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+/* ב-shadcn גבול בלי צבע מפורש מקבל את --border. רק בלוח (גם בתוכן ב-portal, שנמצא
+   מחוץ למעטפת) — באתר הציבורי ברירת המחדל של Tailwind נשארת. */
+@layer base {
+  body:has([data-admin-shell]) *,
+  body:has([data-admin-shell]) ::after,
+  body:has([data-admin-shell]) ::before {
+    border-color: var(--color-border);
+  }
+}

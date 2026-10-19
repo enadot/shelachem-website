@@ -1,16 +1,24 @@
+import { cookies } from "next/headers";
 import { getAdminUser } from "@/lib/admin/session";
-import { Sidebar } from "@/components/admin/sidebar";
+import { AppSidebar } from "@/components/admin/app-sidebar";
+import { AppHeader } from "@/components/admin/app-header";
+import { SidebarInset, SidebarProvider } from "@/components/admin/ui/sidebar";
 
-/** מעטפת הלוח למשתמש מחובר: סרגל צד + אזור תוכן. */
+/** מעטפת הלוח למשתמש מחובר: סרגל צד (shadcn Sidebar) + אזור תוכן. */
 export default async function PanelLayout({ children }: { children: React.ReactNode }) {
   const user = await getAdminUser();
+  // מצב הסרגל (פתוח/מכווץ) נשמר בעוגייה של רכיב ה-Sidebar.
+  const open = (await cookies()).get("sidebar_state")?.value !== "false";
 
   return (
-    <div className="flex min-h-svh flex-1 flex-col md:flex-row">
-      <Sidebar userName={user.name} isAdmin={user.isAdmin} />
-      <div className="min-w-0 flex-1 px-5 py-8 md:px-10 md:py-10">
-        <div className="mx-auto max-w-[1180px]">{children}</div>
-      </div>
-    </div>
+    <SidebarProvider defaultOpen={open}>
+      <AppSidebar user={{ name: user.name, email: user.email, isAdmin: user.isAdmin }} />
+      <SidebarInset className="min-w-0 bg-white">
+        <AppHeader />
+        <div className="flex-1 px-4 py-6 md:px-8 md:py-8">
+          <div className="mx-auto max-w-[1180px]">{children}</div>
+        </div>
+      </SidebarInset>
+    </SidebarProvider>
   );
 }

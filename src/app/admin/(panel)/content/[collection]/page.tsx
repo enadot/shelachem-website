@@ -5,8 +5,11 @@ import { COLLECTIONS, isCollection, type CollectionConfig } from "@/lib/admin/co
 import { errorMessage } from "@/lib/admin/globals";
 import { listItems, type Row } from "@/lib/admin/content";
 import { Badge, EmptyState, PageTitle } from "@/components/admin/ui";
-import { Input } from "@/components/ui/input";
-import { buttonVariants } from "@/components/ui/button";
+import { ExternalLink, FileText, Plus, Search } from "lucide-react";
+import { Input } from "@/components/admin/ui/input";
+import { Button } from "@/components/admin/ui/button";
+import { Card } from "@/components/admin/ui/card";
+import { Alert, AlertDescription } from "@/components/admin/ui/alert";
 
 /** טיוטה = כתבה בלי פסקאות — אותה לוגיקה כמו isPublished באתר. */
 const isDraft = (r: Row) =>
@@ -51,59 +54,72 @@ export default async function CollectionPage({
     <>
       <PageTitle
         title={config.label}
-        strong={rows.length ? `(${rows.length})` : undefined}
+        strong={rows.length ? String(rows.length) : undefined}
         description={config.description}
         actions={
-          <Link href={`/admin/content/${collection}/new`} className={buttonVariants({ size: "sm" })}>
-            + {config.singular} חדש/ה
-          </Link>
+          <Button asChild>
+            <Link href={`/admin/content/${collection}/new`}>
+              <Plus aria-hidden />
+              {config.singular} חדש/ה
+            </Link>
+          </Button>
         }
       />
 
-      <form method="get" className="mb-5 max-w-[420px]">
+      <form method="get" className="relative mb-4 max-w-[420px]">
         <label className="sr-only" htmlFor="q">
           חיפוש
         </label>
-        <Input id="q" name="q" defaultValue={q} placeholder={`חיפוש ב${config.label}…`} />
+        <Search
+          className="pointer-events-none absolute start-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground"
+          aria-hidden
+        />
+        <Input
+          id="q"
+          name="q"
+          defaultValue={q}
+          placeholder={`חיפוש ב${config.label}…`}
+          className="h-10 bg-white ps-9"
+        />
       </form>
 
       {error && (
-        <p role="alert" className="mb-6 rounded-[10px] bg-[#fbe6e6] px-4 py-3 text-danger">
-          {error}
-        </p>
+        <Alert variant="destructive" className="mb-4">
+          <AlertDescription>{error}</AlertDescription>
+        </Alert>
       )}
 
       {!error && rows.length === 0 ? (
-        <EmptyState title={q ? "לא נמצאו תוצאות" : `עדיין אין ${config.label}`}>
+        <EmptyState title={q ? "לא נמצאו תוצאות" : `עדיין אין ${config.label}`} icon={<FileText className="size-5" />}>
           {!q && "התוכן שמוצג כרגע באתר מגיע מברירת המחדל שבקוד. פריט ראשון שתיצרו כאן יחליף את כל הרשימה."}
         </EmptyState>
       ) : (
-        <ul className="m-0 list-none overflow-hidden rounded-card border border-hairline bg-white p-0">
-          {rows.map((r) => (
-            <li key={r.id} className="flex items-center gap-4 border-b border-hairline-soft px-5 py-3.5 last:border-none">
-              <Link
-                href={`/admin/content/${collection}/${r.id}`}
-                className="min-w-0 flex-1 text-ink no-underline hover:text-brand"
-              >
-                <span className="block truncate text-[16px] font-bold">
-                  {String(r[config.titleField] ?? "") || "(ללא כותרת)"}
-                </span>
-                {subtitleLabel(r) && (
-                  <span className="block truncate text-[13.5px] text-ink-muted">{subtitleLabel(r)}</span>
-                )}
-              </Link>
-              {collection === "articles" && isDraft(r) && <Badge tone="gold">טיוטה — לא מוצגת באתר</Badge>}
-              <a
-                href={config.publicPath(r)}
-                target="_blank"
-                rel="noopener"
-                className="shrink-0 text-[14px] font-bold text-brand no-underline"
-              >
-                צפייה ↗
-              </a>
-            </li>
-          ))}
-        </ul>
+        <Card className="gap-0 overflow-hidden py-0 shadow-none">
+          <ul className="m-0 list-none divide-y p-0">
+            {rows.map((r) => (
+              <li key={r.id} className="flex items-center gap-3 px-4 py-3 transition-colors hover:bg-muted/50 md:px-5">
+                <Link
+                  href={`/admin/content/${collection}/${r.id}`}
+                  className="min-w-0 flex-1 text-foreground no-underline hover:text-primary"
+                >
+                  <span className="block truncate text-[15px] font-bold">
+                    {String(r[config.titleField] ?? "") || "(ללא כותרת)"}
+                  </span>
+                  {subtitleLabel(r) && (
+                    <span className="block truncate text-[13px] text-muted-foreground">{subtitleLabel(r)}</span>
+                  )}
+                </Link>
+                {collection === "articles" && isDraft(r) && <Badge tone="gold">טיוטה</Badge>}
+                <Button variant="ghost" size="sm" asChild className="shrink-0 text-muted-foreground">
+                  <a href={config.publicPath(r)} target="_blank" rel="noopener" aria-label="צפייה באתר">
+                    <ExternalLink aria-hidden />
+                    <span className="hidden sm:inline">צפייה</span>
+                  </a>
+                </Button>
+              </li>
+            ))}
+          </ul>
+        </Card>
       )}
     </>
   );
