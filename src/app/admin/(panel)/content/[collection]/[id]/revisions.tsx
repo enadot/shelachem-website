@@ -3,7 +3,10 @@
 import { useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { restoreRevisionAction } from "../../actions";
+import { History } from "lucide-react";
 import { Panel } from "@/components/admin/ui";
+import { Button } from "@/components/admin/ui/button";
+import { ConfirmButton } from "@/components/admin/confirm-button";
 import { useToast } from "@/components/admin/toast";
 
 const fmt = (d: Date) =>
@@ -34,32 +37,39 @@ export function Revisions({
     <Panel
       title="גרסאות קודמות"
       description="לפני כל שמירה נשמר עותק של הגרסה הקודמת. שחזור מחזיר אותה לאתר מיד — והגרסה הנוכחית נשמרת גם היא."
-      className="mb-10"
+      className="mt-4"
+      contentClassName="py-1"
     >
-      <ul className="m-0 list-none p-0">
+      <ul className="m-0 list-none divide-y p-0">
         {revisions.map((r) => (
-          <li key={r.id} className="flex items-center justify-between gap-4 border-b border-hairline-soft py-2.5 last:border-none">
-            <span className="text-[14.5px]">
-              <span className="tnum font-bold">{fmt(r.savedAt)}</span>
-              {r.savedBy && <span className="text-ink-muted"> · נשמר ע״י {r.savedBy}</span>}
+          <li key={r.id} className="flex items-center justify-between gap-4 py-2.5">
+            <span className="flex min-w-0 items-center gap-3 text-[14px]">
+              <History className="size-4 shrink-0 text-muted-foreground" aria-hidden />
+              <span className="min-w-0">
+                <span className="tnum font-bold">{fmt(r.savedAt)}</span>
+                {r.savedBy && (
+                  <span className="block truncate text-[12.5px] text-muted-foreground sm:inline"> · {r.savedBy}</span>
+                )}
+              </span>
             </span>
-            <button
-              type="button"
-              disabled={pending}
-              onClick={() => {
-                if (!confirm("לשחזר את הגרסה הזו? התוכן הנוכחי יישמר כגרסה קודמת.")) return;
+            <ConfirmButton
+              title="לשחזר את הגרסה הזו?"
+              description="התוכן הנוכחי יישמר כגרסה קודמת, והגרסה הזו תופיע באתר מיד."
+              confirmLabel="שחזור"
+              onConfirm={() =>
                 start(async () => {
                   const res = await restoreRevisionAction(collection, id, r.id);
                   if (res.ok) {
                     toast("הגרסה שוחזרה");
                     router.refresh();
                   } else toast(res.error ?? "השחזור נכשל", "error");
-                });
-              }}
-              className="min-h-10 cursor-pointer rounded-[10px] border-[1.5px] border-brand bg-white px-4 text-[14px] font-bold text-brand disabled:opacity-60"
+                })
+              }
             >
-              שחזור
-            </button>
+              <Button type="button" variant="outline" size="sm" disabled={pending}>
+                שחזור
+              </Button>
+            </ConfirmButton>
           </li>
         ))}
       </ul>

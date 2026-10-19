@@ -54,5 +54,11 @@
 - **המסד כולו:** ל-Neon יש שחזור לנקודת זמן (point-in-time restore) מתוך הקונסולה. בחבילה החינמית אפשר לחזור עד 6 שעות אחורה, וביותר זמן בחבילות בתשלום.
 - **תמונות:** Blob לא מוחק קבצים כשמחליפים תמונה בלוח, כך שקובץ ישן נשאר זמין בכתובת שלו.
 
+## ממשק (shadcn/ui)
+- רכיבי הלוח: `src/components/admin/ui/` (shadcn/ui, סגנון new-york, `components.json`). מוסיפים רכיב עם `npx shadcn@latest add <name>` — הוא נכתב לתיקייה הזו ולא נוגע ברכיבי האתר הציבורי (`src/components/ui/`).
+- הצבעים ממופים למותג ב-`src/app/globals.css` (בלוק "לוח הבקרה"). ה-accent של shadcn נקרא `ui-accent`, כי `accent` של האתר הוא הזהב. אחרי `shadcn add` מחליפים `bg-accent`/`text-accent-foreground` ל-`bg-ui-accent`/`text-ui-accent-foreground`.
+- RTL: הלוח עטוף ב-`Direction.Provider dir="rtl"` של Radix (`src/app/admin/layout.tsx`), הסרגל בצד ימין (`side="right"`), ובקומפוננטות משתמשים ב-`ms/me/ps/pe/start/end` ולא ב-left/right.
+- אבני בניין משותפות: `src/components/admin/ui.tsx` (PageTitle, Panel, Field, Switch, Badge, EmptyState), `confirm-button.tsx` (אישור לפני מחיקה/שחזור), `save-bar.tsx`, `toast.tsx` (sonner).
+
 ## קוד
 `src/app/admin/`, `src/components/admin/`, `src/lib/admin/` · מסד: `src/db/` · BARAM: `src/lib/baram-api.ts`, `src/lib/lead-forwarding.ts`, `src/lib/lead-backups.ts` · העלאה: `src/app/admin/upload/route.ts` · הגנה: `src/proxy.ts` בודק רק שהעוגייה קיימת, ו-`requireSession()` מאמת בכל עמוד ופעולה.

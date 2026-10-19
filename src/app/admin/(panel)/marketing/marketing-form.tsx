@@ -10,15 +10,29 @@ import {
   normalizeId,
   type IdField,
 } from "@/lib/admin/marketing-fields";
-import { Field, Panel, Switch } from "@/components/admin/ui";
+import { AlertTriangle } from "lucide-react";
+import { Badge, Field, Panel, Switch } from "@/components/admin/ui";
 import { SaveBar } from "@/components/admin/save-bar";
-import { Input } from "@/components/ui/input";
+import { Input } from "@/components/admin/ui/input";
+import { Alert, AlertDescription } from "@/components/admin/ui/alert";
 import { useToast } from "@/components/admin/toast";
 
 const GROUPS: { key: IdField["group"]; title: string; description: string }[] = [
-  { key: "google", title: "גוגל", description: "Tag Manager, Analytics ו-Ads." },
-  { key: "social", title: "רשתות חברתיות", description: "פיקסלים של פלטפורמות הפרסום." },
-  { key: "other", title: "כלים נוספים", description: "ניתוח התנהגות גולשים." },
+  {
+    key: "google",
+    title: "גוגל",
+    description: "Tag Manager, Analytics ו-Ads.",
+  },
+  {
+    key: "social",
+    title: "רשתות חברתיות",
+    description: "פיקסלים של פלטפורמות הפרסום.",
+  },
+  {
+    key: "other",
+    title: "כלים נוספים",
+    description: "ניתוח התנהגות גולשים.",
+  },
 ];
 
 function idError(f: IdField, v: string) {
@@ -62,44 +76,58 @@ export function MarketingForm({ initial }: { initial: MarketingInput }) {
         e.preventDefault();
         save();
       }}
-      className="flex flex-col gap-6 pb-24"
+      className="flex flex-col gap-4 pb-6"
     >
       {gtmAndDirect && (
-        <p role="note" className="m-0 rounded-card border border-gold-deep/40 bg-accent-tint px-5 py-4 text-[15px]">
-          <b>שימו לב:</b> מוגדרים גם GTM וגם {directPixels.join(", ")} בטעינה ישירה. ודאו שאותם תגים
-          לא מוגדרים <b>גם</b> בתוך הקונטיינר — אחרת כל ליד ייספר פעמיים.
-        </p>
+        <Alert className="border-amber-300 bg-amber-50 text-amber-950">
+          <AlertTriangle aria-hidden />
+          <AlertDescription className="text-[14px] text-amber-950">
+            <span>
+              <b>שימו לב:</b> מוגדרים גם GTM וגם {directPixels.join(", ")} בטעינה ישירה. ודאו שאותם תגים לא מוגדרים{" "}
+              <b>גם</b> בתוך הקונטיינר — אחרת כל ליד ייספר פעמיים.
+            </span>
+          </AlertDescription>
+        </Alert>
       )}
 
-      {GROUPS.map((g) => (
-        <Panel key={g.key} title={g.title} description={g.description}>
-          <div className="grid gap-6 md:grid-cols-2">
-            {ID_FIELDS.filter((f) => f.group === g.key).map((f) => {
-              const v = data.ids[f.field] ?? "";
-              const error = idError(f, v) ?? serverErrors[f.field];
-              return (
-                <Field key={f.field} label={f.label} hint={f.hint} error={error} htmlFor={f.field}>
-                  <Input
-                    id={f.field}
-                    value={v}
-                    onChange={(e) => setId(f.field, e.target.value)}
-                    onBlur={(e) => setId(f.field, normalizeId(f.field, e.target.value))}
-                    placeholder={f.placeholder}
-                    dir="ltr"
-                    autoComplete="off"
-                    spellCheck={false}
-                    aria-invalid={Boolean(error)}
-                    className="font-mono text-[15px]"
-                  />
-                </Field>
-              );
-            })}
-          </div>
-        </Panel>
-      ))}
+      {GROUPS.map((g) => {
+        const fields = ID_FIELDS.filter((f) => f.group === g.key);
+        const on = fields.filter((f) => data.ids[f.field]?.trim()).length;
+        return (
+          <Panel
+            key={g.key}
+            title={g.title}
+            description={g.description}
+            action={<Badge tone={on ? "ok" : "muted"}>{on ? `${on} פעילים` : "כבוי"}</Badge>}
+          >
+            <div className="grid gap-6 md:grid-cols-2">
+              {fields.map((f) => {
+                const v = data.ids[f.field] ?? "";
+                const error = idError(f, v) ?? serverErrors[f.field];
+                return (
+                  <Field key={f.field} label={f.label} hint={f.hint} error={error} htmlFor={f.field}>
+                    <Input
+                      id={f.field}
+                      value={v}
+                      onChange={(e) => setId(f.field, e.target.value)}
+                      onBlur={(e) => setId(f.field, normalizeId(f.field, e.target.value))}
+                      placeholder={f.placeholder}
+                      dir="ltr"
+                      autoComplete="off"
+                      spellCheck={false}
+                      aria-invalid={Boolean(error)}
+                      className="h-10 bg-white font-mono text-[14.5px]"
+                    />
+                  </Field>
+                );
+              })}
+            </div>
+          </Panel>
+        );
+      })}
 
       <Panel title="פרטיות ומדידה מתקדמת">
-        <div className="flex flex-col gap-6">
+        <div className="flex flex-col gap-3">
           <Switch
             id="consent_required"
             checked={data.consent_required}
@@ -107,7 +135,6 @@ export function MarketingForm({ initial }: { initial: MarketingInput }) {
             label="באנר עוגיות — מדידה רק אחרי אישור הגולש"
             description="כשפעיל: גוגל מודד בלי עוגיות עד האישור, ופיקסלים של Meta / TikTok / LinkedIn / Clarity נטענים רק אחרי לחיצה על “אישור”. החלטה משפטית — כדאי להתייעץ."
           />
-          <div className="border-t border-hairline-soft" />
           <Switch
             id="enhanced_conversions"
             checked={data.enhanced_conversions}
@@ -123,8 +150,7 @@ export function MarketingForm({ initial }: { initial: MarketingInput }) {
           {VERIFICATION_FIELDS.map((f) => {
             const v = data.verification[f.field] ?? "";
             const token = extractToken(v);
-            const error =
-              (token && !TOKEN_PATTERN.test(token) ? "הערך לא תקין" : undefined) ?? serverErrors[f.field];
+            const error = (token && !TOKEN_PATTERN.test(token) ? "הערך לא תקין" : undefined) ?? serverErrors[f.field];
             return (
               <Field key={f.field} label={f.label} hint={f.hint} error={error} htmlFor={f.field}>
                 <Input
@@ -135,7 +161,7 @@ export function MarketingForm({ initial }: { initial: MarketingInput }) {
                   autoComplete="off"
                   spellCheck={false}
                   aria-invalid={Boolean(error)}
-                  className="font-mono text-[14px]"
+                  className="h-10 bg-white font-mono text-[14px]"
                 />
               </Field>
             );

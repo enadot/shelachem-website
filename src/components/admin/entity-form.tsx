@@ -1,15 +1,26 @@
 "use client";
 
 import { useRef, useState, useTransition } from "react";
-import { ChevronDown, ChevronUp, ImagePlus, Plus, Trash2 } from "lucide-react";
+import { ChevronDown, ChevronUp, ImagePlus, Loader2, Plus, Trash2, Upload } from "lucide-react";
 import { FORMS } from "@/lib/admin/collections";
 import { validate, emptyValue, type FieldConfig, type Values } from "@/lib/admin/fields";
 import { upload } from "@vercel/blob/client";
 import { Field, Switch, Textarea } from "@/components/admin/ui";
 import { SaveBar } from "@/components/admin/save-bar";
-import { Input } from "@/components/ui/input";
+import { Input as UiInput } from "@/components/admin/ui/input";
+import { Button } from "@/components/admin/ui/button";
+import { Card } from "@/components/admin/ui/card";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/admin/ui/select";
+import { ConfirmButton } from "@/components/admin/confirm-button";
 import { useToast } from "@/components/admin/toast";
 import { cn } from "@/lib/utils";
+
+function Input({ className, ...props }: React.ComponentProps<"input">) {
+  return <UiInput className={cn("h-10 bg-white text-[15px]", className)} {...props} />;
+}
+
+/** Radix Select לא מקבל ערך ריק — "בלי בחירה" מיוצג כך. */
+const NO_VALUE = "__none";
 
 const IMAGE_TYPES = ["image/jpeg", "image/png", "image/webp", "image/avif"];
 const MAX_IMAGE_BYTES = 10 * 1024 * 1024;
@@ -17,7 +28,13 @@ const MAX_IMAGE_BYTES = 10 * 1024 * 1024;
 /** שם קובץ בטוח ל-URL (עברית ורווחים → מקפים); Blob מוסיף סיומת אקראית. */
 function safeFileName(name: string) {
   const dot = name.lastIndexOf(".");
-  const ext = dot > 0 ? name.slice(dot + 1).toLowerCase().replace(/[^a-z0-9]/g, "") : "jpg";
+  const ext =
+    dot > 0
+      ? name
+          .slice(dot + 1)
+          .toLowerCase()
+          .replace(/[^a-z0-9]/g, "")
+      : "jpg";
   const base = (dot > 0 ? name.slice(0, dot) : name)
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, "-")
@@ -74,9 +91,7 @@ export function EntityForm({
     setErrors(found);
     if (Object.keys(found).length) {
       toast("יש שדות שצריך לתקן", "error");
-      requestAnimationFrame(() =>
-        document.querySelector<HTMLElement>("[aria-invalid=true]")?.focus(),
-      );
+      requestAnimationFrame(() => document.querySelector<HTMLElement>("[aria-invalid=true]")?.focus());
       return;
     }
     start(async () => {
@@ -100,20 +115,48 @@ export function EntityForm({
         e.preventDefault();
         submit();
       }}
-      className="flex flex-col gap-6 pb-24"
+      className="flex flex-col gap-4 pb-6"
     >
-      <div className="grid gap-x-6 gap-y-6 rounded-card border border-hairline bg-white p-5 md:grid-cols-2 md:p-7">
-        <Fields
-          fields={fields}
-          values={values}
-          path=""
-          ctx={{ errors }}
-          onChange={(name, v) => setValues((cur) => ({ ...cur, [name]: v }))}
-        />
-      </div>
+      {sections(fields).map((sec, i) => (
+        <Card key={i} className="gap-0 py-0 shadow-none">
+          {sec.title && (
+            <div className="border-b px-5 py-4 md:px-7">
+              <h2 className="m-0 font-body text-[16px] font-bold text-foreground">{sec.title}</h2>
+              {sec.description && <p className="m-0 mt-1 text-[13.5px] text-muted-foreground">{sec.description}</p>}
+            </div>
+          )}
+          <div className="grid gap-x-6 gap-y-6 p-5 md:grid-cols-2 md:p-7">
+            <Fields
+              fields={sec.fields}
+              values={values}
+              path=""
+              ctx={{ errors }}
+              onChange={(name, v) => setValues((cur) => ({ ...cur, [name]: v }))}
+            />
+          </div>
+        </Card>
+      ))}
       <SaveBar dirty={dirty} pending={pending} extra={extraActions} />
     </form>
   );
+}
+
+/**
+ * חלוקה לכרטיסים: שדות פשוטים יחד, וכל רשימה/קבוצה ברמה העליונה (סניפים, רשתות,
+ * שעות…) בכרטיס משלה, עם הכותרת שלה כראש הכרטיס.
+ */
+function sections(fields: FieldConfig[]) {
+  const out: { title?: string; description?: string; fields: FieldConfig[] }[] = [];
+  for (const f of fields) {
+    if (f.type === "repeater" || f.type === "group") {
+      out.push({ title: f.label, description: f.hint, fields: [{ ...f, label: "", hint: undefined }] });
+    } else {
+      const last = out[out.length - 1];
+      if (last && !last.title) last.fields.push(f);
+      else out.push({ fields: [f] });
+    }
+  }
+  return out;
 }
 
 function Fields({
@@ -190,26 +233,26 @@ function FieldInput({
     case "select":
       return (
         <Field label={label} hint={f.hint} error={error} htmlFor={id} className={span}>
-          <select
-            {...common}
-            value={String(value ?? "")}
-            onChange={(e) => onChange(e.target.value)}
-            className="min-h-[50px] w-full cursor-pointer rounded-[10px] border-[1.5px] border-hairline bg-field px-3 text-[16px] text-ink focus:border-brand focus:bg-white"
-          >
-            <option value="">— בחרו —</option>
-            {f.options?.map((o) => (
-              <option key={o.value} value={o.value}>
-                {o.label}
-              </option>
-            ))}
-          </select>
+          <Select value={String(value || NO_VALUE)} onValueChange={(v) => onChange(v === NO_VALUE ? "" : v)}>
+            <SelectTrigger id={id} aria-invalid={Boolean(error)} className="h-10 w-full bg-white text-[15px]">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value={NO_VALUE}>— בחרו —</SelectItem>
+              {f.options?.map((o) => (
+                <SelectItem key={o.value} value={o.value}>
+                  {o.label}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
         </Field>
       );
     case "checkboxes": {
       const list = Array.isArray(value) ? (value as string[]) : [];
       return (
         <fieldset className={cn("m-0 border-none p-0", span)}>
-          <legend className="mb-2 p-0 text-[15px] font-bold text-ink">{label}</legend>
+          <legend className="mb-2 p-0 text-[14.5px] font-bold text-foreground">{label}</legend>
           <div className="flex flex-wrap gap-2">
             {f.options?.map((o) => {
               const on = list.includes(o.value);
@@ -220,8 +263,10 @@ function FieldInput({
                   aria-pressed={on}
                   onClick={() => onChange(on ? list.filter((x) => x !== o.value) : [...list, o.value])}
                   className={cn(
-                    "min-h-10 cursor-pointer rounded-full border-[1.5px] px-4 text-[14.5px] font-bold transition-colors",
-                    on ? "border-brand bg-brand text-white" : "border-hairline bg-white text-ink-secondary",
+                    "min-h-9 cursor-pointer rounded-full border px-3.5 text-[14px] font-bold transition-colors",
+                    on
+                      ? "border-primary bg-primary text-primary-foreground"
+                      : "bg-white text-muted-foreground hover:border-primary/50 hover:text-foreground",
                   )}
                 >
                   {o.label}
@@ -229,7 +274,7 @@ function FieldInput({
               );
             })}
           </div>
-          {error && <p className="m-0 mt-1 text-[13.5px] font-bold text-danger">{error}</p>}
+          {error && <p className="m-0 mt-1 text-[13px] font-bold text-destructive">{error}</p>}
         </fieldset>
       );
     }
@@ -240,16 +285,14 @@ function FieldInput({
         </Field>
       );
     case "string-list":
-      return (
-        <StringList f={f} label={label} value={value as string[]} error={error} span={span} onChange={onChange} />
-      );
+      return <StringList f={f} label={label} value={value as string[]} error={error} span={span} onChange={onChange} />;
     case "repeater":
       return <Repeater f={f} label={label} value={value as Values[]} path={path} ctx={ctx} onChange={onChange} />;
     case "group":
       return (
-        <fieldset className="m-0 rounded-[12px] border border-hairline-soft p-4 md:col-span-2">
-          <legend className="px-1 text-[15px] font-bold text-ink">{f.label}</legend>
-          {f.hint && <p className="m-0 mb-3 text-[13.5px] text-ink-faint">{f.hint}</p>}
+        <fieldset className={cn("m-0 md:col-span-2", f.label ? "rounded-xl border bg-muted/40 p-4" : "border-none p-0")}>
+          {f.label && <legend className="px-1 text-[14.5px] font-bold text-foreground">{f.label}</legend>}
+          {f.hint && <p className="m-0 mb-3 text-[13px] text-muted-foreground">{f.hint}</p>}
           <div className="grid gap-5 md:grid-cols-2">
             <Fields
               fields={f.fields ?? []}
@@ -286,25 +329,33 @@ function IconButton({
   danger,
 }: {
   label: string;
-  onClick: () => void;
+  onClick?: () => void;
   disabled?: boolean;
   children: React.ReactNode;
   danger?: boolean;
 }) {
   return (
-    <button
+    <Button
       type="button"
+      variant="outline"
+      size="icon-sm"
       aria-label={label}
       title={label}
       disabled={disabled}
       onClick={onClick}
-      className={cn(
-        "flex h-9 w-9 cursor-pointer items-center justify-center rounded-[8px] border border-hairline bg-white disabled:cursor-default disabled:opacity-30",
-        danger ? "text-danger hover:border-danger" : "text-ink-secondary hover:border-brand hover:text-brand",
-      )}
+      className={cn("bg-white", danger ? "text-destructive hover:text-destructive" : "text-muted-foreground")}
     >
       {children}
-    </button>
+    </Button>
+  );
+}
+
+function AddButton({ label, onClick }: { label: string; onClick: () => void }) {
+  return (
+    <Button type="button" variant="outline" onClick={onClick} className="mt-3 border-dashed bg-white text-primary">
+      <Plus aria-hidden />
+      הוספת {label}
+    </Button>
   );
 }
 
@@ -334,12 +385,12 @@ function StringList({
   const long = (f.rows ?? 1) > 1;
   return (
     <fieldset className={cn("m-0 border-none p-0", span)}>
-      <legend className="mb-1 p-0 text-[15px] font-bold text-ink">{label}</legend>
-      {f.hint && <p className="m-0 mb-2 text-[13.5px] text-ink-faint">{f.hint}</p>}
+      <legend className="mb-1 p-0 text-[14.5px] font-bold text-foreground">{label}</legend>
+      {f.hint && <p className="m-0 mb-2 text-[13px] text-muted-foreground">{f.hint}</p>}
       <ol className="m-0 flex list-none flex-col gap-2 p-0">
         {list.map((item, i) => (
           <li key={i} className="flex items-start gap-2">
-            <span className="tnum mt-3 w-6 shrink-0 text-center text-[13px] text-ink-faint">{i + 1}</span>
+            <span className="tnum mt-2.5 w-6 shrink-0 text-center text-[13px] text-muted-foreground">{i + 1}</span>
             {long ? (
               <Textarea
                 aria-label={`${f.itemLabel ?? "פריט"} ${i + 1}`}
@@ -354,7 +405,7 @@ function StringList({
                 onChange={(e) => onChange(list.map((x, j) => (j === i ? e.target.value : x)))}
               />
             )}
-            <div className="mt-1.5 flex shrink-0 gap-1">
+            <div className="mt-1 flex shrink-0 gap-1">
               <IconButton label="הזזה למעלה" disabled={i === 0} onClick={() => onChange(move(list, i, i - 1))}>
                 <ChevronUp size={16} />
               </IconButton>
@@ -372,15 +423,8 @@ function StringList({
           </li>
         ))}
       </ol>
-      <button
-        type="button"
-        onClick={() => onChange([...list, ""])}
-        className="mt-2 inline-flex min-h-10 cursor-pointer items-center gap-1.5 rounded-[10px] border border-dashed border-hairline bg-transparent px-4 text-[14.5px] font-bold text-brand hover:border-brand"
-      >
-        <Plus size={16} aria-hidden />
-        הוספת {f.itemLabel ?? "פריט"}
-      </button>
-      {error && <p className="m-0 mt-1 text-[13.5px] font-bold text-danger">{error}</p>}
+      <AddButton label={f.itemLabel ?? "פריט"} onClick={() => onChange([...list, ""])} />
+      {error && <p className="m-0 mt-1 text-[13px] font-bold text-destructive">{error}</p>}
     </fieldset>
   );
 }
@@ -415,27 +459,33 @@ function Repeater({
 
   return (
     <fieldset className="m-0 border-none p-0 md:col-span-2">
-      <legend className="mb-1 p-0 text-[15px] font-bold text-ink">{label}</legend>
-      {f.hint && <p className="m-0 mb-3 text-[13.5px] text-ink-faint">{f.hint}</p>}
-      <ol className="m-0 flex list-none flex-col gap-3 p-0">
+      {label && <legend className="mb-1 p-0 text-[14.5px] font-bold text-foreground">{label}</legend>}
+      {f.hint && <p className="m-0 mb-3 text-[13px] text-muted-foreground">{f.hint}</p>}
+      <ol className="m-0 flex list-none flex-col gap-2 p-0">
         {list.map((item, i) => {
           const title = String((f.itemTitle && item[f.itemTitle]) || "") || `${f.itemLabel ?? "פריט"} ${i + 1}`;
           const isOpen = open.has(i) || hasError(i);
           return (
             <li
               key={i}
-              className={cn("rounded-[12px] border bg-surface/50", hasError(i) ? "border-danger" : "border-hairline")}
+              className={cn("overflow-hidden rounded-xl border bg-muted/40", hasError(i) && "border-destructive")}
             >
               <div className="flex items-center gap-2 px-3 py-2">
                 <button
                   type="button"
                   onClick={() => toggle(i)}
                   aria-expanded={isOpen}
-                  className="flex min-h-10 flex-1 cursor-pointer items-center gap-2 border-none bg-transparent text-start text-[15px] font-bold text-ink"
+                  className="flex min-h-10 min-w-0 flex-1 cursor-pointer items-center gap-2 border-none bg-transparent text-start text-[14.5px] font-bold text-foreground"
                 >
-                  <span className="tnum text-[13px] text-ink-faint">{i + 1}</span>
+                  <span className="tnum flex size-6 shrink-0 items-center justify-center rounded-full bg-white text-[12px] text-muted-foreground">
+                    {i + 1}
+                  </span>
                   <span className="truncate">{title}</span>
-                  <ChevronDown size={16} aria-hidden className={cn("shrink-0 transition-transform", isOpen && "rotate-180")} />
+                  <ChevronDown
+                    size={16}
+                    aria-hidden
+                    className={cn("shrink-0 transition-transform", isOpen && "rotate-180")}
+                  />
                 </button>
                 <IconButton label="הזזה למעלה" disabled={i === 0} onClick={() => onChange(move(list, i, i - 1))}>
                   <ChevronUp size={16} />
@@ -447,18 +497,20 @@ function Repeater({
                 >
                   <ChevronDown size={16} />
                 </IconButton>
-                <IconButton
-                  label={`מחיקת ${title}`}
-                  danger
-                  onClick={() => {
-                    if (confirm(`למחוק את "${title}"?`)) onChange(list.filter((_, j) => j !== i));
-                  }}
+                <ConfirmButton
+                  title={`למחוק את "${title}"?`}
+                  description="הפריט יוסר מהרשימה. השינוי נשמר רק כשלוחצים על שמירה."
+                  confirmLabel="מחיקה"
+                  destructive
+                  onConfirm={() => onChange(list.filter((_, j) => j !== i))}
                 >
-                  <Trash2 size={16} />
-                </IconButton>
+                  <IconButton label={`מחיקת ${title}`} danger>
+                    <Trash2 size={16} />
+                  </IconButton>
+                </ConfirmButton>
               </div>
               {isOpen && (
-                <div className="grid gap-5 border-t border-hairline-soft bg-white p-4 md:grid-cols-2">
+                <div className="grid gap-5 border-t bg-white p-4 md:grid-cols-2">
                   <Fields
                     fields={sub}
                     values={item}
@@ -472,17 +524,13 @@ function Repeater({
           );
         })}
       </ol>
-      <button
-        type="button"
+      <AddButton
+        label={f.itemLabel ?? "פריט"}
         onClick={() => {
           onChange([...list, Object.fromEntries(sub.map((s) => [s.name, emptyValue(s)]))]);
           setOpen((s) => new Set(s).add(list.length));
         }}
-        className="mt-3 inline-flex min-h-10 cursor-pointer items-center gap-1.5 rounded-[10px] border border-dashed border-hairline bg-transparent px-4 text-[14.5px] font-bold text-brand hover:border-brand"
-      >
-        <Plus size={16} aria-hidden />
-        הוספת {f.itemLabel ?? "פריט"}
-      </button>
+      />
     </fieldset>
   );
 }
@@ -495,15 +543,7 @@ function previewUrl(value: string | undefined, legacy: string | undefined) {
   return null;
 }
 
-function ImageInput({
-  value,
-  legacy,
-  onChange,
-}: {
-  value?: string;
-  legacy?: string;
-  onChange: (v: unknown) => void;
-}) {
+function ImageInput({ value, legacy, onChange }: { value?: string; legacy?: string; onChange: (v: unknown) => void }) {
   const fileRef = useRef<HTMLInputElement>(null);
   const [pending, start] = useTransition();
   const toast = useToast();
@@ -511,14 +551,28 @@ function ImageInput({
 
   return (
     <div className="flex flex-wrap items-center gap-4">
-      <div className="flex h-[120px] w-[180px] items-center justify-center overflow-hidden rounded-[10px] border border-hairline bg-surface">
+      <button
+        type="button"
+        onClick={() => fileRef.current?.click()}
+        disabled={pending}
+        aria-label={src ? "החלפת תמונה" : "העלאת תמונה"}
+        className="relative flex h-[130px] w-[200px] cursor-pointer items-center justify-center overflow-hidden rounded-xl border border-dashed bg-muted/60 p-0 transition-colors hover:border-primary/60"
+      >
         {src ? (
           // eslint-disable-next-line @next/next/no-img-element -- תצוגה מקדימה בלבד, מכל מקור
           <img src={src} alt="" className="h-full w-full object-cover" />
         ) : (
-          <ImagePlus size={28} className="text-ink-faint" aria-hidden />
+          <span className="flex flex-col items-center gap-1.5 text-[13px] text-muted-foreground">
+            <ImagePlus size={26} aria-hidden />
+            לחצו להעלאה
+          </span>
         )}
-      </div>
+        {pending && (
+          <span className="absolute inset-0 flex items-center justify-center bg-white/70">
+            <Loader2 className="size-6 animate-spin text-primary" aria-hidden />
+          </span>
+        )}
+      </button>
       <div className="flex flex-col gap-2">
         <input
           ref={fileRef}
@@ -545,24 +599,23 @@ function ImageInput({
             });
           }}
         />
-        <button
+        <Button
           type="button"
+          variant="outline"
           disabled={pending}
           onClick={() => fileRef.current?.click()}
-          className="min-h-10 cursor-pointer rounded-[10px] border-[1.5px] border-brand bg-white px-4 text-[14.5px] font-bold text-brand disabled:opacity-60"
+          className="bg-white"
         >
+          {pending ? <Loader2 className="animate-spin" aria-hidden /> : <Upload aria-hidden />}
           {pending ? "מעלה…" : src ? "החלפת תמונה" : "העלאת תמונה"}
-        </button>
+        </Button>
         {value && (
-          <button
-            type="button"
-            onClick={() => onChange("")}
-            className="min-h-10 cursor-pointer border-none bg-transparent text-start text-[14px] text-danger"
-          >
+          <Button type="button" variant="ghost" onClick={() => onChange("")} className="justify-start text-destructive">
+            <Trash2 aria-hidden />
             הסרת התמונה
-          </button>
+          </Button>
         )}
-        <span className="text-[12.5px] text-ink-faint">JPG / PNG / WebP, עד 10MB</span>
+        <span className="text-[12px] text-muted-foreground">JPG / PNG / WebP, עד 10MB</span>
       </div>
     </div>
   );

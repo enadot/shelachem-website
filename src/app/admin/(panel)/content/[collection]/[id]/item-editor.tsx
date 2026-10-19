@@ -7,6 +7,9 @@ import { deleteItemAction, saveItemAction } from "../../actions";
 import type { CollectionSlug } from "@/lib/admin/collections";
 import type { Values } from "@/lib/admin/fields";
 import { useToast } from "@/components/admin/toast";
+import { Trash2 } from "lucide-react";
+import { Button } from "@/components/admin/ui/button";
+import { ConfirmButton } from "@/components/admin/confirm-button";
 
 export function ItemEditor({
   collection,
@@ -31,23 +34,31 @@ export function ItemEditor({
       onSaved={() => router.refresh()}
       extraActions={
         id && (
-          <button
-            type="button"
-            disabled={deleting}
-            onClick={() => {
-              if (!confirm(`למחוק את ה${singular}? אי אפשר לבטל.`)) return;
+          <ConfirmButton
+            title={`למחוק את ה${singular}?`}
+            description="הפריט יוסר מהאתר. עותק נשמר בגרסאות הקודמות."
+            confirmLabel="מחיקה"
+            destructive
+            onConfirm={() =>
               start(async () => {
                 const res = await deleteItemAction(collection, id);
                 if (res.ok) {
                   toast("נמחק");
                   router.push(`/admin/content/${collection}`);
                 } else toast(res.error ?? "המחיקה נכשלה", "error");
-              });
-            }}
-            className="min-h-11 cursor-pointer border-none bg-transparent px-3 text-[14.5px] font-bold text-danger"
+              })
+            }
           >
-            {deleting ? "מוחק…" : "מחיקה"}
-          </button>
+            <Button
+              type="button"
+              variant="ghost"
+              disabled={deleting}
+              className="text-destructive hover:text-destructive"
+            >
+              <Trash2 aria-hidden />
+              {deleting ? "מוחק…" : "מחיקה"}
+            </Button>
+          </ConfirmButton>
         )
       }
     />

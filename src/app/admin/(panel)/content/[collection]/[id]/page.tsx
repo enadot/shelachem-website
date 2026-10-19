@@ -4,7 +4,9 @@ import { requireSession } from "@/lib/admin/session";
 import { getItem, listRevisions } from "@/lib/admin/content";
 import { COLLECTIONS, isCollection, type CollectionConfig } from "@/lib/admin/collections";
 import { emptyEntity, normalizeEntity } from "@/lib/admin/fields";
+import { ArrowRight, ExternalLink } from "lucide-react";
 import { PageTitle } from "@/components/admin/ui";
+import { Button } from "@/components/admin/ui/button";
 import { ItemEditor } from "./item-editor";
 import { Revisions } from "./revisions";
 
@@ -31,26 +33,27 @@ export default async function ItemPage({ params }: { params: Promise<{ collectio
 
   return (
     <>
-      <Link href={`/admin/content/${collection}`} className="mb-4 inline-block text-[14.5px] font-bold text-brand no-underline">
-        → {config.label}
-      </Link>
+      <Button variant="ghost" size="sm" asChild className="-ms-2 mb-3 text-muted-foreground">
+        <Link href={`/admin/content/${collection}`}>
+          <ArrowRight aria-hidden />
+          {config.label}
+        </Link>
+      </Button>
       <PageTitle
         title={isNew ? "יצירת" : "עריכה:"}
         strong={title}
         actions={
           !isNew && (
-            <a href={config.publicPath(row ?? {})} target="_blank" rel="noopener" className="font-bold text-brand no-underline">
-              צפייה באתר ↗
-            </a>
+            <Button variant="outline" asChild>
+              <a href={config.publicPath(row ?? {})} target="_blank" rel="noopener">
+                <ExternalLink aria-hidden />
+                צפייה באתר
+              </a>
+            </Button>
           )
         }
       />
-      <ItemEditor
-        collection={collection}
-        id={isNew ? null : id}
-        initial={initial}
-        singular={config.singular}
-      />
+      <ItemEditor collection={collection} id={isNew ? null : id} initial={initial} singular={config.singular} />
       {revisions.length > 0 && <Revisions collection={collection} id={id} revisions={revisions} />}
     </>
   );

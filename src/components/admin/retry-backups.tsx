@@ -2,7 +2,7 @@
 
 import { useTransition } from "react";
 import { retryBackupsAction } from "@/app/admin/(panel)/leads/actions";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/admin/ui/button";
 import { useToast } from "@/components/admin/toast";
 
 export function RetryBackupsButton() {
@@ -10,7 +10,7 @@ export function RetryBackupsButton() {
   const toast = useToast();
   return (
     <Button
-      size="sm"
+      variant="destructive"
       disabled={pending}
       onClick={() =>
         start(async () => {

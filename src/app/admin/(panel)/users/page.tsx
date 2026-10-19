@@ -1,10 +1,21 @@
 import { requireAdmin } from "@/lib/admin/session";
 import { listUsers } from "@/lib/admin/users";
 import { formatDate } from "@/lib/admin/format";
-import { Badge, PageTitle, Panel } from "@/components/admin/ui";
-import { CreateUserForm, UserRowActions } from "./users-client";
+import { Badge, PageTitle, initials } from "@/components/admin/ui";
+import { Card } from "@/components/admin/ui/card";
+import { Avatar, AvatarFallback } from "@/components/admin/ui/avatar";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/admin/ui/table";
+import { CreateUserDialog, UserRowActions } from "./users-client";
 
 export const metadata = { title: "משתמשים" };
+
+const roleLabel = (r: "admin" | "editor") => (r === "admin" ? "מנהל" : "עורך אתר");
+
+function Status({ active, mustChangePassword }: { active: boolean; mustChangePassword: boolean }) {
+  if (!active) return <Badge tone="danger">מושבת</Badge>;
+  if (mustChangePassword) return <Badge tone="gold">ממתין לכניסה ראשונה</Badge>;
+  return <Badge tone="ok">פעיל</Badge>;
+}
 
 export default async function UsersPage() {
   const { user: me } = await requireAdmin();
@@ -15,54 +26,61 @@ export default async function UsersPage() {
       <PageTitle
         title="משתמשי"
         strong="לוח הבקרה"
-        description="מנהל רואה הכול, כולל המסך הזה. עורך אתר — תוכן, לידים, שיווק והגדרות, בלי ניהול משתמשים. משתמש חדש מקבל סיסמה זמנית ומחליף אותה בכניסה הראשונה."
+        description="מנהל רואה הכול, כולל המסך הזה. עורך אתר — תוכן, לידים, שיווק והגדרות, בלי ניהול משתמשים."
+        actions={<CreateUserDialog />}
       />
 
-      <Panel title="משתמש חדש" className="mb-6">
-        <CreateUserForm />
-      </Panel>
-
-      <div className="overflow-x-auto rounded-card border border-hairline bg-white">
-        <table className="w-full min-w-[760px] border-collapse text-start text-[15px]">
-          <thead>
-            <tr className="border-b border-hairline bg-surface text-[13px] text-ink-muted">
-              {["שם", "דוא״ל", "כניסה אחרונה", "מצב", "הרשאה ופעולות"].map((h) => (
-                <th key={h} scope="col" className="px-4 py-3 text-start font-bold">
-                  {h}
-                </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
+      <Card className="gap-0 overflow-hidden py-0 shadow-none">
+        <Table>
+          <TableHeader className="bg-muted/60">
+            <TableRow>
+              <TableHead className="ps-5">משתמש</TableHead>
+              <TableHead className="hidden md:table-cell">הרשאה</TableHead>
+              <TableHead className="hidden md:table-cell">כניסה אחרונה</TableHead>
+              <TableHead>מצב</TableHead>
+              <TableHead className="w-12 pe-5">
+                <span className="sr-only">פעולות</span>
+              </TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
             {users.map((u) => (
-              <tr key={u.id} className="border-b border-hairline-soft last:border-none">
-                <td className="whitespace-nowrap px-4 py-3 font-bold">
-                  {u.name}
-                  {u.id === me.id && <span className="ms-2 text-[13px] font-normal text-ink-muted">(את/ה)</span>}
-                </td>
-                <td className="px-4 py-3" dir="ltr">
-                  {u.email}
-                </td>
-                <td className="tnum whitespace-nowrap px-4 py-3 text-ink-muted">
+              <TableRow key={u.id} className={u.active ? undefined : "opacity-60"}>
+                <TableCell className="ps-5">
+                  <div className="flex items-center gap-3">
+                    <Avatar className="size-9">
+                      <AvatarFallback className="bg-secondary text-[12.5px] font-bold text-primary">
+                        {initials(u.name)}
+                      </AvatarFallback>
+                    </Avatar>
+                    <div className="min-w-0">
+                      <div className="font-bold">
+                        {u.name}
+                        {u.id === me.id && (
+                          <span className="ms-1.5 text-[12.5px] font-normal text-muted-foreground">(את/ה)</span>
+                        )}
+                      </div>
+                      <div className="truncate text-[12.5px] text-muted-foreground" dir="ltr">
+                        {u.email}
+                      </div>
+                    </div>
+                  </div>
+                </TableCell>
+                <TableCell className="hidden md:table-cell">{roleLabel(u.role)}</TableCell>
+                <TableCell className="tnum hidden text-muted-foreground md:table-cell">
                   {formatDate(u.lastLoginAt?.toISOString())}
-                </td>
-                <td className="px-4 py-3">
-                  {!u.active ? (
-                    <Badge tone="danger">מושבת</Badge>
-                  ) : u.mustChangePassword ? (
-                    <Badge tone="gold">ממתין לכניסה ראשונה</Badge>
-                  ) : (
-                    <Badge tone="ok">פעיל</Badge>
-                  )}
-                </td>
-                <td className="px-4 py-2">
+                </TableCell>
+                <TableCell>
+                  <Status active={u.active} mustChangePassword={u.mustChangePassword} />
+                </TableCell>
+                <TableCell className="pe-5">
                   <UserRowActions id={u.id} name={u.name} role={u.role} active={u.active} self={u.id === me.id} />
-                </td>
-              </tr>
+                </TableCell>
+              </TableRow>
             ))}
-          </tbody>
-        </table>
-      </div>
+          </TableBody>
+        </Table>
+      </Card>
     </>
   );
 }
