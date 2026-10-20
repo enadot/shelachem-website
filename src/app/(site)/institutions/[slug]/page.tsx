@@ -105,7 +105,7 @@ export default async function InstitutionPage({
         <div className="mx-auto grid max-w-[1240px] items-start gap-10 md:grid-cols-[1fr_1fr] md:gap-20">
           <div>
             <SectionHeading strong="דברו איתנו." className="mb-4 text-[30px] md:mb-6 md:text-[52px]">
-              רוצים שנטפל בשבילכם מול {inst.name}?
+              רוצים ליווי מקצועי מול {inst.name}?
             </SectionHeading>
             <p className="m-0 mb-6 max-w-[440px] text-base leading-relaxed text-ink-secondary md:text-lg">
               בדיקת זכאות ראשונית חינם — בחרו נושא ונחזור אליכם עם תשובה.

@@ -3,7 +3,7 @@ import { Reveal } from "@/components/shared/reveal";
 import { Eyebrow } from "@/components/shared/eyebrow";
 import { ArrowForward } from "@/components/shared/icons";
 
-/** פס שחור/זהב — "כנראה שמגיע לכם הרבה יותר" (designs/homepage-v3.html). */
+/** פס שחור/זהב — "הזכויות שלכם רחבות יותר ממה שחשבתם" (designs/homepage-v3.html). */
 export function GoldBand() {
   return (
     <section className="surface-navy bg-night">
@@ -14,7 +14,7 @@ export function GoldBand() {
             variant="mask"
             className="m-0 mb-3 font-display text-[32px] font-light leading-[1.12] text-white md:mb-4 md:text-[56px] md:leading-[1.04] md:tracking-[-0.02em]"
           >
-            כנראה שמגיע לכם <span className="font-black text-gold">הרבה יותר</span> ממה שאתם
+            ייתכן שהזכויות שלכם <span className="font-black text-gold">רחבות הרבה יותר</span> ממה שאתם
             חושבים.
           </Reveal>
           <p className="m-0 text-[17px] leading-relaxed text-night-text md:text-xl">

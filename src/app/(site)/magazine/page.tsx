@@ -32,7 +32,7 @@ export default async function MagazinePage() {
       <PageHeader
         breadcrumb={[{ label: "בית", href: "/" }, { label: "המגזין" }]}
         title="ידע זה כוח."
-        strong="וכוח זה כסף שמגיע לכם."
+        strong="וכוח זה להכיר את הזכויות שלכם."
         intro="מדריכים, עדכוני חוק וכל מה שצריך לדעת כדי לא לפספס אף זכות — בשפה של בני אדם, לא של פקידים."
         className="border-b-0"
       />
@@ -101,7 +101,7 @@ export default async function MagazinePage() {
             </div>
             <div className="surface-navy relative overflow-hidden rounded-[14px] bg-banner p-6 text-white">
               <div className="relative">
-                <div className="mb-1.5 font-display text-[22px] font-bold">קראתם והתעורר חשד שמגיע לכם?</div>
+                <div className="mb-1.5 font-display text-[22px] font-bold">קראתם ונראה לכם שזה רלוונטי אליכם?</div>
                 <p className="m-0 mb-4 text-[14.5px] leading-relaxed text-white/85">
                   בדיקת זכאות ראשונה חינם — נגיד לכם ביושר אם יש בסיס לתביעה.
                 </p>

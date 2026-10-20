@@ -56,7 +56,7 @@ export function LeadModalProvider({ children }: { children: React.ReactNode }) {
                 <h2 className="relative m-0 font-display text-[28px] font-light leading-[1.15] tracking-[-0.3px] text-white md:text-[32px]">
                   בדיקת זכאות חינם
                   <br />
-                  <span className="font-bold">מגיע לכם לדעת מה מגיע לכם.</span>
+                  <span className="font-bold">כדאי לדעת אילו זכויות פתוחות בפניכם.</span>
                 </h2>
               </DialogTitle>
               <DialogDescription asChild>

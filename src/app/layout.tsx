@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     url: "/",
     title: site.name,
     description:
-      "מגיע לכם לדעת מה מגיע לכם. בדיקת זכאות חינם — שכר טרחה רק בהצלחה.",
+      "בודקים אילו זכויות רלוונטיות למצבכם. בדיקת זכאות חינם — שכר טרחה רק בהצלחה.",
   },
   twitter: { card: "summary_large_image" },
 };
