@@ -60,7 +60,7 @@
 
 \* `user_data` = `sha256_phone_number` / `sha256_email_address`, רק כשהמתג Enhanced Conversions דלוק בלוח.
 
-`link_location` הוא האזור שבו נלחץ הקישור: `header`, `footer`, `mobile-cta-bar`,
+`link_location` הוא האזור שבו נלחץ הקישור: `header`, `footer`,
 `dialog`, `content` — או ערך מפורש מ-`data-track-location="..."` על אלמנט עוטף.
 קישורי טלפון/וואטסאפ חדשים נמדדים אוטומטית, בלי לגעת בקוד.
 

@@ -101,7 +101,7 @@ export default async function InstitutionPage({
         id="lead-form"
         className="scroll-mt-24 px-6 py-14 md:px-[clamp(24px,6.7vw,96px)] md:py-24"
       >
-        {/* id="lead-form" — כך MobileCtaBar מתקפל כשהטופס עצמו על המסך */}
+        {/* id="lead-form" — עוגן לקישורים ישירים לטופס */}
         <div className="mx-auto grid max-w-[1240px] items-start gap-10 md:grid-cols-[1fr_1fr] md:gap-20">
           <div>
             <SectionHeading strong="דברו איתנו." className="mb-4 text-[30px] md:mb-6 md:text-[52px]">

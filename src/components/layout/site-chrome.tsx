@@ -5,7 +5,6 @@ import { SettingsProvider } from "@/components/settings-provider";
 import { ContactModalProvider } from "@/components/layout/contact-modal-context";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
-import { MobileCtaBar } from "@/components/layout/mobile-cta-bar";
 import { LeadModalProvider } from "@/components/shared/lead-modal";
 import { MarketingScripts } from "@/components/marketing/marketing-scripts";
 import { MarketingTracker } from "@/components/marketing/marketing-tracker";
@@ -62,7 +61,6 @@ export async function SiteChrome({ children }: { children: React.ReactNode }) {
             {children}
           </main>
           <Footer />
-          <MobileCtaBar />
           <CookieConsent />
         </ContactModalProvider>
       </LeadModalProvider>
