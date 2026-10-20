@@ -15,8 +15,8 @@ export const metadata: Metadata = pageMetadata({
 });
 
 const reassurance = [
-  { value: "13", label: "שנות ניסיון מול המוסדות" },
-  { value: "10,059", label: "לקוחות שליווינו עד לקבלת הזכות" },
+  { value: "מאז 2013", label: "ניסיון מול המוסדות" },
+  { value: "עשרות אלפי", label: "תיקים שצלחו איתנו" },
   { value: "0 ₪", label: "מראש — שכר טרחה רק בהצלחה" },
 ];
 

@@ -6,7 +6,9 @@ export type Stat = { value: string; label: string };
  * רצועת מספרים — ספרות גדולות במשקל דק, מופרדות בקווי שיער. המספרים סטטיים:
  * מונה שרץ מאפס הוא סימן היכר של תבנית, ומספר אמון צריך להיקרא מיד.
  *
- * `<bdi dir="ltr">` שומר על המספר וסימנו כיחידה אחת (`+13`, `87%`, `0 ₪`).
+ * `<bdi dir="auto">` שומר על ערך וסימנו כיחידה אחת (`75%`, `0 ₪`) — ספרות בלבד
+ * נקראות LTR, וערך מילולי ("עשרות אלפי", "מאז 2013") נשאר RTL בסדר המילים הנכון.
+ * רצועה עם ערך מילולי כלשהו מקבלת גופן קטן יותר — מילים רחבות מספרות.
  */
 export function StatStrip({
   stats,
@@ -19,6 +21,7 @@ export function StatStrip({
 }) {
   const dark = tone === "dark";
   const line = dark ? "border-white/20" : "border-hairline";
+  const wordy = stats.some((st) => /[\u0590-\u05FF]/.test(st.value));
   const cols = stats.length === 4 ? "md:grid-cols-4" : stats.length === 2 ? "md:grid-cols-2" : "md:grid-cols-3";
   return (
     <ul
@@ -33,9 +36,10 @@ export function StatStrip({
           )}
         >
           <bdi
-            dir="ltr"
+            dir="auto"
             className={cn(
-              "tnum shrink-0 font-display text-[40px] font-light leading-none md:text-[72px] md:tracking-[-0.02em]",
+              "tnum shrink-0 font-display text-[40px] font-light md:tracking-[-0.02em]",
+              wordy ? "leading-[0.95] md:text-[56px]" : "leading-none md:text-[72px]",
               dark ? "text-white" : "text-ink",
             )}
           >

@@ -350,7 +350,7 @@ export async function renderHomeOgImage() {
             alignItems: "flex-end",
           }}
         >
-          <GoldBadge text={`מאז ${site.foundedYear} · ${site.stats.clients} לקוחות`} fontSize={24} />
+          <GoldBadge text={`מאז ${site.foundedYear} · ${site.stats.cases}`} fontSize={24} />
           <RtlText
             text="המקצוענים שמנצחים את הבירוקרטיה בדרך לזכויות"
             style={{

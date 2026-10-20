@@ -7,7 +7,7 @@ import { site } from "@/lib/config";
 
 const stats = [
   { value: String(site.foundedYear), label: "שנת הקמה" },
-  { value: site.stats.clients, label: "לקוחות שליווינו" },
+  { value: "עשרות אלפי", label: "תיקים שצלחו איתנו" },
   { value: "0 ₪", label: "מראש — שכר טרחה רק בהצלחה" },
 ];
 
@@ -31,7 +31,7 @@ export function Story() {
             </Reveal>
             <Reveal>
               <p className="m-0 mb-6 max-w-[520px] text-base leading-relaxed text-ink-secondary md:mb-8 md:text-lg">
-                {`ליווינו ${site.stats.clients} לקוחות מול ביטוח לאומי, מס הכנסה, קרנות הפנסיה וחברות הביטוח.`}{" "}
+                {`${site.stats.casesLong} מול ביטוח לאומי, מס הכנסה, קרנות הפנסיה וחברות הביטוח.`}{" "}
                 <b className="text-ink">הזכות לא שייכת לאף מגזר — היא שלכם.</b>
               </p>
               <Link
@@ -64,7 +64,7 @@ export function Story() {
               key={st.label}
               className="flex items-baseline justify-between gap-4 border-b border-hairline py-5 md:flex-col md:items-start md:justify-start md:gap-3 md:border-b-0 md:py-8 md:[&:not(:first-child)]:border-r md:[&:not(:first-child)]:pr-8"
             >
-              <span className="tnum font-display text-[44px] font-light leading-none text-ink md:text-[80px] md:tracking-[-0.02em]">
+              <span className="tnum font-display text-[44px] font-light leading-[0.95] text-ink md:text-[64px] md:tracking-[-0.02em]">
                 {st.value}
               </span>
               <span className="text-[15px] text-ink-muted md:text-base">{st.label}</span>
