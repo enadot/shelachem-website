@@ -368,8 +368,7 @@ export default async function ServicePage({
 
         {/* sidebar */}
         <aside className="flex flex-col gap-5 md:sticky md:top-24">
-          {/* id="lead-form" — MobileCtaBar מסתתר כשהטופס נראה, ובלי ה-id הזה הבר
-              היה קבוע לנצח דווקא בעמודים שנושאים את התנועה האורגנית. */}
+          {/* id="lead-form" — עוגן לקישורים ישירים לטופס. */}
           <div
             id="lead-form"
             className="flex scroll-mt-24 flex-col gap-4 rounded-2xl border border-hairline bg-white p-6 md:p-7"

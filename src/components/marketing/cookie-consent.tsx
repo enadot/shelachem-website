@@ -11,7 +11,7 @@ const noopSubscribe = () => () => {};
 /**
  * באנר עוגיות — מוצג רק כשבלוח הבקרה הופעלה "דרישת הסכמה" ועוד לא נבחר כלום,
  * או כשהגולש פותח אותו מחדש מהקישור "הגדרות עוגיות" בפוטר.
- * לא חוסם את האתר: יושב בתחתית, מעל בר ה-CTA של המובייל.
+ * לא חוסם את האתר: יושב בתחתית המסך.
  */
 export function CookieConsent() {
   const consent = useConsent();
@@ -37,7 +37,7 @@ export function CookieConsent() {
     <section
       role="region"
       aria-label="הגדרות עוגיות"
-      className="fixed inset-x-3 bottom-[76px] z-50 mx-auto flex max-w-[720px] flex-col gap-4 rounded-card border border-hairline bg-white p-5 text-ink shadow-[0_18px_50px_rgba(4,8,40,0.22)] md:bottom-6 md:flex-row md:items-center md:gap-6"
+      className="fixed inset-x-3 bottom-3 z-50 mx-auto flex max-w-[720px] flex-col gap-4 rounded-card border border-hairline bg-white p-5 text-ink shadow-[0_18px_50px_rgba(4,8,40,0.22)] md:bottom-6 md:flex-row md:items-center md:gap-6"
     >
       <p className="m-0 flex-1 text-[15.5px] leading-relaxed text-ink-secondary">
         אנחנו משתמשים בעוגיות למדידה ולשיפור הפרסום שלנו. אפשר לאשר, או להמשיך רק עם
