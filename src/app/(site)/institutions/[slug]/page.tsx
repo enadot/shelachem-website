@@ -60,9 +60,9 @@ export default async function InstitutionPage({
       {/* approach */}
       <section className="px-6 py-14 md:px-[clamp(24px,6.7vw,96px)] md:py-24">
         <div className="mx-auto max-w-[1240px]">
-          <Eyebrow index="01">השיטה</Eyebrow>
-          <SectionHeading strong="עובדים" className="mb-10 mt-6 text-[30px] md:mb-14 md:mt-8 md:text-[52px]">
-            איך אנחנו
+          <Eyebrow index="01">איך זה עובד?</Eyebrow>
+          <SectionHeading strong="ועד ההחלטה" className="mb-10 mt-6 text-[30px] md:mb-14 md:mt-8 md:text-[52px]">
+            מהאפיון הראשון
           </SectionHeading>
           <NumberedSteps steps={inst.approach} />
         </div>
