@@ -66,7 +66,7 @@ export function LeadModalProvider({ children }: { children: React.ReactNode }) {
                 </p>
               </DialogDescription>
               <ul className="relative m-0 mt-5 flex flex-wrap gap-x-5 gap-y-2 p-0 text-[13.5px] font-bold text-white/90">
-                {["ללא עלות", "שכר טרחה רק בהצלחה", "חוזרים תוך יום עסקים"].map((item) => (
+                {["דיסקרטיות מלאה", "שכר טרחה בהצלחה בלבד", "חוזרים תוך יום עסקים"].map((item) => (
                   <li key={item} className="flex list-none items-center gap-1.5">
                     <Check size={14} />
                     {item}

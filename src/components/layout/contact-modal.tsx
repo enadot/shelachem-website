@@ -68,7 +68,7 @@ export function ContactModal({ onClose }: { onClose: () => void }) {
           />
         </div>
         <div className="mt-[22px] text-center text-sm text-ink-faint">
-          בדיקת הזכאות — ללא עלות וללא התחייבות
+          דיסקרטיות מלאה · שכר טרחה בהצלחה בלבד
         </div>
       </DialogContent>
     </Dialog>
