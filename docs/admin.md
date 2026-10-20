@@ -35,7 +35,12 @@
 ## הקמה (פעם אחת)
 1. Vercel ▸ Storage: לחבר **Neon** ו-**Blob** לפרויקט. המשתנים `DATABASE_URL` ו-`BLOB_READ_WRITE_TOKEN` נוספים לבד.
 2. BARAM Leads ▸ הגדרות ▸ "API ו-MCP" ▸ מפתח חדש, ללקוח "שלכם", קריאה וכתיבה. לשמור ב-Vercel בשם `BARAM_LEADS_API_KEY`.
-3. מיגרציות ו-seed רצים **אוטומטית בבניית production** (`scripts/vercel-db.mjs`, לפני `next build`). שניהם אידמפוטנטיים: התוכן המקומי נכנס רק ל-collection ריק.
+3. מיגרציות ו-seed רצים **אוטומטית בבניית production** (`scripts/vercel-db.mjs`, לפני `next build`). שניהם אידמפוטנטיים: התוכן המקומי נטען במלואו רק ל-collection ריק.
+   **עדכוני תוכן מהריפו (סנכרון):** שינוי ב-`src/lib/content/local/` מגיע ל-production בבנייה הבאה, אבל רק לפריטים שלא נערכו בלוח אף פעם (`updated_by = 'seed'`). לפני כל עדכון כזה נשמרת גרסה קודמת (`content_revisions`, `saved_by = 'seed'`), כך שאפשר לשחזר מ"גרסאות קודמות".
+   - פריט שנערך בלוח לא נדרס לעולם. כדי להחיל עליו את נוסח הריפו, עורכים אותו בלוח.
+   - פריט חדש בריפו לא נוסף אוטומטית ל-collection שכבר יש בו תוכן, ופריט שנמחק בלוח לא חוזר. מוסיפים אותו בלוח.
+   - פריט שנמחק מהריפו לא נמחק מהמסד. מוחקים אותו בלוח.
+   יומן הבנייה מסכם כל collection ("עודכנו N פריטים מהריפו", "חדש בריפו — לא נוסף אוטומטית", "נמחק בלוח", "קיים במסד ולא בריפו").
    המנהל הראשון נוצר לפי משתני הסביבה `ADMIN_BOOTSTRAP_EMAIL` ו-`ADMIN_BOOTSTRAP_NAME`. הסיסמה הזמנית שלו מודפסת **פעם אחת** ביומן הבנייה (Vercel ▸ Deployments ▸ Build Logs, לחפש "סיסמה זמנית"), ומוחלפת בכניסה הראשונה.
    מקומית, מול מסד אחר: `DATABASE_URL=... npm run db:migrate && npm run db:seed -- --admin-email you@example.com --admin-name "שם"`.
 4. Redeploy ב-Vercel, כדי שהמשתנים ייכנסו לתוקף.

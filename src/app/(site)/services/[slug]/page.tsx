@@ -18,8 +18,8 @@ import { faqPageNode, serviceNode } from "@/lib/schema";
 import { site } from "@/lib/config";
 
 const whyUs = [
-  { value: "13", label: "שנות ניסיון מול רשות המסים וביטוח לאומי" },
-  { value: "10,059", label: "לקוחות שליווינו עד לקבלת הזכות" },
+  { value: "מאז 2013", label: "ניסיון מול רשות המסים וביטוח לאומי" },
+  { value: "עשרות אלפי", label: "תיקים שצלחו איתנו" },
   { value: "0 ₪", label: "מראש — שכר טרחה רק בהצלחה" },
 ];
 
@@ -281,8 +281,8 @@ export default async function ServicePage({
               {whyUs.map((w) => (
                 <div key={w.label} className="flex items-baseline gap-4 border-b border-hairline py-3.5">
                   <dt className="order-2 text-[15px] text-ink-secondary">{w.label}</dt>
-                  <dd className="m-0 min-w-[72px]">
-                    <bdi dir="ltr" className="tnum font-display text-[26px] font-light text-ink">
+                  <dd className="m-0 min-w-[72px] shrink-0">
+                    <bdi dir="auto" className="tnum whitespace-nowrap font-display text-[26px] font-light text-ink">
                       {w.value}
                     </bdi>
                   </dd>

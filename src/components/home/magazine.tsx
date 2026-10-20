@@ -18,7 +18,7 @@ export function Magazine({ articles }: { articles: Article[] }) {
             variant="mask"
             className="m-0 mb-3 mt-6 font-display text-[32px] font-light leading-[1.1] text-ink md:mt-8 md:text-[56px] md:leading-[1.02] md:tracking-[-0.02em]"
           >
-            ידע זה כוח. <span className="font-black">וכוח זה כסף שמגיע לכם.</span>
+            ידע זה כוח. <span className="font-black">וכוח זה להכיר את הזכויות שלכם.</span>
           </Reveal>
           <p className="m-0 mb-6 max-w-[760px] text-base text-ink-muted md:mb-2 md:text-lg">
             מדריכים ועדכוני חוק — בשפה של בני אדם, לא של פקידים.

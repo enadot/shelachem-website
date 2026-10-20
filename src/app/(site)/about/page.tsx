@@ -15,11 +15,24 @@ export const metadata: Metadata = pageMetadata({
     "חברת שלכם הוקמה ב-2013 מתוך שליחות: לפשט את הבירוקרטיה הרפואית עבור כל אזרח בישראל. הכירו את הדרך, הערכים והצוות.",
 });
 
-const milestones = [
-  { year: "2013", text: "הקמת החברה — ליווי מימוש זכויות למגזר הדתי." },
-  { year: "2017", text: "הרחבת הפעילות לכלל אזרחי המדינה והקמת מערך רפואי פנימי." },
-  { year: "2021", text: "חציית רף 10,000 לקוחות מלווים וצוות של 100+ מומחים." },
-  { year: "היום", text: "מהחברות המובילות בישראל במימוש זכויות רפואיות." },
+/** התחייבויות ללקוח — במקום ציר זמן של אבני דרך (בלי מספרים, לבקשת הלקוח). */
+const commitments = [
+  {
+    title: "תמיד תדעו איפה התיק עומד",
+    text: "מסבירים כל שלב בתהליך, בשפה פשוטה — בלי אותיות קטנות.",
+  },
+  {
+    title: "מקשיבים לסיפור, לא רק למסמכים",
+    text: "מאחורי כל תיק יש אדם ומשפחה, ואנחנו פוגשים אתכם בגובה העיניים.",
+  },
+  {
+    title: "ליווי עד הסוף",
+    text: "מהאפיון הראשון ועד ההחלטה — ואם צריך, ממשיכים ללוות אתכם עד למיצוי האמת.",
+  },
+  {
+    title: "בלי תשלום מראש",
+    text: "שכר טרחה רק בהצלחה. אנחנו מצליחים רק כשאתם מצליחים.",
+  },
 ];
 
 const values = [
@@ -37,22 +50,33 @@ const values = [
   },
   {
     title: "מקצועיות ללא פשרות",
-    desc: "מעל 100 מומחים ורופאים שמכירים את הוועדות מבפנים ובונים כל תיק ברמה הגבוהה ביותר.",
+    desc: "רופאים ומומחי זכויות שמכירים את הוועדות מבפנים ובונים איתכם כל תיק ברמה הגבוהה ביותר.",
   },
 ];
 
 const stats = [
-  { value: "+13", label: "שנות ניסיון במימוש זכויות" },
-  { value: "+100", label: "מומחים ורופאים בצוות" },
-  { value: "10,000+", label: "לקוחות שליווינו להצלחה" },
+  { value: "מאז 2013", label: "ניסיון במימוש זכויות רפואיות" },
+  { value: "בפיקוח רפואי", label: "צוות רופאים ומומחי זכויות בהובלת מנהל רפואי" },
+  { value: "עשרות אלפי", label: "תיקים שצלחו איתנו" },
 ];
 
+/** אותה שיטה בשלושה שלבים כמו בעמוד ביטוח לאומי — בניסוח כללי לכל הגופים. */
 const steps = [
-  { title: "שיחת היכרות חינם", description: "מספרים לנו על המצב הרפואי — ואנחנו בודקים זכאות ראשונית, ללא עלות." },
-  { title: "בדיקה רפואית מקיפה", description: "רופאי החברה עוברים על התיק הרפואי ומאתרים כל זכות אפשרית." },
-  { title: "בניית התיק והגשה", description: "אנחנו אוספים מסמכים, ממלאים טפסים ומגישים לכל הגורמים." },
-  { title: "ליווי לוועדות", description: "הכנה אישית לוועדה הרפואית וליווי צמוד עד להחלטה." },
-  { title: "הכסף אצלכם", description: "קצבה, מענק או החזר — ורק אז משולם שכר הטרחה." },
+  {
+    title: "אפיון מדויק של המצב הרפואי",
+    description:
+      "בפיקוח המנהל הרפואי שלנו מבצעים אפיון מקיף ומדויק של המצב הבריאותי והתפקודי שלכם — כדי לבחון אילו זכויות רלוונטיות למצבכם.",
+  },
+  {
+    title: "בניית תיק מקיף",
+    description:
+      "צוות המומחים שלנו בונה עבורכם תיק רפואי מסודר, ברור ומותאם לדרישות הגופים הרלוונטיים — כך שהמצב שלכם מוצג במלואו.",
+  },
+  {
+    title: "ליווי אישי לאורך כל הדרך",
+    description:
+      "מנהלת תיק אישית מלווה אתכם עד סיום התהליך, כולל הכוונה לקראת הוועדות הרפואיות. ואם ההחלטה לא משקפת את מצבכם — נמשיך ללוות אתכם עד למיצוי האמת.",
+  },
 ];
 
 const headingClass =
@@ -81,7 +105,7 @@ export default function AboutPage() {
         </a>
       </PageHeader>
 
-      {/* story + timeline */}
+      {/* story + commitments */}
       <section className="px-6 py-14 md:px-[clamp(24px,6.7vw,96px)] md:py-24">
         <div className="mx-auto max-w-[1240px]">
           <Eyebrow index="01">הסיפור שלנו</Eyebrow>
@@ -90,19 +114,17 @@ export default function AboutPage() {
               <h2 className={headingClass}>
                 מ-2013 ועד היום: <span className="font-black">שליחות אחת.</span>
               </h2>
-              <ol className="m-0 mt-8 list-none border-t border-hairline p-0 md:mt-12">
-                {milestones.map((ms) => (
-                  <li
-                    key={ms.year}
-                    className="grid grid-cols-[88px_1fr] items-baseline gap-4 border-b border-hairline py-5 md:grid-cols-[120px_1fr]"
-                  >
-                    <span className="tnum font-display text-[28px] font-light leading-none text-brand md:text-[36px]">
-                      {ms.year}
+              <h3 className="m-0 mt-8 text-sm font-bold text-brand md:mt-12">ההתחייבות שלנו אליכם</h3>
+              <ul className="m-0 mt-4 list-none border-t border-hairline p-0">
+                {commitments.map((c) => (
+                  <li key={c.title} className="border-b border-hairline py-5">
+                    <span className="block font-display text-[22px] font-black leading-tight text-ink md:text-[26px]">
+                      {c.title}
                     </span>
-                    <span className="text-base leading-relaxed text-ink-secondary">{ms.text}</span>
+                    <span className="mt-1.5 block text-base leading-relaxed text-ink-secondary">{c.text}</span>
                   </li>
                 ))}
-              </ol>
+              </ul>
             </div>
             <div className="flex flex-col gap-5 text-[17px] leading-[1.75] text-ink-secondary md:pt-2 md:text-[19px]">
               <p className="m-0">
@@ -117,9 +139,9 @@ export default function AboutPage() {
                 כלל אזרחי המדינה.
               </p>
               <p className="m-0">
-                מאחורי כל תיק עומד צוות של <b className="text-ink">מעל 100 מומחים ורופאים</b>:
-                יועצים רפואיים, מומחי ביטוח לאומי ומס הכנסה, ומלווים אישיים שמכירים את הוועדות
-                מבפנים. אנחנו לא מתחילים לגבות שקל עד שאתם מקבלים תוצאה.
+                מאחורי כל תיק עומד <b className="text-ink">צוות של רופאים ומומחי זכויות</b>, בפיקוח
+                מנהל רפואי: יועצים רפואיים, מומחי ביטוח לאומי ומס הכנסה, ומלווים אישיים שמכירים את
+                הוועדות מבפנים. אנחנו לא מתחילים לגבות שקל עד שאתם מקבלים תוצאה.
               </p>
             </div>
           </div>
@@ -129,7 +151,7 @@ export default function AboutPage() {
       {/* stats */}
       <section className="surface-navy bg-night px-6 py-14 text-white md:px-[clamp(24px,6.7vw,96px)] md:py-20">
         <div className="mx-auto max-w-[1240px]">
-          <Eyebrow index="02" tone="dark">במספרים</Eyebrow>
+          <Eyebrow index="02" tone="dark">בקצרה</Eyebrow>
           <StatStrip stats={stats} tone="dark" className="mt-8 md:mt-10" />
         </div>
       </section>
@@ -164,10 +186,10 @@ export default function AboutPage() {
         <div className="mx-auto max-w-[1240px]">
           <Eyebrow index="04">התהליך</Eyebrow>
           <h2 className={`${headingClass} mt-6 md:mt-8`}>
-            איך זה עובד — <span className="font-black">5 שלבים</span>
+            איך זה עובד — <span className="font-black">3 שלבים</span>
           </h2>
           <p className="m-0 mb-10 mt-4 max-w-[620px] text-[17px] leading-relaxed text-ink-secondary md:mb-14 md:text-lg">
-            מהשיחה הראשונה ועד הכסף בחשבון — אתם תמיד יודעים איפה התיק עומד ומה השלב הבא.
+            מהאפיון הראשון ועד ההחלטה — אתם תמיד יודעים איפה התיק עומד ומה השלב הבא.
           </p>
           <NumberedSteps steps={steps} />
         </div>

@@ -14,7 +14,7 @@ export function FinalCta() {
           >
             בואו לבדוק
             <br />
-            מה מגיע לכם.
+            את הזכויות שלכם.
           </Reveal>
           <p className="m-0 text-base text-on-royal-muted md:text-xl">
             נחזור אליכם היום. בלי עלות ובלי התחייבות.

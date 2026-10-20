@@ -60,9 +60,9 @@ export default async function InstitutionPage({
       {/* approach */}
       <section className="px-6 py-14 md:px-[clamp(24px,6.7vw,96px)] md:py-24">
         <div className="mx-auto max-w-[1240px]">
-          <Eyebrow index="01">השיטה</Eyebrow>
-          <SectionHeading strong="עובדים" className="mb-10 mt-6 text-[30px] md:mb-14 md:mt-8 md:text-[52px]">
-            איך אנחנו
+          <Eyebrow index="01">איך זה עובד?</Eyebrow>
+          <SectionHeading strong="ועד ההחלטה" className="mb-10 mt-6 text-[30px] md:mb-14 md:mt-8 md:text-[52px]">
+            מהאפיון הראשון
           </SectionHeading>
           <NumberedSteps steps={inst.approach} />
         </div>
@@ -105,7 +105,7 @@ export default async function InstitutionPage({
         <div className="mx-auto grid max-w-[1240px] items-start gap-10 md:grid-cols-[1fr_1fr] md:gap-20">
           <div>
             <SectionHeading strong="דברו איתנו." className="mb-4 text-[30px] md:mb-6 md:text-[52px]">
-              רוצים שנטפל בשבילכם מול {inst.name}?
+              רוצים ליווי מקצועי מול {inst.name}?
             </SectionHeading>
             <p className="m-0 mb-6 max-w-[440px] text-base leading-relaxed text-ink-secondary md:text-lg">
               בדיקת זכאות ראשונית חינם — בחרו נושא ונחזור אליכם עם תשובה.

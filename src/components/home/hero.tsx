@@ -39,7 +39,7 @@ export async function Hero() {
           <div>
             <Entrance>
               <span className="badge-gold px-[18px] pb-1.5 pt-[7px] text-base md:px-[26px] md:pb-2 md:pt-[9px] md:text-[19px]">
-                מאז {site.foundedYear} · {site.stats.clients} לקוחות
+                מאז {site.foundedYear} · {site.stats.cases}
               </span>
             </Entrance>
             {/* בלי Entrance — ה-h1 הוא אלמנט ה-LCP ואסור שיהיה תלוי בהידרציה */}
