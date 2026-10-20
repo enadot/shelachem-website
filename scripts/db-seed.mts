@@ -1,6 +1,7 @@
 /**
  * טוען למסד את התוכן ההתחלתי מהריפו (src/lib/content/local) ואת הגדרות ברירת
- * המחדל, ויוצר מנהל ראשון. אידמפוטנטי: collection שכבר יש בו פריטים לא נדרס,
+ * המחדל, ויוצר מנהל ראשון. אידמפוטנטי: collection ריק נטען במלואו; ב-collection
+ * שכבר יש בו פריטים רק מסנכרנים פריטים שלא נערכו בלוח (ראו "סנכרון" למטה);
  * ומשתמש שכבר קיים לא נוצר שוב.
  *
  *   DATABASE_URL=... npm run db:seed -- --admin-email you@example.com --admin-name "שם"
@@ -8,7 +9,7 @@
 import { randomUUID } from "node:crypto";
 import postgres from "postgres";
 import { drizzle } from "drizzle-orm/postgres-js";
-import { count, eq } from "drizzle-orm";
+import { and, count, eq, inArray, sql } from "drizzle-orm";
 import * as schema from "../src/db/schema";
 import { hashPassword, temporaryPassword } from "../src/lib/admin/password";
 import { faqs } from "../src/lib/content/local/faqs";
@@ -29,8 +30,8 @@ const arg = (name: string) => {
   return i > -1 ? process.argv[i + 1] : undefined;
 };
 
-const sql = postgres(url, { max: 1 });
-const db = drizzle(sql, { schema });
+const client = postgres(url, { max: 1 });
+const db = drizzle(client, { schema });
 
 /**
  * בתוכן המקומי השדה `image` הוא נתיב סטטי (/images/...). בעורך הוא נשמר ב-`image_file`
@@ -55,13 +56,16 @@ const COLLECTIONS: Record<string, readonly unknown[]> = {
   services,
 };
 
+/** collections שכבר היו בהם פריטים — רק בהם מריצים סנכרון (ראו למטה). */
+const existing: string[] = [];
+
 for (const [collection, items] of Object.entries(COLLECTIONS)) {
   const [{ n }] = await db
     .select({ n: count() })
     .from(schema.contentItems)
     .where(eq(schema.contentItems.collection, collection));
   if (n > 0) {
-    console.log(`  = ${collection}: כבר יש ${n} פריטים — מדלג`);
+    existing.push(collection);
     continue;
   }
   await db.insert(schema.contentItems).values(
@@ -77,6 +81,122 @@ for (const [collection, items] of Object.entries(COLLECTIONS)) {
     }),
   );
   console.log(`  + ${collection}: ${items.length} פריטים`);
+}
+
+/**
+ * סנכרון: תיקוני תוכן בריפו מגיעים גם ל-collection שכבר נטען. מעדכנים רק שורה
+ * שקיימת ושאף אחד לא ערך בלוח (`updated_by = 'seed'`), ורק אם התוכן שונה. לפני
+ * כל עדכון נשמרת גרסה קודמת. שורות שנערכו בלוח לא נוגעים בהן; פריט שנמחק בלוח
+ * לא חוזר; פריט חדש בריפו לא נוסף אוטומטית (אולי נמחק בלוח בכוונה) — רק מדווח.
+ * אידמפוטנטי: בהרצה השנייה אין מה לעדכן.
+ */
+const SEED = "seed";
+/** כמו בלוח (`src/lib/admin/content.ts`): כמה גרסאות קודמות שומרים לכל פריט. */
+const KEEP_REVISIONS = 20;
+
+/** JSON עם מפתחות ממוינים — השוואה יציבה מול jsonb (שלא שומר על סדר המפתחות). */
+function canonical(value: unknown): string {
+  return JSON.stringify(value, (_key, v: unknown) =>
+    v && typeof v === "object" && !Array.isArray(v)
+      ? Object.fromEntries(Object.entries(v).sort(([a], [b]) => (a < b ? -1 : a > b ? 1 : 0)))
+      : v,
+  );
+}
+
+const contentItems = schema.contentItems;
+const revisions = schema.contentRevisions;
+
+for (const collection of existing) {
+  const local = COLLECTIONS[collection].map((raw, position) => {
+    const item = raw as Record<string, unknown>;
+    // אותו מיפוי כמו בהכנסה; הלוך-חזור ב-JSON מסיר undefined, כמו שקורה בשמירה ל-jsonb.
+    const data = JSON.parse(JSON.stringify(toRow(item))) as Record<string, unknown>;
+    return { id: item.id == null ? null : String(item.id), data, position };
+  });
+
+  const summary = await db.transaction(async (tx) => {
+    const rows = await tx
+      .select({ id: contentItems.id, data: contentItems.data, position: contentItems.position, updatedBy: contentItems.updatedBy })
+      .from(contentItems)
+      .where(eq(contentItems.collection, collection))
+      .for("update");
+    const byId = new Map(rows.map((r) => [r.id, r]));
+    const updated: string[] = [];
+    const reordered: string[] = [];
+    const editedInAdmin: string[] = [];
+    const notInDb: string[] = [];
+    let noId = 0;
+
+    for (const item of local) {
+      // בלי id אי אפשר להתאים לשורה (בהכנסה הוא מקבל UUID אקראי).
+      if (!item.id) {
+        noId++;
+        continue;
+      }
+      const row = byId.get(item.id);
+      if (!row) {
+        notInDb.push(item.id);
+        continue;
+      }
+      const same = canonical(row.data) === canonical(item.data);
+      if (row.updatedBy !== SEED) {
+        if (!same) editedInAdmin.push(item.id);
+        continue;
+      }
+      const where = and(eq(contentItems.collection, collection), eq(contentItems.id, item.id), eq(contentItems.updatedBy, SEED));
+      if (!same) {
+        await tx.insert(revisions).values({ collection, itemId: item.id, data: row.data, savedBy: SEED });
+        await tx.execute(sql`
+          delete from ${revisions} where ${revisions.collection} = ${collection} and ${revisions.itemId} = ${item.id}
+          and ${revisions.id} not in (
+            select ${revisions.id} from ${revisions}
+            where ${revisions.collection} = ${collection} and ${revisions.itemId} = ${item.id}
+            order by ${revisions.savedAt} desc, ${revisions.id} desc limit ${KEEP_REVISIONS}
+          )`);
+        await tx
+          .update(contentItems)
+          .set({ data: item.data, position: item.position, updatedAt: new Date(), updatedBy: SEED })
+          .where(where);
+        updated.push(item.id);
+      } else if (row.position !== item.position) {
+        // רק הסדר השתנה בריפו — אין צורך בגרסה קודמת.
+        await tx.update(contentItems).set({ position: item.position }).where(where);
+        reordered.push(item.id);
+      }
+    }
+
+    const localIds = new Set(local.map((i) => i.id));
+    const notInRepo = rows.filter((r) => r.updatedBy === SEED && !localIds.has(r.id)).map((r) => r.id);
+    return { total: rows.length, updated, reordered, editedInAdmin, notInDb, notInRepo, noId };
+  });
+
+  const { total, updated, reordered, editedInAdmin, notInDb, notInRepo, noId } = summary;
+  // פריט שחסר במסד ויש לו גרסאות קודמות — כנראה נמחק בלוח (מחיקה שומרת גרסה).
+  const deletedInAdmin = new Set(
+    notInDb.length
+      ? (
+          await db
+            .selectDistinct({ id: revisions.itemId })
+            .from(revisions)
+            .where(and(eq(revisions.collection, collection), inArray(revisions.itemId, notInDb)))
+        ).map((r) => r.id)
+      : [],
+  );
+  const newInRepo = notInDb.filter((id) => !deletedInAdmin.has(id));
+  const notes = [
+    editedInAdmin.length ? `${editedInAdmin.length} נערכו בלוח — לא נגע` : "",
+    reordered.length ? `${reordered.length} סודרו מחדש` : "",
+  ].filter(Boolean);
+  const head = updated.length
+    ? `  ~ ${collection}: עודכנו ${updated.length} פריטים מהריפו`
+    : `  = ${collection}: ${total} פריטים, אין שינויים מהריפו`;
+  console.log(head + (notes.length ? ` (${notes.join(", ")})` : ""));
+  if (updated.length) console.log(`      עודכנו: ${updated.join(", ")}`);
+  if (editedInAdmin.length) console.log(`      נערכו בלוח (שונים מהריפו): ${editedInAdmin.join(", ")}`);
+  if (newInRepo.length) console.log(`      חדש בריפו — לא נוסף אוטומטית (להוסיף בלוח): ${newInRepo.join(", ")}`);
+  if (deletedInAdmin.size) console.log(`      נמחק בלוח — לא נוסף מחדש: ${[...deletedInAdmin].join(", ")}`);
+  if (notInRepo.length) console.log(`      קיים במסד ולא בריפו (לא נמחק): ${notInRepo.join(", ")}`);
+  if (noId) console.log(`      ${noId} פריטים בריפו בלי id — אי אפשר לסנכרן`);
 }
 
 const settings = await db.select().from(schema.siteSettings).limit(1);
@@ -106,4 +226,4 @@ if (email) {
 }
 
 console.log("✓ ה-seed הושלם");
-await sql.end();
+await client.end();
