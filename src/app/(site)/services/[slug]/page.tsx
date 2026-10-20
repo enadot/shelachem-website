@@ -269,7 +269,7 @@ export default async function ServicePage({
           >
             <div>
               <div className="mb-1 font-display text-2xl font-black text-ink">בודקים זכאות — חינם</div>
-              <p className="m-0 text-[15px] text-ink-muted">נחזור אליכם היום, בלי התחייבות.</p>
+              <p className="m-0 text-[15px] text-ink-muted">נחזור אליכם היום, בדיסקרטיות מלאה.</p>
             </div>
             <LeadForm sourcePage={`service-${service.slug}`} submitLabel="חזרו אליי" withMarketingConsent={false} />
           </div>

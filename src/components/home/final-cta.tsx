@@ -17,7 +17,7 @@ export function FinalCta() {
             את הזכויות שלכם.
           </Reveal>
           <p className="m-0 text-base text-on-royal-muted md:text-xl">
-            נחזור אליכם היום. בלי עלות ובלי התחייבות.
+            נחזור אליכם היום. בדיסקרטיות מלאה, ושכר טרחה בהצלחה בלבד.
           </p>
         </div>
         <Reveal delay={0.15}>

@@ -9,7 +9,7 @@ import { getSiteSettings } from "@/lib/content";
 export async function PageCta({
   title = "רוצים לבדוק אילו זכויות רלוונטיות לכם?",
   strong = "נבדוק יחד, בחינם.",
-  subtitle = "פגישת היכרות ראשונית ללא עלות וללא התחייבות — שכר טרחה רק בהצלחה.",
+  subtitle = "פגישת היכרות ראשונית בדיסקרטיות מלאה — שכר טרחה בהצלחה בלבד.",
 }: {
   title?: string;
   strong?: string;
