@@ -1,9 +1,10 @@
 import type { Service } from "../types";
+import { areaServices } from "./services-areas";
 
 /**
- * עמודי שירות — לפי designs/service.html (התבנית המלאה קיימת לפטור ממס הכנסה).
- * שירותים נוספים יתווספו כשיהיה להם תוכן מעוצב; רשימת 14 התחומים בדף הבית
- * היא צ'יפים ללא קישור, כמו בעיצוב.
+ * עמודי שירות — לפי designs/service.html. לכל אחד מ-12 תחומי הפעילות בדף הבית
+ * יש עמוד: פטור ממס הכנסה כאן, ו-11 האחרים ב-services-areas.ts.
+ * הסדר חשוב לסנכרון ה-seed (position) — פריטים חדשים נוספים בסוף.
  */
 export const services: Service[] = [
   {
@@ -71,6 +72,42 @@ export const services: Service[] = [
       },
     ],
     hasTaxCalculator: true,
+    process: [
+      {
+        title: "בדיקת אחוזי הנכות",
+        description:
+          "בודקים איתכם אם כבר נקבעו אחוזים בוועדה על פי דין, ומשקללים אותם מראש — כדי לדעת אם חוצים את הסף.",
+      },
+      {
+        title: "ועדה רפואית לצורכי מס",
+        description:
+          "כשאין קביעה מתאימה — פונים לוועדה רפואית לצורכי מס. אנחנו בונים איתכם את התיק ומכינים אתכם לקראתה.",
+      },
+      {
+        title: "פנייה לרשות המסים",
+        description:
+          "עם קביעת הנכות, הבקשה לפטור יוצאת לפקיד השומה בשמכם, יחד עם בקשה להחזר על השנים הקודמות.",
+      },
+      {
+        title: "פטור בתלוש והחזר לחשבון",
+        description:
+          "הפטור נכנס לתלוש או למקדמות, וההחזר הרטרואקטיבי מועבר לחשבון. אם משהו נתקע — ממשיכים ללוות אתכם עד למיצוי האמת.",
+      },
+    ],
+    mistakes: [
+      {
+        title: "לחבר אחוזים במקום לשקלל",
+        description: "40% ו-60% אינם 100%. חישוב שגוי מוביל לוויתור על פטור שאפשר היה לקבל — או לציפייה שלא תתממש.",
+      },
+      {
+        title: "לוותר על השנים שעברו",
+        description: "ההחזר יכול לחול עד 6 שנים אחורה. מי שמבקש רק מעכשיו משאיר כסף על השולחן.",
+      },
+      {
+        title: "לשכוח הכנסות שאינן משכר",
+        description: "לפטור על הכנסות פסיביות יש תקרה נפרדת. תכנון נכון של ההכנסות מגדיל את ההטבה.",
+      },
+    ],
     testimonials: [
       {
         id: "rachel-b",
@@ -127,8 +164,8 @@ export const services: Service[] = [
       },
     ],
     relatedRights: [
-      { name: "קצבת נכות כללית", href: "/institutions/bituach-leumi" },
-      { name: "אובדן כושר עבודה", href: "/institutions/karnot-pensia" },
+      { name: "קצבת נכות כללית", href: "/services/general-disability" },
+      { name: "אובדן כושר עבודה", href: "/services/loss-of-work-capacity" },
       { name: "ביטוחים פרטיים", href: "/institutions/hevrot-bituach" },
     ],
     resources: [
@@ -142,4 +179,5 @@ export const services: Service[] = [
       },
     ],
   },
+  ...areaServices,
 ];

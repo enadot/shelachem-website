@@ -17,6 +17,7 @@ export function PageHeader({
   intro,
   children,
   image,
+  media,
   className,
 }: {
   breadcrumb: Crumb[];
@@ -27,18 +28,21 @@ export function PageHeader({
   children?: React.ReactNode;
   /** `position` — נקודת המיקוד של החיתוך (object-position), למשל "50% 30%". */
   image?: { src: string; alt: string; position?: string } | null;
+  /** איור במקום הצילום (באותה מסגרת) — רק כשאין `image`. */
+  media?: React.ReactNode;
   className?: string;
 }) {
   const hasAside = Boolean(intro || children);
+  const hasMedia = Boolean(image || media);
   return (
     <section
       className={cn(
         "border-b border-hairline bg-white px-6 md:px-[clamp(24px,6.7vw,96px)]",
-        image && "border-b-0",
+        hasMedia && "border-b-0",
         className,
       )}
     >
-      <div className={cn("mx-auto max-w-[1240px] pb-10 pt-7 md:pb-16 md:pt-9", image && "md:pb-0")}>
+      <div className={cn("mx-auto max-w-[1240px] pb-10 pt-7 md:pb-16 md:pt-9", hasMedia && "md:pb-0")}>
         <Breadcrumb items={breadcrumb} />
         <div
           className={cn(
@@ -66,17 +70,21 @@ export function PageHeader({
             </div>
           )}
         </div>
-        {image && (
+        {hasMedia && (
           <figure className="relative m-0 mt-10 aspect-[4/3] overflow-hidden rounded-2xl bg-surface md:mt-16 md:aspect-[21/9]">
-            <CmsImage
-              src={image.src}
-              alt={image.alt}
-              fill
-              priority
-              sizes="(max-width:768px) 100vw, 1240px"
-              className="object-cover"
-              style={{ objectPosition: image.position ?? "50% 40%" }}
-            />
+            {image ? (
+              <CmsImage
+                src={image.src}
+                alt={image.alt}
+                fill
+                priority
+                sizes="(max-width:768px) 100vw, 1240px"
+                className="object-cover"
+                style={{ objectPosition: image.position ?? "50% 40%" }}
+              />
+            ) : (
+              media
+            )}
           </figure>
         )}
       </div>

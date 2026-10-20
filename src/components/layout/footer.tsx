@@ -41,10 +41,10 @@ const columns: { title: string; links: { label: string; href: string }[] }[] = [
     title: "מחלות וזכויות",
     links: [
       { label: "פטור ממס הכנסה", href: "/services/tax-exemption" },
-      { label: "נכות כללית", href: "/institutions/bituach-leumi" },
-      { label: "ילד נכה", href: "/institutions/bituach-leumi" },
-      { label: "אובדן כושר עבודה", href: "/institutions/karnot-pensia" },
-      { label: "ביטוח סיעודי", href: "/institutions/hevrot-bituach" },
+      { label: "נכות כללית", href: "/services/general-disability" },
+      { label: "ילד נכה", href: "/services/disabled-child" },
+      { label: "אובדן כושר עבודה", href: "/services/loss-of-work-capacity" },
+      { label: "ביטוח סיעודי", href: "/services/long-term-care" },
     ],
   },
 ];

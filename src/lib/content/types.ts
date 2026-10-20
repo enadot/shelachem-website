@@ -125,6 +125,17 @@ export interface Service {
   eligibilityTip?: string;
   sections: { id: string; heading: string; paragraphs: string[] }[];
   hasTaxCalculator?: boolean;
+  /** "מה זה בעצם" — פסקאות הסבר קצרות מיד אחרי הכותרת. */
+  overview?: string[];
+  /** מה כוללת הזכאות — סוגי תשלום והטבות במונחים כלליים (לא סכומים מדויקים). */
+  rights?: { title: string; description: string }[];
+  rightsNote?: string;
+  /** שלבי התהליך מול הגוף (מה קורה בפועל, צעד אחר צעד). */
+  process?: { title: string; description: string }[];
+  /** טעויות נפוצות שכדאי להימנע מהן. */
+  mistakes?: { title: string; description: string }[];
+  /** איור לכותרת כשאין צילום (ראו ServiceVisual). */
+  visual?: string | null;
   testimonials: Testimonial[];
   faqs: FaqItem[];
   relatedRights: { name: string; href?: string }[];

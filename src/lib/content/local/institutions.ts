@@ -15,10 +15,10 @@ export const institutions: Institution[] = [
     description:
       "המוסד שדרכו עוברות רוב הזכויות הרפואיות בישראל — מקצבת נכות כללית ועד ניידות ושירותים מיוחדים. אנחנו בונים איתכם תיק מקיף ומכווינים אתכם בכל שלב, עד הוועדה.",
     services: [
-      { name: "נכות כללית" },
+      { name: "נכות כללית", href: "/services/general-disability" },
       { name: "ניידות" },
-      { name: "שירותים מיוחדים" },
-      { name: "נכות מעבודה" },
+      { name: "שירותים מיוחדים", href: "/services/special-services" },
+      { name: "נכות מעבודה", href: "/services/work-injury" },
     ],
     heroTitle: "ביטוח לאומי — ליווי מקצועי מהבדיקה ועד ההחלטה",
     heroIntro:
@@ -46,14 +46,14 @@ export const institutions: Institution[] = [
         tag: "הנפוץ ביותר",
         description:
           "קצבה חודשית למי שכושר ההשתכרות נפגע ב-50% לפחות בשל מצב רפואי. כולל בניית התיק והכוונה לקראת הוועדה.",
-        href: "/#lead-form",
+        href: "/services/general-disability",
       },
       {
         name: "נכות מעבודה",
         tag: "תאונות ומחלות מקצוע",
         description:
           "דמי פגיעה, מענק או קצבה למי שנפגע בעבודה או בדרך אליה — כולל הכרה במחלות מקצוע.",
-        href: "/#lead-form",
+        href: "/services/work-injury",
       },
       {
         name: "קצבת ניידות",
@@ -67,14 +67,14 @@ export const institutions: Institution[] = [
         tag: "תלות בזולת",
         description:
           "קצבה למי שזקוק לעזרה בפעולות היומיום — במקביל לקצבת נכות כללית.",
-        href: "/#lead-form",
+        href: "/services/special-services",
       },
       {
         name: "ילד נכה",
         tag: "להורים",
         description:
           "קצבה חודשית להורים לילד עם מוגבלות או מחלה קשה, כולל הטבות נלוות.",
-        href: "/#lead-form",
+        href: "/services/disabled-child",
       },
       {
         name: "עררים על החלטות",
@@ -184,8 +184,8 @@ export const institutions: Institution[] = [
     description:
       "מי שאינו יכול להמשיך לעבוד בגלל מצב רפואי עשוי להיות זכאי לפנסיית נכות מהקרן — במקביל לקצבאות אחרות. נבדוק את התקנון ונבנה איתכם את התיק.",
     services: [
-      { name: "פנסיית נכות" },
-      { name: "אובדן כושר עבודה" },
+      { name: "פנסיית נכות", href: "/services/disability-pension" },
+      { name: "אובדן כושר עבודה", href: "/services/loss-of-work-capacity" },
       { name: "שחרור מהפקדות" },
     ],
     heroTitle: "קרנות פנסיה — הזכויות שחוסכות לכם",
@@ -219,14 +219,14 @@ export const institutions: Institution[] = [
         tag: "קצבה חודשית",
         description:
           "קצבה חודשית מהקרן למי שאיבד את כושר העבודה — עד 75% מהשכר המבוטח.",
-        href: "/#lead-form",
+        href: "/services/disability-pension",
       },
       {
         name: "אובדן כושר עבודה",
         tag: "מהביטוח הפנסיוני",
         description:
           "תביעת אובדן כושר עבודה מלא או חלקי, זמני או קבוע — לפי תנאי הפוליסה.",
-        href: "/#lead-form",
+        href: "/services/loss-of-work-capacity",
       },
       {
         name: "שחרור מהפקדות",
@@ -260,9 +260,9 @@ export const institutions: Institution[] = [
       "פוליסות פרטיות — מחלות קשות, אובדן כושר, סיעוד ותאונות אישיות — מזכות פעמים רבות בסכומים משמעותיים שאנשים לא יודעים לדרוש. אנחנו כן.",
     services: [
       { name: "מחלות קשות" },
-      { name: "תאונות אישיות" },
-      { name: "סיעוד" },
-      { name: "אובדן כושר פרטי" },
+      { name: "תאונות אישיות", href: "/services/personal-accidents" },
+      { name: "סיעוד", href: "/services/long-term-care" },
+      { name: "אובדן כושר פרטי", href: "/services/loss-of-work-capacity" },
     ],
     heroTitle: "חברות ביטוח — הפוליסה ששילמתם עליה",
     heroIntro:
@@ -302,21 +302,21 @@ export const institutions: Institution[] = [
         tag: "פיצוי לפי נכות",
         description:
           "פיצוי על שברים, כוויות, אשפוז ונכות צמיתה בעקבות תאונה — גם בלי אובדן הכנסה.",
-        href: "/#lead-form",
+        href: "/services/personal-accidents",
       },
       {
         name: "ביטוח סיעודי",
         tag: "קצבה חודשית",
         description:
           "קצבה חודשית למי שהפך תלוי בעזרת הזולת — מהביטוח הקבוצתי או הפרטי.",
-        href: "/#lead-form",
+        href: "/services/long-term-care",
       },
       {
         name: "אובדן כושר עבודה פרטי",
         tag: "בנוסף לקרן",
         description:
           "תביעה במקביל לביטוח הפנסיוני — פוליסה פרטית משלמת בנוסף, לא במקום.",
-        href: "/#lead-form",
+        href: "/services/loss-of-work-capacity",
       },
     ],
     stats: [

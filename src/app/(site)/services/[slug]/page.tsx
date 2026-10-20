@@ -14,13 +14,18 @@ import { SectionHeading } from "@/components/shared/section-heading";
 import { PageCta } from "@/components/shared/page-cta";
 import { Eyebrow } from "@/components/shared/eyebrow";
 import { ArrowForward } from "@/components/shared/icons";
+import { LeadCta } from "@/components/shared/lead-cta";
+import { NumberedSteps } from "@/components/shared/numbered-steps";
+import { ServiceVisual } from "@/components/services/service-visual";
+import { ServiceMethod } from "@/components/services/service-method";
+import { Check, CircleAlert } from "lucide-react";
 import { faqPageNode, serviceNode } from "@/lib/schema";
 import { site } from "@/lib/config";
 
 const whyUs = [
-  { value: "מאז 2013", label: "ניסיון מול רשות המסים וביטוח לאומי" },
+  { value: "מאז 2013", label: "ניסיון מול ביטוח לאומי, רשות המסים, קרנות וחברות ביטוח" },
   { value: "עשרות אלפי", label: "תיקים שצלחו איתנו" },
-  { value: "0 ₪", label: "מראש — שכר טרחה רק בהצלחה" },
+  { value: "0 ₪", label: "מראש — שכר טרחה בהצלחה בלבד" },
 ];
 
 export async function generateStaticParams() {
@@ -70,6 +75,19 @@ export default async function ServicePage({
     })
     .filter((r) => r !== null);
 
+  // שדות שנוספו עם עמודי התחומים — שורה מהמסד שנשמרה לפניהם לא תכיל אותם.
+  const overview = service.overview ?? [];
+  const rights = service.rights ?? [];
+  const process = service.process ?? [];
+  const mistakes = service.mistakes ?? [];
+  const source = `service-${service.slug}`;
+  const short = service.name.replace(" מטעמי בריאות", "");
+  // הכותרת: מילה אחרונה בהדגשה ("קצבת נכות **כללית**"); בפטור ממס — "מטעמי בריאות".
+  const words = short.split(" ");
+  const health = service.name.includes("מטעמי בריאות");
+  const title = health || words.length < 2 ? short : words.slice(0, -1).join(" ");
+  const strong = health ? "מטעמי בריאות" : words.length < 2 ? undefined : words.at(-1);
+
   const jsonLd = [
     serviceNode({
       name: service.name,
@@ -100,15 +118,45 @@ export default async function ServicePage({
             : []),
           { label: service.name },
         ]}
-        title={service.name.replace(" מטעמי בריאות", "")}
-        strong={service.name.includes("מטעמי בריאות") ? "מטעמי בריאות" : undefined}
+        title={title}
+        strong={strong}
         intro={service.heroIntro}
         image={service.image ? { src: service.image, alt: service.imageAlt ?? "" } : null}
-      />
+        media={<ServiceVisual visual={service.visual} label={institution?.name} />}
+      >
+        <LeadCta sourcePage={`${source}-hero`} topic={service.name} variant="brand" size="lg" className="group">
+          בדיקת זכאות חינם
+          <ArrowForward size={18} className="nudge" />
+        </LeadCta>
+        <ul className="m-0 flex list-none flex-wrap gap-x-5 gap-y-1 p-0 text-[15px] text-ink-secondary">
+          {["שכר טרחה בהצלחה בלבד", "בדיסקרטיות מלאה"].map((t) => (
+            <li key={t} className="flex items-center gap-1.5">
+              <Check aria-hidden size={16} strokeWidth={2.5} className="text-brand" />
+              {t}
+            </li>
+          ))}
+        </ul>
+      </PageHeader>
 
       {/* main grid */}
       <div className="mx-auto grid max-w-[1240px] items-start gap-14 px-6 py-12 md:grid-cols-[1fr_360px] md:gap-16 md:px-[clamp(24px,6.7vw,96px)] md:py-20 lg:px-6">
         <div className="flex min-w-0 flex-col gap-16 md:gap-24">
+          {/* מה זה בעצם */}
+          {overview.length > 0 && (
+            <section>
+              <SectionHeading strong={`${short}?`} className="mb-6 text-[28px] md:text-[40px]">
+                מה זה
+              </SectionHeading>
+              <div className="flex max-w-[68ch] flex-col gap-4">
+                {overview.map((p) => (
+                  <p key={p.slice(0, 32)} className="m-0 text-[17px] leading-relaxed text-ink-secondary md:text-lg">
+                    {p}
+                  </p>
+                ))}
+              </div>
+            </section>
+          )}
+
           {/* key takeaways — שורות עם קו שיער, בלי קופסה ואייקונים */}
           {service.takeaways.length > 0 && (
             <section>
@@ -162,6 +210,35 @@ export default async function ServicePage({
             </section>
           )}
 
+          {/* מה כוללת הזכאות */}
+          {rights.length > 0 && (
+            <section>
+              <SectionHeading strong="כוללת הזכאות?" className="mb-6 text-[28px] md:text-[40px]">
+                מה
+              </SectionHeading>
+              <ul className="m-0 grid list-none border-t border-hairline p-0 md:grid-cols-2 md:gap-x-10">
+                {rights.map((r) => (
+                  <li key={r.title} className="border-b border-hairline py-5">
+                    <h3 className="m-0 mb-1 font-body text-lg font-black text-ink">{r.title}</h3>
+                    <p className="m-0 text-[16.5px] leading-relaxed text-ink-secondary">{r.description}</p>
+                  </li>
+                ))}
+              </ul>
+              {service.rightsNote && (
+                <p className="m-0 mt-5 max-w-[68ch] border-s-2 border-gold ps-4 text-[15.5px] leading-relaxed text-ink-muted">
+                  {service.rightsNote}
+                </p>
+              )}
+              <div className="mt-8 flex flex-col items-start gap-4 rounded-2xl bg-surface-blue p-6 md:flex-row md:items-center md:justify-between md:p-7">
+                <p className="m-0 text-[17px] font-bold text-ink">רוצים לדעת אם אתם עומדים בתנאים?</p>
+                <LeadCta sourcePage={`${source}-rights`} topic={service.name} variant="brand" className="group shrink-0">
+                  בדיקת זכאות חינם
+                  <ArrowForward size={16} className="nudge" />
+                </LeadCta>
+              </div>
+            </section>
+          )}
+
           {/* sections */}
           {service.sections.length > 0 && (
             <section className="flex flex-col gap-7">
@@ -178,6 +255,36 @@ export default async function ServicePage({
                   ))}
                 </div>
               ))}
+            </section>
+          )}
+
+          {/* התהליך מול הגוף */}
+          {process.length > 0 && (
+            <section>
+              <SectionHeading strong="שלב אחר שלב" className="mb-8 text-[28px] md:text-[40px]">
+                התהליך,
+              </SectionHeading>
+              <NumberedSteps steps={process} className="md:grid-cols-2" />
+            </section>
+          )}
+
+          {/* טעויות נפוצות */}
+          {mistakes.length > 0 && (
+            <section>
+              <SectionHeading strong="שכדאי להימנע מהן" className="mb-6 text-[28px] md:text-[40px]">
+                טעויות
+              </SectionHeading>
+              <ul className="m-0 list-none border-t border-hairline p-0">
+                {mistakes.map((m) => (
+                  <li key={m.title} className="flex items-start gap-4 border-b border-hairline py-5">
+                    <CircleAlert aria-hidden size={22} strokeWidth={1.75} className="mt-0.5 shrink-0 text-gold-deep" />
+                    <div className="max-w-[64ch]">
+                      <h3 className="m-0 mb-1 font-body text-lg font-black text-ink">{m.title}</h3>
+                      <p className="m-0 text-[16.5px] leading-relaxed text-ink-secondary">{m.description}</p>
+                    </div>
+                  </li>
+                ))}
+              </ul>
             </section>
           )}
 
@@ -271,7 +378,7 @@ export default async function ServicePage({
               <div className="mb-1 font-display text-2xl font-black text-ink">בודקים זכאות — חינם</div>
               <p className="m-0 text-[15px] text-ink-muted">נחזור אליכם היום, בדיסקרטיות מלאה.</p>
             </div>
-            <LeadForm sourcePage={`service-${service.slug}`} submitLabel="חזרו אליי" withMarketingConsent={false} />
+            <LeadForm sourcePage={source} submitLabel="חזרו אליי" withMarketingConsent={false} />
           </div>
 
           {/* why us — מספרים סטטיים בקווי שיער */}
@@ -322,7 +429,13 @@ export default async function ServicePage({
         </aside>
       </div>
 
-      <PageCta />
+      <ServiceMethod sourcePage={`${source}-method`} topic={service.name} />
+
+      <PageCta
+        title={`רוצים לבדוק זכאות ל${short}?`}
+        strong="נבדוק יחד, בחינם."
+        subtitle="שכר טרחה בהצלחה בלבד, בדיסקרטיות מלאה — ומנהלת תיק אישית עד סיום התהליך."
+      />
     </>
   );
 }
