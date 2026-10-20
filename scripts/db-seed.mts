@@ -87,7 +87,9 @@ for (const [collection, items] of Object.entries(COLLECTIONS)) {
  * סנכרון: תיקוני תוכן בריפו מגיעים גם ל-collection שכבר נטען. מעדכנים רק שורה
  * שקיימת ושאף אחד לא ערך בלוח (`updated_by = 'seed'`), ורק אם התוכן שונה. לפני
  * כל עדכון נשמרת גרסה קודמת. שורות שנערכו בלוח לא נוגעים בהן; פריט שנמחק בלוח
- * לא חוזר; פריט חדש בריפו לא נוסף אוטומטית (אולי נמחק בלוח בכוונה) — רק מדווח.
+ * לא חוזר (מחיקה בלוח שומרת גרסה — כך מזהים אותה). פריט חדש בריפו שמעולם לא
+ * היה במסד נוסף רק ב-collections שב-ADD_NEW (עמודי תחומי הפעילות ב-services);
+ * בשאר — רק מדווח, כמו קודם.
  * אידמפוטנטי: בהרצה השנייה אין מה לעדכן.
  */
 const SEED = "seed";
@@ -104,6 +106,8 @@ function canonical(value: unknown): string {
 }
 
 const contentItems = schema.contentItems;
+/** collections שבהם פריט חדש בריפו נוסף למסד אוטומטית (ראו למעלה). */
+const ADD_NEW = new Set(["services"]);
 const revisions = schema.contentRevisions;
 
 for (const collection of existing) {
@@ -183,6 +187,18 @@ for (const collection of existing) {
       : [],
   );
   const newInRepo = notInDb.filter((id) => !deletedInAdmin.has(id));
+  const autoAdd = ADD_NEW.has(collection);
+  if (autoAdd && newInRepo.length) {
+    const add = new Set(newInRepo);
+    await db
+      .insert(contentItems)
+      .values(
+        local
+          .filter((i) => i.id && add.has(i.id))
+          .map((i) => ({ collection, id: i.id!, data: i.data, position: i.position, updatedBy: SEED })),
+      )
+      .onConflictDoNothing();
+  }
   const notes = [
     editedInAdmin.length ? `${editedInAdmin.length} נערכו בלוח — לא נגע` : "",
     reordered.length ? `${reordered.length} סודרו מחדש` : "",
@@ -193,7 +209,12 @@ for (const collection of existing) {
   console.log(head + (notes.length ? ` (${notes.join(", ")})` : ""));
   if (updated.length) console.log(`      עודכנו: ${updated.join(", ")}`);
   if (editedInAdmin.length) console.log(`      נערכו בלוח (שונים מהריפו): ${editedInAdmin.join(", ")}`);
-  if (newInRepo.length) console.log(`      חדש בריפו — לא נוסף אוטומטית (להוסיף בלוח): ${newInRepo.join(", ")}`);
+  if (newInRepo.length)
+    console.log(
+      autoAdd
+        ? `      + נוספו מהריפו: ${newInRepo.join(", ")}`
+        : `      חדש בריפו — לא נוסף אוטומטית (להוסיף בלוח): ${newInRepo.join(", ")}`,
+    );
   if (deletedInAdmin.size) console.log(`      נמחק בלוח — לא נוסף מחדש: ${[...deletedInAdmin].join(", ")}`);
   if (notInRepo.length) console.log(`      קיים במסד ולא בריפו (לא נמחק): ${notInRepo.join(", ")}`);
   if (noId) console.log(`      ${noId} פריטים בריפו בלי id — אי אפשר לסנכרן`);

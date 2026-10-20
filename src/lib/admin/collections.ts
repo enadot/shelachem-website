@@ -15,6 +15,22 @@ const DAYS = [
   { value: "Saturday", label: "שבת" },
 ];
 
+/** האיורים שיודע לצייר ServiceVisual (src/components/services/service-visual.tsx). */
+export const SERVICE_VISUALS = [
+  { value: "accessibility", label: "נגישות ותמיכה" },
+  { value: "hands", label: "עזרה צמודה" },
+  { value: "child", label: "ילדים ומשפחה" },
+  { value: "shield", label: "הגנה ושיקום" },
+  { value: "hardhat", label: "עבודה ובטיחות" },
+  { value: "lungs", label: "מחלה ובריאות" },
+  { value: "pregnancy", label: "הריון" },
+  { value: "bandage", label: "פציעה ותאונה" },
+  { value: "briefcase", label: "תעסוקה והכנסה" },
+  { value: "piggybank", label: "פנסיה וחיסכון" },
+  { value: "home-heart", label: "סיעוד בבית" },
+  { value: "receipt", label: "מס והחזרים" },
+] as const;
+
 const image = (hint?: string): FieldConfig[] => [
   { name: "image_file", label: "תמונה", type: "image", legacyField: "image", hint },
   {
@@ -399,7 +415,16 @@ export const COLLECTIONS = {
       },
       { name: "hasTaxCalculator", label: "להציג מחשבון החזר מס", type: "boolean" },
       { name: "heroIntro", label: "פתיח", type: "textarea", rows: 3, required: true },
-      ...image("צילום רחב לכותרת העמוד."),
+      ...image("צילום רחב לכותרת העמוד. בלי צילום — מוצג האיור שנבחר למטה."),
+      {
+        name: "visual",
+        label: "איור (כשאין צילום)",
+        type: "select",
+        half: true,
+        options: SERVICE_VISUALS,
+        hint: "מוצג בכותרת העמוד רק כשלא הועלתה תמונה.",
+      },
+      { name: "overview", label: "מה זה בעצם", type: "string-list", itemLabel: "פסקה", rows: 3 },
       { name: "takeaways", label: "עיקרי הדברים", type: "string-list", itemLabel: "נקודה", rows: 2 },
       {
         name: "eligibility",
@@ -413,6 +438,41 @@ export const COLLECTIONS = {
         ],
       },
       { name: "eligibilityTip", label: "טיפ זכאות", type: "textarea", rows: 2 },
+      {
+        name: "rights",
+        label: "מה כוללת הזכאות",
+        type: "repeater",
+        itemLabel: "רכיב",
+        itemTitle: "title",
+        hint: "במונחים כלליים — בלי סכומים מדויקים שמתעדכנים מדי שנה.",
+        fields: [
+          { name: "title", label: "כותרת", type: "text", required: true },
+          { name: "description", label: "תיאור", type: "textarea", rows: 2 },
+        ],
+      },
+      { name: "rightsNote", label: "הערה מתחת לזכאות", type: "textarea", rows: 2 },
+      {
+        name: "process",
+        label: "שלבי התהליך מול הגוף",
+        type: "repeater",
+        itemLabel: "שלב",
+        itemTitle: "title",
+        fields: [
+          { name: "title", label: "כותרת", type: "text", required: true },
+          { name: "description", label: "תיאור", type: "textarea", rows: 2 },
+        ],
+      },
+      {
+        name: "mistakes",
+        label: "טעויות נפוצות",
+        type: "repeater",
+        itemLabel: "טעות",
+        itemTitle: "title",
+        fields: [
+          { name: "title", label: "כותרת", type: "text", required: true },
+          { name: "description", label: "תיאור", type: "textarea", rows: 2 },
+        ],
+      },
       {
         name: "sections",
         label: "פרקי התוכן",
