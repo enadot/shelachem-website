@@ -25,7 +25,7 @@ import { site } from "@/lib/config";
 const whyUs = [
   { value: "מאז 2013", label: "ניסיון מול ביטוח לאומי, רשות המסים, קרנות וחברות ביטוח" },
   { value: "עשרות אלפי", label: "תיקים שצלחו איתנו" },
-  { value: "0 ₪", label: "מראש — שכר טרחה רק בהצלחה" },
+  { value: "0 ₪", label: "מראש — שכר טרחה בהצלחה בלבד" },
 ];
 
 export async function generateStaticParams() {

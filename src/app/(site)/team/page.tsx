@@ -82,7 +82,7 @@ export default async function TeamPage() {
         </div>
       </section>
 
-      <PageCta title="רוצים לדבר עם הצוות?" strong="נשמח להכיר." subtitle="בחינם וללא התחייבות · שכר טרחה רק בהצלחה." />
+      <PageCta title="רוצים לדבר עם הצוות?" strong="נשמח להכיר." subtitle="בדיסקרטיות מלאה · שכר טרחה בהצלחה בלבד." />
     </>
   );
 }

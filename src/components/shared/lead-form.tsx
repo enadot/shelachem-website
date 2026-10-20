@@ -9,6 +9,7 @@ import { cn } from "@/lib/utils";
 import { newEventId, trackEvent, trackLeadConversion } from "@/lib/analytics";
 import { getAttribution, utmSummary } from "@/lib/attribution";
 import { Button } from "@/components/ui/button";
+import { Lock } from "lucide-react";
 import { CheckCircle, ChevronForward } from "@/components/shared/icons";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -425,7 +426,8 @@ export function LeadForm({
         </p>
       )}
       <div className={cn("text-center text-[13.5px]", dark ? "text-white/70" : "text-ink-faint")}>
-        ללא עלות וללא התחייבות — שכר טרחה רק בהצלחה
+        <Lock size={13} aria-hidden className="me-1.5 inline-block align-[-2px]" />
+        הפרטים שלכם נשמרים בדיסקרטיות מלאה · שכר טרחה בהצלחה בלבד
       </div>
     </form>
   );
