@@ -3,6 +3,7 @@ import { getArticles, getFaqs, getTestimonials } from "@/lib/content";
 import { Hero } from "@/components/home/hero";
 import { Specialties } from "@/components/home/specialties";
 import { GoldBand, InstitutionsBanner } from "@/components/home/banners";
+import { Pitfalls } from "@/components/home/pitfalls";
 import { HowItWorks } from "@/components/home/how-it-works";
 import { Story } from "@/components/home/story";
 import { Testimonials } from "@/components/home/testimonials";
@@ -26,6 +27,7 @@ export default async function HomePage() {
       <Hero />
       <Specialties />
       <GoldBand />
+      <Pitfalls />
       <HowItWorks />
       <InstitutionsBanner />
       <Story />

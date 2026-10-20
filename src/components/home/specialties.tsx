@@ -22,13 +22,12 @@ const INITIAL = 6;
 
 const BL = "/institutions/bituach-leumi";
 
-/** 13 תחומי הפעילות (designs/homepage-v3.html) — כל אחד מוביל לעמוד שבאמת מטפל בזכות. */
+/** 12 תחומי הפעילות (designs/homepage-v3.html) — כל אחד מוביל לעמוד שבאמת מטפל בזכות. */
 const specialties: { name: string; cat: Cat; who: string; href: string }[] = [
   { name: "קצבת נכות כללית", cat: "A", who: "מחלה או פגיעה שמגבילה את היכולת לעבוד", href: BL },
   { name: "שירותים מיוחדים", cat: "A", who: "מי שזקוק לעזרה צמודה בפעולות היומיום", href: BL },
   { name: "ילד נכה", cat: "A", who: "הורים לילד עם מצב רפואי מורכב", href: BL },
   { name: "נפגעי פעולות איבה", cat: "A", who: "מי שנפגע בפיגוע או במעשה איבה", href: BL },
-  { name: "זכויות אלמנים ויתומים", cat: "A", who: "בני משפחה של מי שנפטר", href: BL },
   { name: "תאונת עבודה", cat: "B", who: "פגיעה בזמן העבודה או בדרך אליה", href: BL },
   { name: "מחלת מקצוע", cat: "B", who: "מחלה שנגרמה מתנאי העבודה", href: BL },
   { name: "שמירת הריון", cat: "B", who: "הריון בסיכון שמונע עבודה", href: BL },
@@ -111,11 +110,8 @@ export function Specialties() {
             >
               <Link
                 href={s.href}
-                className="group grid grid-cols-[28px_1fr_auto] items-center gap-3 py-5 text-ink no-underline md:grid-cols-[40px_1fr_auto] md:gap-4 md:py-6"
+                className="group grid grid-cols-[1fr_auto] items-center gap-4 py-5 text-ink no-underline md:gap-6 md:py-6"
               >
-                <span className="tnum self-start pt-1 text-[13px] font-bold text-ink-faint">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
                 <span className="flex flex-col gap-1">
                   <span className="font-display text-[21px] font-black leading-tight transition-colors duration-300 group-hover:text-brand md:text-[26px]">
                     {s.name}
