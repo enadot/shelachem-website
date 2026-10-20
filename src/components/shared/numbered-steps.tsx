@@ -14,8 +14,10 @@ export function NumberedSteps({
 }) {
   const cols =
     steps.length >= 5 ? "md:grid-cols-5" : steps.length === 4 ? "md:grid-cols-4" : "md:grid-cols-3";
+  // שני טורים בטאבלט רק כשמספר הצעדים זוגי — שלושה צעדים היו משאירים צעד יתום בשורה.
+  const sm = steps.length % 2 === 0 ? "sm:grid-cols-2" : "";
   return (
-    <ol className={cn("m-0 grid list-none gap-8 p-0 sm:grid-cols-2 md:gap-10", cols, className)}>
+    <ol className={cn("m-0 grid list-none gap-8 p-0 md:gap-10", sm, cols, className)}>
       {steps.map((step, i) => (
         <li key={step.title} className="relative pt-5 md:pt-7">
           <Reveal

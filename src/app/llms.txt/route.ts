@@ -35,8 +35,7 @@ export async function GET() {
 
 - שם משפטי: ${site.legalName}
 - שנת ייסוד: ${site.foundedYear}
-- שנות פעילות שהחברה מצהירה עליהן: ${site.stats.years}
-- לקוחות שליוותה עד לקבלת הזכות (נתון שהחברה מצהירה עליו): ${site.stats.clients}
+- היקף פעילות (כפי שהחברה מתארת אותו): ${site.stats.casesLong}, מאז ${site.foundedYear}
 - מודל תשלום: ${site.feeModel} — אין תשלום מראש
 - שפת השירות: עברית
 - אזור שירות: כל ישראל (פגישות פיזיות בשני סניפים, ליווי טלפוני ובזום בכל הארץ)
