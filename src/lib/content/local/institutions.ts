@@ -8,7 +8,7 @@ export const institutions: Institution[] = [
   {
     id: "bituach-leumi",
     slug: "bituach-leumi",
-    image: "/images/photos/recovery-window.webp",
+    image: "/images/photos/recovery-window-2.webp",
     imageAlt: "גבר עם יד בקלע יושב ליד החלון בביתו",
     name: "ביטוח לאומי",
     tagline: "קצבאות, ועדות רפואיות ועררים",
@@ -252,7 +252,7 @@ export const institutions: Institution[] = [
   {
     id: "hevrot-bituach",
     slug: "hevrot-bituach",
-    image: "/images/photos/kitchen-table-laptop.webp",
+    image: "/images/photos/kitchen-table-laptop-2.webp",
     imageAlt: "אב ובנו בודקים יחד פוליסת ביטוח על שולחן המטבח",
     name: "חברות ביטוח",
     tagline: "ביטוחים פרטיים ותביעות מול מבטחים",

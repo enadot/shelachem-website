@@ -18,6 +18,7 @@ export function PageHeader({
   children,
   image,
   media,
+  mark,
   className,
 }: {
   breadcrumb: Crumb[];
@@ -30,10 +31,34 @@ export function PageHeader({
   image?: { src: string; alt: string; position?: string } | null;
   /** איור במקום הצילום (באותה מסגרת) — רק כשאין `image`. */
   media?: React.ReactNode;
+  /**
+   * סמל לצד הכותרת (למשל HeartPhoto) — במקום הצילום הרחב: הכותרת והפתיח מימין,
+   * הסמל משמאל; במובייל מתחת. גובר על `image`/`media`.
+   */
+  mark?: React.ReactNode;
   className?: string;
 }) {
   const hasAside = Boolean(intro || children);
-  const hasMedia = Boolean(image || media);
+  const hasMedia = !mark && Boolean(image || media);
+  const heading = (
+    <h1 className="m-0 max-w-[16ch] text-balance font-display text-[42px] font-light leading-[1.02] tracking-[-0.02em] text-ink md:text-[76px] md:leading-[0.98] md:tracking-[-0.03em]">
+      {title}
+      {strong !== undefined && (
+        <>
+          {" "}
+          <span className="font-black">{strong}</span>
+        </>
+      )}
+    </h1>
+  );
+  const aside = hasAside && (
+    <>
+      {intro && (
+        <p className="m-0 max-w-[460px] text-[17px] leading-relaxed text-ink-secondary md:text-[19px]">{intro}</p>
+      )}
+      {children && <div className="mt-6 flex flex-wrap items-center gap-4">{children}</div>}
+    </>
+  );
   return (
     <section
       className={cn(
@@ -44,32 +69,25 @@ export function PageHeader({
     >
       <div className={cn("mx-auto max-w-[1240px] pb-10 pt-7 md:pb-16 md:pt-9", hasMedia && "md:pb-0")}>
         <Breadcrumb items={breadcrumb} />
-        <div
-          className={cn(
-            "mt-10 grid gap-6 md:mt-20 md:items-end md:gap-16",
-            hasAside && "md:grid-cols-[1.4fr_1fr]",
-          )}
-        >
-          <h1 className="m-0 max-w-[16ch] text-balance font-display text-[42px] font-light leading-[1.02] tracking-[-0.02em] text-ink md:text-[76px] md:leading-[0.98] md:tracking-[-0.03em]">
-            {title}
-            {strong !== undefined && (
-              <>
-                {" "}
-                <span className="font-black">{strong}</span>
-              </>
-            )}
-          </h1>
-          {hasAside && (
-            <div className="md:pb-2">
-              {intro && (
-                <p className="m-0 max-w-[460px] text-[17px] leading-relaxed text-ink-secondary md:text-[19px]">
-                  {intro}
-                </p>
-              )}
-              {children && <div className="mt-6 flex flex-wrap items-center gap-4">{children}</div>}
+        {mark ? (
+          <div className="mt-10 grid items-center gap-10 md:mt-16 md:grid-cols-[1.25fr_1fr] md:gap-16">
+            <div>
+              {heading}
+              {aside && <div className="mt-6 md:mt-8">{aside}</div>}
             </div>
-          )}
-        </div>
+            <div className="mx-auto w-full max-w-[300px] md:mx-0 md:max-w-[460px] md:justify-self-end">{mark}</div>
+          </div>
+        ) : (
+          <div
+            className={cn(
+              "mt-10 grid gap-6 md:mt-20 md:items-end md:gap-16",
+              hasAside && "md:grid-cols-[1.4fr_1fr]",
+            )}
+          >
+            {heading}
+            {aside && <div className="md:pb-2">{aside}</div>}
+          </div>
+        )}
         {hasMedia && (
           <figure className="relative m-0 mt-10 aspect-[4/3] overflow-hidden rounded-2xl bg-surface md:mt-16 md:aspect-[21/9]">
             {image ? (

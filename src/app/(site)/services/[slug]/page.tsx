@@ -17,6 +17,7 @@ import { ArrowForward } from "@/components/shared/icons";
 import { LeadCta } from "@/components/shared/lead-cta";
 import { NumberedSteps } from "@/components/shared/numbered-steps";
 import { ServiceVisual } from "@/components/services/service-visual";
+import { HeartPhoto } from "@/components/shared/heart-photo";
 import { ServiceMethod } from "@/components/services/service-method";
 import { Check, CircleAlert } from "lucide-react";
 import { faqPageNode, serviceNode } from "@/lib/schema";
@@ -121,7 +122,7 @@ export default async function ServicePage({
         title={title}
         strong={strong}
         intro={service.heroIntro}
-        image={service.image ? { src: service.image, alt: service.imageAlt ?? "" } : null}
+        mark={service.image ? <HeartPhoto src={service.image} alt={service.imageAlt ?? ""} priority /> : undefined}
         media={<ServiceVisual visual={service.visual} label={institution?.name} />}
       >
         <LeadCta sourcePage={`${source}-hero`} topic={service.name} variant="brand" size="lg" className="group">

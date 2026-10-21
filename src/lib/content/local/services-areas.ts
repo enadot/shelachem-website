@@ -193,6 +193,8 @@ export const areaServices: Service[] = [
     slug: "special-services",
     name: "שירותים מיוחדים",
     institutionSlug: BL,
+    image: "/images/photos/special-services.webp",
+    imageAlt: "מטפל אוחז בידיו של סבא בכיסא גלגלים בסלון ביתו",
     visual: "hands",
     heroIntro:
       "כשקשה להתלבש, להתרחץ, לאכול או לנוע בבית בלי עזרה של אדם אחר — גמלת שירותים מיוחדים נועדה לממן את העזרה הזאת. נבדוק איתכם את מידת התלות ונבנה איתכם תיק שמשקף אותה.",
@@ -328,6 +330,8 @@ export const areaServices: Service[] = [
     slug: "disabled-child",
     name: "קצבת ילד נכה",
     institutionSlug: BL,
+    image: "/images/photos/disabled-child.webp",
+    imageAlt: "אב ובנו עם הליכון בונים מגדל קוביות על שטיח הסלון",
     visual: "child",
     heroIntro:
       "גידול ילד עם מצב רפואי מורכב דורש זמן, כוחות וכסף. קצבת ילד נכה מביטוח לאומי נועדה לעזור למשפחה לשאת בנטל. נבדוק איתכם את הזכאות ונבנה איתכם את התיק — כדי שתוכלו להתפנות לילד.",
@@ -457,6 +461,8 @@ export const areaServices: Service[] = [
     slug: "hostile-action-victims",
     name: "נפגעי פעולות איבה",
     institutionSlug: BL,
+    image: "/images/photos/hostile-action-victims.webp",
+    imageAlt: "אב ובנו הבוגר מביטים יחד בשקיעה מעל השכונה",
     visual: "shield",
     heroIntro:
       "מי שנפגע בפיגוע או במעשה איבה — בגוף או בנפש — זכאי לפי החוק לטיפול, לשיקום ולתגמולים. נלווה אתכם ברגישות, נבנה איתכם את התיק ונהיה איתכם לאורך כל הדרך.",
@@ -577,7 +583,7 @@ export const areaServices: Service[] = [
     slug: "work-injury",
     name: "תאונת עבודה",
     institutionSlug: BL,
-    image: "/images/photos/recovery-window.webp",
+    image: "/images/photos/recovery-window-2.webp",
     imageAlt: "גבר עם יד במתלה יושב ליד חלון בביתו",
     heroIntro:
       "נפגעתם בעבודה או בדרך אליה? ביטוח לאומי מכיר בפגיעה כתאונת עבודה — עם תשלום בתקופת ההחלמה ותגמול על נכות שנשארת. נבנה איתכם את התיק כבר מהשלב הראשון.",
@@ -698,6 +704,8 @@ export const areaServices: Service[] = [
     slug: "occupational-disease",
     name: "מחלת מקצוע",
     institutionSlug: BL,
+    image: "/images/photos/occupational-disease.webp",
+    imageAlt: "גבר בבגדי עבודה עובר על מסמכים רפואיים ליד שולחן המטבח, משאף לידו",
     visual: "lungs",
     heroIntro:
       "מחלה שהתפתחה בגלל תנאי העבודה — רעש, אבק, חומרים או תנועות חוזרות — יכולה להיות מוכרת כפגיעה בעבודה. נאפיין איתכם את הקשר בין העבודה למחלה ונבנה איתכם תיק שמוכיח אותו.",
@@ -812,6 +820,8 @@ export const areaServices: Service[] = [
     slug: "pregnancy-risk",
     name: "שמירת הריון",
     institutionSlug: BL,
+    image: "/images/photos/pregnancy-risk.webp",
+    imageAlt: "עריסת תינוק מוכנה בפינת החדר, ולידה תיקיית מסמכים רפואיים וספר תהלים",
     visual: "pregnancy",
     heroIntro:
       "כשההריון בסיכון והרופא ממליץ להפסיק לעבוד — גמלת שמירת הריון מביטוח לאומי מחליפה את ההכנסה. נבדוק איתך את התנאים ונכין איתך את המסמכים, כדי שתוכלי להתמקד בעצמך.",
@@ -927,7 +937,7 @@ export const areaServices: Service[] = [
     slug: "personal-accidents",
     name: "תאונות אישיות",
     institutionSlug: "hevrot-bituach",
-    image: "/images/photos/physiotherapy.webp",
+    image: "/images/photos/physiotherapy-2.webp",
     imageAlt: "פיזיותרפיסט מלווה מטופל עם מקבע ברך בתרגול על מזרן",
     heroIntro:
       "נפגעתם בתאונה ויש לכם ביטוח תאונות אישיות — דרך העבודה, בנק, כרטיס אשראי או פוליסה פרטית? ייתכן שמחכה לכם פיצוי. נאתר איתכם את הפוליסות ונבנה איתכם תיק שעומד בתנאים שלהן.",
@@ -1043,8 +1053,8 @@ export const areaServices: Service[] = [
     slug: "loss-of-work-capacity",
     name: "אובדן כושר עבודה",
     institutionSlug: "karnot-pensia",
-    image: "/images/photos/balcony-phone.webp",
-    imageAlt: "גבר מדבר בטלפון במרפסת ביתו ומחזיק מכתב",
+    image: "/images/photos/balcony-phone-2.webp",
+    imageAlt: "גבר עם כיפה יושב במרפסת ביתו וקורא מכתב רשמי",
     heroIntro:
       "מחלה או פציעה מונעות מכם לחזור לעבודה, ויש לכם ביטוח אובדן כושר עבודה? הפוליסה נועדה להחליף חלק גדול מההכנסה. נבדוק איתכם את ההגדרות בפוליסה ונבנה איתכם תיק שעומד בהן.",
     overview: [
@@ -1164,8 +1174,8 @@ export const areaServices: Service[] = [
     slug: "disability-pension",
     name: "פנסיית נכות",
     institutionSlug: "karnot-pensia",
-    image: "/images/photos/kitchen-table-laptop.webp",
-    imageAlt: "אב ובנו עוברים על מסמכים מול מחשב נייד בשולחן המטבח",
+    image: "/images/photos/kitchen-table-laptop-2.webp",
+    imageAlt: "אב ובנו עוברים יחד על תיקיית מסמכים בשולחן המטבח",
     heroIntro:
       "חברי קרן פנסיה מבוטחים, ברוב המקרים, גם מפני אובדן כושר עבודה. כשהבריאות פוגעת ביכולת לעבוד — הקרן משלמת קצבה חודשית. נבדוק איתכם את הכיסוי ונבנה איתכם את התיק מול הקרן.",
     overview: [
