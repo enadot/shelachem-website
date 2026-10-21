@@ -45,7 +45,7 @@ export function Story() {
           </div>
           <Reveal variant="image" className="relative aspect-[4/3] rounded-2xl md:aspect-[5/4]">
             <Image
-              src="/images/story.webp"
+              src="/images/team-2026.webp"
               alt="צוות שלכם"
               fill
               sizes="(min-width: 768px) 50vw, 100vw"

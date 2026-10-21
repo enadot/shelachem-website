@@ -9,6 +9,6 @@ export default function Image() {
     eyebrow: "הרופאים והמומחים",
     title: "רופאים מומחים שמכירים את הוועדות מבפנים",
     subtitle: "חוות דעת מקצועיות, הכוונה אישית לקראת הוועדות הרפואיות ומעקב צמוד עד להחלטה.",
-    photo: "/images/photos/physiotherapy.webp",
+    photo: "/images/photos/physiotherapy-2.webp",
   });
 }

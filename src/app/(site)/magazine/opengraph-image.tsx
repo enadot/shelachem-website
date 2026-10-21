@@ -9,6 +9,6 @@ export default function Image() {
     eyebrow: "המגזין",
     title: "מדריכים, עדכוני חוק וסיפורי הצלחה",
     subtitle: "מימוש זכויות רפואיות בשפה של בני אדם, לא של פקידים.",
-    photo: "/images/photos/kitchen-table-laptop.webp",
+    photo: "/images/photos/kitchen-table-laptop-2.webp",
   });
 }

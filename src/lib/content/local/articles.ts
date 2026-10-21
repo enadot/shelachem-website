@@ -12,7 +12,7 @@ export const articles: Article[] = [
     readingMinutes: 9,
     publishedLabel: "יוני 2026",
     publishedAt: "2026-06-01",
-    image: "/images/photos/physiotherapy.webp",
+    image: "/images/photos/physiotherapy-2.webp",
     imageAlt: "פיזיותרפיסט מלווה מטופל עם מקבע ברך בתרגיל",
     featured: true,
     // "בשורה התחתונה" — כל ארבע העובדות מנוסחות מגוף הכתבה עצמה.
@@ -137,8 +137,8 @@ export const articles: Article[] = [
     readingMinutes: 8,
     publishedLabel: "מאי 2026",
     publishedAt: "2026-05-01",
-    image: "/images/photos/balcony-phone.webp",
-    imageAlt: "גבר מדבר בטלפון במרפסת ומחזיק מכתב",
+    image: "/images/photos/balcony-phone-2.webp",
+    imageAlt: "גבר עם כיפה יושב במרפסת וקורא מכתב רשמי",
   },
   {
     id: "fibromyalgia-ruling",
