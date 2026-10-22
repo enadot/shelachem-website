@@ -2,6 +2,8 @@ import Image from "next/image";
 import { Entrance } from "@/components/shared/reveal";
 import { EligibilityQuiz } from "@/components/home/eligibility-quiz";
 import { CmsImage } from "@/components/shared/cms-image";
+import { LeadCta } from "@/components/shared/lead-cta";
+import { ArrowForward } from "@/components/shared/icons";
 import { getGlobals } from "@/lib/content";
 import { site } from "@/lib/config";
 
@@ -14,6 +16,7 @@ const heroInstitutions = [
 /**
  * Hero v3 (designs/homepage-v3.html §5a/5b) — רויאל מלא:
  * תגית זהב, h1 עם "שלכם" ענק, שלושה מוסדות עם קו מכחול, ותמונת הצוות.
+ * כפתור זהב להשארת פרטים (פותח מודאל) מתחת למוסדות.
  * מתחתיו כרטיס לבן שעולה על ההירו (-72px / -48px) ובו בדיקת זכאות בשלבים.
  * תמונת הצוות מנוהלת ב-CMS (globals ▸ hero_image); נפילה חזרה ל-hero-gavel-team.
  */
@@ -58,6 +61,18 @@ export async function Hero() {
                   </li>
                 ))}
               </ul>
+            </Entrance>
+            {/* CTA ישיר להשארת פרטים — למי שלא שם לב לשאלון שבכרטיס מתחת */}
+            <Entrance delay={0.3}>
+              <LeadCta
+                sourcePage="home-hero"
+                variant="accent"
+                size="lg"
+                className="group mt-6 w-full md:mt-9 md:w-auto"
+              >
+                השאירו פרטים ונחזור אליכם
+                <ArrowForward size={18} className="nudge" />
+              </LeadCta>
             </Entrance>
           </div>
           <Entrance delay={0.25} fade className="flex justify-center">
