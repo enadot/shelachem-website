@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect } from "react";
+import { usePathname } from "next/navigation";
 import { createPortal } from "react-dom";
 import { motion } from "framer-motion";
 import { site } from "@/lib/config";
@@ -26,6 +27,7 @@ const items = [
 export function MobileMenu({ onClose }: { onClose: () => void }) {
   const { contact } = useSite();
   const { openLeadForm } = useLeadModal();
+  const isLp = usePathname().startsWith("/lp/");
   useEffect(() => {
     document.body.style.overflow = "hidden";
     return () => {
@@ -94,7 +96,8 @@ export function MobileMenu({ onClose }: { onClose: () => void }) {
           }}
           className="block w-full cursor-pointer rounded-[10px] border-none bg-gold p-4 text-center text-lg font-bold text-ink"
         >
-          בדיקת זכאות חינם
+          {/* בעמודי הנחיתה בלי "חינם" — טענה C4 שעוד לא אושרה (T-026). */}
+          {isLp ? "בדיקת זכאות" : "בדיקת זכאות חינם"}
         </button>
         <a href={contact.phoneHref} className="tnum block text-center text-[17px] text-white no-underline">
           {contact.phone} · זמינים עכשיו
