@@ -65,6 +65,11 @@ export interface LeadFormProps {
    * "inline" — v3 hero card: on desktop name/phone/email/submit in one row, consents below.
    */
   layout?: "stacked" | "hero" | "inline";
+  /**
+   * תוכן נוסף מתחת לשורת המנעול (ובמסך התודה) — למשל גילוי נאות בעמודי הנחיתה.
+   * לא משנה את הנוסח הקבוע של הטופס.
+   */
+  footnote?: React.ReactNode;
   className?: string;
 }
 
@@ -79,6 +84,7 @@ export function LeadForm({
   withMarketingConsent = true,
   withEmail = true,
   layout = "stacked",
+  footnote,
   className,
 }: LeadFormProps) {
   const { contact } = useSite();
@@ -166,6 +172,7 @@ export function LeadForm({
           נחזור אליכם {sentPhone ? <b className="tnum">ל-{sentPhone}</b> : "בהקדם"} — בדרך כלל
           תוך יום עסקים אחד.
         </p>
+        {footnote}
       </div>
     );
   }
@@ -276,6 +283,7 @@ export function LeadForm({
         trackEvent("form_start", { lead_source: sourcePage, lead_topic: presetTopic });
       }}
       noValidate
+      data-lead-source={sourcePage}
       className={cn("flex flex-col gap-3", className)}
     >
       {layout === "hero" ? (
@@ -429,6 +437,7 @@ export function LeadForm({
         <Lock size={13} aria-hidden className="me-1.5 inline-block align-[-2px]" />
         הפרטים שלכם נשמרים בדיסקרטיות מלאה · שכר טרחה בהצלחה בלבד
       </div>
+      {footnote}
     </form>
   );
 }

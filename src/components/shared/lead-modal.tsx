@@ -6,12 +6,17 @@ import { Dialog, DialogContent, DialogDescription, DialogTitle } from "@/compone
 import { Check } from "@/components/shared/icons";
 import { useSite } from "@/components/settings-provider";
 
+export interface LeadModalOptions {
+  /** תוכן מתחת לטופס במודאל (למשל גילוי נאות בעמודי הנחיתה). */
+  footnote?: React.ReactNode;
+}
+
 interface LeadModalApi {
   /**
    * פותח את מודאל בדיקת הזכאות. `sourcePage` נשמר על הליד לצורך attribution,
    * ו-`topic` ממלא מראש את הנושא שהמשתמש קרא עליו.
    */
-  openLeadForm: (sourcePage?: string, topic?: string) => void;
+  openLeadForm: (sourcePage?: string, topic?: string, options?: LeadModalOptions) => void;
   closeLeadForm: () => void;
 }
 
@@ -25,10 +30,15 @@ export function LeadModalProvider({ children }: { children: React.ReactNode }) {
   const { contact } = useSite();
   const [source, setSource] = useState<string | null>(null);
   const [topic, setTopic] = useState<string | undefined>(undefined);
-  const openLeadForm = useCallback((sourcePage = "lead-modal", presetTopic?: string) => {
-    setTopic(presetTopic);
-    setSource(sourcePage);
-  }, []);
+  const [footnote, setFootnote] = useState<React.ReactNode>(null);
+  const openLeadForm = useCallback(
+    (sourcePage = "lead-modal", presetTopic?: string, options?: LeadModalOptions) => {
+      setTopic(presetTopic);
+      setFootnote(options?.footnote ?? null);
+      setSource(sourcePage);
+    },
+    [],
+  );
   const closeLeadForm = useCallback(() => setSource(null), []);
 
   return (
@@ -80,6 +90,7 @@ export function LeadModalProvider({ children }: { children: React.ReactNode }) {
                 sourcePage={source}
                 presetTopic={topic}
                 submitLabel="שלחו לי בדיקת זכאות"
+                footnote={footnote}
               />
               <div className="mt-4 border-t border-hairline-soft pt-3.5 text-center text-[13.5px] text-ink-muted">
                 מעדיפים לדבר?{" "}
