@@ -1,43 +1,33 @@
-import type { ClaimMode } from "@/lib/content/local/lp-claims";
+import Image from "next/image";
+import type { CSSProperties } from "react";
 import type { LpImageSlot } from "@/lib/content/local/landing-pages";
 import { cn } from "@/lib/utils";
 
 /**
- * מקום שמור לצילום שעוד לא הופק (T-026). כשהקובץ יהיה ב-`slot.src` — להחליף
- * ב-`CmsImage`/`next/image` עם אותו `alt`. מחוץ לפרודקשן מוצג גם מזהה ה-TODO.
+ * צילום של דף נחיתה (T-026). התמונות הופקו ב-Higgsfield ונשמרו תחת
+ * public/images/photos/lp-*.webp. תמונת ה-hero נחתכת ל-4:3 במובייל
+ * ול-21:9 בדסקטופ; `slot.focus` מזיז את נקודת החיתוך במובייל כשהנושא לא במרכז.
  */
-export function LpImagePlaceholder({
-  slot,
-  mode,
-  className,
-}: {
-  slot: LpImageSlot;
-  mode: ClaimMode;
-  className?: string;
-}) {
-  const wide = slot.section === "hero";
+export function LpImage({ slot, className }: { slot: LpImageSlot; className?: string }) {
+  const hero = slot.section === "hero";
   return (
     <figure
-      role="img"
-      aria-label={slot.alt}
       data-image-slot={slot.id}
-      data-image-src={slot.src}
       className={cn(
-        "relative m-0 flex items-center justify-center overflow-hidden rounded-2xl border border-dashed border-hairline bg-surface-blue",
-        wide ? "aspect-[4/3] md:aspect-[21/9]" : "aspect-[4/3]",
+        "relative m-0 overflow-hidden rounded-2xl bg-surface-blue",
+        hero ? "aspect-[4/3] md:aspect-[21/9]" : "aspect-[4/3]",
         className,
       )}
     >
-      {mode === "review" && (
-        <figcaption className="max-w-[46ch] p-6 text-center text-[13.5px] leading-relaxed text-ink-muted">
-          <span className="block font-bold text-ink-secondary">{slot.id}</span>
-          {slot.alt}
-          <span className="mt-1 block tnum" dir="ltr">
-            {slot.src} · {slot.ratio}
-            {slot.reuse ? ` · reuse? ${slot.reuse}` : ""}
-          </span>
-        </figcaption>
-      )}
+      <Image
+        src={slot.src}
+        alt={slot.alt}
+        fill
+        priority={hero}
+        sizes={hero ? "(min-width: 1280px) 1200px, 100vw" : "(min-width: 960px) 880px, 100vw"}
+        className="object-cover object-[var(--lp-focus,50%_50%)] md:object-center"
+        style={slot.focus ? ({ "--lp-focus": slot.focus } as CSSProperties) : undefined}
+      />
     </figure>
   );
 }

@@ -23,15 +23,15 @@ export interface LpStat {
 }
 export type LpImageSection = "hero" | "pain" | "steps" | "eligibility" | "why";
 export interface LpImageSlot {
-  /** מזהה TODO לתמונה שעוד לא הופקה. */
+  /** מזהה הסלוט (TODO-IMG) — נשמר ב-data-image-slot. */
   id: string;
-  /** נתיב היעד המתוכנן לקובץ. */
+  /** נתיב הקובץ תחת public. */
   src: string;
   alt: string;
   section: LpImageSection;
   ratio: string;
-  /** צילום קיים באתר שאפשר להשתמש בו במקום הפקה חדשה. */
-  reuse?: string;
+  /** מיקוד החיתוך במובייל (object-position), כשהנושא לא במרכז. */
+  focus?: string;
 }
 export interface LandingPage {
   slug: string;
@@ -157,8 +157,8 @@ export const landingPages: LandingPage[] = [
       subtitle: g(["C8", "C3"], "שם וטלפון, ואנחנו חוזרים אליכם. בדיסקרטיות מלאה, ושכר טרחה בהצלחה בלבד.", "שם וטלפון, ואנחנו חוזרים אליכם."),
     },
     images: [
-      { id: "TODO-IMG-lp-depression-1", src: "/images/photos/lp-depression-1.webp", alt: "גבר יושב ליד חלון בשעת בוקר מוקדמת, כוס תה על אדן החלון", section: "hero", ratio: "21:9 desktop / 4:3 mobile" },
-      { id: "TODO-IMG-lp-depression-2", src: "/images/photos/lp-depression-2.webp", alt: "ידיים מסדרות מכתבים רפואיים בתיקייה על שולחן מטבח", section: "eligibility", ratio: "4:3" },
+      { id: "TODO-IMG-lp-depression-1", src: "/images/photos/lp-depression-1.webp", alt: "גבר יושב ליד חלון בשעת בוקר מוקדמת, כוס תה על אדן החלון", section: "hero", ratio: "21:9 desktop / 4:3 mobile", focus: "40% 50%" },
+      { id: "TODO-IMG-lp-depression-2", src: "/images/photos/lp-depression-2.webp", alt: "ידיים מסדרות מכתבים בתיקייה על שולחן מטבח, ליד כוס תה", section: "eligibility", ratio: "4:3" },
     ],
   },
   {
@@ -218,8 +218,8 @@ export const landingPages: LandingPage[] = [
       subtitle: g(["C8", "C3"], "שם וטלפון, ואנחנו חוזרים אליכם. בדיסקרטיות מלאה, ושכר טרחה בהצלחה בלבד.", "שם וטלפון, ואנחנו חוזרים אליכם."),
     },
     images: [
-      { id: "TODO-IMG-lp-bipolar-disorder-1", src: "/images/photos/lp-bipolar-disorder-1.webp", alt: "אב ובנו הבוגר יושבים יחד מול מסמכים בסלון", section: "hero", ratio: "21:9 / 4:3" },
-      { id: "TODO-IMG-lp-bipolar-disorder-2", src: "/images/photos/lp-bipolar-disorder-2.webp", alt: "לוח שנה תלוי על קיר מטבח ועליו סימונים בעט, בלי טקסט קריא", section: "pain", ratio: "4:3" },
+      { id: "TODO-IMG-lp-bipolar-disorder-1", src: "/images/photos/lp-bipolar-disorder-1.webp", alt: "אב ובנו הבוגר יושבים יחד מול מסמכים בסלון", section: "hero", ratio: "21:9 / 4:3", focus: "40% 50%" },
+      { id: "TODO-IMG-lp-bipolar-disorder-2", src: "/images/photos/lp-bipolar-disorder-2.webp", alt: "גבר מסמן בעט על לוח תכנון התלוי על קיר המטבח", section: "pain", ratio: "4:3" },
     ],
   },
   {
@@ -339,8 +339,8 @@ export const landingPages: LandingPage[] = [
       subtitle: g(["C8", "C3"], "שם וטלפון, ואנחנו חוזרים אליכם. בדיסקרטיות מלאה, ושכר טרחה בהצלחה בלבד.", "שם וטלפון, ואנחנו חוזרים אליכם."),
     },
     images: [
-      { id: "TODO-IMG-lp-multiple-sclerosis-1", src: "/images/photos/lp-multiple-sclerosis-1.webp", alt: "גבר בשנות ה-40 לחייו יושב ליד שולחן העבודה בבית ומניח יד על המצח, מקל הליכה נשען לצידו", section: "hero", ratio: "21:9 / 4:3" },
-      { id: "TODO-IMG-lp-multiple-sclerosis-2", src: "/images/photos/lp-multiple-sclerosis-2.webp", alt: "גבר יוצא מרכב בחניה ליד בית, נשען על דלת הרכב", section: "eligibility", ratio: "4:3" },
+      { id: "TODO-IMG-lp-multiple-sclerosis-1", src: "/images/photos/lp-multiple-sclerosis-1.webp", alt: "גבר בשנות ה-40 לחייו יושב ליד שולחן העבודה בבית, מקל הליכה נשען לצידו", section: "hero", ratio: "21:9 / 4:3" },
+      { id: "TODO-IMG-lp-multiple-sclerosis-2", src: "/images/photos/lp-multiple-sclerosis-2.webp", alt: "גבר עומד ליד דלת פתוחה של רכב בחניה ליד הבית", section: "eligibility", ratio: "4:3" },
     ],
   },
   {
@@ -400,7 +400,7 @@ export const landingPages: LandingPage[] = [
     },
     images: [
       { id: "TODO-IMG-lp-medical-rights-1", src: "/images/photos/lp-medical-rights-1.webp", alt: "גבר בכיפה שחורה וגבר חילוני מבוגר יושבים ליד שולחן מטבח ומעיינים במסמכים", section: "hero", ratio: "21:9 / 4:3" },
-      { id: "TODO-IMG-lp-medical-rights-2", src: "/images/photos/lp-medical-rights-2.webp", alt: "documents-table.webp מהאתר", section: "eligibility", ratio: "4:3", reuse: "/images/photos/documents-table.webp" },
+      { id: "TODO-IMG-lp-medical-rights-2", src: "/images/photos/lp-medical-rights-2.webp", alt: "ידיים מסדרות מסמכים על שולחן מטבח, ליד תיקייה פתוחה ומחשב נייד סגור", section: "eligibility", ratio: "4:3" },
     ],
   },
   {
@@ -460,8 +460,8 @@ export const landingPages: LandingPage[] = [
       subtitle: g(["C8", "C3"], "שם וטלפון, ואנחנו חוזרים אליכם. בדיסקרטיות מלאה, ושכר טרחה בהצלחה בלבד.", "שם וטלפון, ואנחנו חוזרים אליכם."),
     },
     images: [
-      { id: "TODO-IMG-lp-general-disability-1", src: "/images/photos/lp-general-disability-1.webp", alt: "גבר ממלא טפסים ליד שולחן המטבח מול מחשב נייד", section: "hero", ratio: "21:9 / 4:3" },
-      { id: "TODO-IMG-lp-general-disability-2", src: "/images/photos/lp-general-disability-2.webp", alt: "גבר מדבר בטלפון במרפסת", section: "why", ratio: "4:3", reuse: "/images/photos/balcony-phone.webp" },
+      { id: "TODO-IMG-lp-general-disability-1", src: "/images/photos/lp-general-disability-1.webp", alt: "גבר כותב במחברת ליד שולחן המטבח, מחשב נייד וערימת מסמכים לצידו", section: "hero", ratio: "21:9 / 4:3" },
+      { id: "TODO-IMG-lp-general-disability-2", src: "/images/photos/lp-general-disability-2.webp", alt: "גבר בכיפה שחורה מדבר בטלפון במרפסת", section: "why", ratio: "4:3" },
     ],
   },
   {
@@ -523,7 +523,7 @@ export const landingPages: LandingPage[] = [
     },
     images: [
       { id: "TODO-IMG-lp-mental-disability-1", src: "/images/photos/lp-mental-disability-1.webp", alt: "גבר צועד לבד בשביל בפארק שקט בשעת בוקר", section: "hero", ratio: "21:9 / 4:3" },
-      { id: "TODO-IMG-lp-mental-disability-2", src: "/images/photos/lp-mental-disability-2.webp", alt: "park-bench.webp מהאתר", section: "pain", ratio: "4:3", reuse: "/images/photos/park-bench.webp" },
+      { id: "TODO-IMG-lp-mental-disability-2", src: "/images/photos/lp-mental-disability-2.webp", alt: "גבר יושב לבד על ספסל בפארק בשעת בוקר", section: "pain", ratio: "4:3" },
     ],
   },
   {
@@ -582,8 +582,8 @@ export const landingPages: LandingPage[] = [
       subtitle: g(["C8", "C3"], "שם וטלפון, ואנחנו חוזרים אליכם. בדיסקרטיות מלאה, ושכר טרחה בהצלחה בלבד.", "שם וטלפון, ואנחנו חוזרים אליכם."),
     },
     images: [
-      { id: "TODO-IMG-lp-fibromyalgia-1", src: "/images/photos/lp-fibromyalgia-1.webp", alt: "גבר בשנות ה-50 לחייו יושב על קצה המיטה בבוקר ומעסה את כתפו", section: "hero", ratio: "21:9 / 4:3" },
-      { id: "TODO-IMG-lp-fibromyalgia-2", src: "/images/photos/lp-fibromyalgia-2.webp", alt: "physiotherapy.webp מהאתר", section: "eligibility", ratio: "4:3", reuse: "/images/photos/physiotherapy.webp" },
+      { id: "TODO-IMG-lp-fibromyalgia-1", src: "/images/photos/lp-fibromyalgia-1.webp", alt: "גבר בשנות ה-50 לחייו יושב על קצה המיטה בבוקר ומביט אל החלון", section: "hero", ratio: "21:9 / 4:3" },
+      { id: "TODO-IMG-lp-fibromyalgia-2", src: "/images/photos/lp-fibromyalgia-2.webp", alt: "גבר עושה תרגיל מתיחה עדין עם גומייה בסלון ביתו", section: "eligibility", ratio: "4:3" },
     ],
   },
   {
@@ -642,8 +642,8 @@ export const landingPages: LandingPage[] = [
       subtitle: g(["C8", "C3"], "שם וטלפון, ואנחנו חוזרים אליכם. בדיסקרטיות מלאה, ושכר טרחה בהצלחה בלבד.", "שם וטלפון, ואנחנו חוזרים אליכם."),
     },
     images: [
-      { id: "TODO-IMG-lp-ulcerative-colitis-1", src: "/images/photos/lp-ulcerative-colitis-1.webp", alt: "גבר יושב בפינת האוכל בבית ומעיין במכתב רפואי, כוס מים לצידו", section: "hero", ratio: "21:9 / 4:3" },
-      { id: "TODO-IMG-lp-ulcerative-colitis-2", src: "/images/photos/lp-ulcerative-colitis-2.webp", alt: "recovery-window.webp מהאתר", section: "eligibility", ratio: "4:3", reuse: "/images/photos/recovery-window.webp" },
+      { id: "TODO-IMG-lp-ulcerative-colitis-1", src: "/images/photos/lp-ulcerative-colitis-1.webp", alt: "גבר יושב בפינת האוכל בבית ומעיין במכתב, כוס מים לצידו", section: "hero", ratio: "21:9 / 4:3", focus: "45% 50%" },
+      { id: "TODO-IMG-lp-ulcerative-colitis-2", src: "/images/photos/lp-ulcerative-colitis-2.webp", alt: "גבר עומד ליד חלון הסלון בשעת בוקר ומביט החוצה", section: "eligibility", ratio: "4:3" },
     ],
   },
   {
@@ -703,8 +703,8 @@ export const landingPages: LandingPage[] = [
       subtitle: g(["C8", "C3"], "שם וטלפון, ואנחנו חוזרים אליכם. בדיסקרטיות מלאה, ושכר טרחה בהצלחה בלבד.", "שם וטלפון, ואנחנו חוזרים אליכם."),
     },
     images: [
-      { id: "TODO-IMG-lp-disability-allowance-1", src: "/images/photos/lp-disability-allowance-1.webp", alt: "גבר מבוגר בכיפה שחורה פותח מעטפה ליד תיבות דואר בכניסה לבניין", section: "hero", ratio: "21:9 / 4:3" },
-      { id: "TODO-IMG-lp-disability-allowance-2", src: "/images/photos/lp-disability-allowance-2.webp", alt: "tax-receipts.webp מהאתר", section: "eligibility", ratio: "4:3", reuse: "/images/photos/tax-receipts.webp" },
+      { id: "TODO-IMG-lp-disability-allowance-1", src: "/images/photos/lp-disability-allowance-1.webp", alt: "גבר מבוגר בכיפה שחורה פותח מעטפה ליד תיבות דואר בכניסה לבניין", section: "hero", ratio: "21:9 / 4:3", focus: "35% 50%" },
+      { id: "TODO-IMG-lp-disability-allowance-2", src: "/images/photos/lp-disability-allowance-2.webp", alt: "ידיים ממיינות מעטפות וקבלות על שולחן, ליד מחשבון", section: "eligibility", ratio: "4:3" },
     ],
   },
   {
@@ -763,8 +763,8 @@ export const landingPages: LandingPage[] = [
       subtitle: g(["C8", "C3"], "שם וטלפון, ואנחנו חוזרים אליכם. בדיסקרטיות מלאה, ושכר טרחה בהצלחה בלבד.", "שם וטלפון, ואנחנו חוזרים אליכם."),
     },
     images: [
-      { id: "TODO-IMG-lp-crohns-disease-1", src: "/images/photos/lp-crohns-disease-1.webp", alt: "גבר צעיר בכיפה סרוגה יושב באוטובוס ומביט מהחלון, תיק גב על ברכיו", section: "hero", ratio: "21:9 / 4:3" },
-      { id: "TODO-IMG-lp-crohns-disease-2", src: "/images/photos/lp-crohns-disease-2.webp", alt: "ידיים מסדרות ערימת מכתבי שחרור ותוצאות בדיקות לפי תאריכים", section: "pain", ratio: "4:3" },
+      { id: "TODO-IMG-lp-crohns-disease-1", src: "/images/photos/lp-crohns-disease-1.webp", alt: "גבר צעיר בכיפה סרוגה יושב באוטובוס ומביט מהחלון, תיק גב על ברכיו", section: "hero", ratio: "21:9 / 4:3", focus: "35% 50%" },
+      { id: "TODO-IMG-lp-crohns-disease-2", src: "/images/photos/lp-crohns-disease-2.webp", alt: "ידיים מסדרות ערימת מסמכים עם פתקיות סימון על שולחן", section: "pain", ratio: "4:3" },
     ],
   },
   {

@@ -40,7 +40,7 @@ import { ArrowForward } from "@/components/shared/icons";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { ClaimBadges, Claimed, Rich } from "@/components/lp/claim-text";
 import { LpDisclosureFull, LpDisclosureShort } from "@/components/lp/lp-disclosure";
-import { LpImagePlaceholder } from "@/components/lp/lp-image-slot";
+import { LpImage } from "@/components/lp/lp-image-slot";
 import { LpViewToggle } from "@/components/lp/lp-view-toggle";
 
 /**
@@ -207,7 +207,7 @@ export default async function LandingPageRoute({
   const heroImage = imageFor("hero");
   const sectionImage = (section: LpImageSection) => {
     const slot = imageFor(section);
-    return slot ? <LpImagePlaceholder slot={slot} mode={mode} className="mt-10" /> : null;
+    return slot ? <LpImage slot={slot} className="mx-auto mt-10 max-w-[880px]" /> : null;
   };
 
   return (
@@ -278,7 +278,7 @@ export default async function LandingPageRoute({
 
       {heroImage && (
         <div className="px-6 pt-10 md:px-[clamp(24px,6.7vw,96px)] md:pt-14">
-          <LpImagePlaceholder slot={heroImage} mode={mode} className={container} />
+          <LpImage slot={heroImage} className={container} />
         </div>
       )}
 
