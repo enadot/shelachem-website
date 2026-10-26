@@ -75,7 +75,7 @@ const LP_POSITIONS = ["hero", "mid", "final", "bar"] as const;
  * פרמטרי דף נחיתה (T-026). מחוץ ל-`/lp/<slug>` מחזיר `{}` — שאר האתר לא משתנה.
  * `cta_position` נגזר מ-`lead_source` (`lp-<slug>-<pos>`, לפני הסיומת `|utm`) או
  * מ-`link_location` (אותו פורמט, או `lp-mobile-cta-bar` → `bar`). `mid2` נספר כ-`mid`.
- * `lead_topic` נלקח מ-`data-lp-topic` של העמוד רק אם לא הועבר כבר.
+ * `lead_topic` נלקח מ-`data-lp-topic` של העמוד כשלא הועבר או שהוא ריק.
  */
 function lpParams(params: Params): Params {
   const slug = /^\/lp\/([^/?#]+)/.exec(window.location.pathname)?.[1];
@@ -87,8 +87,9 @@ function lpParams(params: Params): Params {
     const raw = ref.slice(`lp-${slug}-`.length).replace(/\d+$/, "");
     pos = (LP_POSITIONS as readonly string[]).includes(raw) ? raw : undefined;
   }
-  const topic = document.querySelector<HTMLElement>("[data-lp-topic]")?.dataset.lpTopic;
-  return { lp_slug: slug, cta_position: pos, lead_topic: params.lead_topic ?? (topic || undefined) };
+  const own = typeof params.lead_topic === "string" ? params.lead_topic.trim() : params.lead_topic;
+  const topic = document.querySelector<HTMLElement>("[data-lp-topic]")?.dataset.lpTopic?.trim();
+  return { lp_slug: slug, cta_position: pos, lead_topic: own || topic || undefined };
 }
 
 /** שולח אירוע ל-dataLayer ולפיקסלים שנטענו ישירות. מחזיר את ה-event_id. */
