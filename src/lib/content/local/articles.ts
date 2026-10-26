@@ -1,4 +1,5 @@
 import type { Article } from "../types";
+import { articlesOct2026 } from "./articles-2026-10";
 
 /** כתבות המגזין — לפי designs/blog-index.html + designs/blog-post.html (הכתבה המרכזית). */
 export const articles: Article[] = [
@@ -188,4 +189,5 @@ export const articles: Article[] = [
     publishedAt: "2026-03-01",
     image: null,
   },
+  ...articlesOct2026,
 ];
