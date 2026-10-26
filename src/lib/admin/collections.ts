@@ -225,7 +225,7 @@ export const COLLECTIONS = {
         fields: [
           { name: "heading", label: "כותרת הפרק", type: "text", half: true },
           { name: "id", label: "עוגן (באנגלית)", type: "text", ltr: true, half: true, pattern: PATTERNS.slug, hint: "לקישור ישיר לפרק" },
-          { name: "paragraphs", label: "פסקאות", type: "string-list", itemLabel: "פסקה", rows: 4 },
+          { name: "paragraphs", label: "פסקאות", type: "string-list", itemLabel: "פסקה", rows: 4, hint: "פסקה שמתחילה ב-\"### \" מוצגת ככותרת משנה. כתובת https://… הופכת לקישור. בפרק עם העוגן faq: \"### שאלה\" ואחריה פסקת התשובה." },
           { name: "bullets", label: "רשימת תבליטים", type: "string-list", itemLabel: "תבליט", rows: 1 },
         ],
       },
@@ -482,7 +482,7 @@ export const COLLECTIONS = {
         fields: [
           { name: "heading", label: "כותרת", type: "text", required: true, half: true },
           { name: "id", label: "עוגן (באנגלית)", type: "text", ltr: true, half: true, pattern: PATTERNS.slug },
-          { name: "paragraphs", label: "פסקאות", type: "string-list", itemLabel: "פסקה", rows: 4 },
+          { name: "paragraphs", label: "פסקאות", type: "string-list", itemLabel: "פסקה", rows: 4, hint: "פסקה שמתחילה ב-\"### \" מוצגת ככותרת משנה. כתובת https://… הופכת לקישור. בפרק עם העוגן faq: \"### שאלה\" ואחריה פסקת התשובה." },
         ],
       },
       {
