@@ -70,6 +70,16 @@ export interface LeadFormProps {
    * לא משנה את הנוסח הקבוע של הטופס.
    */
   footnote?: React.ReactNode;
+  /**
+   * מחליף את שורת המנעול הקבועה ("דיסקרטיות מלאה · שכר טרחה בהצלחה בלבד").
+   * `undefined` — הנוסח הקבוע של האתר; `null` — בלי השורה. בעמודי הנחיתה עובר בשער הטענות.
+   */
+  trustLine?: React.ReactNode;
+  /**
+   * מחליף את "— בדרך כלל תוך יום עסקים אחד." במסך התודה. `undefined` — הנוסח הקבוע;
+   * `null` — בלי (המשפט מסתיים בנקודה). בעמודי הנחיתה עובר בשער הטענות (C9).
+   */
+  successNote?: React.ReactNode;
   className?: string;
 }
 
@@ -85,6 +95,8 @@ export function LeadForm({
   withEmail = true,
   layout = "stacked",
   footnote,
+  trustLine,
+  successNote,
   className,
 }: LeadFormProps) {
   const { contact } = useSite();
@@ -169,8 +181,8 @@ export function LeadForm({
         <CheckCircle size={34} className="text-brand" />
         <div className="font-display text-2xl font-bold">הפרטים התקבלו!</div>
         <p className={cn("m-0 text-base", dark ? "text-white/80" : "text-ink-secondary")}>
-          נחזור אליכם {sentPhone ? <b className="tnum">ל-{sentPhone}</b> : "בהקדם"} — בדרך כלל
-          תוך יום עסקים אחד.
+          נחזור אליכם {sentPhone ? <b className="tnum">ל-{sentPhone}</b> : "בהקדם"}
+          {successNote === undefined ? " — בדרך כלל תוך יום עסקים אחד." : successNote ? <> — {successNote}.</> : "."}
         </p>
         {footnote}
       </div>
@@ -433,10 +445,15 @@ export function LeadForm({
           </a>
         </p>
       )}
-      <div className={cn("text-center text-[13.5px]", dark ? "text-white/70" : "text-ink-faint")}>
-        <Lock size={13} aria-hidden className="me-1.5 inline-block align-[-2px]" />
-        הפרטים שלכם נשמרים בדיסקרטיות מלאה · שכר טרחה בהצלחה בלבד
-      </div>
+      {trustLine !== null && (
+        <div
+          data-form-trust-line
+          className={cn("text-center text-[13.5px]", dark ? "text-white/70" : "text-ink-faint")}
+        >
+          <Lock size={13} aria-hidden className="me-1.5 inline-block align-[-2px]" />
+          {trustLine === undefined ? "הפרטים שלכם נשמרים בדיסקרטיות מלאה · שכר טרחה בהצלחה בלבד" : trustLine}
+        </div>
+      )}
       {footnote}
     </form>
   );

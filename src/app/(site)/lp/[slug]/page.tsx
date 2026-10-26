@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Fragment } from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Check } from "lucide-react";
@@ -28,6 +29,9 @@ import {
   LP_WHY_ROWS,
   LP_WHY_STATS,
   LP_DISCLOSURE_EXTRA,
+  LP_FORM_SUCCESS_NOTE,
+  LP_FORM_TRUST_LINE,
+  LP_MODAL,
   type LandingPage,
   type LpImageSection,
 } from "@/lib/content/local/landing-pages";
@@ -36,6 +40,7 @@ import { SectionHeading } from "@/components/shared/section-heading";
 import { NumberedSteps } from "@/components/shared/numbered-steps";
 import { LeadForm } from "@/components/shared/lead-form";
 import { LeadCta } from "@/components/shared/lead-cta";
+import { LeadModalPageVariant, type LeadModalVariant } from "@/components/shared/lead-modal";
 import { ArrowForward } from "@/components/shared/icons";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { ClaimBadges, Claimed, Rich } from "@/components/lp/claim-text";
@@ -102,6 +107,7 @@ function collectPending(page: LandingPage): ClaimId[] {
     page.eligibility.heading, page.eligibility.intro, ...page.eligibility.items, page.eligibility.tip,
     page.midCta.text, ...page.faq, page.finalCta.heading, page.finalCta.subtitle,
     ...LP_TRUST_LINE, ...LP_WHY_STATS, ...LP_WHY_ROWS, ...LP_DISCLOSURE_EXTRA,
+    ...LP_FORM_TRUST_LINE, LP_FORM_SUCCESS_NOTE, LP_MODAL.title, LP_MODAL.description, ...LP_MODAL.bullets,
   ];
   const codes = new Set<ClaimId>(pendingClaims(page.pageClaims));
   for (const g of all) if (isClaimed(g)) pendingClaims(g.claims).forEach((c) => codes.add(c));
@@ -175,6 +181,50 @@ export default async function LandingPageRoute({
     : null;
 
   const shortDisclosure = <LpDisclosureShort className="mt-1 text-[13.5px]" />;
+
+  /**
+   * רכיבי הטופס והמודאל המשותפים מכילים נוסח קבוע עם טענות (C3/C4/C8/C9/C15) — כאן
+   * הם מקבלים נוסח שעבר בשער. תגים בלי הדגשת רקע: חלק מהטקסט על רקע כהה.
+   */
+  const gatedInline = (v: Gated<string>) => {
+    const r = resolveClaim(v, mode);
+    return r ? (
+      <>
+        {r.value}
+        <ClaimBadges pending={r.pending} />
+      </>
+    ) : null;
+  };
+  const formTrust = resolveList(LP_FORM_TRUST_LINE, mode);
+  const formTrustLine = formTrust.length ? (
+    <>
+      {formTrust.map((t, i) => (
+        <Fragment key={t.value}>
+          {i > 0 && " · "}
+          {t.value}
+          <ClaimBadges pending={t.pending} />
+        </Fragment>
+      ))}
+    </>
+  ) : null;
+  const formSuccessNote = gatedInline(LP_FORM_SUCCESS_NOTE);
+  const modalVariant: LeadModalVariant = {
+    title: gatedInline(LP_MODAL.title),
+    subtitle: LP_MODAL.subtitle,
+    description: gatedInline(LP_MODAL.description),
+    bullets: resolveList(LP_MODAL.bullets, mode).map((b) => ({
+      key: b.value,
+      node: (
+        <>
+          {b.value}
+          <ClaimBadges pending={b.pending} />
+        </>
+      ),
+    })),
+    trustLine: formTrustLine,
+    successNote: formSuccessNote,
+    footnote: <LpDisclosureShort className="mt-3 text-center text-[13px]" />,
+  };
 
   /** בלוק CTA באמצע העמוד — פותח את מודאל הטופס הקיים, עם הגילוי הנאות. */
   const ctaBlock = (text: React.ReactNode, button: string, position: string) => (
@@ -250,6 +300,8 @@ export default async function LandingPageRoute({
               submitLabel={page.submitLabel}
               withEmail={false}
               footnote={shortDisclosure}
+              trustLine={formTrustLine}
+              successNote={formSuccessNote}
             />
             <div className="border-t border-hairline-soft pt-3.5 text-center text-[13.5px] text-ink-muted">
               מעדיפים לדבר?{" "}
@@ -479,9 +531,13 @@ export default async function LandingPageRoute({
             withMarketingConsent={false}
             withEmail={false}
             footnote={<LpDisclosureShort tone="dark" className="text-center text-[13.5px]" />}
+            trustLine={formTrustLine}
+            successNote={formSuccessNote}
           />
         </div>
       </section>
+
+      <LeadModalPageVariant variant={modalVariant} />
 
       {!isProductionDeploy() && <LpViewToggle strict={!review} pendingCount={pending.length} />}
     </div>
