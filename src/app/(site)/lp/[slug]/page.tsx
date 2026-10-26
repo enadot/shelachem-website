@@ -506,7 +506,7 @@ export default async function LandingPageRoute({
       )}
 
       {/* 7 — גילוי נאות מלא (חובה, תמיד) */}
-      <LpDisclosureFull mode={mode} btlUrl={page.btlUrl} benefitName={`${page.h1.title} ${page.h1.strong}`} />
+      <LpDisclosureFull mode={mode} btlUrl={page.btlUrl} benefitName={page.benefitName} />
 
       {/* 8 — CTA סופי: טופס כהה */}
       <section

@@ -44,6 +44,8 @@ export interface LandingPage {
   relatedHref: string;
   /** עמוד הגמלה הרלוונטי באתר ביטוח לאומי. */
   btlUrl: string;
+  /** שם הזכות בגילוי הנאות: "מידע רשמי על <benefitName>: באתר ביטוח לאומי" (לא נגזר מה-H1, QA N8). */
+  benefitName: string;
   /** טענה ברמת העמוד: כל העמוד לא יוצג בפרודקשן עד שתאושר. */
   pageClaims: ClaimId[];
   metaTitle: Gated<string>;
@@ -131,6 +133,7 @@ export const landingPages: LandingPage[] = [
     topic: "דיכאון",
     relatedHref: "/services/general-disability",
     btlUrl: "https://www.btl.gov.il/benefits/Disability/Pages/default.aspx",
+    benefitName: "קצבת נכות כללית",
     pageClaims: [],
     metaTitle: g(["C8"], "זכויות רפואיות בדיכאון: ליווי אישי ודיסקרטי | שלכם", "זכויות רפואיות בדיכאון: ליווי אישי | שלכם"),
     metaDescription: g(["C4", "C8", "C3"], "דיכאון פוגע ביכולת לעבוד? נבדוק איתכם ללא עלות ובדיסקרטיות אילו זכויות רלוונטיות, ונבנה איתכם תיק לוועדה. חברה פרטית, שכר טרחה בהצלחה בלבד.", "דיכאון פוגע ביכולת לעבוד? נבדוק איתכם אילו זכויות רלוונטיות, ונבנה איתכם תיק לוועדה. חברה פרטית לליווי במימוש זכויות רפואיות."),
@@ -192,6 +195,7 @@ export const landingPages: LandingPage[] = [
     topic: "מאניה דיפרסיה (הפרעה דו-קוטבית)",
     relatedHref: "/services/general-disability",
     btlUrl: "https://www.btl.gov.il/benefits/Disability/Pages/default.aspx",
+    benefitName: "קצבת נכות כללית",
     pageClaims: [],
     metaTitle: "מאניה דיפרסיה: ליווי במימוש זכויות רפואיות | שלכם",
     metaDescription: g(["C4", "C8"], "הפרעה דו-קוטבית משפיעה על העבודה ועל המשפחה? נבדוק איתכם ללא עלות ובדיסקרטיות אילו זכויות רלוונטיות, ונבנה איתכם תיק לוועדה. חברה פרטית.", "הפרעה דו-קוטבית משפיעה על העבודה ועל המשפחה? נבדוק איתכם אילו זכויות רלוונטיות, ונבנה איתכם תיק לוועדה. חברה פרטית."),
@@ -253,6 +257,7 @@ export const landingPages: LandingPage[] = [
     topic: "הכנה לוועדה רפואית",
     relatedHref: "/services/general-disability",
     btlUrl: "https://www.btl.gov.il/",
+    benefitName: "ועדות רפואיות",
     pageClaims: [],
     metaTitle: g(["C5"], "הכנה לוועדה רפואית: ליווי אישי עם רופא | שלכם", "הכנה לוועדה רפואית: ליווי אישי | שלכם"),
     metaDescription: g(["C5", "C4"], "יש לכם ועדה רפואית? רופא מהצוות יכווין אתכם לפני הוועדה, ונבנה איתכם תיק שמציג את המצב במלואו. בדיקה ללא עלות. חברה פרטית.", "יש לכם ועדה רפואית? נכין אתכם לוועדה, ונבנה איתכם תיק שמציג את המצב במלואו. חברה פרטית לליווי במימוש זכויות רפואיות."),
@@ -313,6 +318,7 @@ export const landingPages: LandingPage[] = [
     topic: "טרשת נפוצה",
     relatedHref: "/services/general-disability",
     btlUrl: "https://www.btl.gov.il/benefits/Disability/Pages/default.aspx",
+    benefitName: "קצבת נכות כללית",
     pageClaims: ["C14"],
     metaTitle: "זכויות רפואיות בטרשת נפוצה: ליווי אישי | שלכם",
     metaDescription: g(["C4"], "טרשת נפוצה משפיעה על העבודה ועל היומיום? נבדוק איתכם ללא עלות אילו זכויות רלוונטיות: נכות כללית, ניידות, פטור ממס ועוד. חברה פרטית.", "טרשת נפוצה משפיעה על העבודה ועל היומיום? נבדוק איתכם אילו זכויות רלוונטיות: נכות כללית, ניידות, פטור ממס ועוד. חברה פרטית."),
@@ -374,6 +380,7 @@ export const landingPages: LandingPage[] = [
     topic: "מימוש זכויות רפואיות",
     relatedHref: "/institutions",
     btlUrl: "https://www.btl.gov.il/",
+    benefitName: "זכויות רפואיות",
     pageClaims: [],
     metaTitle: "מימוש זכויות רפואיות: ליווי אישי מקצה לקצה | שלכם",
     metaDescription: g(["C4", "C15", "C3"], "מחלה, תאונה או ירידה בכושר העבודה? נבדוק איתכם ללא עלות אילו זכויות רלוונטיות מול ביטוח לאומי, מס הכנסה וחברות הביטוח. שכר טרחה בהצלחה בלבד.", "מחלה, תאונה או ירידה בכושר העבודה? נבדוק איתכם אילו זכויות רלוונטיות למצבכם, ונבנה איתכם את התיק. חברה פרטית לליווי זכויות."),
@@ -434,6 +441,7 @@ export const landingPages: LandingPage[] = [
     topic: "קצבת נכות כללית",
     relatedHref: "/services/general-disability",
     btlUrl: "https://www.btl.gov.il/benefits/Disability/Pages/default.aspx",
+    benefitName: "קצבת נכות כללית",
     pageClaims: [],
     metaTitle: "קצבת נכות כללית: ליווי אישי בתביעה | שלכם",
     metaDescription: g(["C4"], "מצב רפואי פגע ביכולת לעבוד? נבנה איתכם את תיק התביעה לנכות כללית ונכין אתכם לוועדה ולשלב אי-הכושר. בדיקה ללא עלות. חברה פרטית.", "מצב רפואי פגע ביכולת לעבוד? נבנה איתכם את תיק התביעה לנכות כללית ונכין אתכם לוועדה ולשלב אי-הכושר. חברה פרטית."),
@@ -495,6 +503,7 @@ export const landingPages: LandingPage[] = [
     topic: "נכות נפשית",
     relatedHref: "/services/general-disability",
     btlUrl: "https://www.btl.gov.il/benefits/Disability/Pages/default.aspx",
+    benefitName: "קצבת נכות כללית",
     pageClaims: [],
     metaTitle: g(["C8"], "נכות נפשית: ליווי דיסקרטי במימוש זכויות | שלכם", "נכות נפשית: ליווי במימוש זכויות | שלכם"),
     metaDescription: g(["C4", "C8"], "חרדה, דיכאון או פוסט-טראומה פוגעים ביכולת לעבוד? נבדוק איתכם ללא עלות ובדיסקרטיות אילו זכויות רלוונטיות, ונבנה איתכם תיק לוועדה. חברה פרטית.", "חרדה, דיכאון או פוסט-טראומה פוגעים ביכולת לעבוד? נבדוק איתכם אילו זכויות רלוונטיות, ונבנה איתכם תיק לוועדה. חברה פרטית."),
@@ -557,6 +566,7 @@ export const landingPages: LandingPage[] = [
     topic: "פיברומיאלגיה",
     relatedHref: "/services/general-disability",
     btlUrl: "https://www.btl.gov.il/benefits/Disability/Pages/default.aspx",
+    benefitName: "קצבת נכות כללית",
     pageClaims: ["C14"],
     metaTitle: "זכויות רפואיות בפיברומיאלגיה: ליווי אישי | שלכם",
     metaDescription: g(["C4", "C3"], "כאב כרוני שלא נראה בבדיקות? נבדוק איתכם ללא עלות אילו זכויות רלוונטיות בפיברומיאלגיה, ונבנה איתכם תיק מסודר לוועדה. חברה פרטית, שכר טרחה בהצלחה.", "כאב כרוני שלא נראה בבדיקות? נבדוק איתכם אילו זכויות רלוונטיות בפיברומיאלגיה, ונבנה איתכם תיק מסודר לוועדה. חברה פרטית."),
@@ -617,6 +627,7 @@ export const landingPages: LandingPage[] = [
     topic: "קוליטיס",
     relatedHref: "/services/general-disability",
     btlUrl: "https://www.btl.gov.il/benefits/Disability/Pages/default.aspx",
+    benefitName: "קצבת נכות כללית",
     pageClaims: ["C14"],
     metaTitle: g(["C8"], "זכויות רפואיות בקוליטיס: ליווי אישי ודיסקרטי | שלכם", "זכויות רפואיות בקוליטיס: ליווי אישי | שלכם"),
     metaDescription: g(["C4", "C8"], "קוליטיס משפיעה על העבודה ועל היומיום? נבדוק איתכם ללא עלות ובדיסקרטיות אילו זכויות רלוונטיות, ונבנה איתכם תיק לוועדה. חברה פרטית.", "קוליטיס משפיעה על העבודה ועל היומיום? נבדוק איתכם אילו זכויות רלוונטיות, ונבנה איתכם תיק לוועדה. חברה פרטית."),
@@ -677,6 +688,7 @@ export const landingPages: LandingPage[] = [
     topic: "קצבת נכות",
     relatedHref: "/services/general-disability",
     btlUrl: "https://www.btl.gov.il/benefits/Disability/Pages/default.aspx",
+    benefitName: "קצבת נכות כללית",
     pageClaims: [],
     metaTitle: "תביעה לקצבת נכות: ליווי אישי עד ההחלטה | שלכם",
     metaDescription: g(["C4", "C3"], "רוצים להגיש תביעה לקצבת נכות, או שהתביעה נדחתה? נבדוק איתכם ללא עלות, נבנה איתכם את התיק ונכין אתכם לוועדה. חברה פרטית, שכר טרחה בהצלחה.", "רוצים להגיש תביעה לקצבת נכות, או שהתביעה נדחתה? נבדוק איתכם, נבנה איתכם את התיק ונכין אתכם לוועדה. חברה פרטית."),
@@ -738,6 +750,7 @@ export const landingPages: LandingPage[] = [
     topic: "קרוהן",
     relatedHref: "/services/general-disability",
     btlUrl: "https://www.btl.gov.il/benefits/Disability/Pages/default.aspx",
+    benefitName: "קצבת נכות כללית",
     pageClaims: ["C14"],
     metaTitle: "זכויות רפואיות במחלת קרוהן: ליווי אישי | שלכם",
     metaDescription: g(["C4", "C8"], "מחלת קרוהן משפיעה על העבודה ועל היומיום? נבדוק איתכם ללא עלות ובדיסקרטיות אילו זכויות רלוונטיות, ונבנה איתכם תיק לוועדה. חברה פרטית.", "מחלת קרוהן משפיעה על העבודה ועל היומיום? נבדוק איתכם אילו זכויות רלוונטיות, ונבנה איתכם תיק לוועדה. חברה פרטית."),
@@ -798,6 +811,7 @@ export const landingPages: LandingPage[] = [
     topic: "תאונת עבודה",
     relatedHref: "/services/work-injury",
     btlUrl: "https://www.btl.gov.il/benefits/Work_Injury/Pages/default.aspx",
+    benefitName: "דמי פגיעה ונכות מעבודה",
     pageClaims: [],
     metaTitle: "תאונת עבודה: ליווי אישי במימוש הזכויות | שלכם",
     metaDescription: g(["C4"], "נפגעתם בעבודה או בדרך אליה? נבנה איתכם את התביעה לדמי פגיעה ולנכות מעבודה, ונלווה אתכם עד ההחלטה. בדיקה ללא עלות. חברה פרטית.", "נפגעתם בעבודה או בדרך אליה? נבנה איתכם את התביעה לדמי פגיעה ולנכות מעבודה, ונלווה אתכם עד ההחלטה. חברה פרטית."),
@@ -859,6 +873,7 @@ export const landingPages: LandingPage[] = [
     topic: "מימוש זכויות רפואיות",
     relatedHref: "/about",
     btlUrl: "https://www.btl.gov.il/",
+    benefitName: "הזכויות שלכם",
     pageClaims: [],
     metaTitle: "איך בוחרים ליווי במימוש זכויות רפואיות | שלכם",
     metaDescription: g(["C4", "C3"], "לפני שחותמים עם חברה למימוש זכויות: 6 שאלות שכדאי לשאול, והתשובות שלנו. בדיקה ללא עלות, שכר טרחה בהצלחה בלבד. חברה פרטית.", "לפני שחותמים עם חברה למימוש זכויות: 6 שאלות שכדאי לשאול, והתשובות שלנו. חברה פרטית לליווי במימוש זכויות רפואיות."),
