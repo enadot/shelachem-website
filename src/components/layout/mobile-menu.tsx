@@ -96,7 +96,7 @@ export function MobileMenu({ onClose }: { onClose: () => void }) {
           }}
           className="block w-full cursor-pointer rounded-[10px] border-none bg-gold p-4 text-center text-lg font-bold text-ink"
         >
-          {/* בעמודי הנחיתה בלי "חינם" — טענה C4 שעוד לא אושרה (T-026). */}
+          {/* בעמודי הנחיתה בלי "חינם" — הנוסח המאושר ל-C4 הוא "ללא עלות" (T-026). */}
           {isLp ? "בדיקת זכאות" : "בדיקת זכאות חינם"}
         </button>
         <a href={contact.phoneHref} className="tnum block text-center text-[17px] text-white no-underline">
