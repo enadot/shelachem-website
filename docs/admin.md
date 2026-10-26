@@ -50,8 +50,8 @@
 
 ## לידים
 - `/api/leads` שומר את הליד ב-`lead_backups`, עונה לגולש, ואז שולח ל-BARAM (`after()`). התוצאה נרשמת בשורת הגיבוי (`baram_lead_id` או `forward_error`).
-- **ב-preview לידים חסומים.** כש-`VERCEL_ENV=preview` (כל deployment של ענף/PR), `/api/leads` מריץ
-  ולידציה ועונה `403` עם `{ ok: false, preview: true }` וכותרת `X-Lead-Blocked: preview` — בלי
+- **ב-preview לידים חסומים.** כש-`VERCEL_ENV=preview` (כל deployment של ענף/PR), `/api/leads` עונה
+  מיד (לפני קריאת הגוף והוולידציה) `403` עם `{ ok: false, preview: true }` וכותרת `X-Lead-Blocked: preview` — בלי
   לשמור ב-`lead_backups`, בלי BARAM ובלי המרות (הטופס מציג "סביבת בדיקה" ולא יורה `generate_lead`).
   הסיבה: preview ופרודקשן חולקים את אותו מסד Neon ואת מפתח BARAM. בפרודקשן ובפיתוח מקומי — ללא שינוי.
   כדי לבדוק שליחה מקצה לקצה צריך אישור, ו-DB/מפתח נפרדים ל-preview.
