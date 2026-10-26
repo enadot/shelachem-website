@@ -9,7 +9,9 @@ import { ArticleImage } from "@/components/shared/article-image";
 import { Breadcrumb } from "@/components/shared/breadcrumb";
 import { SectionHeading } from "@/components/shared/section-heading";
 import { Check, ChevronForward } from "@/components/shared/icons";
-import { ORG_ID, WEBSITE_ID, ref } from "@/lib/schema";
+import { ORG_ID, WEBSITE_ID, faqPageNode, ref } from "@/lib/schema";
+import { LinkedText } from "@/components/shared/article-text";
+import { articleFaqs, isSubheading, plainText, subheadingText } from "@/lib/content/article-text";
 import { site } from "@/lib/config";
 
 export async function generateStaticParams() {
@@ -62,7 +64,7 @@ export default async function ArticlePage({
   const wordCount = (article.body ?? []).reduce(
     (n, sec) =>
       n +
-      [sec.heading ?? "", ...sec.paragraphs, ...(sec.bullets ?? [])]
+      [sec.heading ?? "", ...sec.paragraphs.map(plainText), ...(sec.bullets ?? [])]
         .join(" ")
         .split(/\s+/)
         .filter(Boolean).length,
@@ -99,12 +101,14 @@ export default async function ArticlePage({
     publisher: ref(ORG_ID),
     isPartOf: ref(WEBSITE_ID),
   };
+  const faqs = articleFaqs(article.body);
+  const ldNodes = faqs.length ? [jsonLd, faqPageNode(faqs, { url })] : [jsonLd];
 
   return (
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(ldNodes.length === 1 ? ldNodes[0] : ldNodes) }}
       />
       <div className="mx-auto max-w-[1040px] px-6 pt-7 md:px-12">
         {/* breadcrumb + header */}
@@ -213,15 +217,23 @@ export default async function ArticlePage({
                   {section.heading}
                 </h2>
               )}
-              {section.paragraphs.map((p) => (
-                <p key={p.slice(0, 32)} className="m-0 mb-3.5 last:mb-0">
-                  {p}
-                </p>
-              ))}
+              {section.paragraphs.map((p) =>
+                isSubheading(p) ? (
+                  <h3 key={p.slice(0, 32)} className="m-0 mb-2 mt-6 font-body text-[19px] font-bold leading-snug text-ink first:mt-0 md:text-[21px]">
+                    {subheadingText(p)}
+                  </h3>
+                ) : (
+                  <p key={p.slice(0, 32)} className="m-0 mb-3.5 last:mb-0">
+                    <LinkedText text={p} />
+                  </p>
+                ),
+              )}
               {section.bullets && (
                 <ul className="m-0 flex flex-col gap-3 pe-0 ps-5">
                   {section.bullets.map((b) => (
-                    <li key={b.slice(0, 32)}>{b}</li>
+                    <li key={b.slice(0, 32)}>
+                      <LinkedText text={b} />
+                    </li>
                   ))}
                 </ul>
               )}
@@ -237,9 +249,9 @@ export default async function ArticlePage({
                 <div className="mb-1.5 font-display text-[22px] font-bold md:text-[26px]">
                   נבדוק את הקביעה שלכם, ונגיד ביושר.
                 </div>
+                {/* נוסח מאושר (C4 + C3, אביב 26.10): "בדיקה ללא עלות. תשלום רק על בסיס הצלחה". */}
                 <div className="text-base leading-relaxed text-white/85">
-                  בדיקת זכאות ראשונה חינם — אם אין בסיס לערר נאמר לכם את זה, בלי לגרור אתכם
-                  לתהליך.
+                  בדיקה ללא עלות. תשלום רק על בסיס הצלחה.
                 </div>
               </div>
               <LeadCta sourcePage="article-cta" topic={article.category} className="shrink-0">

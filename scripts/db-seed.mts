@@ -107,7 +107,8 @@ function canonical(value: unknown): string {
 
 const contentItems = schema.contentItems;
 /** collections שבהם פריט חדש בריפו נוסף למסד אוטומטית (ראו למעלה). */
-const ADD_NEW = new Set(["services"]);
+// articles: כתבות חדשות מהריפו נוספות למסד בבנייה (כתבה שנמחקה בלוח לא חוזרת — ראו deletedInAdmin).
+const ADD_NEW = new Set(["services", "articles"]);
 const revisions = schema.contentRevisions;
 
 for (const collection of existing) {
