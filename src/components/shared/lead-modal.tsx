@@ -28,6 +28,9 @@ export interface LeadModalVariant {
   successNote?: React.ReactNode;
   /** footnote ברירת מחדל כשהפתיחה לא העבירה אחד (למשל כפתור הכותרת). */
   footnote?: React.ReactNode;
+  /** ראו `LeadFormProps.withEmail` / `withMarketingConsent` (ברירת מחדל: כמו בשאר האתר). */
+  withEmail?: boolean;
+  withMarketingConsent?: boolean;
 }
 
 interface LeadModalApi {
@@ -136,7 +139,16 @@ export function LeadModalProvider({ children }: { children: React.ReactNode }) {
                 presetTopic={topic}
                 submitLabel={variant?.submitLabel ?? "שלחו לי בדיקת זכאות"}
                 footnote={footnote ?? variant?.footnote ?? null}
-                {...(variant ? { trustLine: variant.trustLine, successNote: variant.successNote } : {})}
+                {...(variant
+                  ? {
+                      trustLine: variant.trustLine,
+                      successNote: variant.successNote,
+                      ...(variant.withEmail !== undefined ? { withEmail: variant.withEmail } : {}),
+                      ...(variant.withMarketingConsent !== undefined
+                        ? { withMarketingConsent: variant.withMarketingConsent }
+                        : {}),
+                    }
+                  : {})}
               />
               <div className="mt-4 border-t border-hairline-soft pt-3.5 text-center text-[13.5px] text-ink-muted">
                 מעדיפים לדבר?{" "}

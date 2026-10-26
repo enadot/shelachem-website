@@ -224,6 +224,9 @@ export default async function LandingPageRoute({
     })),
     trustLine: formTrustLine,
     successNote: formSuccessNote,
+    // כמו הטפסים בעמוד: בלי דוא"ל ובלי דיוור (QA N10).
+    withEmail: false,
+    withMarketingConsent: false,
     footnote: <LpDisclosureShort className="mt-3 text-center text-[13px]" />,
   };
 
