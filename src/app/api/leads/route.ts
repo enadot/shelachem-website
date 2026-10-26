@@ -41,6 +41,17 @@ export async function POST(request: Request) {
     );
   }
 
+  // Preview ב-Vercel קורא מאותו מסד של פרודקשן ומחזיק את מפתח BARAM: ליד מבדיקת QA היה
+  // נכתב לגיבוי של הלקוח ומועבר ל-BARAM. לכן ב-preview לא שומרים ולא מעבירים כלום —
+  // עונים 403 עם `preview: true` (הטופס מציג הודעת "סביבת בדיקה"). הוולידציה למעלה
+  // עדיין רצה, כך שאפשר לבדוק שגיאות שדות. ראו docs/admin.md.
+  if (process.env.VERCEL_ENV === "preview") {
+    return Response.json(
+      { ok: false, preview: true, error: "סביבת בדיקה (preview): הפרטים לא נשמרו ולא הועברו." },
+      { status: 403, headers: { "X-Lead-Blocked": "preview" } },
+    );
+  }
+
   const { company: _honeypot, email, attribution, ...lead } = parsed.data;
 
   const item = { ...lead, email: email || null, ...(attribution ? { attribution } : {}) };

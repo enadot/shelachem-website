@@ -100,7 +100,7 @@ export function LeadForm({
   className,
 }: LeadFormProps) {
   const { contact } = useSite();
-  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
+  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error" | "preview">("idle");
   const [sentPhone, setSentPhone] = useState("");
   const [started, setStarted] = useState(false);
   const {
@@ -162,7 +162,9 @@ export function LeadForm({
           email: values.email || undefined,
         });
       }
-      setStatus(res.ok ? "sent" : "error");
+      // ב-preview השרת חוסם לידים (403, `preview: true`) — הודעה ברורה במקום "משהו השתבש".
+      const blocked = !res.ok && (await res.json().catch(() => null))?.preview === true;
+      setStatus(res.ok ? "sent" : blocked ? "preview" : "error");
     } catch {
       setStatus("error");
     }
@@ -437,6 +439,11 @@ export function LeadForm({
       )}
 
       {!rowSubmit && submitButton}
+      {status === "preview" && (
+        <p className={cn("m-0 text-center text-[13px] font-bold", dark ? "text-amber-200" : "text-amber-800")} role="alert">
+          סביבת בדיקה (preview): הפרטים לא נשמרו ולא הועברו.
+        </p>
+      )}
       {status === "error" && (
         <p className={cn("m-0 text-center text-[13px]", dark ? "text-red-200" : "text-danger")} role="alert">
           משהו השתבש בשליחה. נסו שוב או התקשרו אלינו:{" "}
