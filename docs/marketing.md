@@ -40,6 +40,16 @@
 (`src/lib/content/index.ts`, `src/lib/site-settings.ts`, `src/lib/marketing.ts`).
 הטעינה ב-`src/components/marketing/`, האירועים ב-`src/lib/analytics.ts`.
 
+**רק בפרודקשן.** preview ו-production ב-Vercel קוראים מאותו מסד (Neon), ולכן אותם
+מזהים. כדי ש-preview לא ישלח צפיות, קליקים והמרות לנכסי הפרודקשן, `buildMarketingConfig`
+מחזיר קונפיגורציה ריקה (בלי GTM/GA4/Ads/פיקסלים/Clarity ובלי תגי אימות; `consentRequired`
+נשמר) בכל סביבה שבה `VERCEL_ENV` אינו `production` — preview, development ומקומית.
+- **לבדיקה מכוונת ב-preview** (למשל GA4 DebugView): להגדיר ב-Vercel `PREVIEW_TRACKING=1`
+  ל-Preview (אפשר לענף מסוים) ולפרוס מחדש. זהירות — זה שולח לנכסי הפרודקשן.
+- `dataLayer` ממשיך לקבל את כל האירועים בכל סביבה, כך שאפשר לבדוק ב-DevTools
+  (`window.dataLayer`) בלי לטעון אף תג.
+- מסך הסקירה בלוח הבקרה מציג את ההגדרות השמורות גם ב-preview (`ignoreEnv`).
+
 ---
 
 ## 2. מילון האירועים (dataLayer)
@@ -63,6 +73,13 @@
 `link_location` הוא האזור שבו נלחץ הקישור: `header`, `footer`,
 `dialog`, `content` — או ערך מפורש מ-`data-track-location="..."` על אלמנט עוטף.
 קישורי טלפון/וואטסאפ חדשים נמדדים אוטומטית, בלי לגעת בקוד.
+
+**דפי נחיתה (`/lp/<slug>`, T-026):** ארבעת האירועים `form_start`, `generate_lead`,
+`click_to_call` ו-`click_whatsapp` מקבלים שם גם `lp_slug` (למשל `depression`),
+`cta_position` (`hero` / `mid` / `final` / `bar`, לפי `lead_source` או `link_location`
+בפורמט `lp-<slug>-<pos>`; `lp-mobile-cta-bar` → `bar`; קליק מחוץ לבלוק CTA, למשל בהדר, בלי
+`cta_position`) ו-`lead_topic` (הנושא של העמוד). `lead_source` לא משתנה — ב-`generate_lead`
+הוא ממשיך לכלול את סיומת `|utm` ש-BARAM Leads נשען עליה. מחוץ ל-`/lp` אין שינוי.
 
 ### הקמה מומלצת ב-GTM
 

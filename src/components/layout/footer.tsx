@@ -1,53 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
 import { site } from "@/lib/config";
-import { LeadCta } from "@/components/shared/lead-cta";
 import { ArrowForward } from "@/components/shared/icons";
+import { FooterBlurb, FooterColumns, FooterLeadCta, type FooterVariant } from "./footer-parts";
 import { CookieSettingsLink } from "@/components/marketing/cookie-consent";
 import { getSiteSettings } from "@/lib/content";
-
-const columns: { title: string; links: { label: string; href: string }[] }[] = [
-  {
-    title: "מוסדות ובירוקרטיה",
-    links: [
-      { label: "ביטוח לאומי", href: "/institutions/bituach-leumi" },
-      { label: "מס הכנסה", href: "/institutions/mas-hachnasa" },
-      { label: "קרנות פנסיה", href: "/institutions/karnot-pensia" },
-      { label: "חברות ביטוח", href: "/institutions/hevrot-bituach" },
-    ],
-  },
-  {
-    title: "אודות",
-    links: [
-      { label: "הסיפור שלנו", href: "/about" },
-      { label: "צוות ההנהלה", href: "/team" },
-      { label: "הרופאים שלנו", href: "/doctors" },
-      { label: "סניפים ויצירת קשר", href: "/branches" },
-    ],
-  },
-  {
-    // היה "מגזין" והכיל את "סניפים" — קישור שלא שייך לעמודה. הכותרת החדשה מתארת
-    // את מה שבאמת יש כאן, וכל קישור מוביל ליעד שונה.
-    title: "ידע ותשובות",
-    links: [
-      { label: "כל הכתבות", href: "/magazine" },
-      { label: "מדריכים", href: "/magazine?cat=מדריכים" },
-      { label: "סיפורי הצלחה", href: "/magazine?cat=סיפורי הצלחה" },
-      { label: "שאלות ותשובות", href: "/faq" },
-    ],
-  },
-  {
-    // כל קישור מצביע לעמוד שבאמת מטפל בזכות הזאת, ולא ל-/institutions הגנרי.
-    title: "מחלות וזכויות",
-    links: [
-      { label: "פטור ממס הכנסה", href: "/services/tax-exemption" },
-      { label: "נכות כללית", href: "/services/general-disability" },
-      { label: "ילד נכה", href: "/services/disabled-child" },
-      { label: "אובדן כושר עבודה", href: "/services/loss-of-work-capacity" },
-      { label: "ביטוח סיעודי", href: "/services/long-term-care" },
-    ],
-  },
-];
 
 const year = new Date().getFullYear();
 
@@ -57,8 +14,11 @@ const year = new Date().getFullYear();
  *    ובדיקת זכאות).
  * 2. ארבע עמודות ניווט ועמודת סניפים.
  * 3. שורת זכויות ומסמכים משפטיים.
+ *
+ * `variant="lp"` — גרסת עמודי הנחיתה (בלי קישור לרופאים ולעדויות, בלי טענות).
+ * בלי `variant` הגרסה נקבעת לפי הנתיב (`/lp/*`).
  */
-export async function Footer() {
+export async function Footer({ variant }: { variant?: FooterVariant } = {}) {
   const { contact, branches } = await getSiteSettings();
   return (
     <footer className="border-t border-hairline bg-surface px-[22px] md:px-[clamp(24px,5vw,72px)]">
@@ -73,10 +33,7 @@ export async function Footer() {
               height={371}
               className="h-[64px] w-auto md:h-[84px]"
             />
-            <p className="m-0 mt-6 max-w-[440px] text-base leading-relaxed text-ink-secondary md:text-[17px]">
-              מאז {site.foundedYear} אנחנו מלווים אנשים מול ביטוח לאומי, מס הכנסה, קרנות הפנסיה וחברות
-              הביטוח — עד שהזכות אצלם. <b className="text-ink">{site.feeModel}.</b>
-            </p>
+            <FooterBlurb variant={variant} />
           </div>
 
           <div className="md:justify-self-end">
@@ -88,10 +45,7 @@ export async function Footer() {
               {contact.phone}
             </a>
             <div className="mt-5 flex flex-wrap items-center gap-x-6 gap-y-3">
-              <LeadCta sourcePage="footer" variant="brand" className="group">
-                בדיקת זכאות חינם
-                <ArrowForward size={16} className="nudge" />
-              </LeadCta>
+              <FooterLeadCta variant={variant} />
               <a
                 href={contact.whatsappHref}
                 target="_blank"
@@ -112,24 +66,7 @@ export async function Footer() {
 
         {/* 2 — navigation + branches */}
         <div className="grid grid-cols-2 gap-x-6 gap-y-10 border-b border-hairline py-12 md:grid-cols-5 md:gap-10 md:py-14">
-          {columns.map((col) => (
-            <nav key={col.title} aria-label={col.title}>
-              <div className="mb-3 text-sm font-bold tracking-[0.04em] text-ink">{col.title}</div>
-              <ul className="m-0 list-none p-0">
-                {col.links.map((l) => (
-                  <li key={l.label}>
-                    {/* min-h-11 — יעד מגע 44px (WCAG 2.2 Target Size). */}
-                    <Link
-                      href={l.href}
-                      className="inline-flex min-h-10 items-center text-[15px] text-ink-muted no-underline transition-colors duration-300 hover:text-ink md:min-h-11"
-                    >
-                      {l.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </nav>
-          ))}
+          <FooterColumns variant={variant} />
 
           <div className="col-span-2 md:col-span-1">
             <div className="mb-3 text-sm font-bold tracking-[0.04em] text-ink">סניפים</div>

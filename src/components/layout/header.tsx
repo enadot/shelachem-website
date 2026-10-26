@@ -89,7 +89,8 @@ export function Header() {
             onClick={() => openLeadForm("header")}
             className="cursor-pointer whitespace-nowrap rounded-[10px] bg-brand px-[26px] py-3.5 text-base font-bold text-white transition-colors hover:bg-brand-hover"
           >
-            בדיקת זכאות חינם
+            {/* בעמודי הנחיתה בלי "חינם" — הנוסח המאושר ל-C4 הוא "ללא עלות" (T-026). */}
+            {pathname.startsWith("/lp/") ? "בדיקת זכאות" : "בדיקת זכאות חינם"}
           </button>
         </div>
       </nav>

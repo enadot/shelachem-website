@@ -19,6 +19,7 @@ export function PageHeader({
   image,
   media,
   mark,
+  markClassName,
   className,
 }: {
   breadcrumb: Crumb[];
@@ -36,6 +37,8 @@ export function PageHeader({
    * הסמל משמאל; במובייל מתחת. גובר על `image`/`media`.
    */
   mark?: React.ReactNode;
+  /** מחליף את מגבלות הרוחב של עמודת ה-`mark` (למשל כרטיס טופס, שצריך רוחב מלא במובייל). */
+  markClassName?: string;
   className?: string;
 }) {
   const hasAside = Boolean(intro || children);
@@ -75,7 +78,14 @@ export function PageHeader({
               {heading}
               {aside && <div className="mt-6 md:mt-8">{aside}</div>}
             </div>
-            <div className="mx-auto w-full max-w-[300px] md:mx-0 md:max-w-[460px] md:justify-self-end">{mark}</div>
+            <div
+              className={cn(
+                "mx-auto w-full max-w-[300px] md:mx-0 md:max-w-[460px] md:justify-self-end",
+                markClassName,
+              )}
+            >
+              {mark}
+            </div>
           </div>
         ) : (
           <div

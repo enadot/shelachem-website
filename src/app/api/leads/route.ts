@@ -26,6 +26,17 @@ const leadSchema = z.object({
 });
 
 export async function POST(request: Request) {
+  // Preview ב-Vercel קורא מאותו מסד של פרודקשן ומחזיק את מפתח BARAM: ליד מבדיקת QA היה
+  // נכתב לגיבוי של הלקוח ומועבר ל-BARAM. לכן ב-preview לא שומרים ולא מעבירים כלום —
+  // עונים 403 עם `preview: true` (הטופס מציג הודעת "סביבת בדיקה"), עוד לפני קריאת הגוף
+  // והוולידציה — כך שגם בקשה ריקה מאמתת את החסימה בלי לשלוח פרטים. ראו docs/admin.md.
+  if (process.env.VERCEL_ENV === "preview") {
+    return Response.json(
+      { ok: false, preview: true, error: "סביבת בדיקה (preview): הפרטים לא נשמרו ולא הועברו." },
+      { status: 403, headers: { "X-Lead-Blocked": "preview" } },
+    );
+  }
+
   let payload: unknown;
   try {
     payload = await request.json();

@@ -65,6 +65,21 @@ export interface LeadFormProps {
    * "inline" — v3 hero card: on desktop name/phone/email/submit in one row, consents below.
    */
   layout?: "stacked" | "hero" | "inline";
+  /**
+   * תוכן נוסף מתחת לשורת המנעול (ובמסך התודה) — למשל גילוי נאות בעמודי הנחיתה.
+   * לא משנה את הנוסח הקבוע של הטופס.
+   */
+  footnote?: React.ReactNode;
+  /**
+   * מחליף את שורת המנעול הקבועה ("דיסקרטיות מלאה · שכר טרחה בהצלחה בלבד").
+   * `undefined` — הנוסח הקבוע של האתר; `null` — בלי השורה. בעמודי הנחיתה עובר בשער הטענות.
+   */
+  trustLine?: React.ReactNode;
+  /**
+   * מחליף את "— בדרך כלל תוך יום עסקים אחד." במסך התודה. `undefined` — הנוסח הקבוע;
+   * `null` — בלי (המשפט מסתיים בנקודה). בעמודי הנחיתה עובר בשער הטענות (C9).
+   */
+  successNote?: React.ReactNode;
   className?: string;
 }
 
@@ -79,10 +94,13 @@ export function LeadForm({
   withMarketingConsent = true,
   withEmail = true,
   layout = "stacked",
+  footnote,
+  trustLine,
+  successNote,
   className,
 }: LeadFormProps) {
   const { contact } = useSite();
-  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
+  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error" | "preview">("idle");
   const [sentPhone, setSentPhone] = useState("");
   const [started, setStarted] = useState(false);
   const {
@@ -144,7 +162,9 @@ export function LeadForm({
           email: values.email || undefined,
         });
       }
-      setStatus(res.ok ? "sent" : "error");
+      // ב-preview השרת חוסם לידים (403, `preview: true`) — הודעה ברורה במקום "משהו השתבש".
+      const blocked = !res.ok && (await res.json().catch(() => null))?.preview === true;
+      setStatus(res.ok ? "sent" : blocked ? "preview" : "error");
     } catch {
       setStatus("error");
     }
@@ -163,9 +183,10 @@ export function LeadForm({
         <CheckCircle size={34} className="text-brand" />
         <div className="font-display text-2xl font-bold">הפרטים התקבלו!</div>
         <p className={cn("m-0 text-base", dark ? "text-white/80" : "text-ink-secondary")}>
-          נחזור אליכם {sentPhone ? <b className="tnum">ל-{sentPhone}</b> : "בהקדם"} — בדרך כלל
-          תוך יום עסקים אחד.
+          נחזור אליכם {sentPhone ? <b className="tnum">ל-{sentPhone}</b> : "בהקדם"}
+          {successNote === undefined ? " — בדרך כלל תוך יום עסקים אחד." : successNote ? <> — {successNote}.</> : "."}
         </p>
+        {footnote}
       </div>
     );
   }
@@ -189,6 +210,8 @@ export function LeadForm({
         {...register("full_name")}
         id={id("full_name")}
         autoComplete="name"
+        required
+        aria-required
         className={inputClass}
         aria-invalid={Boolean(errors.full_name)}
         aria-describedby={errors.full_name ? errorId("full_name") : undefined}
@@ -213,6 +236,8 @@ export function LeadForm({
         inputMode="tel"
         dir="ltr"
         autoComplete="tel"
+        required
+        aria-required
         className={cn(inputClass, "tnum text-right")}
         aria-invalid={Boolean(errors.phone)}
         aria-describedby={errors.phone ? errorId("phone") : undefined}
@@ -276,6 +301,7 @@ export function LeadForm({
         trackEvent("form_start", { lead_source: sourcePage, lead_topic: presetTopic });
       }}
       noValidate
+      data-lead-source={sourcePage}
       className={cn("flex flex-col gap-3", className)}
     >
       {layout === "hero" ? (
@@ -370,6 +396,8 @@ export function LeadForm({
               ref={field.ref}
               checked={field.value}
               onCheckedChange={(v) => field.onChange(v === true)}
+              required
+              aria-required
               aria-invalid={Boolean(errors.data_consent)}
               aria-describedby={errors.data_consent ? errorId("data_consent") : undefined}
             />
@@ -417,6 +445,11 @@ export function LeadForm({
       )}
 
       {!rowSubmit && submitButton}
+      {status === "preview" && (
+        <p className={cn("m-0 text-center text-[13px] font-bold", dark ? "text-amber-200" : "text-amber-800")} role="alert">
+          סביבת בדיקה (preview): הפרטים לא נשמרו ולא הועברו.
+        </p>
+      )}
       {status === "error" && (
         <p className={cn("m-0 text-center text-[13px]", dark ? "text-red-200" : "text-danger")} role="alert">
           משהו השתבש בשליחה. נסו שוב או התקשרו אלינו:{" "}
@@ -425,10 +458,16 @@ export function LeadForm({
           </a>
         </p>
       )}
-      <div className={cn("text-center text-[13.5px]", dark ? "text-white/70" : "text-ink-faint")}>
-        <Lock size={13} aria-hidden className="me-1.5 inline-block align-[-2px]" />
-        הפרטים שלכם נשמרים בדיסקרטיות מלאה · שכר טרחה בהצלחה בלבד
-      </div>
+      {trustLine !== null && (
+        <div
+          data-form-trust-line
+          className={cn("text-center text-[13.5px]", dark ? "text-white/70" : "text-ink-faint")}
+        >
+          <Lock size={13} aria-hidden className="me-1.5 inline-block align-[-2px]" />
+          {trustLine === undefined ? "הפרטים שלכם נשמרים בדיסקרטיות מלאה · שכר טרחה בהצלחה בלבד" : trustLine}
+        </div>
+      )}
+      {footnote}
     </form>
   );
 }

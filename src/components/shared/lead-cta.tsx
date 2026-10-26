@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { ChevronForward } from "@/components/shared/icons";
-import { useLeadModal } from "@/components/shared/lead-modal";
+import { useLeadModal, type LeadModalOptions } from "@/components/shared/lead-modal";
 import { cn } from "@/lib/utils";
 import type { VariantProps } from "class-variance-authority";
 import type { buttonVariants } from "@/components/ui/button";
@@ -18,12 +18,15 @@ export function LeadCta({
   className,
   variant = "accent",
   size,
+  footnote,
 }: {
   children?: React.ReactNode;
   /** נשמר על הליד — מאיפה בדיוק נפתח הטופס. */
   sourcePage: string;
   /** נושא שממולא מראש בטופס (למשל שם הזכות שהמשתמש קרא עליה). */
   topic?: string;
+  /** תוכן מתחת לטופס במודאל (ראו `LeadModalOptions`). */
+  footnote?: LeadModalOptions["footnote"];
   className?: string;
 } & VariantProps<typeof buttonVariants>) {
   const { openLeadForm } = useLeadModal();
@@ -33,7 +36,7 @@ export function LeadCta({
       variant={variant}
       size={size}
       className={cn(className)}
-      onClick={() => openLeadForm(sourcePage, topic)}
+      onClick={() => openLeadForm(sourcePage, topic, footnote ? { footnote } : undefined)}
     >
       {children ?? (
         <>
