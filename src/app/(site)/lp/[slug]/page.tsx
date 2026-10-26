@@ -211,7 +211,7 @@ export default async function LandingPageRoute({
   };
 
   return (
-    <div data-lp-slug={page.slug} data-lp-mode={mode}>
+    <div data-lp-slug={page.slug} data-lp-topic={page.topic} data-lp-mode={mode}>
       {jsonLd && (
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       )}

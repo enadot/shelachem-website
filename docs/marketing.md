@@ -64,6 +64,13 @@
 `dialog`, `content` — או ערך מפורש מ-`data-track-location="..."` על אלמנט עוטף.
 קישורי טלפון/וואטסאפ חדשים נמדדים אוטומטית, בלי לגעת בקוד.
 
+**דפי נחיתה (`/lp/<slug>`, T-026):** ארבעת האירועים `form_start`, `generate_lead`,
+`click_to_call` ו-`click_whatsapp` מקבלים שם גם `lp_slug` (למשל `depression`),
+`cta_position` (`hero` / `mid` / `final` / `bar`, לפי `lead_source` או `link_location`
+בפורמט `lp-<slug>-<pos>`; `lp-mobile-cta-bar` → `bar`; קליק מחוץ לבלוק CTA, למשל בהדר, בלי
+`cta_position`) ו-`lead_topic` (הנושא של העמוד). `lead_source` לא משתנה — ב-`generate_lead`
+הוא ממשיך לכלול את סיומת `|utm` ש-BARAM Leads נשען עליה. מחוץ ל-`/lp` אין שינוי.
+
 ### הקמה מומלצת ב-GTM
 
 1. **Variables** ▸ Data Layer Variable לכל פרמטר: `lead_source`, `lead_topic`,
