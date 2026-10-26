@@ -47,6 +47,7 @@ import { ClaimBadges, Claimed, Rich } from "@/components/lp/claim-text";
 import { LpDisclosureFull, LpDisclosureShort } from "@/components/lp/lp-disclosure";
 import { LpImage } from "@/components/lp/lp-image-slot";
 import { LpViewToggle } from "@/components/lp/lp-view-toggle";
+import { LpMobileCtaBar } from "@/components/lp/lp-mobile-cta-bar";
 
 /**
  * עמודי נחיתה לקמפיינים (T-026). noindex, מחוץ ל-sitemap ול-llms.txt.
@@ -538,6 +539,17 @@ export default async function LandingPageRoute({
       </section>
 
       <LeadModalPageVariant variant={modalVariant} />
+
+      {/* סרגל CTA דביק — מובייל בלבד, בין טופס ה-hero ל-CTA הסופי (QA B2) */}
+      <LpMobileCtaBar
+        slug={page.slug}
+        topic={page.topic}
+        phone={contact.phone}
+        phoneHref={contact.phoneHref}
+        whatsappHref={contact.whatsappHref}
+        formLabel="בדיקת זכאות"
+        footnote={<LpDisclosureShort className="mt-3 text-center text-[13px]" />}
+      />
 
       {!isProductionDeploy() && <LpViewToggle strict={!review} pendingCount={pending.length} />}
     </div>
