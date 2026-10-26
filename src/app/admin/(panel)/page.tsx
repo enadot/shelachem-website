@@ -89,7 +89,8 @@ export default async function OverviewPage() {
     readGlobals(),
     pendingBackups(5).catch(() => null),
   ]);
-  const marketing = buildMarketingConfig(globals);
+  // סטטוס "מה מוגדר" — בלי שער הסביבה, כדי שלוח הבקרה ב-preview יציג את ההגדרות האמיתיות.
+  const marketing = buildMarketingConfig(globals, { ignoreEnv: true });
 
   // ספירה לפי ימים (שעון ישראל) מתוך נתוני 30 הימים — בקשה אחת ל-BARAM.
   const byDay = new Map(stats?.byDay.map((d) => [d.day, d.count]));

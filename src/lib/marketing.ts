@@ -67,9 +67,30 @@ export const EMPTY_MARKETING: MarketingConfig = {
   verification: {},
 };
 
-/** שורת globals גולמית מה-CMS → קונפיגורציה נקייה. */
-export function buildMarketingConfig(g: Record<string, unknown> | null | undefined): MarketingConfig {
+/**
+ * האם לטעון תגים (GA4/GTM/Ads/פיקסלים) בסביבה הזאת. preview ו-production ב-Vercel
+ * קוראים מאותו מסד Neon, ולכן בלי השער הזה preview היה שולח אירועים והמרות לנכסי
+ * הפרודקשן. רק `VERCEL_ENV=production` טוען תגים; `PREVIEW_TRACKING=1` מאפשר
+ * בכוונה (למשל ל-GA4 DebugView). מקומית (`VERCEL_ENV` לא מוגדר) — לא נטען.
+ * נקרא בשרת בלבד (layout / getSiteSettings), שם `VERCEL_ENV` זמין גם ב-build וגם בזמן ריצה.
+ */
+export const marketingTagsEnabled = () =>
+  process.env.VERCEL_ENV === "production" || process.env.PREVIEW_TRACKING === "1";
+
+/**
+ * שורת globals גולמית מה-CMS → קונפיגורציה נקייה. מחוץ לפרודקשן (ראו
+ * `marketingTagsEnabled`) מוחזר `EMPTY_MARKETING` — בלי מזהי תגים ובלי תגי אימות —
+ * ונשמרת רק `consentRequired`, כדי שבאנר העוגיות יתנהג כמו בפרודקשן. `dataLayer`
+ * ממשיך לקבל אירועים בכל מקרה. `ignoreEnv` — לתצוגת סטטוס בלוח הבקרה בלבד.
+ */
+export function buildMarketingConfig(
+  g: Record<string, unknown> | null | undefined,
+  { ignoreEnv = false }: { ignoreEnv?: boolean } = {},
+): MarketingConfig {
   if (!g) return EMPTY_MARKETING;
+  if (!ignoreEnv && !marketingTagsEnabled()) {
+    return { ...EMPTY_MARKETING, consentRequired: asBool(g.consent_required) };
+  }
   const ids = Object.fromEntries(
     Object.entries(MARKETING_ID_FIELDS).map(([field, key]) => [key, cleanId(g[field])]),
   );

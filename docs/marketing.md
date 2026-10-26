@@ -40,6 +40,16 @@
 (`src/lib/content/index.ts`, `src/lib/site-settings.ts`, `src/lib/marketing.ts`).
 הטעינה ב-`src/components/marketing/`, האירועים ב-`src/lib/analytics.ts`.
 
+**רק בפרודקשן.** preview ו-production ב-Vercel קוראים מאותו מסד (Neon), ולכן אותם
+מזהים. כדי ש-preview לא ישלח צפיות, קליקים והמרות לנכסי הפרודקשן, `buildMarketingConfig`
+מחזיר קונפיגורציה ריקה (בלי GTM/GA4/Ads/פיקסלים/Clarity ובלי תגי אימות; `consentRequired`
+נשמר) בכל סביבה שבה `VERCEL_ENV` אינו `production` — preview, development ומקומית.
+- **לבדיקה מכוונת ב-preview** (למשל GA4 DebugView): להגדיר ב-Vercel `PREVIEW_TRACKING=1`
+  ל-Preview (אפשר לענף מסוים) ולפרוס מחדש. זהירות — זה שולח לנכסי הפרודקשן.
+- `dataLayer` ממשיך לקבל את כל האירועים בכל סביבה, כך שאפשר לבדוק ב-DevTools
+  (`window.dataLayer`) בלי לטעון אף תג.
+- מסך הסקירה בלוח הבקרה מציג את ההגדרות השמורות גם ב-preview (`ignoreEnv`).
+
 ---
 
 ## 2. מילון האירועים (dataLayer)
