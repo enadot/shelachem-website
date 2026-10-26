@@ -34,7 +34,10 @@ export function ClaimBadges({ pending, className }: { pending: readonly ClaimId[
   );
 }
 
-/** עוטף טקסט שמכיל טענה פתוחה בסימון עדין + תגים. בלי טענות — הטקסט כמו שהוא. */
+/**
+ * עוטף טקסט שמכיל טענה פתוחה בסימון + תגים. בלי טענות — הטקסט כמו שהוא.
+ * רקע ענבר אטום עם טקסט ענבר כהה (ניגודיות AA גם על רקע כחול/כהה — QA N5b).
+ */
 export function Claimed({
   pending,
   children,
@@ -45,7 +48,7 @@ export function Claimed({
   if (pending.length === 0) return <>{children}</>;
   return (
     <>
-      <span data-claims={pending.join(" ")} className="rounded-sm bg-amber-100/70 decoration-amber-500 decoration-dotted underline-offset-4 [box-decoration-break:clone] underline">
+      <span data-claims={pending.join(" ")} className="rounded-sm bg-amber-100 text-amber-950 decoration-amber-600 decoration-dotted underline-offset-4 [box-decoration-break:clone] underline">
         {children}
       </span>
       <ClaimBadges pending={pending} />
