@@ -210,6 +210,8 @@ export function LeadForm({
         {...register("full_name")}
         id={id("full_name")}
         autoComplete="name"
+        required
+        aria-required
         className={inputClass}
         aria-invalid={Boolean(errors.full_name)}
         aria-describedby={errors.full_name ? errorId("full_name") : undefined}
@@ -234,6 +236,8 @@ export function LeadForm({
         inputMode="tel"
         dir="ltr"
         autoComplete="tel"
+        required
+        aria-required
         className={cn(inputClass, "tnum text-right")}
         aria-invalid={Boolean(errors.phone)}
         aria-describedby={errors.phone ? errorId("phone") : undefined}
@@ -392,6 +396,8 @@ export function LeadForm({
               ref={field.ref}
               checked={field.value}
               onCheckedChange={(v) => field.onChange(v === true)}
+              required
+              aria-required
               aria-invalid={Boolean(errors.data_consent)}
               aria-describedby={errors.data_consent ? errorId("data_consent") : undefined}
             />
