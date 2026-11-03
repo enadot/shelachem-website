@@ -41,6 +41,9 @@ const schema = z.object({
 
 type FormValues = z.infer<typeof schema>;
 
+/** אחרי זמן זה מוותרים ומציגים חלופות (טלפון / וואטסאפ) במקום להיתקע על "שולחים…". */
+const SUBMIT_TIMEOUT_MS = 15000;
+
 export interface LeadFormProps {
   /** Visual context: white card (hero/sidebar) or on a dark navy/blue background. */
   variant?: "light" | "dark";
@@ -119,10 +122,17 @@ export function LeadForm({
     const source = (utm ? `${sourcePage}|${utm}` : sourcePage).slice(0, 200);
     // אותו מזהה על הליד ועל אירוע ההמרה — מאפשר dedup מול המרות שיישלחו מהשרת.
     const eventId = newEventId();
+    // T-043: סינונים ישראליים (NetFree / Spare) הם פרוקסי שעלול להשהות את ה-POST ללא הגבלה
+    // או להחזיר דף חסימה HTML בסטטוס 200. בלי timeout הכפתור נתקע על "שולחים…" לנצח, ובלי
+    // בדיקת גוף התשובה דף חסימה נספר כהצלחה והליד אובד בשקט. לכן: timeout, ואימות JSON {ok:true}.
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), SUBMIT_TIMEOUT_MS);
+    let ok = false;
     try {
       const res = await fetch("/api/leads", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        signal: controller.signal,
         body: JSON.stringify({
           full_name: values.full_name,
           phone: values.phone,
@@ -134,19 +144,32 @@ export function LeadForm({
           attribution: { ...attribution, event_id: eventId, page: window.location.pathname },
         }),
       });
-      if (res.ok) {
-        setSentPhone(values.phone);
-        void trackLeadConversion({
-          source,
-          topic: values.topic || undefined,
-          eventId,
-          phone: values.phone,
-          email: values.email || undefined,
-        });
+      if (res.ok && (res.headers.get("content-type") ?? "").includes("application/json")) {
+        const data = (await res.json().catch(() => null)) as { ok?: boolean } | null;
+        ok = data?.ok === true;
       }
-      setStatus(res.ok ? "sent" : "error");
     } catch {
+      ok = false;
+    } finally {
+      clearTimeout(timer);
+    }
+    if (!ok) {
       setStatus("error");
+      return;
+    }
+    setSentPhone(values.phone);
+    setStatus("sent");
+    // מדידה — fire-and-forget, אחרי ההצלחה בלבד; פיקסל חסום/שבור לא משפיע על הטופס.
+    try {
+      void trackLeadConversion({
+        source,
+        topic: values.topic || undefined,
+        eventId,
+        phone: values.phone,
+        email: values.email || undefined,
+      }).catch(() => {});
+    } catch {
+      /* ignore */
     }
   });
 
@@ -422,6 +445,10 @@ export function LeadForm({
           משהו השתבש בשליחה. נסו שוב או התקשרו אלינו:{" "}
           <a href={contact.phoneHref} className="tnum font-bold underline underline-offset-2">
             {contact.phone}
+          </a>{" "}
+          או{" "}
+          <a href={contact.whatsappHref} target="_blank" rel="noopener noreferrer" className="font-bold underline underline-offset-2">
+            בוואטסאפ
           </a>
         </p>
       )}

@@ -74,7 +74,20 @@ export function MobileMenu({ onClose }: { onClose: () => void }) {
           >
             <Link
               href={item.href}
-              onClick={onClose}
+              onClick={(e) => {
+                // T-043: עוגן באותו עמוד (/#specialties מתוך /?utm_...) — Next מנסה לגלול כשה-body
+                // עדיין overflow:hidden (התפריט פתוח), ולכן הגלילה נבלעת. סוגרים, משחררים נעילה, וגוללים ידנית.
+                const hash = item.href.startsWith("/#") ? item.href.slice(1) : null;
+                if (hash && window.location.pathname === "/") {
+                  e.preventDefault();
+                  document.body.style.overflow = "";
+                  onClose();
+                  history.replaceState(null, "", window.location.search + hash);
+                  requestAnimationFrame(() => document.querySelector(hash)?.scrollIntoView({ block: "start" }));
+                  return;
+                }
+                onClose();
+              }}
               className={`block py-3 font-display text-[clamp(28px,8.5vw,34px)] font-black leading-tight text-white no-underline ${
                 i < items.length - 1 ? "border-b border-white/15" : ""
               }`}
