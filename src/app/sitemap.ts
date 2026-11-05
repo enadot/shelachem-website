@@ -6,6 +6,7 @@ import { getArticles, getInstitutions, getServices } from "@/lib/content";
  * מפת האתר. `changeFrequency` נגזר מהתנהגות אמיתית של כל סוג עמוד ולא מהעתקה:
  * המגזין מתעדכן, עמודי שירות/מוסד יציבים, ועמודי המשנה כמעט לא נוגעים.
  * `/privacy` ו-`/accessibility` מסומנים `noindex` ולכן אינם כאן.
+ * גם דפי הנחיתה `/lp/*` (קמפיינים, `noindex`) אינם כאן בכוונה.
  */
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const [articles, institutions, services] = await Promise.all([

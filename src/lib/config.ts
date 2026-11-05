@@ -1,4 +1,12 @@
 /**
+ * וואטסאפ של עמודי `/lp` (QA B1). קבוע בקוד — לא המספר שנשמר ב-CMS, שיכול להיות אחר.
+ */
+export const LP_WHATSAPP_HREF = "https://wa.me/97238002000";
+
+export const isLandingPath = (pathname: string | null | undefined) =>
+  Boolean(pathname?.startsWith("/lp/"));
+
+/**
  * Central site configuration — brand constants, plus the *defaults* for everything
  * the client edits in the dashboard (/admin/settings): phone, WhatsApp, email,
  * socials, branches and opening hours. Values saved in the CMS override these
@@ -12,7 +20,7 @@ export const site = {
   /** Official site-wide phone (per client decision). */
   phone: "03-8002000",
   phoneHref: "tel:03-8002000",
-  whatsappHref: "https://wa.me/97238002000",
+  whatsappHref: LP_WHATSAPP_HREF,
   email: "info@shelachem.net",
   foundedYear: 2013,
   /**
