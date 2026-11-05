@@ -1,5 +1,7 @@
 "use client";
 
+import { usePathname } from "next/navigation";
+import { isLandingPath, LP_WHATSAPP_HREF } from "@/lib/config";
 import { useSite } from "@/components/settings-provider";
 import { ChevronForward } from "@/components/shared/icons";
 import {
@@ -12,6 +14,7 @@ import {
 /** מודאל ״דברו איתנו״ — וואטסאפ / טלפון / מייל (עיצוב: Shelachem Live, על בסיס shadcn Dialog). */
 export function ContactModal({ onClose }: { onClose: () => void }) {
   const { contact } = useSite();
+  const whatsappHref = isLandingPath(usePathname()) ? LP_WHATSAPP_HREF : contact.whatsappHref;
   return (
     <Dialog open onOpenChange={(open) => !open && onClose()}>
       <DialogContent
@@ -32,7 +35,7 @@ export function ContactModal({ onClose }: { onClose: () => void }) {
         </DialogDescription>
         <div className="flex flex-col gap-3">
           <ContactRow
-            href={contact.whatsappHref}
+            href={whatsappHref}
             external
             iconBg="#25D366"
             hoverClass="hover:border-[#25D366] hover:shadow-[rgba(37,211,102,0.18)_0_10px_24px]"

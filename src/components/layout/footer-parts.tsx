@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { site } from "@/lib/config";
+import { isLandingPath, LP_WHATSAPP_HREF, site } from "@/lib/config";
 import { LeadCta } from "@/components/shared/lead-cta";
 import { ArrowForward } from "@/components/shared/icons";
 
@@ -89,6 +89,66 @@ export function FooterLeadCta({ variant }: { variant?: FooterVariant }) {
       {v === "lp" ? "בדיקת זכאות" : "בדיקת זכאות חינם"}
       <ArrowForward size={16} className="nudge" />
     </LeadCta>
+  );
+}
+
+/** וואטסאפ בפוטר: בעמודי /lp תמיד `wa.me/97238002000`, לא המספר מה-CMS (QA B1). */
+export function FooterWhatsapp({ href }: { href: string }) {
+  const wa = isLandingPath(usePathname()) ? LP_WHATSAPP_HREF : href;
+  return (
+    <a
+      href={wa}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="text-[15px] font-bold text-ink no-underline transition-colors duration-300 hover:text-brand"
+    >
+      <span className="link-draw">וואטסאפ</span>
+    </a>
+  );
+}
+
+/**
+ * ניווט הפוטר. בעמודי הנחיתה רשימת הסניפים (עיר + כתובת + הוראות הגעה) מוסתרת (QA G3).
+ * הקישור "סניפים ויצירת קשר" בעמודת האודות נשאר.
+ */
+export function FooterLower({
+  variant,
+  branches,
+}: {
+  variant?: FooterVariant;
+  branches: { id: string; city: string; address: string }[];
+}) {
+  const v = useFooterVariant(variant);
+  return (
+    <div
+      className={
+        v === "lp"
+          ? "grid grid-cols-2 gap-x-6 gap-y-10 border-b border-hairline py-12 md:grid-cols-4 md:gap-10 md:py-14"
+          : "grid grid-cols-2 gap-x-6 gap-y-10 border-b border-hairline py-12 md:grid-cols-5 md:gap-10 md:py-14"
+      }
+    >
+      <FooterColumns variant={variant} />
+      {v !== "lp" && (
+        <div className="col-span-2 md:col-span-1">
+          <div className="mb-3 text-sm font-bold tracking-[0.04em] text-ink">סניפים</div>
+          <ul className="m-0 flex list-none flex-col gap-5 p-0">
+            {branches.map((b) => (
+              <li key={b.id} className="text-[15px] leading-relaxed">
+                <div className="font-bold text-ink">{b.city}</div>
+                <div className="text-ink-muted">{b.address}</div>
+              </li>
+            ))}
+          </ul>
+          <Link
+            href="/branches"
+            className="group mt-4 inline-flex min-h-11 items-center gap-2 text-[15px] font-bold text-brand no-underline"
+          >
+            <span className="link-draw">הוראות הגעה</span>
+            <ArrowForward size={14} className="nudge" />
+          </Link>
+        </div>
+      )}
+    </div>
   );
 }
 

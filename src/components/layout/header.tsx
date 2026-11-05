@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
@@ -8,6 +7,7 @@ import { useLeadModal } from "@/components/shared/lead-modal";
 import { PhoneIcon } from "./contact-modal";
 import { MobileMenu } from "./mobile-menu";
 import { useSite } from "@/components/settings-provider";
+import { BrandLogo } from "./brand-logo";
 
 export const navLinks = [
   { href: "/", label: "בית" },
@@ -51,14 +51,7 @@ export function Header() {
         className="relative hidden items-center gap-[clamp(20px,3vw,44px)] px-[clamp(20px,5vw,72px)] py-1.5 md:flex"
       >
         <Link href="/" aria-label="שלכם — לעמוד הבית" className="shrink-0">
-          <Image
-            src="/images/logo-2026.png"
-            alt="שלכם — מימוש זכויות רפואיות"
-            width={725}
-            height={371}
-            className="h-[64px] w-auto"
-            priority
-          />
+          <BrandLogo className="h-[64px] w-auto" priority />
         </Link>
         <div className="flex flex-1 items-center gap-[clamp(14px,2.2vw,34px)] text-[17px] text-ink-secondary">
           {navLinks.map((l) => (
@@ -111,14 +104,7 @@ export function Header() {
           <span className="block h-[2.5px] w-[14px] rounded-sm bg-brand" />
         </button>
         <Link href="/" aria-label="שלכם — לעמוד הבית">
-          <Image
-            src="/images/logo-2026.png"
-            alt="שלכם — מימוש זכויות רפואיות"
-            width={725}
-            height={371}
-            className="h-[52px] w-auto"
-            priority
-          />
+          <BrandLogo className="h-[52px] w-auto" priority />
         </Link>
         {/*
           במובייל העיגול מחייג ישירות. קודם הוא פתח מודאל בחירת ערוץ — צעד מיותר

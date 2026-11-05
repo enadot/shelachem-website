@@ -4,7 +4,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Check } from "lucide-react";
 import { pageMetadata } from "@/lib/metadata";
-import { site } from "@/lib/config";
+import { LP_WHATSAPP_HREF, site } from "@/lib/config";
 import { getSiteSettings } from "@/lib/content";
 import { faqPageNode } from "@/lib/schema";
 import {
@@ -313,7 +313,7 @@ export default async function LandingPageRoute({
                 {contact.phone}
               </a>{" "}
               <span aria-hidden>·</span>{" "}
-              <a href={contact.whatsappHref} target="_blank" rel="noopener" className="font-bold text-[#17853f] no-underline">
+              <a href={LP_WHATSAPP_HREF} target="_blank" rel="noopener" className="font-bold text-[#17853f] no-underline">
                 וואטסאפ
               </a>
             </div>
@@ -549,7 +549,7 @@ export default async function LandingPageRoute({
         topic={page.topic}
         phone={contact.phone}
         phoneHref={contact.phoneHref}
-        whatsappHref={contact.whatsappHref}
+        whatsappHref={LP_WHATSAPP_HREF}
         formLabel="בדיקת זכאות"
         footnote={<LpDisclosureShort className="mt-3 text-center text-[13px]" />}
       />

@@ -4,6 +4,8 @@ import { createContext, useCallback, useContext, useEffect, useState } from "rea
 import { LeadForm } from "@/components/shared/lead-form";
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from "@/components/ui/dialog";
 import { Check } from "@/components/shared/icons";
+import { usePathname } from "next/navigation";
+import { isLandingPath, LP_WHATSAPP_HREF } from "@/lib/config";
 import { useSite } from "@/components/settings-provider";
 
 export interface LeadModalOptions {
@@ -56,6 +58,7 @@ export function useLeadModal() {
 
 export function LeadModalProvider({ children }: { children: React.ReactNode }) {
   const { contact } = useSite();
+  const whatsappHref = isLandingPath(usePathname()) ? LP_WHATSAPP_HREF : contact.whatsappHref;
   const [source, setSource] = useState<string | null>(null);
   const [topic, setTopic] = useState<string | undefined>(undefined);
   const [footnote, setFootnote] = useState<React.ReactNode>(null);
@@ -157,7 +160,7 @@ export function LeadModalProvider({ children }: { children: React.ReactNode }) {
                 </a>{" "}
                 <span aria-hidden>·</span>{" "}
                 <a
-                  href={contact.whatsappHref}
+                  href={whatsappHref}
                   target="_blank"
                   rel="noopener"
                   className="font-bold text-[#17853f] no-underline"
