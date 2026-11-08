@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import { Reveal } from "@/components/shared/reveal";
 import { Eyebrow } from "@/components/shared/eyebrow";
@@ -12,45 +11,33 @@ const stats = [
 ];
 
 /**
- * הסיפור שלנו — תמונה שנחשפת במסכה, פסקה אחת, ורצועת מספרים גדולים עם קווי
- * שיער (במקום תגית זהב על התמונה).
+ * הסיפור שלנו — פסקה אחת ורצועת מספרים גדולים עם קווי שיער.
  */
 export function Story() {
   return (
     <section className="px-[22px] py-16 md:px-[clamp(24px,5vw,72px)] md:py-[120px]">
       <div className="mx-auto max-w-[1296px]">
         <Eyebrow index="04">הסיפור שלנו</Eyebrow>
-        <div className="mt-6 grid gap-8 md:mt-8 md:grid-cols-[1fr_1.1fr] md:items-end md:gap-20">
-          <div>
-            <Reveal
-              as="h2"
-              variant="mask"
-              className="m-0 mb-5 font-display text-[32px] font-light leading-[1.1] text-ink md:mb-7 md:text-[56px] md:leading-[1.02] md:tracking-[-0.02em]"
+        <div className="mt-6 max-w-[760px] md:mt-8">
+          <Reveal
+            as="h2"
+            variant="mask"
+            className="m-0 mb-5 font-display text-[32px] font-light leading-[1.1] text-ink md:mb-7 md:text-[56px] md:leading-[1.02] md:tracking-[-0.02em]"
+          >
+            מ-{site.foundedYear} אנחנו עושים דבר אחד <span className="font-black">ועושים אותו עד הסוף.</span>
+          </Reveal>
+          <Reveal>
+            <p className="m-0 mb-6 max-w-[520px] text-base leading-relaxed text-ink-secondary md:mb-8 md:text-lg">
+              {`${site.stats.casesLong} מול ביטוח לאומי, מס הכנסה, קרנות הפנסיה וחברות הביטוח.`}{" "}
+              <b className="text-ink">הזכות לא שייכת לאף מגזר — היא שלכם.</b>
+            </p>
+            <Link
+              href="/about"
+              className="group inline-flex items-center gap-2 text-base font-bold text-brand no-underline md:text-[17px]"
             >
-              מ-{site.foundedYear} אנחנו עושים דבר אחד <span className="font-black">ועושים אותו עד הסוף.</span>
-            </Reveal>
-            <Reveal>
-              <p className="m-0 mb-6 max-w-[520px] text-base leading-relaxed text-ink-secondary md:mb-8 md:text-lg">
-                {`${site.stats.casesLong} מול ביטוח לאומי, מס הכנסה, קרנות הפנסיה וחברות הביטוח.`}{" "}
-                <b className="text-ink">הזכות לא שייכת לאף מגזר — היא שלכם.</b>
-              </p>
-              <Link
-                href="/about"
-                className="group inline-flex items-center gap-2 text-base font-bold text-brand no-underline md:text-[17px]"
-              >
-                <span className="link-draw">קצת יותר עלינו</span>
-                <ArrowForward size={16} className="nudge" />
-              </Link>
-            </Reveal>
-          </div>
-          <Reveal variant="image" className="relative aspect-[4/3] rounded-2xl md:aspect-[5/4]">
-            <Image
-              src="/images/team-2026.webp"
-              alt="צוות שלכם"
-              fill
-              sizes="(min-width: 768px) 50vw, 100vw"
-              className="object-cover"
-            />
+              <span className="link-draw">קצת יותר עלינו</span>
+              <ArrowForward size={16} className="nudge" />
+            </Link>
           </Reveal>
         </div>
 
