@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { useLeadModal } from "@/components/shared/lead-modal";
+import { LEAD_FORM_HREF } from "@/components/shared/lead-cta";
 import { PhoneIcon } from "./contact-modal";
 import { MobileMenu } from "./mobile-menu";
 import { useSite } from "@/components/settings-provider";
@@ -85,12 +86,16 @@ export function Header() {
             <span className="text-brand"><PhoneIcon size={18} /></span>
             {contact.phone}
           </a>
-          <button
-            onClick={() => openLeadForm("header")}
-            className="cursor-pointer whitespace-nowrap rounded-[10px] bg-brand px-[26px] py-3.5 text-base font-bold text-white transition-colors hover:bg-brand-hover"
+          <a
+            href={LEAD_FORM_HREF}
+            onClick={(e) => {
+              e.preventDefault();
+              openLeadForm("header");
+            }}
+            className="cursor-pointer whitespace-nowrap rounded-[10px] bg-brand px-[26px] py-3.5 text-base font-bold text-white no-underline transition-colors hover:bg-brand-hover"
           >
             בדיקת זכאות חינם
-          </button>
+          </a>
         </div>
       </nav>
 

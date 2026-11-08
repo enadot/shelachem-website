@@ -7,6 +7,7 @@ import { createPortal } from "react-dom";
 import { motion } from "framer-motion";
 import { site } from "@/lib/config";
 import { useLeadModal } from "@/components/shared/lead-modal";
+import { LEAD_FORM_HREF } from "@/components/shared/lead-cta";
 import { useSite } from "@/components/settings-provider";
 
 const items = [
@@ -74,7 +75,19 @@ export function MobileMenu({ onClose }: { onClose: () => void }) {
           >
             <Link
               href={item.href}
-              onClick={onClose}
+              onClick={(e) => {
+                // עוגן באותו עמוד נבלע כשהתפריט עדיין נועל את גלילת ה-body.
+                const hash = item.href.startsWith("/#") ? item.href.slice(1) : null;
+                if (hash && window.location.pathname === "/") {
+                  e.preventDefault();
+                  document.body.style.overflow = "";
+                  onClose();
+                  history.replaceState(null, "", `${window.location.pathname}${window.location.search}${hash}`);
+                  requestAnimationFrame(() => document.querySelector(hash)?.scrollIntoView({ block: "start" }));
+                  return;
+                }
+                onClose();
+              }}
               className={`block py-3 font-display text-[clamp(28px,8.5vw,34px)] font-black leading-tight text-white no-underline ${
                 i < items.length - 1 ? "border-b border-white/15" : ""
               }`}
@@ -86,16 +99,18 @@ export function MobileMenu({ onClose }: { onClose: () => void }) {
       </div>
 
       <div className="relative flex flex-col gap-3.5 px-7 pb-[34px]">
-        <button
-          type="button"
-          onClick={() => {
+        <a
+          href={LEAD_FORM_HREF}
+          onClick={(e) => {
+            document.body.style.overflow = "";
             onClose();
+            e.preventDefault();
             openLeadForm("mobile-menu");
           }}
-          className="block w-full cursor-pointer rounded-[10px] border-none bg-gold p-4 text-center text-lg font-bold text-ink"
+          className="block w-full cursor-pointer rounded-[10px] bg-gold p-4 text-center text-lg font-bold text-ink no-underline"
         >
           בדיקת זכאות חינם
-        </button>
+        </a>
         <a href={contact.phoneHref} className="tnum block text-center text-[17px] text-white no-underline">
           {contact.phone} · זמינים עכשיו
         </a>

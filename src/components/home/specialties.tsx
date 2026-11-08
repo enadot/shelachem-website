@@ -6,6 +6,7 @@ import { Reveal } from "@/components/shared/reveal";
 import { Eyebrow } from "@/components/shared/eyebrow";
 import { ArrowForward } from "@/components/shared/icons";
 import { useLeadModal } from "@/components/shared/lead-modal";
+import { LEAD_FORM_HREF } from "@/components/shared/lead-cta";
 import { quietTab } from "@/lib/quiet-tab";
 
 type Cat = "A" | "B" | "C" | "D";
@@ -143,10 +144,13 @@ export function Specialties() {
           ) : (
             <span />
           )}
-          <button
-            type="button"
-            onClick={() => openLeadForm("home-specialties-unsure")}
-            className="group flex min-h-14 cursor-pointer items-center justify-between gap-4 rounded-full border-none bg-ink py-2 pe-2 ps-6 text-start text-white md:ps-7"
+          <a
+            href={LEAD_FORM_HREF}
+            onClick={(e) => {
+              e.preventDefault();
+              openLeadForm("home-specialties-unsure");
+            }}
+            className="group flex min-h-14 cursor-pointer items-center justify-between gap-4 rounded-full bg-ink py-2 pe-2 ps-6 text-start text-white no-underline md:ps-7"
           >
             <span className="text-base font-bold md:text-[17px]">
               לא בטוחים אילו זכויות רלוונטיות לכם? <span className="text-gold">זו העבודה שלנו.</span>
@@ -154,7 +158,7 @@ export function Specialties() {
             <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-gold text-ink">
               <ArrowForward size={18} className="nudge" />
             </span>
-          </button>
+          </a>
         </div>
       </div>
     </section>

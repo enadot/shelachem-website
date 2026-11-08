@@ -56,6 +56,17 @@ export function EligibilityQuiz() {
 
   return (
     <div className="flex flex-col gap-4 md:gap-5">
+      {/*
+        השאלון דורש JS. בלי JS, או אחרי שסקריפט ההידרציה מוותר (4ש׳), מוצג טופס
+        רגיל לאותו /api/leads. כשהאפליקציה חיה — השאלון נשאר והטופס מוסתר.
+      */}
+      <div className="lead-form-fallback">
+        <h2 className="m-0 mb-3 font-display text-2xl font-black leading-[1.15] text-ink md:text-[28px]">
+          לאן לחזור אליכם?
+        </h2>
+        <LeadForm layout="stacked" withEmail={false} sourcePage="home-form-fallback" submitLabel="בדקו לי" />
+      </div>
+      <div className="lead-form-enhanced flex flex-col gap-4 md:gap-5">
       <div className="flex items-center gap-3">
         <div aria-hidden className="flex flex-1 gap-1.5">
           {Array.from({ length: TOTAL }, (_, i) => (
@@ -138,6 +149,7 @@ export function EligibilityQuiz() {
           )}
         </motion.div>
       </AnimatePresence>
+      </div>
     </div>
   );
 }
