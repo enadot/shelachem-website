@@ -386,6 +386,17 @@ input[type="range"] {
   }
 }
 
+/*
+  דף הבית: שאלון הזכאות דורש JS. הטופס החלופי מרונדר תמיד, ומוסתר רק כש-data-js
+  דולק (סקריפט אינליין). אם ההידרציה לא הגיעה — הסימון יורד והטופס מופיע.
+*/
+:root[data-js] .lead-form-fallback {
+  display: none;
+}
+:root:not([data-js]) .lead-form-enhanced {
+  display: none;
+}
+
 /* שורות שנכנסות אחרי סינון/הרחבה — בלי תלות בגלילה */
 .row-in {
   animation: row-in 0.6s var(--ease-out) both;

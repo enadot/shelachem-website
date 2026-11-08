@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useLeadModal } from "@/components/shared/lead-modal";
+import { LEAD_FORM_HREF } from "@/components/shared/lead-cta";
 import { ArrowForward } from "@/components/shared/icons";
 
 /** יעד העוגן ההיסטורי בכרטיסים שאין להם עמוד שירות משלהם. */
@@ -61,13 +62,16 @@ export function InstitutionServiceCard({
   }
 
   return (
-    <button
-      type="button"
-      onClick={() => openLeadForm(`institution-card-${card.name}`, card.name)}
+    <a
+      href={LEAD_FORM_HREF}
+      onClick={(e) => {
+        e.preventDefault();
+        openLeadForm(`institution-card-${card.name}`, card.name);
+      }}
       aria-label={`בדיקת זכאות — ${card.name} מול ${institutionName}`}
-      className={`${shell} cursor-pointer border-0 bg-transparent font-[inherit]`}
+      className={`${shell} cursor-pointer`}
     >
       {body}
-    </button>
+    </a>
   );
 }

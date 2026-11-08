@@ -88,10 +88,33 @@ export function buildMarketingConfig(g: Record<string, unknown> | null | undefin
 /** גוגל בטעינה ישירה — ה-ID שטוען את gtag.js (GA4 קודם, אחרת Ads). */
 export const directGoogleTagId = (m: MarketingConfig) => m.ga4Id ?? m.googleAdsId;
 
+const q = (v: string) => JSON.stringify(v);
+
+/**
+ * טוען את gtag.js רק אחרי שהעמוד פנוי, בלי `<link rel="preload">` ב-head.
+ * נטפרי / סייפר / הדרן חוסמים את googletagmanager.com; preload של הסקריפט
+ * מתחרה בקבצי האתר עצמם ויכול לעכב את ההידרציה. ה-stub של gtag (ב-layout)
+ * ממשיך לתור אירועים, וההמרה לא תלויה בכך שהקובץ החיצוני נטען.
+ */
+export function googleTagLoaderSource(m: MarketingConfig, googleTagId: string) {
+  const src = `https://www.googletagmanager.com/gtag/js?id=${googleTagId}`;
+  const config =
+    (m.ga4Id ? `gtag('config',${q(m.ga4Id)});` : "") +
+    (m.googleAdsId
+      ? `gtag('config',${q(m.googleAdsId)},{allow_enhanced_conversions:${m.enhancedConversions}});`
+      : "");
+  return (
+    "(function(){if(typeof gtag!=='function')return;" +
+    "gtag('js',new Date());" +
+    config +
+    "var s=document.createElement('script');s.async=true;s.src=" +
+    q(src) +
+    ";document.head.appendChild(s);})();"
+  );
+}
+
 /** מפתח ה-localStorage של בחירת העוגיות — משותף לסקריפט ה-inline ולבאנר. */
 export const CONSENT_STORAGE_KEY = "shelachem-consent";
-
-const q = (v: string) => JSON.stringify(v);
 
 /**
  * סקריפט ה-inline שרץ לפני כל תג: מאתחל את dataLayer ו-gtag, וקובע את מצב

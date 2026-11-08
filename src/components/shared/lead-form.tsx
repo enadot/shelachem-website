@@ -1,26 +1,19 @@
 "use client";
 
 import { useSite } from "@/components/settings-provider";
-import { useState } from "react";
-import { Controller, useForm } from "react-hook-form";
+import { useState, useSyncExternalStore, type ComponentProps } from "react";
+import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { cn } from "@/lib/utils";
 import { newEventId, trackEvent, trackLeadConversion } from "@/lib/analytics";
 import { getAttribution, utmSummary } from "@/lib/attribution";
+import { leadResponseAccepted, runLeadTracking, SUBMIT_TIMEOUT_MS } from "@/lib/lead-client";
 import { Button } from "@/components/ui/button";
-import { Lock } from "lucide-react";
+import { Check, Lock } from "lucide-react";
 import { CheckCircle, ChevronForward } from "@/components/shared/icons";
 import { Input } from "@/components/ui/input";
-import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 
 /** מקבל כל פורמט נפוץ — רווחים, מקפים, +972 — ומנרמל לספרות עם 0 מוביל. */
 export const normalizePhone = (v: string) =>
@@ -68,7 +61,10 @@ export interface LeadFormProps {
   className?: string;
 }
 
-/** טופס ליד — ה-CTA המרכזי של האתר. שולח ל-/api/leads. */
+/**
+ * טופס ליד. עם JS: fetch לאותו דומיין (`/api/leads`) ובדיקה שהתשובה היא JSON
+ * עם ok:true. בלי JS: הטופס נשלח כ-POST רגיל לאותה כתובת. BARAM לא נקרא מהדפדפן.
+ */
 export function LeadForm({
   variant = "light",
   submitLabel = "אני רוצה לבדוק",
@@ -82,12 +78,17 @@ export function LeadForm({
   className,
 }: LeadFormProps) {
   const { contact } = useSite();
+  // אחרי הידרציה הוולידציה שלנו (עברית). לפניה — בדיקת הדפדפן, כדי ש-POST בלי JS לא יישלח ריק.
+  const clientReady = useSyncExternalStore(
+    () => () => {},
+    () => true,
+    () => false,
+  );
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
   const [sentPhone, setSentPhone] = useState("");
   const [started, setStarted] = useState(false);
   const {
     register,
-    control,
     handleSubmit,
     formState: { errors },
   } = useForm<FormValues>({
@@ -119,35 +120,53 @@ export function LeadForm({
     const source = (utm ? `${sourcePage}|${utm}` : sourcePage).slice(0, 200);
     // אותו מזהה על הליד ועל אירוע ההמרה — מאפשר dedup מול המרות שיישלחו מהשרת.
     const eventId = newEventId();
+    // סינון ישראלי עלול להחזיר דף חסימה HTML בסטטוס 200, או להשאיר את הבקשה תלויה.
+    // timeout + אימות JSON. לא שולחים שוב ב-POST אחרי fetch — הבקשה אולי כבר נשמרה.
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), SUBMIT_TIMEOUT_MS);
+    let accepted = false;
     try {
       const res = await fetch("/api/leads", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        signal: controller.signal,
         body: JSON.stringify({
           full_name: values.full_name,
           phone: values.phone,
           email: values.email,
           topic: values.topic || undefined,
           source_page: source,
+          data_consent: values.data_consent,
           marketing_consent: values.marketing_consent,
           company: values.company,
           attribution: { ...attribution, event_id: eventId, page: window.location.pathname },
         }),
       });
-      if (res.ok) {
-        setSentPhone(values.phone);
-        void trackLeadConversion({
-          source,
-          topic: values.topic || undefined,
-          eventId,
-          phone: values.phone,
-          email: values.email || undefined,
-        });
-      }
-      setStatus(res.ok ? "sent" : "error");
+      const contentType = res.headers.get("content-type");
+      const data = contentType?.toLowerCase().includes("application/json")
+        ? await res.json().catch(() => null)
+        : null;
+      accepted = leadResponseAccepted(res.status, contentType, data);
     } catch {
-      setStatus("error");
+      accepted = false;
+    } finally {
+      clearTimeout(timer);
     }
+    if (!accepted) {
+      setStatus("error");
+      return;
+    }
+    setSentPhone(values.phone);
+    setStatus("sent");
+    void runLeadTracking(() =>
+      trackLeadConversion({
+        source,
+        topic: values.topic || undefined,
+        eventId,
+        phone: values.phone,
+        email: values.email || undefined,
+      }),
+    );
   });
 
   if (status === "sent") {
@@ -188,6 +207,7 @@ export function LeadForm({
       <Input
         {...register("full_name")}
         id={id("full_name")}
+        required
         autoComplete="name"
         className={inputClass}
         aria-invalid={Boolean(errors.full_name)}
@@ -209,6 +229,7 @@ export function LeadForm({
       <Input
         {...register("phone")}
         id={id("phone")}
+        required
         type="tel"
         inputMode="tel"
         dir="ltr"
@@ -268,6 +289,9 @@ export function LeadForm({
 
   return (
     <form
+      method="post"
+      action="/api/leads"
+      noValidate={clientReady}
       onSubmit={onSubmit}
       onFocus={() => {
         // מדידת נטישה: כמה התחילו למלא לעומת כמה שלחו (form_start → generate_lead).
@@ -275,7 +299,6 @@ export function LeadForm({
         setStarted(true);
         trackEvent("form_start", { lead_source: sourcePage, lead_topic: presetTopic });
       }}
-      noValidate
       className={cn("flex flex-col gap-3", className)}
     >
       {layout === "hero" ? (
@@ -323,29 +346,30 @@ export function LeadForm({
         </p>
       )}
       {topicOptions && topicOptions.length > 0 && (
-        <Controller
-          control={control}
-          name="topic"
-          render={({ field }) => (
-            <Select value={field.value || undefined} onValueChange={field.onChange}>
-              {/* תווית קבועה מעל השדה — בלי placeholder */}
-              <Label htmlFor={id("topic")} className={fieldLabelClass}>
-                {topicLabel}
-              </Label>
-              <SelectTrigger id={id("topic")} className={inputClass}>
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                {topicOptions.map((o) => (
-                  <SelectItem key={o} value={o}>
-                    {o}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          )}
-        />
+        <div>
+          <Label htmlFor={id("topic")} className={fieldLabelClass}>
+            {topicLabel}
+          </Label>
+          <select
+            {...register("topic")}
+            id={id("topic")}
+            className={cn(
+              "min-h-[50px] w-full rounded-[10px] border-[1.5px] border-hairline bg-field px-4 py-3 text-[17px] text-ink",
+              inputClass,
+            )}
+          >
+            <option value="">{topicLabel}</option>
+            {topicOptions.map((o) => (
+              <option key={o} value={o}>
+                {o}
+              </option>
+            ))}
+          </select>
+        </div>
       )}
+
+      <input type="hidden" name="source_page" value={sourcePage} />
+      {presetTopic && !topicOptions?.length ? <input type="hidden" name="topic" value={presetTopic} /> : null}
 
       {/* Honeypot — hidden from humans, catches naive bots. */}
       <input
@@ -356,64 +380,49 @@ export function LeadForm({
         className="absolute h-0 w-0 overflow-hidden opacity-0"
       />
 
-      <Controller
-        control={control}
-        name="data_consent"
-        render={({ field }) => (
-          <Label
-            className={cn(
-              "flex cursor-pointer items-start gap-2.5 text-[12.5px]",
-              dark ? "text-white/75" : "text-ink-muted",
-            )}
-          >
-            <Checkbox
-              ref={field.ref}
-              checked={field.value}
-              onCheckedChange={(v) => field.onChange(v === true)}
-              aria-invalid={Boolean(errors.data_consent)}
-              aria-describedby={errors.data_consent ? errorId("data_consent") : undefined}
-            />
-            <span>
-              הפרטים יישמרו במאגרי החברה בהתאם ל
-              <a
-                href="/privacy"
-                target="_blank"
-                className={cn(
-                  "whitespace-nowrap underline underline-offset-2",
-                  dark ? "text-white" : "text-brand",
-                )}
-                onClick={(e) => e.stopPropagation()}
-              >
-                מדיניות הפרטיות
-              </a>
-            </span>
-          </Label>
+      <Label
+        className={cn(
+          "flex cursor-pointer items-start gap-2.5 text-[12.5px]",
+          dark ? "text-white/75" : "text-ink-muted",
         )}
-      />
+      >
+        <ConsentCheck
+          {...register("data_consent")}
+          id={id("data_consent")}
+          required
+          aria-invalid={Boolean(errors.data_consent)}
+          aria-describedby={errors.data_consent ? errorId("data_consent") : undefined}
+        />
+        <span>
+          הפרטים יישמרו במאגרי החברה בהתאם ל
+          <a
+            href="/privacy"
+            target="_blank"
+            className={cn(
+              "whitespace-nowrap underline underline-offset-2",
+              dark ? "text-white" : "text-brand",
+            )}
+            onClick={(e) => e.stopPropagation()}
+          >
+            מדיניות הפרטיות
+          </a>
+        </span>
+      </Label>
       {errors.data_consent && (
         <p id={errorId("data_consent")} role="alert" className={cn(errorClass, "-mt-1")}>
           {errors.data_consent.message}
         </p>
       )}
       {withMarketingConsent && (
-        <Controller
-          control={control}
-          name="marketing_consent"
-          render={({ field }) => (
-            <Label
-              className={cn(
-                "flex cursor-pointer items-start gap-2.5 text-[12.5px]",
-                dark ? "text-white/75" : "text-ink-muted",
-              )}
-            >
-              <Checkbox
-                checked={field.value}
-                onCheckedChange={(v) => field.onChange(v === true)}
-              />
-              <span>אשמח לקבל עדכונים ותוכן שיווקי (אפשר להסיר בכל עת)</span>
-            </Label>
+        <Label
+          className={cn(
+            "flex cursor-pointer items-start gap-2.5 text-[12.5px]",
+            dark ? "text-white/75" : "text-ink-muted",
           )}
-        />
+        >
+          <ConsentCheck {...register("marketing_consent")} id={id("marketing_consent")} />
+          <span>אשמח לקבל עדכונים ותוכן שיווקי (אפשר להסיר בכל עת)</span>
+        </Label>
       )}
 
       {!rowSubmit && submitButton}
@@ -422,6 +431,15 @@ export function LeadForm({
           משהו השתבש בשליחה. נסו שוב או התקשרו אלינו:{" "}
           <a href={contact.phoneHref} className="tnum font-bold underline underline-offset-2">
             {contact.phone}
+          </a>{" "}
+          או{" "}
+          <a
+            href={contact.whatsappHref}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-bold underline underline-offset-2"
+          >
+            בוואטסאפ
           </a>
         </p>
       )}
@@ -430,5 +448,27 @@ export function LeadForm({
         הפרטים שלכם נשמרים בדיסקרטיות מלאה · שכר טרחה בהצלחה בלבד
       </div>
     </form>
+  );
+}
+
+/** צ'קבוקס אמיתי — נשלח גם בלי JS. הריבוע 18px, יעד המגע 44px בלי להזיז את השורה. */
+function ConsentCheck({ className, ...props }: ComponentProps<"input">) {
+  return (
+    <span className="relative mt-0.5 inline-flex h-[18px] w-[18px] shrink-0">
+      <input
+        type="checkbox"
+        className={cn(
+          "peer absolute left-1/2 top-1/2 z-[1] m-0 h-11 w-11 -translate-x-1/2 -translate-y-1/2 cursor-pointer opacity-0",
+          className,
+        )}
+        {...props}
+      />
+      <span
+        aria-hidden
+        className="pointer-events-none flex h-[18px] w-[18px] items-center justify-center rounded-[4px] border border-[#cbd5e1] bg-white text-transparent peer-checked:border-brand peer-checked:bg-brand peer-checked:text-white peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-brand"
+      >
+        <Check className="h-3.5 w-3.5" strokeWidth={3} />
+      </span>
+    </span>
   );
 }

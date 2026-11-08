@@ -8,9 +8,11 @@ import type { VariantProps } from "class-variance-authority";
 import type { buttonVariants } from "@/components/ui/button";
 
 /**
- * כפתור "בדיקת זכאות חינם" — פותח את מודאל הטופס.
- * מחליף קישורי עוגן ל-#lead-form: מודאל ממיר טוב יותר מקפיצה לראש העמוד.
+ * כפתור "בדיקת זכאות חינם" — פותח את מודאל הטופס אחרי הידרציה.
+ * לפני שה-JS רץ זה עוגן אמיתי לטופס בדף הבית, אחרת הלחיצה לא עושה כלום.
  */
+export const LEAD_FORM_HREF = "/#lead-form";
+
 export function LeadCta({
   children,
   sourcePage,
@@ -28,19 +30,21 @@ export function LeadCta({
 } & VariantProps<typeof buttonVariants>) {
   const { openLeadForm } = useLeadModal();
   return (
-    <Button
-      type="button"
-      variant={variant}
-      size={size}
-      className={cn(className)}
-      onClick={() => openLeadForm(sourcePage, topic)}
-    >
-      {children ?? (
-        <>
-          בדיקת זכאות חינם
-          <ChevronForward size={16} />
-        </>
-      )}
+    <Button asChild variant={variant} size={size} className={cn(className)}>
+      <a
+        href={LEAD_FORM_HREF}
+        onClick={(e) => {
+          e.preventDefault();
+          openLeadForm(sourcePage, topic);
+        }}
+      >
+        {children ?? (
+          <>
+            בדיקת זכאות חינם
+            <ChevronForward size={16} />
+          </>
+        )}
+      </a>
     </Button>
   );
 }
