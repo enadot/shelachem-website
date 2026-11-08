@@ -59,4 +59,15 @@ describe("customer letters", () => {
       assert.ok(letter.width > 0 && letter.height > 0);
     }
   });
+
+  it("links the letters from the header, mobile menu, and homepage", () => {
+    const header = read("../components/layout/header.tsx");
+    const menu = read("../components/layout/mobile-menu.tsx");
+    const home = read("../components/home/testimonials.tsx");
+    const page = read("../app/(site)/customers/page.tsx");
+    assert.match(header, /href: "\/customers", label: "לקוחות מרוצים"/);
+    assert.match(menu, /href: "\/customers", label: "לקוחות מרוצים"/);
+    assert.match(home, /href="\/customers"/);
+    assert.match(page, /CustomerLetterGallery/);
+  });
 });

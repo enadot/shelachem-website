@@ -13,6 +13,7 @@ import { useSite } from "@/components/settings-provider";
 const items = [
   { href: "/", label: "בית" },
   { href: "/about", label: "הסיפור שלנו" },
+  { href: "/customers", label: "לקוחות מרוצים" },
   { href: "/#specialties", label: "תחומי פעילות" },
   { href: "/institutions", label: "מוסדות ובירוקרטיה" },
   { href: "/#how-it-works", label: "איך זה עובד" },
