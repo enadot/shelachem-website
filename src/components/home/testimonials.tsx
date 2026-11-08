@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import type { Testimonial } from "@/lib/content/types";
 import { Eyebrow } from "@/components/shared/eyebrow";
 import { Reveal } from "@/components/shared/reveal";
@@ -61,14 +62,19 @@ export function Testimonials({ testimonials }: { testimonials: Testimonial[] }) 
               <ChevronForward size={18} />
             </button>
           </div>
-          <LeadCta
-            sourcePage="home-testimonials"
-            variant="accent"
-            className="group"
-          >
-            רוצים שנבדוק גם לכם?
-            <ArrowForward size={18} className="nudge" />
-          </LeadCta>
+          <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
+            <Link href="/customers" className="text-base font-bold text-white no-underline md:text-[17px]">
+              <span className="link-draw">מכתבי התודה</span>
+            </Link>
+            <LeadCta
+              sourcePage="home-testimonials"
+              variant="accent"
+              className="group"
+            >
+              רוצים שנבדוק גם לכם?
+              <ArrowForward size={18} className="nudge" />
+            </LeadCta>
+          </div>
         </Reveal>
       </div>
     </section>

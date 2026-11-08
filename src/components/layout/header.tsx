@@ -13,6 +13,7 @@ import { useSite } from "@/components/settings-provider";
 export const navLinks = [
   { href: "/", label: "בית" },
   { href: "/about", label: "הסיפור שלנו" },
+  { href: "/customers", label: "לקוחות מרוצים" },
   { href: "/#specialties", label: "תחומי פעילות" },
   { href: "/institutions", label: "מוסדות ובירוקרטיה" },
   { href: "/#how-it-works", label: "איך זה עובד" },
@@ -61,7 +62,7 @@ export function Header() {
             priority
           />
         </Link>
-        <div className="flex flex-1 items-center gap-[clamp(14px,2.2vw,34px)] text-[17px] text-ink-secondary">
+        <div className="flex flex-1 items-center gap-x-3 text-[15px] text-ink-secondary xl:gap-x-5 xl:text-[16px]">
           {navLinks.map((l) => (
             <Link
               key={l.href}
@@ -69,8 +70,8 @@ export function Header() {
               aria-current={activeSection(pathname, l.href) ? "page" : undefined}
               className={
                 activeSection(pathname, l.href)
-                  ? "font-black text-brand no-underline"
-                  : "text-ink-secondary no-underline transition-colors hover:text-brand"
+                  ? "whitespace-nowrap font-black text-brand no-underline"
+                  : "whitespace-nowrap text-ink-secondary no-underline transition-colors hover:text-brand"
               }
             >
               {l.label}
