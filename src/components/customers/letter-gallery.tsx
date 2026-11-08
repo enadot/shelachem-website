@@ -30,7 +30,7 @@ export function CustomerLetterGallery() {
             >
               <Image
                 src={item.src}
-                alt={`מכתב תודה ${index + 1} מתוך הגלריה שפורסמה באתר שלכם. לחצו לקריאה.`}
+                alt={`מכתב תודה ${index + 1}`}
                 width={item.width}
                 height={item.height}
                 className="h-auto w-full"
@@ -58,7 +58,7 @@ export function CustomerLetterGallery() {
           />
           <Image
             src={letter.src}
-            alt={`מכתב תודה ${open + 1}, בגודל המלא`}
+            alt={`מכתב תודה ${open + 1}`}
             width={letter.width}
             height={letter.height}
             unoptimized

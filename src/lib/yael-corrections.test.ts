@@ -70,4 +70,19 @@ describe("customer letters", () => {
     assert.match(home, /href="\/customers"/);
     assert.match(page, /CustomerLetterGallery/);
   });
+
+  it("does not explain where the letters came from", () => {
+    const page = read("../app/(site)/customers/page.tsx");
+    const gallery = read("../components/customers/letter-gallery.tsx");
+    const visible = `${page}\n${gallery}`;
+    for (const phrase of [
+      "אתר הקודם",
+      "מוצגים כאן כמו שהם",
+      "גלריה שפורסמה",
+      "כפי שפורסמו",
+      "המכתבים האלה פורסמו",
+    ]) {
+      assert.equal(visible.includes(phrase), false, phrase);
+    }
+  });
 });
