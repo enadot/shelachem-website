@@ -20,6 +20,7 @@ const columns: { title: string; links: { label: string; href: string }[] }[] = [
     title: "אודות",
     links: [
       { label: "הסיפור שלנו", href: "/about" },
+      { label: "לקוחות מרוצים", href: "/customers" },
       { label: "צוות ההנהלה", href: "/team" },
       { label: "הרופאים שלנו", href: "/doctors" },
       { label: "סניפים ויצירת קשר", href: "/branches" },
