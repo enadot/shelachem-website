@@ -22,6 +22,7 @@ import { ServiceMethod } from "@/components/services/service-method";
 import { Check, CircleAlert } from "lucide-react";
 import { faqPageNode, serviceNode } from "@/lib/schema";
 import { site } from "@/lib/config";
+import { GENERAL_DISABILITY_BENEFITS } from "@/lib/general-disability-benefits";
 
 const whyUs = [
   { value: "מאז 2013", label: "ניסיון מול ביטוח לאומי, רשות המסים, קרנות וחברות ביטוח" },
@@ -129,11 +130,20 @@ export default async function ServicePage({
           בדיקת זכאות חינם
           <ArrowForward size={18} className="nudge" />
         </LeadCta>
-        <ul className="m-0 flex list-none flex-wrap gap-x-5 gap-y-1 p-0 text-[15px] text-ink-secondary">
-          {["שכר טרחה בהצלחה בלבד", "בדיסקרטיות מלאה"].map((t) => (
-            <li key={t} className="flex items-center gap-1.5">
-              <Check aria-hidden size={16} strokeWidth={2.5} className="text-brand" />
-              {t}
+        <ul
+          className={
+            service.slug === "general-disability"
+              ? "m-0 grid w-full list-none grid-cols-3 gap-x-2 p-0 text-[12.5px] leading-snug text-ink-secondary sm:gap-x-3 sm:text-[14px]"
+              : "m-0 flex list-none flex-wrap gap-x-5 gap-y-1 p-0 text-[15px] text-ink-secondary"
+          }
+        >
+          {(service.slug === "general-disability"
+            ? GENERAL_DISABILITY_BENEFITS
+            : ["שכר טרחה בהצלחה בלבד", "בדיסקרטיות מלאה"]
+          ).map((t) => (
+            <li key={t} className="flex min-w-0 items-start gap-1.5">
+              <Check aria-hidden size={16} strokeWidth={2.5} className="mt-0.5 shrink-0 text-brand" />
+              <span>{t}</span>
             </li>
           ))}
         </ul>

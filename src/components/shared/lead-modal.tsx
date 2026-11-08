@@ -5,6 +5,10 @@ import { LeadForm } from "@/components/shared/lead-form";
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from "@/components/ui/dialog";
 import { Check } from "@/components/shared/icons";
 import { useSite } from "@/components/settings-provider";
+import {
+  GENERAL_DISABILITY_BENEFITS,
+  isGeneralDisabilitySource,
+} from "@/lib/general-disability-benefits";
 
 interface LeadModalApi {
   /**
@@ -65,11 +69,20 @@ export function LeadModalProvider({ children }: { children: React.ReactNode }) {
                   וחברות הביטוח.
                 </p>
               </DialogDescription>
-              <ul className="relative m-0 mt-5 flex flex-wrap gap-x-5 gap-y-2 p-0 text-[13.5px] font-bold text-white/90">
-                {["דיסקרטיות מלאה", "שכר טרחה בהצלחה בלבד", "חוזרים תוך יום עסקים"].map((item) => (
-                  <li key={item} className="flex list-none items-center gap-1.5">
-                    <Check size={14} />
-                    {item}
+              <ul
+                className={
+                  isGeneralDisabilitySource(source)
+                    ? "relative m-0 mt-5 grid grid-cols-3 gap-x-2 p-0 text-[12px] font-bold leading-snug text-white/90 sm:text-[13px]"
+                    : "relative m-0 mt-5 flex flex-wrap gap-x-5 gap-y-2 p-0 text-[13.5px] font-bold text-white/90"
+                }
+              >
+                {(isGeneralDisabilitySource(source)
+                  ? GENERAL_DISABILITY_BENEFITS
+                  : ["דיסקרטיות מלאה", "שכר טרחה בהצלחה בלבד", "חוזרים תוך יום עסקים"]
+                ).map((item) => (
+                  <li key={item} className="flex list-none min-w-0 items-start gap-1.5">
+                    <Check size={14} className="mt-0.5 shrink-0" />
+                    <span>{item}</span>
                   </li>
                 ))}
               </ul>

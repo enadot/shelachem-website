@@ -22,7 +22,7 @@ const INITIAL = 6;
 
 const S = (slug: string) => `/services/${slug}`;
 
-/** 12 תחומי הפעילות (designs/homepage-v3.html) — כל אחד מוביל לעמוד ההסבר שלו (/services/…). */
+/** תחומי הפעילות בדף הבית — כל אחד מוביל לעמוד ההסבר שלו (/services/…). שמירת הריון הוסרה מהרשימה הזו, והעמוד שלה נשאר. */
 const specialties: { name: string; cat: Cat; who: string; href: string }[] = [
   { name: "קצבת נכות כללית", cat: "A", who: "מחלה או פגיעה שמגבילה את היכולת לעבוד", href: S("general-disability") },
   { name: "שירותים מיוחדים", cat: "A", who: "מי שזקוק לעזרה צמודה בפעולות היומיום", href: S("special-services") },
@@ -30,7 +30,6 @@ const specialties: { name: string; cat: Cat; who: string; href: string }[] = [
   { name: "נפגעי פעולות איבה", cat: "A", who: "מי שנפגע בפיגוע או במעשה איבה", href: S("hostile-action-victims") },
   { name: "תאונת עבודה", cat: "B", who: "פגיעה בזמן העבודה או בדרך אליה", href: S("work-injury") },
   { name: "מחלת מקצוע", cat: "B", who: "מחלה שנגרמה מתנאי העבודה", href: S("occupational-disease") },
-  { name: "שמירת הריון", cat: "B", who: "הריון בסיכון שמונע עבודה", href: S("pregnancy-risk") },
   { name: "תאונות אישיות", cat: "B", who: "מבוטחים שנפגעו בתאונה", href: S("personal-accidents") },
   { name: "אובדן כושר עבודה", cat: "C", who: "לא יכולים לחזור לעבודה ויש פוליסה", href: S("loss-of-work-capacity") },
   { name: "פנסיית נכות", cat: "C", who: "חברי קרן פנסיה שכושר העבודה נפגע", href: S("disability-pension") },
