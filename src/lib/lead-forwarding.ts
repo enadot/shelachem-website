@@ -1,5 +1,6 @@
 import "server-only";
 import { site } from "@/lib/config";
+import { describeForwardError, interpretIngestResponse } from "@/lib/ingest-result";
 
 /**
  * העברת לידים ל-BARAM Leads (מערכת ניהול הלידים של המשרד).
@@ -87,8 +88,7 @@ async function post(url: string, body: Record<string, unknown>) {
     signal: AbortSignal.timeout(TIMEOUT_MS),
     cache: "no-store",
   });
-  const json = (await res.json().catch(() => ({}))) as { ok?: boolean; error?: string; leadId?: number };
-  return { ok: res.ok && json.ok !== false, status: res.status, error: json.error, leadId: json.leadId };
+  return interpretIngestResponse(res.status, await res.text());
 }
 
 export type ForwardResult =
@@ -112,12 +112,13 @@ export async function forwardLead(lead: ForwardableLead, hooks: LeadWebhooks): P
     const which = url === quizUrl ? "quiz" : "site";
     try {
       const res = await post(url, body);
-      if (res.ok) return { ok: true, channel: which, leadId: res.leadId };
-      console.error("[leads] BARAM Leads rejected the lead:", res.status, res.error, `(${which})`);
-      errors.push(`${which}: ${res.status} ${res.error ?? ""}`.trim());
+      if (res.ok) return { ok: true, channel: which, ...(res.leadId !== undefined ? { leadId: res.leadId } : {}) };
+      console.error("[leads] BARAM Leads rejected the lead:", res.error, `(${which})`);
+      errors.push(`${which}: ${res.error}`);
     } catch (err) {
-      console.error("[leads] BARAM Leads unreachable:", err);
-      errors.push(`${which}: ${err instanceof Error ? err.message : "unreachable"}`);
+      const message = describeForwardError(err);
+      console.error("[leads] BARAM Leads unreachable:", message, `(${which})`);
+      errors.push(`${which}: ${message}`);
     }
   }
   console.error("[leads] lead NOT forwarded to BARAM Leads:", { ...lead, attribution: undefined });

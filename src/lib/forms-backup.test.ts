@@ -6,6 +6,18 @@ import { redactUrls, sendFormsBackup, shelachemBackupPayload, type FormsBackupPa
 const ENV = "MAKE_FORMS_BACKUP_WEBHOOK_URL";
 const HOOK = "https://backup.example/hook/secret-token";
 
+/** התראת Make: שדה bl_ok חסר נחשב false, ולכן מייל נשלח. */
+function backupEmailWouldSend(payload: { event: string; bl_ok?: boolean }): boolean {
+  const blOkText =
+    payload.bl_ok === true ? "כן" : payload.bl_ok === false ? "לא" : payload.event === "lead_forward_failed" ? "לא" : "";
+  return payload.event === "lead_forward_failed" || payload.bl_ok !== true || blOkText === "לא";
+}
+
+/** אותו נוסח כמו במודול המייל: ifempty(bl_error; ifempty(error; "לא צוין")). */
+function emailError(payload: { bl_error?: string }): string {
+  return payload.bl_error || "לא צוין";
+}
+
 const lead = {
   full_name: "דנה לוי",
   phone: "0541234567",
@@ -59,8 +71,9 @@ describe("shelachemBackupPayload", () => {
     assert.equal(payload.fbclid, "f-1");
     assert.equal(payload.referrer, "https://www.google.com/");
     assert.equal(payload.notes, "נושא: ביטוח לאומי · מחלה כרונית\nטופס: home-quiz");
-    assert.equal("bl_ok" in payload, false);
+    assert.equal(payload.bl_ok, true);
     assert.equal("bl_error" in payload, false);
+    assert.equal(backupEmailWouldSend(payload), false);
   });
 
   it("marks a Baram failure and strips webhook URLs from the error", () => {
@@ -75,6 +88,18 @@ describe("shelachemBackupPayload", () => {
     assert.match(payload.bl_error ?? "", /rejected/);
     assert.doesNotMatch(payload.bl_error ?? "", /leads\.baram\.digital/);
     assert.doesNotMatch(payload.bl_error ?? "", /secret-token/);
+    assert.equal(backupEmailWouldSend(payload), true);
+    assert.notEqual(emailError(payload), "לא צוין");
+  });
+
+  it("still marks a failure when the caller forgets bl_ok, and never leaves the email error blank", () => {
+    const payload = shelachemBackupPayload(lead, {
+      event: "lead_forward_failed",
+      status: "forward_failed",
+    });
+    assert.equal(payload.bl_ok, false);
+    assert.equal(payload.bl_error, "ההעברה נכשלה");
+    assert.notEqual(emailError(payload), "לא צוין");
   });
 
   it("falls back to the page path when there is no touch", () => {
@@ -182,7 +207,7 @@ describe("leads route wiring", () => {
     assert.match(route, /const backupId = await backupLead\(lead\)/);
     assert.match(route, /forwardBackedUp\(backupId, lead\)/);
     assert.match(route, /after\(async \(\) =>/);
-    assert.match(route, /event: "lead_backup", status: "received"/);
+    assert.match(route, /event: "lead_backup", status: "received", bl_ok: true/);
     assert.match(route, /event: "lead_forward_failed"/);
     assert.match(route, /status: "forward_failed"/);
     assert.match(route, /throw err/);

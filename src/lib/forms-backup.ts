@@ -35,7 +35,7 @@ export type FormsBackupPayload = {
   gclid: string;
   fbclid: string;
   referrer: string;
-  bl_ok?: boolean;
+  bl_ok: boolean;
   bl_error?: string;
   notes?: string;
 };
@@ -76,7 +76,12 @@ export function shelachemBackupPayload(lead: BackupLead, extra: FormsBackupExtra
   const params = touch?.params ?? {};
   const form = lead.source_page?.split("|")[0];
   const notes = [lead.topic && `נושא: ${lead.topic}`, form && `טופס: ${form}`].filter(Boolean).join("\n");
+  const failure = extra.event === "lead_forward_failed" || extra.status === "forward_failed";
+  // Make משווה את bl_ok ל-false עם אופרטור בוליאני, ושדה חסר נחשב שם false.
+  // בלי true מפורש כל גיבוי מוצלח מפעיל את מייל "העברה נכשלה".
+  const blOk = extra.bl_ok ?? !failure;
   const blError = extra.bl_error ? redactUrls(extra.bl_error) : "";
+  const reportedError = blError || (failure ? "ההעברה נכשלה" : "");
   return {
     client: "שלכם",
     event: extra.event,
@@ -98,8 +103,8 @@ export function shelachemBackupPayload(lead: BackupLead, extra: FormsBackupExtra
     gclid: params.gclid ?? "",
     fbclid: params.fbclid ?? "",
     referrer: touch?.referrer ?? "",
-    ...(extra.bl_ok !== undefined ? { bl_ok: extra.bl_ok } : {}),
-    ...(blError ? { bl_error: blError } : {}),
+    bl_ok: blOk,
+    ...(reportedError ? { bl_error: reportedError } : {}),
     ...(notes ? { notes } : {}),
   };
 }

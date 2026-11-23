@@ -1,5 +1,6 @@
 import { after } from "next/server";
 import { sendFormsBackup, shelachemBackupPayload } from "@/lib/forms-backup";
+import { describeForwardError } from "@/lib/ingest-result";
 import { backupLead, forwardBackedUp } from "@/lib/lead-backups";
 import { handleLeadPost } from "@/lib/lead-submission";
 
@@ -17,7 +18,7 @@ export async function POST(request: Request) {
       after(async () => {
         // עותק ה-Make יוצא במקביל ל-BARAM. timeout קצר, והתוצאה לא משנה את ההעברה.
         const makeBackup = sendFormsBackup(
-          shelachemBackupPayload(lead, { event: "lead_backup", status: "received" }),
+          shelachemBackupPayload(lead, { event: "lead_backup", status: "received", bl_ok: true }),
         ).catch(() => undefined);
         try {
           const res = await forwardBackedUp(backupId, lead);
@@ -37,7 +38,7 @@ export async function POST(request: Request) {
               event: "lead_forward_failed",
               status: "forward_failed",
               bl_ok: false,
-              bl_error: err instanceof Error ? err.message : "forward failed",
+              bl_error: describeForwardError(err),
             }),
           );
           throw err;
